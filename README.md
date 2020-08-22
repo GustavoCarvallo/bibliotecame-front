@@ -16,3 +16,35 @@ or with ssh:
 
 ##### Start the app:
 ``npm start``
+
+### Best Practices
+##### Project Structure Example:
+```
+├── src
+│   └── index.tsx
+│   └── common
+│       └──  components
+│            └── Button
+│                └── Button.tsx
+│                └── Button.scss
+│   └── book
+│       └──  book.service.ts
+│       └──  components
+│            └── BookForm
+│                └── BookForm.tsx
+│                └── BookForm.scss
+│            └── BookScreen
+│                └── BookScreen.tsx
+│                └── BookScreen.scss
+├── router
+│   └── Routes.tsx
+│   └── AuthRoute.tsx
+│   └── RoleRoute.tsx
+├── utils
+│   └── http.ts
+│   └── parser.ts
+└── styles
+    └── fonts.scss
+    └── main.scss
+    └── styles.scss
+```

@@ -1,14 +1,15 @@
-import React , { FC } from "react";
+import React from "react";
+import { loggedUser } from "../utils/mocksettings.json";  //mocked user login
 import { Route, Redirect } from "react-router-dom";
-interface props {component: FC}
+interface props {component: Function, path:string}
 const AuthRoute = ({component: Component, ...rest}:props) => {
-    const isLoggedIn = true;
     return(
         <Route {...rest}
             render={props => {
-            if(isLoggedIn) return <Component {...props} />;
+            if(loggedUser) return <Component {...props} />;
+            //If trying to access a logged user route while not being logged in, redirects to /login.
             return <Redirect to={{
-                pathname: '/',
+                pathname: '/login',
                 state: {from: props.location}
             }}/>;
             }}

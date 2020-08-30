@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from './router/Routes';
 import './App.css';
 import TopBar from "./TopBar/TopBar";
 import SideBar from "./SideBar/SideBar";
@@ -11,5 +12,6 @@ function App() {
         </div>
     );
 }
+
 
 export default App;

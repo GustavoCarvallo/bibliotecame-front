@@ -17,7 +17,8 @@ const Router = () => {
             <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
             <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
             <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
-            <Route path={"/"} component={Home}/>
+            <Route path={"/home"} component={Home}/>
+            <Route path={"/"} component={GoHome}/>
         </Switch>
         </BrowserRouter>
     )
@@ -27,6 +28,10 @@ export default Router;
 
 export function Home() {
     return <h2>Welcome!</h2>;
+}
+
+export function GoHome() {
+    return <Redirect to={"/home"}/>
 }
 
 export function Login() {

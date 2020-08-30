@@ -1,26 +1,33 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Switch,
     Route,
-    Link,
     Redirect
 } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
 import AdminRoute from "./AdminRoute";
 import ReverseAuthRoute from "./ReverseAuthRoute";
+import TopBar from "../TopBar/TopBar";
+import SideBar from "../SideBar/SideBar";
+import "./Routes.css";
 
 const Router = () => {
     return (
         <BrowserRouter>
-        <Switch>
-            <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
-            <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-            <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
-            <Route path={"/home"} component={Home}/>
-            <Route path={"/"}>  <Redirect to={"/home"}/>  </Route>
-
-        </Switch>
+            <div className="App">
+                <TopBar isAdmin/>
+                <div className={"side-bar-container"}>
+                    <SideBar isAdmin/>
+                    <Switch>
+                        <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
+                        <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
+                        <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
+                        <Route path={"/home"} component={Home}/>
+                        <Route path={"/"}> <Redirect to={"/home"}/> </Route>
+                    </Switch>
+                </div>
+            </div>
         </BrowserRouter>
     )
 }

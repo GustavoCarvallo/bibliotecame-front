@@ -59,3 +59,8 @@
     margin-top: auto;
     margin-bottom: auto;
 }
+
+.link-un-styled {
+    text-decoration: none;
+    color: inherit;
+}

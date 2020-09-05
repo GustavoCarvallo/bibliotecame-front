@@ -1,5 +1,6 @@
 import React from 'react';
 import "./SideBar.css";
+import {Link} from "react-router-dom";
 
 type Props = {
     isAdmin: boolean;
@@ -9,18 +10,22 @@ const userRows = [
     {
         title: 'Búsqueda de Libros',
         icon: 'search',
+        path: ''
     },
     {
         title: 'Préstamos Activos',
         icon: 'book',
+        path: ''
     },
     {
         title: 'Historial de Préstamos',
         icon: 'history',
+        path: ''
     },
     {
         title: 'Mi Perfil',
         icon: 'user-circle',
+        path: ''
     }
 ];
 
@@ -28,18 +33,22 @@ const adminRows = [
     {
         title: 'Libros',
         icon: 'book',
+        path: '/book'
     },
     {
         title: 'Ejemplares',
         icon: 'copy',
+        path: ''
     },
     {
         title: 'Préstamos',
         icon: 'clipboard-list',
+        path: ''
     },
     {
         title: 'Sanciones',
         icon: 'ban',
+        path: ''
     }
 ]
 
@@ -58,18 +67,20 @@ const SideBar = (props: Props) => {
     )
 }
 
-function renderRows(isAdmin: boolean){
-    const rows = isAdmin ? adminRows:userRows;
-        return(
-            <>
-                {rows.map(row => (
+function renderRows(isAdmin: boolean) {
+    const rows = isAdmin ? adminRows : userRows;
+    return (
+        <>
+            {rows.map(row => (
+                <Link to={row.path} className={"link-un-styled"}>
                     <div className={"side-bar-row"}>
                         <i className={`fas fa-${row.icon} row-icon`}/>
                         <div className={"side-bar-row-title"}>{row.title}</div>
                     </div>
-                ))}
-            </>
-        )
+                </Link>
+            ))}
+        </>
+    )
 }
 
 export default SideBar;

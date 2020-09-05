@@ -11,6 +11,7 @@ import ReverseAuthRoute from "./ReverseAuthRoute";
 import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import "./Routes.css";
+import Book from "../Book/Book";
 
 const Router = () => {
     return (
@@ -21,6 +22,7 @@ const Router = () => {
                     <SideBar isAdmin/>
                     <Switch>
                         <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
+                        <AdminRoute path={"/book"} component={Book}/>
                         <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                         <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
                         <Route path={"/home"} component={Home}/>

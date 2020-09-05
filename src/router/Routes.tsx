@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {
     BrowserRouter,
     Switch,
@@ -11,6 +11,7 @@ import ReverseAuthRoute from "./ReverseAuthRoute";
 import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import "./Routes.css";
+import BookScreen from "../book/BookScreen";
 
 const Router = () => {
     return (
@@ -23,6 +24,7 @@ const Router = () => {
                         <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
                         <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                         <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
+                        <AuthRoute path={"/bookscreen"} component={BookScreen}/>
                         <Route path={"/home"} component={Home}/>
                         <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                     </Switch>
@@ -35,7 +37,7 @@ const Router = () => {
 export default Router;
 
 export function Home() {
-    return <h2>Welcome!</h2>;
+    return<h2> Welcome!</h2>
 }
 
 export function Login() {

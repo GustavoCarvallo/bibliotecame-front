@@ -1,4 +1,4 @@
 {
-  "loggedUser" : false,
-  "isAdmin" : false
+  "loggedUser" : true,
+  "isAdmin" : true
 }

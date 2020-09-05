@@ -1,4 +1,5 @@
 import React from 'react';
+import {Simulate} from "react-dom/test-utils";
 
 export const baseUrl = "http://localhost:8080/";
 
@@ -20,14 +21,18 @@ const request = (url: string, method: string, body: Object | null, config: Confi
         ...config,
     };
     return fetch( baseUrl + url, configuration)
-        .then(res => res.json())
-        .catch(error => {
-            if (error.response.status === 403 && token) {
+        .then(res => {
+            if(res.status===200){
+             return res.json()
+            } else {throw (res)}
+        })
+        .catch(errorResponse => {
+            if (errorResponse.status === 403 && token) {
                 console.error('Token has expired');
                 localStorage.removeItem('token');
                 window.location.reload();
             }
-            throw (error.response || {status: 500})
+            throw (errorResponse || {status: 500})
         });
 }
 

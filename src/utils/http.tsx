@@ -1,4 +1,5 @@
 import React from 'react';
+import {Simulate} from "react-dom/test-utils";
 
 export const baseUrl = "http://localhost:8080/";
 
@@ -27,8 +28,23 @@ const request = (url: string, method: string, body: Object | null, config: Confi
                 localStorage.removeItem('token');
                 window.location.reload();
             }
-            throw (error.response || {status: 500})
+             throw (error.response || {status: 500})
         });
+}
+
+export const postAndGetStatus = (url: string, body:Object, config: Config) => { //el post solo no devuelve los status
+    const token = localStorage['token'];
+    let headers = {...config.headers};
+    if (!config.noAuth && token){
+        headers = {...config.headers, Authorization: "Bearer " + token};
+    }
+    const configuration: Object = {
+        method: 'POST',
+        body: body ? JSON.stringify(body) : undefined,
+        headers: headers,
+        ...config,
+    };
+    return fetch( baseUrl + url, configuration).then(res => res.status);
 }
 
 export const get = (url: string, config = {}) => request(url, "GET", null, config);

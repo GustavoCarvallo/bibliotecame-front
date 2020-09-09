@@ -22,15 +22,20 @@ const request = (url: string, method: string, body?: any, config?: Config) => {
         ...config,
     };
     return fetch(baseUrl + url, configuration)
-        .then(res => res.json())
-        .catch(error => {
-            if (error.response.status === 403 && token) {
-                console.error('Token has expired');
-                localStorage.removeItem('token');
-                window.location.reload();
+        .then(res => {
+            if(res.status !== 200){
+                throw Error(res.statusText);
             }
-            throw (error.response || {status: 500})
-        });
+            return res.json()
+        })
+        // .catch(error => {
+        //     // if (error.response.status === 403 && token) {
+        //     //     console.error('Token has expired');
+        //     //     localStorage.removeItem('token');
+        //     //     window.location.reload();
+        //     // }
+        //     throw error;
+        // });
 }
 
 export const get = (url: string, config?: Config) => request(url, "GET", null, config);

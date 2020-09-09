@@ -1,5 +1,4 @@
 import React from 'react';
-import {Simulate} from "react-dom/test-utils";
 
 export const baseUrl = "http://localhost:8080/";
 

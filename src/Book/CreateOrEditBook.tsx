@@ -162,7 +162,7 @@ const CreateOrEditBook = (props: Props) => {
                         <input className="input" placeholder="Apellido de autor" value={book.authorSurname}
                                onChange={event => setBook({...book, authorSurname: event.target.value})}/>
                     </div>
-                    <div className="rectangle-2">
+                    <div className="rectangle-2 tags-field">
                         <input className={"input"} placeholder="Etiquetas" value={tagToAdd.name}
                                maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
                         <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
@@ -191,17 +191,19 @@ const CreateOrEditBook = (props: Props) => {
                                     </div>
                                 ))}
                             </div>
-                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {}}/>
+                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {
+                            }}/>
                         </div>
                     )}
                 </div>
-
-                <button className="rectangle-6-red" onClick={event => props.handleCancel()}>
-                    <p className="cancel-button">Cancelar</p>
-                </button>
-                <button className="rectangle-6" onClick={handleSubmit}>
-                    <p className="save-button">Guardar</p>
-                </button>
+                <div className={"save-and-cancel-buttons"}>
+                    <button className="rectangle-6-red" onClick={event => props.handleCancel()}>
+                        <p className="cancel-button">Cancelar</p>
+                    </button>
+                    <button className="rectangle-6" onClick={handleSubmit}>
+                        <p className="save-button">Guardar</p>
+                    </button>
+                </div>
 
             </div>
         </div>

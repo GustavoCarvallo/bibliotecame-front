@@ -9,6 +9,7 @@ export const EDIT = "EDIT";
 
 export type Book = {
     id?: number,
+    copies?: Copy[],
     title: string | undefined,
     authorName: string | undefined,
     authorSurname: string | undefined,
@@ -21,9 +22,14 @@ export type Tag = {
     name: string,
 }
 
+export type Copy = {
+    id: string,
+    check: boolean,
+}
+
 
 const Book = () => {
-    const [status, setStatus] = React.useState(SEARCH);
+    const [status, setStatus] = React.useState(EDIT);
 
     const [selectedBook, setSelectedBook] = React.useState<Book>({
         id: 1,
@@ -33,6 +39,9 @@ const Book = () => {
         publisher: "Publisher name",
         year: 2015,
         tags: [{name: "Tag1"}],
+        copies: [{id: "ASDFG1234", check: true}, {id: "ASDFG1234", check: false}, {id: "ASDFG1234", check: false,}, {id: "ASDFG1234", check: true},
+            {id: "ASDFG1234", check: true}, {id: "ASDFG1234", check: false}, {id: "ASDFG1234", check: false,}, {id: "ASDFG1234", check: true}
+        ]
     })
 
     const handleOpenCreation = () => {
@@ -70,7 +79,7 @@ const Book = () => {
                     </>)
             case EDIT:
                 return (<>
-                    <div className={"create-book-container"}>
+                    <div className={"edit-book-container"}>
                         <EditBook selectedBook={selectedBook}
                                   setSelectedBook={setSelectedBook}
                                   setSuccess={setSuccess}

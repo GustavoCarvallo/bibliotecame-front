@@ -1,4 +1,5 @@
 import React from 'react';
+import "./CreateBook.css";
 import {Book, CREATE, Tag} from "./Book";
 
 type Props = {
@@ -58,7 +59,11 @@ const CreateOrEditBook = (props: Props) => {
         let newErrors = validateBook(book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit({...book, author: {firstName: book.authorName, lastName: book.authorSurname}, publisher: {name: book.publisher}}, () => props.setSuccess(true), () => setErrors({...errors, serverError: true}))
+            props.handleSubmit({
+                ...book,
+                author: {firstName: book.authorName, lastName: book.authorSurname},
+                publisher: {name: book.publisher}
+            }, () => props.setSuccess(true), () => setErrors({...errors, serverError: true}))
         } else {
             setErrors(newErrors);
         }
@@ -133,7 +138,7 @@ const CreateOrEditBook = (props: Props) => {
 
     return (
         <div className={"create-book"}>
-            <div className={"create-book-title"}>Nuevo Libro</div>
+            <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
             {(errors.titleError && renderError("Completar título")) ||
             (errors.authorError && renderError("Completar autor")) ||
             (errors.publisherError && renderError("Completar editorial")) ||
@@ -171,6 +176,27 @@ const CreateOrEditBook = (props: Props) => {
                                onChange={event => setBook({...book, year: parseInt(event.target.value)})}/>
                     </div>
                     {renderTags(book.tags)}
+                    {!isCreate && (
+                        <div className={"copies-container"}>
+                            <div className="copies-table">
+                                <div className={"copies-header-row"}>
+                                    <div className={"copies-header"}>ID de Ejemplar</div>
+                                    <div/>
+                                    <div className={"copies-header"}>Acciones</div>
+                                </div>
+                                {props.selectedBook?.copies?.map(copy => (
+                                    <div className={"copies-row"}>
+                                        <div className={"copies-col"}>{copy.id}</div>
+                                        <div/>
+                                        <div className={"copies-col"}>
+                                            <i className={copy.check ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {}}/>
+                        </div>
+                    )}
                 </div>
 
                 <button className="rectangle-6-red" onClick={event => props.handleCancel()}>

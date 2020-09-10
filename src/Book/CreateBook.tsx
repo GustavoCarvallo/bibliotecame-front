@@ -1,5 +1,4 @@
 import React from 'react';
-import "./CreateBook.css";
 import {post} from "../utils/http";
 import {Book, CREATE} from "./Book";
 import CreateOrEditBook from "./CreateOrEditBook";

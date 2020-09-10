@@ -1,5 +1,5 @@
 import React from 'react';
-import {Book, CREATE, EDIT} from "../Book";
+import {Book, EDIT} from "../Book";
 import CreateOrEditBook from "../CreateOrEditBook";
 import {put} from "../../utils/http";
 

@@ -19,8 +19,8 @@ const request = (url: string, method: string, body: Object | null, config: Confi
     };
     return fetch(baseUrl + url, configuration)
         .then(res => {
-            if(res.status !== 200){
-                throw Error(res.statusText);
+            if(!res.ok){
+                throw {status: res.status};
             }
             return res.json()
         })

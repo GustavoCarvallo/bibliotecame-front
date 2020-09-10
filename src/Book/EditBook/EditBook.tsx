@@ -14,7 +14,7 @@ const EditBook = (props: Props) => {
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
         put(`book/${book.id}`, book, {headers: {"Content-Type": "application/json"}})
             .then(res => thenCallback())
-            .catch(err => catchCallback());
+            .catch(err => catchCallback(err.status));
     }
 
     return <CreateOrEditBook handleCancel={props.handleCancel}

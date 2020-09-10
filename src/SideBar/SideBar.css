@@ -40,6 +40,7 @@
 .side-bar-row {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    height: 75px;
 }
 
 .side-bar-row-title {
@@ -51,8 +52,17 @@
     line-height: 1.31;
     letter-spacing: 0;
     text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .row-icon {
     font-size: 25px;
+    color: inherit;
+    margin: auto;
+}
+
+.selected-row {
+    background-color: #48a3fb;
+    color: #ffffff;
 }

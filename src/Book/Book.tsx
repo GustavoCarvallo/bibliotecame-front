@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Book.css";
-import CreateBook from "./CreateBook";
+import CreateBook from "./CreateBook/CreateBook";
 import EditBook from "./EditBook/EditBook";
 
 const SEARCH = "SEARCH";
@@ -79,6 +79,10 @@ const Book = () => {
                     </>)
             case EDIT:
                 return (<>
+                    {success && <div className={'success-message-container'}>
+                        <span className={'success-text'}>El libro se ha modificado correctamente</span>
+                        <i className="fas fa-times success-close" onClick={() => setSuccess(false)}/>
+                    </div>}
                     <div className={"edit-book-container"}>
                         <EditBook selectedBook={selectedBook}
                                   setSelectedBook={setSelectedBook}

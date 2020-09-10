@@ -1,5 +1,5 @@
 import React from 'react';
-import "./CreateBook.css";
+import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 
 type Props = {
@@ -14,7 +14,7 @@ type Errors = {
     authorError: boolean,
     publisherError: boolean,
     yearErrors: YearErrors,
-    serverError: boolean,
+    serverError?: number,
 }
 
 type YearErrors = {
@@ -22,7 +22,6 @@ type YearErrors = {
     yearLower: boolean,
     yearUndefined: boolean,
 }
-
 
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
@@ -48,7 +47,6 @@ const CreateOrEditBook = (props: Props) => {
             yearLower: false,
             yearUndefined: false,
         },
-        serverError: false,
     })
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
@@ -63,7 +61,7 @@ const CreateOrEditBook = (props: Props) => {
                 ...book,
                 author: {firstName: book.authorName, lastName: book.authorSurname},
                 publisher: {name: book.publisher}
-            }, () => props.setSuccess(true), () => setErrors({...errors, serverError: true}))
+            }, () => props.setSuccess(true), (status: number) => setErrors({...errors, serverError: status}))
         } else {
             setErrors(newErrors);
         }
@@ -101,7 +99,6 @@ const CreateOrEditBook = (props: Props) => {
             authorError,
             publisherError,
             yearErrors,
-            serverError: false
         }
 
         return newErrors;
@@ -145,7 +142,7 @@ const CreateOrEditBook = (props: Props) => {
             (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
             (errors.yearErrors.yearHigher && renderError("Año debe ser menor a " + MAX_YEAR)) ||
             (errors.yearErrors.yearLower && renderError("Año debe ser mayor a " + MIN_YEAR)) ||
-            (errors.serverError && renderError("El libro ya se encuentra cargado en el sistema"))
+            (errors.serverError && renderStatusError(errors.serverError))
             }
             <div>
                 <div className="box">
@@ -209,6 +206,17 @@ const CreateOrEditBook = (props: Props) => {
             </div>
         </div>
     )
+}
+
+const renderStatusError = (status: number) => {
+    switch (status) {
+        case 400:
+            return renderError("Comprobar que el autor y la editorial hayan sido cargados")
+        case 406:
+            return renderError("El libro ya existe en el sistema")
+        default:
+            return renderError("Error del servidor")
+    }
 }
 
 const renderError = (message: string) => {

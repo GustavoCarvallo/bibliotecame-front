@@ -13,9 +13,9 @@ const customStyles = {
         width: '600px',
         height: '400px',
         border: 'solid 1px #707070',
-        "background-color": '#ffffff',
-        "border-radius": '18px',
-        "box-shadow": '10px 10px 6px 0 rgba(0, 0, 0, 0.16)'
+        backgroundColor: '#ffffff',
+        borderRadius: '18px',
+        boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)'
 }
 
 };
@@ -62,14 +62,14 @@ const ModalComponent = (props: Props) => {
                 style={customStyles}
                 contentLabel="Example Modal">
 
-                <div className={"Justify"}>
-                    <h2 className={"Title"}>{props.title}</h2>
+                <div className={"justify"}>
+                    <h2 className={"title"}>{props.title}</h2>
                 </div>
-                <div className={"Justify"}><h4 className={"Text"}>{props.text}</h4></div>
-                <div className={"JustifyButton"}>
+                <div className={"justify"}><h4 className={"text"}>{props.text}</h4></div>
+                <div className={"justify-button"}>
 
-                    <button onClick={closeModal} className={"RectangleCancelar"} >Cancelar</button>
-                    <button onClick={confirmModal} className={"RectangleConfirmar"} >Confirmar</button>
+                    <button onClick={closeModal} className={"rectangle-cancel"} >Cancelar</button>
+                    <button onClick={confirmModal} className={"rectangle-confirm"} >Confirmar</button>
                 </div>
             </Modal>
         </div>

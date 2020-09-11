@@ -10,21 +10,22 @@ const BookScreen = () => {
 
     const activate = (id: number) => {
         setIsActive(true);
-        post("book/"+id+"/activate",[],).then( () => {
-                alert("Book " + id + " activated!");
+
+        post(`book/${id}/activate`,[],).then( () => {
+                alert(`Book ${id} activated!`);
             }
         ).catch(error => {
-            alert("Got error: "+ error.status)
+            alert(`Got error ${error.status}!`)
         })
     }
 
     const deactivate = (id: number) => {
         setIsActive(false);
-        post("book/"+id+"/deactivate",[],).then( () => {
-                alert("Book " + id + " deactivated!");
+        post(`book/${id}/deactivate`,[],).then( () => {
+                alert(`Book ${id} deactivated!`);
             }
         ).catch(error => {
-            alert("Got error: "+ error.status)
+            alert(`Got error ${error.status}!`)
         })
     }
 

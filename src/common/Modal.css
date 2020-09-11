@@ -1,4 +1,4 @@
-.modalComponent {
+.modal-component {
     top: 50%;
     left: 50%;
     right: auto;
@@ -12,18 +12,18 @@
     background-color: #ffffff;
 }
 
-.Justify {
+.justify {
     display: flex;
     justify-content: center;
 }
 
-.JustifyButton {
+.justify-button {
     margin-top: 150px;
     display: flex;
     justify-content: space-between;
 }
 
-.RectangleCancelar {
+.rectangle-cancel {
     width: 200px;
     height: 50px;
     border-radius: 33px;
@@ -41,7 +41,7 @@
 }
 
 
-.RectangleConfirmar {
+.rectangle-confirm {
     width: 200px;
     height: 50px;
     border: none;
@@ -58,7 +58,7 @@
     color: #ffffff;
 }
 
-.Title {
+.title {
     font-family: Roboto;
     font-size: 35px;
     font-weight: bold;
@@ -69,7 +69,7 @@
     color: #030303;
 }
 
-.Text {
+.text {
     font-family: Roboto;
     font-size: 18px;
     font-weight: bold;

@@ -9,7 +9,7 @@ const ReverseAuthRoute = ({component: Component, ...rest}:props) => {
                    if(!loggedUser) return <Component {...props} />;
                    //If trying to access a login site when already logged, redirects to /userhome.
                    return <Redirect to={{
-                       pathname: '/userhome',
+                       pathname: '/userHome',
                        state: {from: props.location}
                    }}/>;
                }}

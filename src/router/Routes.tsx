@@ -21,10 +21,10 @@ const Router = () => {
                 <div className={"side-bar-container"}>
                     <SideBar isAdmin/>
                     <Switch>
-                        <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
+                        <AdminRoute path={"/adminHome"} component={AdminHome}/> //Requires admin role
                         <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                        <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
-                        <AuthRoute path={"/bookscreen"} component={BookScreen}/>
+                        <AuthRoute path={"/userHome"} component={Logged}/> //Requires being logged in
+                        <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                         <Route path={"/home"} component={Home}/>
                         <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                     </Switch>

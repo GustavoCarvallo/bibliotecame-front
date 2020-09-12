@@ -109,11 +109,13 @@ const CreateOrEditBook = (props: Props) => {
     }
 
     const addTag = (tag: Tag) => {
-        props.setBook({
-            ...props.book,
-            tags: [...props.book.tags, tag],
-        });
-        setTagToAdd({name: ""});
+        if (tag.name !== "") {
+            props.setBook({
+                ...props.book,
+                tags: [...props.book.tags, tag],
+            });
+            setTagToAdd({name: ""});
+        }
     }
 
     const deleteTag = (tagToDelete: Tag) => {

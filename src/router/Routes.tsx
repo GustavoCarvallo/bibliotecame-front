@@ -3,7 +3,8 @@ import {
     BrowserRouter,
     Switch,
     Route,
-    Redirect
+    Redirect,
+    useParams
 } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
 import AdminRoute from "./AdminRoute";
@@ -15,6 +16,8 @@ import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
+import DeleteButton from "../deleteAccount/DeleteButton";
+import "../common/Notify.css"
 
 
 const Router = () => {
@@ -28,6 +31,7 @@ const Router = () => {
                     <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
                     <Route path={"/signup"} component={signUp}/>
                     <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
+                    <Route path={'/editprofile/:userId'} component={EditProfile}/>
                     <Route path={"/home"} component={Home}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -71,13 +75,29 @@ export function Home() {
     );
 }
 
+export function EditProfile() {
+
+    let {userId} = useParams();
+
+    return (
+        <div>
+            <TopBar isAdmin={false}/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin={false}/>
+                <DeleteButton pathVariable={userId}/>
+            </div>
+        </div>
+    );
+}
+
 export function Login() {   //En implementacion, pasar esto.
 
     const url = window.location.href;
     const urlParts = url.split('?');
-    const isSuccess : boolean = urlParts[1] === "success";
+    const isSuccessSignUp : boolean = urlParts[1] === "successfulSignUp";
+    const isSuccessDelete : boolean = urlParts[1] === "successfulDelete";
 
-    const notify = () => toast.success('Se ha registrado exitosamente!', {
+    const notifySignUp = () => toast.success('Se ha registrado exitosamente!', {
         position: "top-center",
         autoClose: 7000,
         hideProgressBar: true,
@@ -86,8 +106,22 @@ export function Login() {   //En implementacion, pasar esto.
         draggable: true,
         progress: undefined});
 
-    if(isSuccess){
-        notify();
+    const notifyDelete = () => toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!', {
+        position: "top-center",
+        autoClose: 7000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined});
+
+    if(isSuccessSignUp){
+        notifySignUp();
+        window.history.replaceState("","",urlParts[0])
+    }
+
+    if(isSuccessDelete){
+        notifyDelete();
         window.history.replaceState("","",urlParts[0])
     }
     return (

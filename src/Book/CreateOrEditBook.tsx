@@ -1,6 +1,7 @@
 import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
+import GenericModal from "../common/GenericModal/GenericModal";
 
 type Props = {
     selectedBook?: Book,
@@ -8,6 +9,7 @@ type Props = {
     type: string,
     handleCancel: Function,
     setSuccess: Function,
+    openNewCopyModal?: Function,
 }
 type Errors = {
     titleError: boolean,
@@ -191,8 +193,7 @@ const CreateOrEditBook = (props: Props) => {
                                     </div>
                                 ))}
                             </div>
-                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {
-                            }}/>
+                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {props.openNewCopyModal && props.openNewCopyModal()}}/>
                         </div>
                     )}
                 </div>

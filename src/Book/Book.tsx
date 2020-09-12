@@ -83,7 +83,7 @@ const Book = () => {
                         <span className={'success-text'}>El libro se ha modificado correctamente</span>
                         <i className="fas fa-times success-close" onClick={() => setSuccess(false)}/>
                     </div>}
-                    <div className={"edit-book-container"}>
+                    <div className={"edit-book-container"} id={"edit-book-container"}>
                         <EditBook selectedBook={selectedBook}
                                   setSelectedBook={setSelectedBook}
                                   setSuccess={setSuccess}

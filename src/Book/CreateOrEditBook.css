@@ -162,6 +162,8 @@
     background-color: #dfe2e6;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
 .tag-name {

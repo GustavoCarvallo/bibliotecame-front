@@ -31,6 +31,17 @@ const initialBook = {
     tags: [],
 }
 
+const initialErrors = {
+    titleError: false,
+    authorError: false,
+    publisherError: false,
+    yearErrors: {
+        yearHigher: false,
+        yearLower: false,
+        yearUndefined: false,
+    },
+};
+
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
     const MAX_YEAR = (new Date()).getFullYear();
@@ -39,16 +50,7 @@ const CreateOrEditBook = (props: Props) => {
 
     const [book, setBook] = React.useState<Book>(props.selectedBook ?? {...initialBook});
 
-    const [errors, setErrors] = React.useState<Errors>({
-        titleError: false,
-        authorError: false,
-        publisherError: false,
-        yearErrors: {
-            yearHigher: false,
-            yearLower: false,
-            yearUndefined: false,
-        },
-    })
+    const [errors, setErrors] = React.useState<Errors>({...initialErrors})
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
         name: "",
@@ -66,7 +68,7 @@ const CreateOrEditBook = (props: Props) => {
 
     const handleSuccess = () => {
         props.setSuccess(true);
-        setErrors({...errors, serverError: undefined})
+        setErrors({...initialErrors})
         if (props.type === CREATE){
             setBook({...initialBook});
         }

@@ -12,7 +12,7 @@ type Props = {
 const InputWithIcon = (props: Props) => {
     return(
         <div className={"field-container" + (props.disabled? "-disabled":"")}>
-            <i className={`fas fa-${props.icon} icon`} style={{color: props.value && props.value !== "" ? '#030303' : '#a4a8ad'}}/>
+            <i className={`${props.icon} icon`} style={{color: props.value && props.value !== "" ? '#030303' : '#a4a8ad'}}/>
             <input className={"input"} disabled={props.disabled} value={props.value} onChange={props.onChange} placeholder={props.placeholder}/>
         </div>
     )

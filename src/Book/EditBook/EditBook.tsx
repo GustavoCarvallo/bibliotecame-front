@@ -33,7 +33,7 @@ const EditBook = (props: Props) => {
     }
 
     const onCreateCopySuccess = (copy: Copy) => {
-        props.setSuccess(true, "Ejemplar añadido satisfactoriamente");
+        // props.setSuccess(true, "Ejemplar añadido satisfactoriamente");
         addCopy(copy);
     }
 

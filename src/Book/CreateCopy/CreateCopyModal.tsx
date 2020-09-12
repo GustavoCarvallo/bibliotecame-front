@@ -17,7 +17,7 @@ const CreateCopyModal = (props: Props) => {
         //here we post the copy ==> if success we call props.onSuccess, if error we call props.onError
         //just to test success and error messages:
         if (id !== "") {
-            props.onSuccess();
+            props.onSuccess({id, isBooked: false});
         } else {
             props.onError();
         }

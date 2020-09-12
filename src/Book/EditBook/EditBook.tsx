@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Book, EDIT} from "../Book";
+import {Book, Copy, EDIT} from "../Book";
 import CreateOrEditBook from "../CreateOrEditBook";
 import {put} from "../../utils/http";
 import CreateCopyModal from "../CreateCopy/CreateCopyModal";
@@ -32,12 +32,19 @@ const EditBook = (props: Props) => {
         setOpenNewCopy(false);
     }
 
-    const onCreateCopySuccess = () => {
+    const onCreateCopySuccess = (copy: Copy) => {
         props.setSuccess(true, "Ejemplar añadido satisfactoriamente");
+        addCopy(copy);
     }
 
     const onCreateCopyError = () => {
         setNewCopyError(true);
+    }
+
+    const addCopy = (copy: Copy) => {
+        const previousCopies = props.selectedBook.copies?.splice(0) ?? [];
+        previousCopies.push(copy);
+        props.setSelectedBook({...props.selectedBook, copies: previousCopies})
     }
 
     return (
@@ -49,7 +56,8 @@ const EditBook = (props: Props) => {
             <CreateOrEditBook handleCancel={props.handleCancel}
                               setSuccess={props.setSuccess}
                               type={EDIT} handleSubmit={handleSubmit}
-                              selectedBook={props.selectedBook}
+                              book={props.selectedBook}
+                              setBook={props.setSelectedBook}
                               newCopyError={newCopyError}
                               openNewCopyModal={openNewCopyModal}/>
         </>

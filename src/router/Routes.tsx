@@ -14,6 +14,7 @@ import SignUp from "../signUp/SignUp";
 import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Book from "../Book/Book";
 
 
 const Router = () => {
@@ -23,6 +24,7 @@ const Router = () => {
             <div className="App">
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
+                    <AdminRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={true} selected={0}/>}/>
                     <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
                     <Route path={"/signup"} component={signUp}/>
                     <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
@@ -35,7 +37,23 @@ const Router = () => {
     )
 }
 
-export default Router;
+type ContainedComponentProps = {
+    isAdmin: boolean,
+    children: Function,
+    selected?: number,
+}
+
+const ContainedComponent = (props: ContainedComponentProps) => {
+    return(
+        <div>
+            <TopBar isAdmin/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin selected={props.selected}/>
+                {props.children()}
+            </div>
+        </div>
+    )
+}
 
 export function signUp(){
     return <SignUp/>
@@ -97,3 +115,5 @@ export function AdminHome() {
         </div>
     );
 }
+
+export default Router;

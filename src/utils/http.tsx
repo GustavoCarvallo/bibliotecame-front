@@ -1,6 +1,3 @@
-import React from 'react';
-import {Simulate} from "react-dom/test-utils";
-
 export const baseUrl = "http://localhost:8080/";
 
 type Config = {
@@ -20,16 +17,21 @@ const request = (url: string, method: string, body: Object | null, config: Confi
         headers: headers,
         ...config,
     };
-    return fetch( baseUrl + url, configuration)
-        .then(res => res.json())
-        .catch(error => {
-            if (error.response.status === 403 && token) {
-                console.error('Token has expired');
-                localStorage.removeItem('token');
-                window.location.reload();
+    return fetch(baseUrl + url, configuration)
+        .then(res => {
+            if(!res.ok){
+                throw {status: res.status};
             }
-             throw (error.response || {status: 500})
-        });
+            return res.json()
+        })
+        // .catch(error => {
+        //     // if (error.response.status === 403 && token) {
+        //     //     console.error('Token has expired');
+        //     //     localStorage.removeItem('token');
+        //     //     window.location.reload();
+        //     // }
+        //     throw error;
+        // });
 }
 
 export const postAndGetStatus = (url: string, body:Object, config: Config) => { //el post solo no devuelve los status

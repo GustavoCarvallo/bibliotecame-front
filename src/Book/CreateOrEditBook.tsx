@@ -1,15 +1,16 @@
 import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
-import GenericModal from "../common/GenericModal/GenericModal";
+import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type Props = {
     selectedBook?: Book,
     handleSubmit: Function,
     type: string,
-    handleCancel: Function,
+    handleCancel: ()=>void,
     setSuccess: Function,
     openNewCopyModal?: Function,
+    newCopyError?: boolean,
 }
 type Errors = {
     titleError: boolean,
@@ -138,7 +139,8 @@ const CreateOrEditBook = (props: Props) => {
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
-            {(errors.titleError && renderError("Completar título")) ||
+            {(props.newCopyError && renderError("Error al crear ejemplar")) ||
+            (errors.titleError && renderError("Completar título")) ||
             (errors.authorError && renderError("Completar autor")) ||
             (errors.publisherError && renderError("Completar editorial")) ||
             (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
@@ -197,15 +199,7 @@ const CreateOrEditBook = (props: Props) => {
                         </div>
                     )}
                 </div>
-                <div className={"save-and-cancel-buttons"}>
-                    <button className="rectangle-6-red" onClick={event => props.handleCancel()}>
-                        <p className="cancel-button">Cancelar</p>
-                    </button>
-                    <button className="rectangle-6" onClick={handleSubmit}>
-                        <p className="save-button">Guardar</p>
-                    </button>
-                </div>
-
+                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit}/>
             </div>
         </div>
     )

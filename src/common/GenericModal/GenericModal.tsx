@@ -1,42 +1,36 @@
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import ReactModal from "react-modal";
 import "./GenericModal.css";
 
 type Props = {
     isOpen: boolean,
-    onClose: Function,
+    onClose: () => void,
     title: String,
+    styles?: Object,
 }
-const GenericModal = (props: Props) => {
+const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, styles, children}) => {
 
-    const styles = {
+    const constStyles = {
         content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            transform: 'translate(-50%, -50%)',
-            width: '600px',
-            height: '400px',
             border: 'solid 1px #707070',
             borderRadius: '18px',
             boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
             padding: 0,
-            display: 'flex',
         }
     }
 
     return (
         <ReactModal
-            isOpen={props.isOpen}
-            style={styles}
+            isOpen={isOpen}
+            style={Object.assign(constStyles, styles)}
+            onRequestClose={onClose}
         >
-            <div className={"header"}>
-                <h2 className={"title"}>{props.title}</h2>
-            </div>
-            <div className={"body"}>
-
-            </div>
+                <div className={'header'}>
+                    <h1 className={"title"}>{title}</h1>
+                </div>
+                <div className={"body"}>
+                    {children}
+                </div>
         </ReactModal>
     )
 }

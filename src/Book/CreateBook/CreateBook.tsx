@@ -4,7 +4,7 @@ import {Book, CREATE} from "../Book";
 import CreateOrEditBook from "../CreateOrEditBook";
 
 type Props = {
-    handleCancel: Function,
+    handleCancel: ()=>void,
     setSuccess: Function,
 }
 

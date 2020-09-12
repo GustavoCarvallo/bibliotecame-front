@@ -1,0 +1,60 @@
+.save-and-cancel-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.rectangle-6 {
+    width: 30%;
+    padding: 2.5%;
+    border-radius: 33px;
+    background-color: #e4e9f0;
+    border: none;
+    margin-top: 5%;
+    margin-bottom: 8%;
+}
+
+.rectangle-6:hover {
+    background-color: #48a3fb;
+}
+
+.rectangle-6:hover .save-button {
+    color: #ffffff;
+}
+
+.save-button {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.31;
+    letter-spacing: 0;
+    text-align: center;
+    color: #48a3fb;
+    margin: 0;
+}
+
+.cancel-button {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.31;
+    letter-spacing: 0;
+    text-align: center;
+    color: #ffffff;
+    margin: 0;
+}
+
+.rectangle-6-red {
+    width: 30%;
+    padding: 2.5%;
+    border-radius: 33px;
+    background-color: #f44336;
+    border: none;
+    margin-top: 5%;
+    margin-bottom: 8%;
+}

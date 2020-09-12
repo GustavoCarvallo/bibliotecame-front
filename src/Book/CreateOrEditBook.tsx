@@ -23,20 +23,21 @@ type YearErrors = {
     yearUndefined: boolean,
 }
 
+const initialBook = {
+    title: undefined,
+    author: undefined,
+    publisher: undefined,
+    year: undefined,
+    tags: [],
+}
+
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
     const MAX_YEAR = (new Date()).getFullYear();
     const MIN_YEAR = 800;
 
 
-    const [book, setBook] = React.useState<Book>(props.selectedBook ?? {
-        title: undefined,
-        authorName: undefined,
-        authorSurname: undefined,
-        publisher: undefined,
-        year: undefined,
-        tags: [],
-    });
+    const [book, setBook] = React.useState<Book>(props.selectedBook ?? {...initialBook});
 
     const [errors, setErrors] = React.useState<Errors>({
         titleError: false,
@@ -57,13 +58,17 @@ const CreateOrEditBook = (props: Props) => {
         let newErrors = validateBook(book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit({
-                ...book,
-                author: {firstName: book.authorName, lastName: book.authorSurname},
-                publisher: {name: book.publisher}
-            }, () => props.setSuccess(true), (status: number) => setErrors({...errors, serverError: status}))
-        } else {
+            props.handleSubmit(book, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
+        }else {
             setErrors(newErrors);
+        }
+    }
+
+    const handleSuccess = () => {
+        props.setSuccess(true);
+        setErrors({...errors, serverError: undefined})
+        if (props.type === CREATE){
+            setBook({...initialBook});
         }
     }
 
@@ -80,7 +85,7 @@ const CreateOrEditBook = (props: Props) => {
         if (!book.title || book.title === "") {
             titleError = true;
         }
-        if (!book.authorName || book.authorName === "") {
+        if (!book.author || book.author === "") {
             authorError = true;
         }
         if (!book.publisher || book.publisher === "") {
@@ -108,7 +113,8 @@ const CreateOrEditBook = (props: Props) => {
         setBook({
             ...book,
             tags: [...book.tags, tag],
-        })
+        });
+        setTagToAdd({name: ""});
     }
 
     const deleteTag = (tagToDelete: Tag) => {
@@ -155,22 +161,23 @@ const CreateOrEditBook = (props: Props) => {
                                onChange={event => setBook({...book, publisher: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <input className="input" placeholder="Nombre de autor" value={book.authorName}
-                               onChange={event => setBook({...book, authorName: event.target.value})}/>
-                    </div>
-                    <div className="rectangle-2">
-                        <input className="input" placeholder="Apellido de autor" value={book.authorSurname}
-                               onChange={event => setBook({...book, authorSurname: event.target.value})}/>
-                    </div>
-                    <div className="rectangle-2 tags-field">
-                        <input className={"input"} placeholder="Etiquetas" value={tagToAdd.name}
-                               maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
-                        <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
+                        <input className="input" placeholder="Autor" value={book.author}
+                               onChange={event => setBook({...book, author: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
                         <input className="input" type={"number"} placeholder="Año" value={book.year} min={MIN_YEAR}
                                max={MAX_YEAR}
                                onChange={event => setBook({...book, year: parseInt(event.target.value)})}/>
+                    </div>
+                    <div className="rectangle-2 tags-field">
+                        <input className={"input"} placeholder="Etiquetas" value={tagToAdd.name}
+                               onKeyUp={event => {
+                                   if (event.key === 'Enter'){
+                                       addTag(tagToAdd);
+                                   }
+                               }}
+                               maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
+                        <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
                     </div>
                     {renderTags(book.tags)}
                     {!isCreate && (

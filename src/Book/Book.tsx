@@ -11,8 +11,7 @@ export type Book = {
     id?: number,
     copies?: Copy[],
     title: string | undefined,
-    authorName: string | undefined,
-    authorSurname: string | undefined,
+    author: string | undefined,
     publisher: string | undefined,
     year: number | undefined,
     tags: Tag[],
@@ -32,16 +31,13 @@ const Book = () => {
     const [status, setStatus] = React.useState(EDIT);
 
     const [selectedBook, setSelectedBook] = React.useState<Book>({
-        id: 1,
-        title: "Title",
-        authorName: "Author name",
-        authorSurname: "Author surname",
-        publisher: "Publisher name",
-        year: 2015,
-        tags: [{name: "Tag1"}],
-        copies: [{id: "ASDFG1234", check: true}, {id: "ASDFG1234", check: false}, {id: "ASDFG1234", check: false,}, {id: "ASDFG1234", check: true},
-            {id: "ASDFG1234", check: true}, {id: "ASDFG1234", check: false}, {id: "ASDFG1234", check: false,}, {id: "ASDFG1234", check: true}
-        ]
+        id: 2,
+        title: "Titulo del libro",
+        author: "Facundo Bocalandro",
+        publisher: "Editorial",
+        year: 2010,
+        tags: [{name: "tag1"}],
+        copies: [],
     })
 
     const handleOpenCreation = () => {

@@ -27,21 +27,30 @@ type YearErrors = {
     yearUndefined: boolean,
 }
 
+const initialBook = {
+    title: undefined,
+    author: undefined,
+    publisher: undefined,
+    year: undefined,
+    tags: [],
+}
+const initialErrors = {
+    titleError: false,
+    authorError: false,
+    publisherError: false,
+    yearErrors: {
+        yearHigher: false,
+        yearLower: false,
+        yearUndefined: false,
+    },
+};
+
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
     const MAX_YEAR = (new Date()).getFullYear();
     const MIN_YEAR = 800;
 
-    const [errors, setErrors] = React.useState<Errors>({
-        titleError: false,
-        authorError: false,
-        publisherError: false,
-        yearErrors: {
-            yearHigher: false,
-            yearLower: false,
-            yearUndefined: false,
-        },
-    })
+    const [errors, setErrors] = React.useState<Errors>({...initialErrors})
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
         name: "",

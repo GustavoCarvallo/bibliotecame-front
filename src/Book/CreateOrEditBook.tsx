@@ -1,13 +1,17 @@
 import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
+import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type Props = {
-    selectedBook?: Book,
+    book: Book,
+    setBook: Function,
     handleSubmit: Function,
     type: string,
-    handleCancel: Function,
+    handleCancel: ()=>void,
     setSuccess: Function,
+    openNewCopyModal?: Function,
+    newCopyError?: boolean,
 }
 type Errors = {
     titleError: boolean,
@@ -30,7 +34,6 @@ const initialBook = {
     year: undefined,
     tags: [],
 }
-
 const initialErrors = {
     titleError: false,
     authorError: false,
@@ -47,9 +50,6 @@ const CreateOrEditBook = (props: Props) => {
     const MAX_YEAR = (new Date()).getFullYear();
     const MIN_YEAR = 800;
 
-
-    const [book, setBook] = React.useState<Book>(props.selectedBook ?? {...initialBook});
-
     const [errors, setErrors] = React.useState<Errors>({...initialErrors})
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
@@ -57,10 +57,10 @@ const CreateOrEditBook = (props: Props) => {
     });
 
     const handleSubmit = () => {
-        let newErrors = validateBook(book);
+        let newErrors = validateBook(props.book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit(book, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
+            props.handleSubmit(props.book, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
         }else {
             setErrors(newErrors);
         }
@@ -68,10 +68,7 @@ const CreateOrEditBook = (props: Props) => {
 
     const handleSuccess = () => {
         props.setSuccess(true);
-        setErrors({...initialErrors})
-        if (props.type === CREATE){
-            setBook({...initialBook});
-        }
+        setErrors({...errors, serverError: undefined})
     }
 
     const validateBook = (book: Book) => {
@@ -112,17 +109,19 @@ const CreateOrEditBook = (props: Props) => {
     }
 
     const addTag = (tag: Tag) => {
-        setBook({
-            ...book,
-            tags: [...book.tags, tag],
-        });
-        setTagToAdd({name: ""});
+        if (tag.name !== "") {
+            props.setBook({
+                ...props.book,
+                tags: [...props.book.tags, tag],
+            });
+            setTagToAdd({name: ""});
+        }
     }
 
     const deleteTag = (tagToDelete: Tag) => {
-        setBook({
-            ...book,
-            tags: book.tags.splice(0).filter(tag => tag.name !== tagToDelete.name)
+        props.setBook({
+            ...props.book,
+            tags: props.book.tags.splice(0).filter(tag => tag.name !== tagToDelete.name)
         })
     }
 
@@ -144,7 +143,8 @@ const CreateOrEditBook = (props: Props) => {
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
-            {(errors.titleError && renderError("Completar título")) ||
+            {(props.newCopyError && renderError("Error al crear ejemplar")) ||
+            (errors.titleError && renderError("Completar título")) ||
             (errors.authorError && renderError("Completar autor")) ||
             (errors.publisherError && renderError("Completar editorial")) ||
             (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
@@ -155,21 +155,21 @@ const CreateOrEditBook = (props: Props) => {
             <div>
                 <div className="box">
                     <div className="rectangle-2">
-                        <input className="input" placeholder="Titulo" value={book.title}
-                               onChange={event => setBook({...book, title: event.target.value})}/>
+                        <input className="input" placeholder="Titulo" value={props.book.title}
+                               onChange={event => props.setBook({...props.book, title: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <input className="input" placeholder="Editorial" value={book.publisher}
-                               onChange={event => setBook({...book, publisher: event.target.value})}/>
+                        <input className="input" placeholder="Editorial" value={props.book.publisher}
+                               onChange={event => props.setBook({...props.book, publisher: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <input className="input" placeholder="Autor" value={book.author}
-                               onChange={event => setBook({...book, author: event.target.value})}/>
+                        <input className="input" placeholder="Autor" value={props.book.author}
+                               onChange={event => props.setBook({...props.book, author: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <input className="input" type={"number"} placeholder="Año" value={book.year} min={MIN_YEAR}
+                        <input className="input" type={"number"} placeholder="Año" value={props.book.year} min={MIN_YEAR}
                                max={MAX_YEAR}
-                               onChange={event => setBook({...book, year: parseInt(event.target.value)})}/>
+                               onChange={event => props.setBook({...props.book, year: parseInt(event.target.value)})}/>
                     </div>
                     <div className="rectangle-2 tags-field">
                         <input className={"input"} placeholder="Etiquetas" value={tagToAdd.name}
@@ -181,7 +181,7 @@ const CreateOrEditBook = (props: Props) => {
                                maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
                         <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
                     </div>
-                    {renderTags(book.tags)}
+                    {renderTags(props.book.tags)}
                     {!isCreate && (
                         <div className={"copies-container"}>
                             <div className="copies-table">
@@ -190,30 +190,21 @@ const CreateOrEditBook = (props: Props) => {
                                     <div/>
                                     <div className={"copies-header"}>Acciones</div>
                                 </div>
-                                {props.selectedBook?.copies?.map(copy => (
+                                {props.book?.copies?.map(copy => (
                                     <div className={"copies-row"}>
                                         <div className={"copies-col"}>{copy.id}</div>
                                         <div/>
                                         <div className={"copies-col"}>
-                                            <i className={copy.check ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
+                                            <i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {
-                            }}/>
+                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {props.openNewCopyModal && props.openNewCopyModal()}}/>
                         </div>
                     )}
                 </div>
-                <div className={"save-and-cancel-buttons"}>
-                    <button className="rectangle-6-red" onClick={event => props.handleCancel()}>
-                        <p className="cancel-button">Cancelar</p>
-                    </button>
-                    <button className="rectangle-6" onClick={handleSubmit}>
-                        <p className="save-button">Guardar</p>
-                    </button>
-                </div>
-
+                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit}/>
             </div>
         </div>
     )

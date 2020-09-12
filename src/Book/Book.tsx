@@ -10,10 +10,10 @@ export const EDIT = "EDIT";
 export type Book = {
     id?: number,
     copies?: Copy[],
-    title: string | undefined,
-    author: string | undefined,
-    publisher: string | undefined,
-    year: number | undefined,
+    title?: string,
+    author?: string,
+    publisher?: string,
+    year?: number,
     tags: Tag[],
 }
 
@@ -23,8 +23,14 @@ export type Tag = {
 
 export type Copy = {
     id: string,
-    check: boolean,
+    isBooked?: boolean,
 }
+
+type Success = {
+    success: boolean,
+    message?: string,
+}
+
 
 
 const Book = () => {
@@ -45,22 +51,31 @@ const Book = () => {
     }
 
     const handleCloseCreation = () => {
-        setSuccess(false);
+        setSuccess({success: false});
         setStatus(SEARCH);
     }
 
-    const [success, setSuccess] = React.useState<boolean>(false);
+    const [success, setSuccess] = React.useState<Success>({
+        success: false,
+    });
+
+    const handleSetSuccess = (success: boolean, message?: string) => {
+        setSuccess({
+            success,
+            message
+        })
+    }
 
     const renderView = (status: string) => {
         switch (status){
             case CREATE:
                 return (<>
-                    {success && <div className={'success-message-container'}>
+                    {success.success && <div className={'success-message-container'}>
                         <span className={'success-text'}>El libro se ha cargado correctamente</span>
-                        <i className="fas fa-times success-close" onClick={() => setSuccess(false)}/>
+                        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
                     <div className={"create-book-container"}>
-                        <CreateBook handleCancel={handleCloseCreation} setSuccess={setSuccess}/>
+                        <CreateBook handleCancel={handleCloseCreation} setSuccess={handleSetSuccess}/>
                     </div>
                 </>)
             case SEARCH:
@@ -75,14 +90,14 @@ const Book = () => {
                     </>)
             case EDIT:
                 return (<>
-                    {success && <div className={'success-message-container'}>
-                        <span className={'success-text'}>El libro se ha modificado correctamente</span>
-                        <i className="fas fa-times success-close" onClick={() => setSuccess(false)}/>
+                    {success.success && <div className={'success-message-container'}>
+                        <span className={'success-text'}>{success.message ?? 'El libro se ha modificado correctamente'}</span>
+                        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
-                    <div className={"edit-book-container"}>
+                    <div className={"edit-book-container"} id={"edit-book-container"}>
                         <EditBook selectedBook={selectedBook}
                                   setSelectedBook={setSelectedBook}
-                                  setSuccess={setSuccess}
+                                  setSuccess={handleSetSuccess}
                                   handleCancel={handleCloseCreation}/>
                     </div>
                 </>)

@@ -91,6 +91,21 @@ export function ProfileView() {
     );
 }
 
+export function ProfileView() {
+
+    let {userId} = useParams();
+
+    return (
+        <div>
+            <TopBar isAdmin={false}/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin={false}/>
+                <Profile pathVariable={userId}/>
+            </div>
+        </div>
+    );
+}
+
 export function Login() {   //En implementacion, pasar esto.
 
     const url = window.location.href;

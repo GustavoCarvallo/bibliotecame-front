@@ -15,8 +15,8 @@ import SignUp from "../signUp/SignUp";
 import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Book from "../book/Book";
-import BookScreen from "../book/BookScreen";
+import Book from "../Book/Book";
+import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
 import "../common/Notify.css"
 
@@ -71,21 +71,6 @@ export function Home() {
             <div className={"side-bar-container"}>
                 <SideBar isAdmin/>
                 <h2>Welcome!</h2>
-            </div>
-        </div>
-    );
-}
-
-export function ProfileView() {
-
-    let {userId} = useParams();
-
-    return (
-        <div>
-            <TopBar isAdmin={false}/>
-            <div className={"side-bar-container"}>
-                <SideBar isAdmin={false}/>
-                <Profile pathVariable={userId}/>
             </div>
         </div>
     );

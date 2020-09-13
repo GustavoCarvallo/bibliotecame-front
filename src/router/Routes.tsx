@@ -15,8 +15,8 @@ import SignUp from "../signUp/SignUp";
 import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Book from "../Book_Temporal/Book";
-import BookScreen from "../Book_Temporal/BookScreen";
+import Book from "../Book/Book";
+import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
 import "../common/Notify.css"
 

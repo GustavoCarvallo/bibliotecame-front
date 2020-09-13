@@ -52,7 +52,7 @@ const UserForm = () => {
 
                 } else if (res === SUCCESS) {
                     setError("");
-                    window.history.pushState("", "", "/login?success")
+                    window.history.pushState("", "", "/login?successfulSignUp")
                     window.location.reload();
                 } else {
                     setError("Error inesperado, intente de nuevo.");

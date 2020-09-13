@@ -16,14 +16,14 @@ import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
-import DeleteButton from "../deleteAccount/DeleteButton";
+import Profile from "../Profile/Profile";
 import "../common/Notify.css"
 
 
 const Router = () => {
     return (
         <BrowserRouter>
-            <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"></script>
+            <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"> </script>
             <div className="App">
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
@@ -31,7 +31,7 @@ const Router = () => {
                     <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
                     <Route path={"/signup"} component={signUp}/>
                     <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
-                    <Route path={'/editprofile/:userId'} component={EditProfile}/>
+                    <Route path={'/profile/:userId'} component={ProfileView}/>
                     <Route path={"/home"} component={Home}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -75,7 +75,7 @@ export function Home() {
     );
 }
 
-export function EditProfile() {
+export function ProfileView() {
 
     let {userId} = useParams();
 
@@ -84,7 +84,7 @@ export function EditProfile() {
             <TopBar isAdmin={false}/>
             <div className={"side-bar-container"}>
                 <SideBar isAdmin={false}/>
-                <DeleteButton pathVariable={userId}/>
+                <Profile pathVariable={userId}/>
             </div>
         </div>
     );

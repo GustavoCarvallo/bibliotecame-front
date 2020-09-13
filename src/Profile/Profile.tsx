@@ -11,9 +11,12 @@ interface Props {
     pathVariable: number;
 }
 
-function DeleteButton(props: Props) {
+function Profile(props: Props) {
 
-    const [isOpen, setOpen] = useState<boolean>(false);
+    const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+    const openModal = () => setModalIsOpen(true);
+    const closeModal = () => setModalIsOpen(false);
 
     const notifyError = (message: string) => toast.error(message, {
         position: "top-center",
@@ -28,7 +31,7 @@ function DeleteButton(props: Props) {
         const promise = delAndGetStatus("deleteUser/" + props.pathVariable,
             {headers: {"Content-Type": "application/json"}, noAuth: true});
 
-        promise.then(res => { debugger
+        promise.then(res => {
             if(res === 400){
                 notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
             } else if(res === 200){
@@ -38,7 +41,7 @@ function DeleteButton(props: Props) {
                 notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
             }
         })
-        setOpen(false);
+        closeModal();
     }
 
     const style = {
@@ -61,12 +64,13 @@ function DeleteButton(props: Props) {
     return(
 
         <div>
-            <button className="delete" onClick={()=>{setOpen(true)}}>Eliminar Cuenta</button>
-            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={isOpen} onClose={() => {setOpen(false)}}>
+            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
+
+            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
                 <div>
                     <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
                     <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                    <CreateAndCancelButtons onCreate={deleteUser} onCancel={() => {setOpen(false)}}/>
+                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
                 </div>
             </GenericModal>
 
@@ -79,4 +83,4 @@ function DeleteButton(props: Props) {
     )
 }
 
-export default DeleteButton;
+export default Profile;

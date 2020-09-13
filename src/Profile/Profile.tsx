@@ -61,9 +61,7 @@ function Profile(props: Props) {
         }
     }
 
-    return(
-
-        <div>
+    return <div>
             <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
             <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
@@ -79,8 +77,6 @@ function Profile(props: Props) {
             />
 
         </div>
-
-    )
 }
 
 export default Profile;

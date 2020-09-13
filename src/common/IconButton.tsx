@@ -1,5 +1,5 @@
 import React from "react";
-import "../Book/Book.css"
+import "../Book_Temporal/Book.css"
 
 interface Props {
     icon: String,

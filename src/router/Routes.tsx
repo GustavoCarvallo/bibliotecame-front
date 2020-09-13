@@ -20,7 +20,6 @@ import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
 import "../common/Notify.css"
 
-
 const Router = () => {
     return (
         <BrowserRouter>

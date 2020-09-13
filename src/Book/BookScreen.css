@@ -1,0 +1,13 @@
+.fa-check-circle {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    color: #4caf50;
+}
+
+.fa-ban {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    color: #f44336;
+}

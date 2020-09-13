@@ -15,7 +15,8 @@ import SignUp from "../signUp/SignUp";
 import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Book from "../Book/Book";
+import Book from "../book/Book";
+import BookScreen from "../book/BookScreen";
 import Profile from "../Profile/Profile";
 import "../common/Notify.css"
 
@@ -28,14 +29,14 @@ const Router = () => {
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                     <AdminRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={true} selected={0}/>}/>
-                    <AuthRoute path={"/userhome"} component={Logged}/> //Requires being logged in
+                    <AuthRoute path={"/userHome"} component={Logged}/> //Requires being logged in
                     <Route path={"/signup"} component={signUp}/>
-                    <AdminRoute path={"/adminhome"} component={AdminHome}/> //Requires admin role
+                    <AdminRoute path={"/adminHome"} component={AdminHome}/> //Requires admin role
                     <Route path={'/profile/:userId'} component={ProfileView}/>
                     <Route path={"/home"} component={Home}/>
+                    <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
-
             </div>
         </BrowserRouter>
     )

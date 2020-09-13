@@ -14,8 +14,8 @@ import SignUp from "../signUp/SignUp";
 import "./Routes.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Book from "../book/Book";
-import BookScreen from "../book/BookScreen";
+import Book from "../Book_Temporal/Book";
+import BookScreen from "../Book_Temporal/BookScreen";
 
 const Router = () => {
     return (

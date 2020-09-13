@@ -1,0 +1,16 @@
+.field-container {
+    border: solid 1px #dfe2e6;
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    padding: 10px;
+}
+
+.field-container-disabled {
+    border: solid 1px #dfe2e6;
+    background-color: #f1f1f1;
+    border-radius: 18px;
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    padding: 10px;
+}

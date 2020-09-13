@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Switch,
@@ -10,38 +10,94 @@ import AdminRoute from "./AdminRoute";
 import ReverseAuthRoute from "./ReverseAuthRoute";
 import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
+import SignUp from "../signUp/SignUp";
 import "./Routes.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Book from "../book/Book";
 import BookScreen from "../book/BookScreen";
 
 const Router = () => {
     return (
         <BrowserRouter>
+            <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"></script>
             <div className="App">
-                <TopBar isAdmin/>
-                <div className={"side-bar-container"}>
-                    <SideBar isAdmin/>
-                    <Switch>
-                        <AdminRoute path={"/adminHome"} component={AdminHome}/> //Requires admin role
-                        <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                        <AuthRoute path={"/userHome"} component={Logged}/> //Requires being logged in
-                        <AuthRoute path={"/bookScreen"} component={BookScreen}/>
-                        <Route path={"/home"} component={Home}/>
-                        <Route path={"/"}> <Redirect to={"/home"}/> </Route>
-                    </Switch>
-                </div>
+                <Switch>
+                    <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
+                    <AdminRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={true} selected={0}/>}/>
+                    <AuthRoute path={"/userHome"} component={Logged}/> //Requires being logged in
+                    <Route path={"/signup"} component={signUp}/>
+                    <AdminRoute path={"/adminHome"} component={AdminHome}/> //Requires admin role
+                    <Route path={"/home"} component={Home}/>
+                    <AuthRoute path={"/bookScreen"} component={BookScreen}/>
+                    <Route path={"/"}> <Redirect to={"/home"}/> </Route>
+                </Switch>
             </div>
         </BrowserRouter>
     )
 }
 
-export default Router;
-
-export function Home() {
-    return<h2> Welcome!</h2>
+type ContainedComponentProps = {
+    isAdmin: boolean,
+    children: Function,
+    selected?: number,
 }
 
-export function Login() {
-    return <h2>Here is where you'd log in!</h2>;
+const ContainedComponent = (props: ContainedComponentProps) => {
+    return(
+        <div>
+            <TopBar isAdmin/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin selected={props.selected}/>
+                {props.children()}
+            </div>
+        </div>
+    )
+}
+
+export function signUp(){
+    return <SignUp/>
+}
+
+export function Home() {
+    return (
+        <div>
+            <TopBar isAdmin/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin/>
+                <h2>Welcome!</h2>
+            </div>
+        </div>
+    );
+}
+
+export function Login() {   //En implementacion, pasar esto.
+
+    const url = window.location.href;
+    const urlParts = url.split('?');
+    const isSuccess : boolean = urlParts[1] === "success";
+
+    const notify = () => toast.success('Se ha registrado exitosamente!', {
+        position: "top-center",
+        autoClose: 7000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined});
+
+    if(isSuccess){
+        notify();
+        window.history.replaceState("","",urlParts[0])
+    }
+    return (
+        <div>
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+            />
+            <h2>Here is where you'd log in!</h2>
+        </div>
+    );
 }
 
 export function Logged() {
@@ -49,5 +105,15 @@ export function Logged() {
 }
 
 export function AdminHome() {
-    return <h2>You are an admin!</h2>;
+    return (
+        <div>
+            <TopBar isAdmin/>
+            <div className={"side-bar-container"}>
+                <SideBar isAdmin/>
+                <h2>You are an admin!</h2>
+            </div>
+        </div>
+    );
 }
+
+export default Router;

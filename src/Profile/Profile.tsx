@@ -1,17 +1,58 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./DeleteButton.css";
 import "../common/Notify.css";
 import "./Modal.css";
 import {toast, ToastContainer} from "react-toastify";
-import {delAndGetStatus} from "../utils/http";
+import {delAndGetStatus, get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import EditProfile from "./EditProfile/EditProfile";
+import {bearString} from "../utils/mocksettings.json"; //Once Login is merged, replace this with actual token
 
-interface Props {
-    pathVariable: number;
+
+export type Profile = {
+    id?: number,
+    email?: string,
+    password?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    isAdmin?: boolean,
 }
 
-function Profile(props: Props) {
+type Success = {
+    success: boolean,
+    message?: string,
+}
+
+const SEARCH = "SEARCH";
+export const CREATE = "CREATE";
+export const EDIT = "EDIT";
+
+function Profile() {
+
+    useEffect(()=>{
+        //When login is merged, Authorization should be in Http.tsx, so we need to erase this "bearString" mock.
+        get(`user/getLogged`, {headers: {"Content-Type": "application/json","Authorization": `Bearer ${bearString}`}})
+            .then(res => setSelectedProfile(res))
+            .catch(err => alert(err.message));},[])
+
+    const [status, setStatus] = React.useState(EDIT);
+
+    const [success, setSuccess] = React.useState<Success>({
+        success: false,
+    });
+
+    const [selectedProfile, setSelectedProfile] = React.useState<Profile>({
+        //Should get this from localhost:8080/user/getlogged with the token as Header.
+        id: 5,
+        email: "genericMail@ing.austral.edu.ar",
+        password: "abcd1234",
+        firstName: "I'm still",
+        lastName: "Loading",
+        phoneNumber: "+I'llCallYouLater",
+        isAdmin: true,
+    })
 
     const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -27,8 +68,20 @@ function Profile(props: Props) {
         draggable: true,
         progress: undefined});
 
+    const handleSetSuccess = (success: boolean, message?: string) => {
+        setSuccess({
+            success,
+            message
+        })
+    }
+
+    const handleCloseCreation = () => {
+        setSuccess({success: false});
+        setStatus(SEARCH);
+    }
+
     const deleteUser = () => {
-        const promise = delAndGetStatus("deleteUser/" + props.pathVariable,
+        const promise = delAndGetStatus("deleteUser/" + selectedProfile.id,
             {headers: {"Content-Type": "application/json"}, noAuth: true});
 
         promise.then(res => {
@@ -61,22 +114,50 @@ function Profile(props: Props) {
         }
     }
 
-    return <div>
-            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
+    const renderView = (status: string) => {
+        switch (status){
+            case EDIT:
+                return (<>
+                    {success.success && <div className={'success-message-container'}>
+                        <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
+                        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
+                    </div>}
+                    <div className={"edit-profile-container"} id={"edit-profile-container"}>
+                        <EditProfile selectedProfile={selectedProfile}
+                                     setSelectedProfile={setSelectedProfile}
+                                     setSuccess={handleSetSuccess}
+                                     handleCancel={handleCloseCreation}/>
+                        <div>
+                            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
-            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
-                <div>
-                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
-                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
-                </div>
-            </GenericModal>
+                            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
+                                <div>
+                                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
+                                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
+                                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                                </div>
+                            </GenericModal>
 
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
+                            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+                            />
 
+                        </div>
+                        <div>
+                            <ul></ul>
+                        </div>
+                    </div>
+
+                </>);
+        }
+    }
+
+    return (
+        <div className={"book-main-container"}>
+            {renderView(status)}
         </div>
+    )
+
 }
 
 export default Profile;

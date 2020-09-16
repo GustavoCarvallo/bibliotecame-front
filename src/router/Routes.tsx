@@ -18,7 +18,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
-import "../common/Notify.css"
+import "../common/Notify.css";
+import {isAdmin as isAdminMock} from "../utils/mocksettings.json"; //Once integration with login is ready, this sould be deleted
+
 
 const Router = () => {
     return (
@@ -31,7 +33,7 @@ const Router = () => {
                     <AuthRoute path={"/userHome"} component={Logged}/> //Requires being logged in
                     <Route path={"/signup"} component={signUp}/>
                     <AdminRoute path={"/adminHome"} component={AdminHome}/> //Requires admin role
-                    <Route path={'/profile/:userId'} component={ProfileView}/>
+                    <Route path={'/profile'} component={ProfileView}/>
                     <Route path={"/home"} component={Home}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
@@ -50,9 +52,9 @@ type ContainedComponentProps = {
 const ContainedComponent = (props: ContainedComponentProps) => {
     return(
         <div>
-            <TopBar isAdmin/>
+            <TopBar isAdmin={isAdminMock}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin selected={props.selected}/>
+                <SideBar isAdmin={isAdminMock} selected={props.selected}/>
                 {props.children()}
             </div>
         </div>
@@ -66,9 +68,9 @@ export function signUp(){
 export function Home() {
     return (
         <div>
-            <TopBar isAdmin/>
+            <TopBar isAdmin={isAdminMock}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin/>
+                <SideBar isAdmin={isAdminMock}/>
                 <h2>Welcome!</h2>
             </div>
         </div>
@@ -76,15 +78,12 @@ export function Home() {
 }
 
 export function ProfileView() {
-
-    let {userId} = useParams();
-
     return (
         <div>
-            <TopBar isAdmin={false}/>
+            <TopBar isAdmin={isAdminMock}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={false}/>
-                <Profile pathVariable={userId}/>
+                <SideBar isAdmin={isAdminMock}/>
+                <Profile/>
             </div>
         </div>
     );
@@ -141,9 +140,9 @@ export function Logged() {
 export function AdminHome() {
     return (
         <div>
-            <TopBar isAdmin/>
+            <TopBar isAdmin={isAdminMock}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin/>
+                <SideBar isAdmin={isAdminMock}/>
                 <h2>You are an admin!</h2>
             </div>
         </div>

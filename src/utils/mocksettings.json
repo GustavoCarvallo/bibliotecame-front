@@ -1,4 +1,6 @@
 {
-  "loggedUser" : false,
-  "isAdmin" : true
+  "loggedUser" : true,
+  "isAdmin" : true,
+  "bearString": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJraGFsaWxAaW5nLmF1c3RyYWwuZWR1LmFyIiwiZXhwIjoxNjAwMzY1MTY2LCJhdXRoIjoiVXNlciJ9.nPhntA-kJ5OFnjduwigqQu0tkHlTOMpguueCyHZoPCHjIco-lTn6fC8IjhOBQVSI8lW2mfypYTqf4ZRNL5cWqw",
+  "test" : true
 }

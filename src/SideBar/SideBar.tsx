@@ -26,7 +26,7 @@ const userRows = [
     {
         title: 'Mi Perfil',
         icon: 'user-circle',
-        path: ''
+        path: '/profile'
     }
 ];
 

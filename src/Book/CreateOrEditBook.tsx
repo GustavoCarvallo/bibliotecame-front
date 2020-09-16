@@ -68,7 +68,7 @@ const CreateOrEditBook = (props: Props) => {
 
     const handleSuccess = () => {
         props.setSuccess(true);
-        setErrors({...errors, serverError: undefined})
+        setErrors({...initialErrors, serverError: undefined})
     }
 
     const validateBook = (book: Book) => {

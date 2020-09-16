@@ -2,6 +2,7 @@ import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import TagContainer from "../common/TagContainer/TagContainer";
 
 type Props = {
     book: Book,
@@ -127,17 +128,10 @@ const CreateOrEditBook = (props: Props) => {
 
     const renderTags = (tags: Tag[]) => {
         return (
-            <div className={"tag-container"}>
-                {tags.map(tag => (
-                    <div className={"tag"}>
-                        <div className={"tag-name"}>{tag.name}</div>
-                        <div className={"tag-icon-container"}>
-                            <i className="fas fa-times icon" onClick={() => deleteTag(tag)}/>
-                        </div>
-                    </div>
-                ))}
+            <div className={"creat-or-edit-tags-container"}>
+                <TagContainer tags={tags} deleteTag={deleteTag}/>
             </div>
-        )
+            )
     }
 
     return (

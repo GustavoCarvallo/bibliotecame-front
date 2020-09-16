@@ -24,14 +24,15 @@ const request = (url: string, method: string, body: Object | null, config: Confi
             }
             return res.json()
         })
-        // .catch(error => {
-        //     // if (error.response.status === 403 && token) {
-        //     //     console.error('Token has expired');
-        //     //     localStorage.removeItem('token');
-        //     //     window.location.reload();
-        //     // }
-        //     throw error;
-        // });
+        .catch(error => {
+            if (error.response.status === 403 && token) {
+                console.error('Token has expired');
+                localStorage.removeItem('token');
+                window.location.reload();
+            }else {
+                throw error;
+            }
+        });
 }
 
 const requestAndGetStatus = (url: string, method: string, body: Object | null, config: Config) => {
@@ -55,3 +56,8 @@ export const get = (url: string, config = {}) => request(url, "GET", null, confi
 export const post = (url: string, body: Object, config = {}) => request(url, "POST", body, config);
 export const put = (url: string, body: Object, config = {}) => request(url, "PUT", body, config);
 export const del = (url: string, config = {}) => request(url, "DELETE", null, config);
+
+export const deleteToken = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('admin');
+}

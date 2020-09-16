@@ -92,39 +92,6 @@
     justify-content: center;
 }
 
-.tag-container {
-    width: 45%;
-    height: 70px;
-    border-radius: 18px;
-    margin: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-}
-.tag {
-    min-width: 124px;
-    height: 40px;
-    border-radius: 33px;
-    background-color: #dfe2e6;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    margin-left: 10px;
-    margin-top: 5px;
-}
-
-.tag-name {
-    margin: auto;
-    font-family: Roboto, serif;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2.81;
-    letter-spacing: normal;
-    text-align: left;
-    color: #030303;
-}
-
 .error-message {
     height: 21px;
     font-family: Roboto, serif;
@@ -205,4 +172,8 @@
 
 button:hover {
     cursor: pointer;
+}
+
+.creat-or-edit-tags-container {
+    width: 45%;
 }

@@ -25,10 +25,10 @@ const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, styles,
             style={Object.assign(constStyles, styles)}
             onRequestClose={onClose}
         >
-                <div className={'header'}>
-                    <h1 className={"title"}>{title}</h1>
+                <div className={"modal-header"}>
+                    <h1 className={"modal-title"}>{title}</h1>
                 </div>
-                <div className={"body"}>
+                <div className={"modal-body"}>
                     {children}
                 </div>
         </ReactModal>

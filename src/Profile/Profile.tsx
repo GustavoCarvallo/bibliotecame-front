@@ -3,7 +3,7 @@ import "./DeleteButton.css";
 import "../common/Notify.css";
 import "./Modal.css";
 import {toast, ToastContainer} from "react-toastify";
-import {delAndGetStatus} from "../utils/http";
+import {del} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 
@@ -12,6 +12,8 @@ interface Props {
 }
 
 function Profile(props: Props) {
+
+    const BAD_REQUEST = 400;
 
     const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -28,15 +30,18 @@ function Profile(props: Props) {
         progress: undefined});
 
     const deleteUser = () => {
-        const promise = delAndGetStatus("deleteUser/" + props.pathVariable,
+        const promise = del("deleteUser/" + props.pathVariable,
             {headers: {"Content-Type": "application/json"}, noAuth: true});
 
-        promise.then(res => {
-            if(res === 400){
-                notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
-            } else if(res === 200){
+        promise.then(() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('admin');
                 window.history.pushState("", "", "/login?successfulDelete")
                 window.location.reload();
+            })
+            .catch(error => {
+            if(error.status === BAD_REQUEST){
+                notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
             } else {
                 notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
             }

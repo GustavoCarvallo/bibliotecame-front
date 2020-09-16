@@ -40,7 +40,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className={"the-body"}>
             <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
                             closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
             />

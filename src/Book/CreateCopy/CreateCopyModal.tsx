@@ -25,26 +25,11 @@ const CreateCopyModal = (props: Props) => {
         props.onClose();
     }
 
-    const styles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            transform: 'translate(-33.5%, -60%)',
-            width: '800px',
-            border: 'solid 1px #707070',
-            borderRadius: '18px',
-            boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
-            padding: 0,
-        }
-    }
-
     const [id, setId] = useState<string>("");
 
     return(
-        <GenericModal title={"Nuevo Ejemplar"} isOpen={props.isOpen} onClose={props.onClose} styles={styles}>
-            <div>
+        <GenericModal title={"Nuevo Ejemplar"} isOpen={props.isOpen} onClose={props.onClose} withHeader>
+            <div className={"new-copy-body"}>
                 <h1>Libro:</h1>
                 <InputWithIcon value={props.book.title} icon={'fas fa-book'} disabled={true}/>
                 <h1>ID:</h1>

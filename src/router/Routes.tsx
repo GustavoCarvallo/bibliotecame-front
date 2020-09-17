@@ -57,14 +57,12 @@ const ContainedComponent = (props: ContainedComponentProps) => {
 }
 
 export function Home() {
-    const isAdmin = localStorage.getItem('admin');
-    let adminBool = false;
-    if(isAdmin === 'true') adminBool = true;
+    const isAdmin = localStorage.getItem('admin') === 'true';
     return (
         <div>
-            <TopBar isAdmin={adminBool}/>
+            <TopBar isAdmin={isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={adminBool}/>
+                <SideBar isAdmin={isAdmin}/>
                 <h2>Welcome!</h2>
             </div>
         </div>

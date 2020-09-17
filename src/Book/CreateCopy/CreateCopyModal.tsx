@@ -44,11 +44,11 @@ const CreateCopyModal = (props: Props) => {
 
     return(
         <GenericModal title={"Nuevo Ejemplar"} isOpen={props.isOpen} onClose={props.onClose} styles={styles}>
-            <div>
+            <div className={"frame"}>
                 <h1>Libro:</h1>
-                <InputWithIcon value={props.book.title} icon={'fas fa-book'} disabled={true}/>
+                <InputWithIcon value={props.book.title} icon={'fas fa-book'} disabled={true} isPassword={false}/>
                 <h1>ID:</h1>
-                <InputWithIcon value={id} icon={'fas fa-fingerprint'} onChange={event => setId(event.target.value.toUpperCase())} placeholder={"Id del ejemplar"}/>
+                <InputWithIcon value={id} icon={'fas fa-fingerprint'} onChange={event => setId(event.target.value.toUpperCase())} placeholder={"Id del ejemplar"} isPassword={false} />
                 <CreateAndCancelButtons onCreate={handleCreate} onCancel={props.onClose}/>
             </div>
         </GenericModal>

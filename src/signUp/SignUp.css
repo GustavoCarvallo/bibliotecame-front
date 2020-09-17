@@ -1,15 +1,18 @@
 
-body{
+.signup-screen{
     overflow-y: hidden;
+    height: 100vh;
+    width: 100vw;
+    background-image: url(../assets/images/library-1.png);
 }
 
-.library-1 {
+.signup-screen .library-1 {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.Bibliotecame {
+.signup-screen .Title {
     width: 100%;
     font-family: PlayfairDisplay, serif;
     font-size: 100px;
@@ -25,7 +28,7 @@ body{
     margin: 0;
 }
 
-.Rectangle-1{
+.signup-screen .registration-box{
     width: 50%;
     /* height: 651px; */
     margin: 0 25%;
@@ -36,7 +39,7 @@ body{
     top: 200px;
 }
 
-.Registro {
+.signup-screen .sub-title {
     width: 100%;
     font-family: PlayfairDisplay, serif;
     font-size: 50px;
@@ -51,7 +54,12 @@ body{
     margin-bottom: 1%;
 }
 
-.Rectangle-2 {
+.signup-screen .form-content{
+    display: flex;
+    justify-content: center;
+}
+
+.signup-screen .field-container {
     width: 45%;
     height: 50px;
     border-radius: 18px;
@@ -60,9 +68,10 @@ body{
     margin: 2%;
     display: flex;
     flex-wrap: wrap;
+    padding: 0;
 }
 
-.Input {
+.signup-screen .input {
     width: 80%;
     height: 22px;
     font-family: Roboto, serif;
@@ -77,21 +86,22 @@ body{
     border: none;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 0;
 }
 
-.Input:focus, .Password:focus{
+.input:focus, .Password:focus{
     outline: none;
 
 }
 
-.box{
+.signup-screen .inputs{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     margin: 10% 4% 0;
 }
 
-.icon {
+.signup-screen .icon {
     object-fit: contain;
     color: #a4a8ad;
     font-size: x-large;
@@ -101,7 +111,7 @@ body{
     margin-left: 1%;
 }
 
-.Password{
+.signup-screen .Password{
     width: 65%;
     height: 22px;
     font-family: Roboto, serif;
@@ -118,7 +128,7 @@ body{
     margin-bottom: auto;
 }
 
-.Rectangle-6 {
+.signup-screen .button{
     width: 30%;
     padding: 2.5%;
     border-radius: 33px;
@@ -126,21 +136,6 @@ body{
     border: none;
     margin-top: 5%;
     margin-bottom: 8%;
-}
-
-.Rectangle-6:hover {
-    background-color: #48a3fb;
-}
-
-.Rectangle-6:focus{
-    outline: none;
-}
-
-.Rectangle-6:hover .Registrarme{
-    color: #ffffff;
-}
-
-.Registrarme {
     font-family: Roboto, serif;
     font-size: 20px;
     font-weight: bold;
@@ -150,31 +145,27 @@ body{
     letter-spacing: 0;
     text-align: center;
     color: #48a3fb;
-    margin: 0;
 }
 
-.error {
-    width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 0;
-    border-radius: 5px;
-    border: solid 1px #a4a8ad;
-    background-color: #f7d7db;
-    position: absolute;
-    line-height: 50px;
-    top: 100px;
+.signup-screen .button:hover {
+    background-color: #48a3fb;
+    color: #ffffff;
 }
 
-.error-message{
-    font-family: Roboto, serif;
-    font-size: 18px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: 0;
-    text-align: center;
-    color: #030303;
-    margin-top: auto;
-    margin-bottom: auto;
+.signup-screen .button:focus{
+    outline: none;
 }
+
+/*.signup-screen .error {*/
+/*    width: 70%;*/
+/*    margin-left: 15%;*/
+/*    margin-right: 15%;*/
+/*    margin-top: 0;*/
+/*    border-radius: 5px;*/
+/*    border: solid 1px #a4a8ad;*/
+/*    background-color: #f7d7db;*/
+/*    position: absolute;*/
+/*    line-height: 50px;*/
+/*    top: 90px;*/
+/*}*/
+

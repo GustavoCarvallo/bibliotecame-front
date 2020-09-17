@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {post} from "../utils/http";
-import PasswordToggle from "../common/PasswordToggle";
+import ErrorBox from "../common/ErrorBox/ErrorBox";
+import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 
 interface User {
     email: string,
@@ -14,8 +15,6 @@ const UserForm = () => {
 
     const BAD_REQUEST = 400;
 
-    const [PasswordInputType1, ToggleIcon1] = PasswordToggle();
-    const [PasswordInputType2, ToggleIcon2] = PasswordToggle();
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
     const [user, setUser] = useState<User>({email:"", password:"",phoneNumber:"",  firstName:"", lastName:""})
@@ -81,45 +80,20 @@ const UserForm = () => {
 
 
     return (
-        <div>
-            <div className="error" hidden={error === ""}><h3 className="error-message">{error}</h3></div>
+        <div className={"form-content"}>
+            <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit}>
-                <div className="frame">
-                    <div className="input-box">
-                        <i className="fas fa-user icon"> </i>
-                        <input className="Input" value={user.firstName}  onChange={e => onChangeUser(e.target.value, 1)} placeholder="Nombre"/>
-                    </div>
-                    <div className="input-box">
-                        <i className="fas fa-user icon"> </i>
-                        <input className="Input" value={user.lastName} onChange={e => onChangeUser(e.target.value, 2)} placeholder="Apellido"/>
-                    </div>
-                    <div className="input-box">
-                        <i className="fas fa-envelope icon"> </i>
-                        <input className="Input" value={user.email} onChange={e => onChangeUser(e.target.value, 3)} placeholder="Correo Electrónico"/>
-                    </div>
-                    <div className="input-box">
-                        <i className="fas fa-phone-alt icon"> </i>
-                        <input className="Input" value={user.phoneNumber} onChange={e => onChangeUser(e.target.value, 4)} placeholder="Teléfono"/>
-
-                    </div>
-                    <div className="input-box" key="pas1">
-                        <i className="fas fa-lock icon"> </i>
-                        <input className="Password" defaultValue={password1} type={PasswordInputType1.toString()}
-                               placeholder="Contraseña" onChange={e => onChangePassword(e.target.value, 1)}/>
-                        <span className="icon">{ToggleIcon1}</span>
-                    </div>
-                    <div className="input-box" key="pas2">
-                        <i className="fas fa-lock icon"> </i>
-                        <input className="Password" defaultValue={password2} type={PasswordInputType2.toString()}
-                               placeholder="Confirmar contraseña" onChange={e => onChangePassword(e.target.value, 2)}/>
-                        <span className="icon">{ToggleIcon2}</span>
-                    </div>
+                <div className="inputs">
+                    <InputWithIcon icon={"fas fa-user"} isPassword={false} value={user.firstName} onChange={e => onChangeUser(e.target.value, 1)} placeholder={"Nombre"}/>
+                    <InputWithIcon icon={"fas fa-user"} isPassword={false} value={user.lastName} onChange={e => onChangeUser(e.target.value, 2)} placeholder={"Apellido"}/>
+                    <InputWithIcon icon={"fas fa-envelope"} isPassword={false} value={user.email} onChange={e => onChangeUser(e.target.value, 3)} placeholder={"Correo Electrónico"}/>
+                    <InputWithIcon icon={"fas fa-phone-alt"} isPassword={false} value={user.phoneNumber} onChange={e => onChangeUser(e.target.value, 4)} placeholder={"Teléfono"}/>
+                    <InputWithIcon icon={"fas fa-lock"} isPassword={true} value={password1} onChange={e => onChangePassword(e.target.value, 1)} placeholder={"Contraseña"}/>
+                    <InputWithIcon icon={"fas fa-lock"} isPassword={true} value={password2} onChange={e => onChangePassword(e.target.value, 2)} placeholder={"Confirmar contraseña"}/>
 
                 </div>
 
-                <button type="submit" className="Rectangle-6">
-                    <p className="Registrarme">Registrarme</p>
-                </button>
+                <button type="submit" className="button">Registrarme</button>
 
             </form>
         </div>

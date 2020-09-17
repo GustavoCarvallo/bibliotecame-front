@@ -1,11 +1,8 @@
 import React, {useState} from 'react'
-import PasswordToggle from "../common/PasswordToggle";
+import {useHistory} from 'react-router-dom'
 import {post} from "../utils/http";
-
-type LogInfo = {
-    email: string,
-    password: string
-}
+import ErrorBox from "../common/ErrorBox/ErrorBox";
+import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 
 type Props = {
     whereTo: string
@@ -13,67 +10,48 @@ type Props = {
 
 function LoginForm(props: Props){
 
-    const [PasswordInputType, ToggleIcon] = PasswordToggle();
-    const [logInfo, setLogInfo] = useState<LogInfo>({email: "", password: ""});
-    const [error, setError] = useState<string>("")
+    const history = useHistory();
+
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [hasError, setHasError] = useState<boolean>(false)
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (logInfo.password === "") {
-            setError("Las credenciales ingresadas no son correctas");
-        } else if (logInfo.email === "") {
-            setError("Las credenciales ingresadas no son correctas");
+        if (password === "" || email === "") {
+            setHasError(true);
         } else {
             const promise = post("auth/", {
-                    email: logInfo.email,
-                    password: logInfo.password
+                    email: email,
+                    password: password
                 },
                 {headers: {"Content-Type": "application/json"}, noAuth: true});
 
             promise.then(res => {
-                setError("");
+                setHasError(false);
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
-                window.history.pushState("", "", props.whereTo);
-                window.location.reload();
+                history.replace(props.whereTo);
+                history.go(0);
             })
                 .catch(() => {
-                    setError("Las credenciales ingresadas no son correctas")
+                    setHasError(true)
                 })
         }
     }
 
-    const changeInfo = (value: string, num: number) => {
-        if(num === 1){
-            setLogInfo({email:value, password: logInfo.password});
-        } else setLogInfo({email:logInfo.email, password: value});
-    }
-
-
 
     return (
-        <div>
-            <div className="error" hidden={error === ""}><h3 className="error-message">{error}</h3></div>
+        <div className={"login-form"}>
+            <ErrorBox error={"Las credenciales ingresadas no son correctas"} show={hasError}/>
             <form onSubmit={handleSubmit}>
                 <div className="box">
-                    <div className="Rectangle-2">
-                        <i className="fas fa-user icon"> </i>
-                        <input className="Input" value={logInfo.email} onChange={e => changeInfo(e.target.value, 1)}
-                               placeholder="Ingrese su correo electrónico"/>
-                    </div>
-                    <div className="Rectangle-2" key="pas2">
-                        <i className="fas fa-lock icon"> </i>
-                        <input className="Password"  type={PasswordInputType.toString()} value={logInfo.password} onChange={e => changeInfo(e.target.value, 2)}
-                               placeholder="Ingrese su contraseña"/>
-                        <span className="icon">{ToggleIcon}</span>
-                    </div>
-
+                    <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"} isPassword={false}/>
+                    <InputWithIcon icon={"fas fa-lock icon"} isPassword={true} onChange={e => setPassword(e.target.value)} value={password} placeholder={"Ingrese su contraseña"}/>
                 </div>
 
-                <button type="submit" className="Rectangle-6">
-                    <p className="Registrarme">Iniciar Sesión</p>
-                </button>
+                <button type="submit" className="button">Iniciar Sesión</button>
 
             </form>
         </div>

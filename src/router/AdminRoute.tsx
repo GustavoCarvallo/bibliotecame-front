@@ -7,7 +7,7 @@ const AdminRoute = ({component: Component, ...rest}:props) => {
     return(
         <Route {...rest}
                render={props => {
-                   if(localStorage.getItem('admin') === "true") return <Component {...props} />;
+                   if(localStorage.getItem('admin')) return <Component {...props} />;
                    //If trying to access an admin route as a normal user, redirects to /home.
                    return <Redirect to={{
                        pathname: '/home',

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./DeleteButton.css";
 import "../common/Notify.css";
-import "./Modal.css";
+import "./Profile.css";
 import {toast, ToastContainer} from "react-toastify";
 import {del} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
@@ -49,28 +49,11 @@ function Profile(props: Props) {
         closeModal();
     }
 
-    const style = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            transform: 'translate(-50%, -50%)',
-            width: '600px',
-            height: '400px',
-            borderRadius: '18px',
-            boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
-            border: 'solid 1px #707070',
-            backgroundColor:' #ffffff',
-            fontFamily: 'Roboto'
-        }
-    }
-
     return <div>
             <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
-            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
-                <div>
+            <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
+                <div className={"delete-account-body"}>
                     <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
                     <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
                     <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>

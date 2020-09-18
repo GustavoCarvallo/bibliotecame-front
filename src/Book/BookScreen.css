@@ -1,13 +1,13 @@
-.fa-check-circle {
+.book-screen .enable-icon {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    color: #4caf50;
+    color: var(--mid-green);
 }
 
-.fa-ban {
+.book-screen .disable-icon {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    color: #f44336;
+    color: var(--orangey-red);
 }

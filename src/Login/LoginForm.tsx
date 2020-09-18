@@ -47,7 +47,7 @@ function LoginForm(props: Props){
             <ErrorBox error={"Las credenciales ingresadas no son correctas"} show={hasError}/>
             <form onSubmit={handleSubmit}>
                 <div className="box">
-                    <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"} isPassword={false}/>
+                    <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"}/>
                     <InputWithIcon icon={"fas fa-lock icon"} isPassword={true} onChange={e => setPassword(e.target.value)} value={password} placeholder={"Ingrese su contraseña"}/>
                 </div>
 

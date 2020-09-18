@@ -8,7 +8,7 @@ type Props = {
     onChange?: (event: any)=>void,
     icon: string,
     placeholder?: string,
-    isPassword: boolean,
+    isPassword?: boolean,
     rightIcon?: boolean
 }
 

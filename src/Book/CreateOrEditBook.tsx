@@ -2,6 +2,8 @@ import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
+import {toast, ToastContainer} from "react-toastify";
 
 type Props = {
     book: Book,
@@ -11,7 +13,10 @@ type Props = {
     handleCancel: ()=>void,
     setSuccess: Function,
     openNewCopyModal?: Function,
+    activateCopy: Function,
+    deactivateCopy: Function,
     newCopyError?: boolean,
+    actDeactCopyError?: boolean
 }
 type Errors = {
     titleError: boolean,
@@ -140,6 +145,15 @@ const CreateOrEditBook = (props: Props) => {
         )
     }
 
+    // let once = 1;
+    //
+    // if(props.actDeactCopyError && once === 1){
+    //     notifyError("No se puede cambiar el estado del ejemplar porque se encuentra reservado");
+    //     ++once;
+    //
+    // }
+
+
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
@@ -195,7 +209,10 @@ const CreateOrEditBook = (props: Props) => {
                                         <div className={"copies-col"}>{copy.id}</div>
                                         <div/>
                                         <div className={"copies-col"}>
-                                            <i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
+                                            <ActivateDeactivateButton isActive={copy.isActive || false}
+                                                                      activateFunction={()=>props.activateCopy(copy)}
+                                                                      deactivateFunction={()=>props.deactivateCopy(copy)}/>
+                                            {/*<i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>*/}
                                         </div>
                                     </div>
                                 ))}

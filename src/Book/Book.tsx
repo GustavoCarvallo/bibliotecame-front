@@ -24,6 +24,7 @@ export type Tag = {
 export type Copy = {
     id: string,
     isBooked?: boolean,
+    isActive?: boolean
 }
 
 type Success = {
@@ -43,7 +44,7 @@ const Book = () => {
         publisher: "Editorial",
         year: 2010,
         tags: [{name: "tag1"}],
-        copies: [],
+        copies: [{id: "ASD123", isBooked: false, isActive:true}]
     })
 
     const handleOpenCreation = () => {

@@ -37,7 +37,7 @@ const CreateBook = (props: Props) => {
                              setSuccess={props.setSuccess}
                              type={CREATE}
                              key={key}
-                             handleSubmit={handleSubmit}/>
+                             handleSubmit={handleSubmit} activateCopy={()=>{}} deactivateCopy={()=>{}}/>
 }
 
 export default CreateBook;

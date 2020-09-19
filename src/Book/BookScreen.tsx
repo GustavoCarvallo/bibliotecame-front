@@ -29,7 +29,7 @@ const BookScreen = () => {
         })
     }
 
-    return <div>
+    return <div className={"book-screen"}>
         {bookIsActive ?
             (<ModalComponent title={"Deshabilitar Libro"} text={"¿Estas seguro que quieres deshabilitar el libro?\n" +
             "\n" +

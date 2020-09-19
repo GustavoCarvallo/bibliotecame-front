@@ -1,0 +1,34 @@
+.error-box{
+    min-width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 0;
+    border-radius: 5px;
+    border: solid 1px #a4a8ad;
+    background-color: #f7d7db;
+    line-height: 50px;
+    top: 90px;
+    position: absolute;
+}
+
+.error-box.show {
+    display: flex;
+}
+
+.error-box.hide {
+    display: none;
+
+}
+
+.error-box .error-text{
+    font-family: Roboto, serif;
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: 0;
+    text-align: center;
+    color: #030303;
+    margin-top: auto;
+    margin-bottom: auto;
+}

@@ -18,6 +18,8 @@ import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login"
+import "../common/Notify.css"
+import { loggedUser, isAdmin } from "../utils/mocksettings.json";
 
 const Router = () => {
     return (
@@ -26,7 +28,7 @@ const Router = () => {
             <div className="App">
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                    <AdminRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={true} selected={0}/>}/>
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile/:userId'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
@@ -47,9 +49,9 @@ type ContainedComponentProps = {
 const ContainedComponent = (props: ContainedComponentProps) => {
     return(
         <div>
-            <TopBar isAdmin/>
+            <TopBar isAdmin={props.isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin selected={props.selected}/>
+                <SideBar isAdmin={props.isAdmin} selected={props.selected}/>
                 {props.children()}
             </div>
         </div>

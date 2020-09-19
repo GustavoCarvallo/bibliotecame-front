@@ -34,10 +34,10 @@ const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, childre
         >
             {
                 withHeader ?
-                <div className={'header'}>
-                    {title && <h1 className={"title"}>{title}</h1>}
-                </div>:
-                title && <h1 className={"title"}>{title}</h1>
+                    <div className={'modal-header'}>
+                        {title && <h1 className={"modal-title"}>{title}</h1>}
+                    </div>:
+                    title && <h1 className={"modal-title"}>{title}</h1>
 
             }
             {children}

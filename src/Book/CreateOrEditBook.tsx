@@ -4,6 +4,7 @@ import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import {toast, ToastContainer} from "react-toastify";
+import TagContainer from "../common/TagContainer/TagContainer";
 
 type Props = {
     book: Book,
@@ -132,27 +133,11 @@ const CreateOrEditBook = (props: Props) => {
 
     const renderTags = (tags: Tag[]) => {
         return (
-            <div className={"tag-container"}>
-                {tags.map(tag => (
-                    <div className={"tag"}>
-                        <div className={"tag-name"}>{tag.name}</div>
-                        <div className={"tag-icon-container"}>
-                            <i className="fas fa-times icon" onClick={() => deleteTag(tag)}/>
-                        </div>
-                    </div>
-                ))}
+            <div className={"create-or-edit-tags-container"}>
+                <TagContainer tags={tags} deleteTag={deleteTag}/>
             </div>
-        )
+            )
     }
-
-    // let once = 1;
-    //
-    // if(props.actDeactCopyError && once === 1){
-    //     notifyError("No se puede cambiar el estado del ejemplar porque se encuentra reservado");
-    //     ++once;
-    //
-    // }
-
 
     return (
         <div className={"create-book"}>

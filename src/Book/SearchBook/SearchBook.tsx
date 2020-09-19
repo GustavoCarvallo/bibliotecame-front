@@ -8,7 +8,9 @@ type Props = {
     handleOpenCreation: (e: MouseEvent) => void,
 }
 
+
 const SearchBook = (props: Props) => {
+
     return (
         <>
             <div className={"book-search-container"}>
@@ -20,7 +22,8 @@ const SearchBook = (props: Props) => {
                 }
             </div>
             <div className={"search-book-table-container"}>
-                <SearchBookTable isAdmin={props.isAdmin} openBookDetails={props.openBookDetails}/>
+                <SearchBookTable isAdmin={props.isAdmin}
+                                 openBookDetails={props.openBookDetails} />
             </div>
         </>
     )

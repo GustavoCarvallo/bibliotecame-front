@@ -33,3 +33,11 @@
     border-radius: 25px;
     margin: 3vh auto auto;
 }
+
+.activate-modal-body {
+    padding: 30px;
+}
+
+.activate-modal-body .activate-modal-text-container{
+    width: 30vw;
+}

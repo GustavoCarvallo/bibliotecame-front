@@ -20,6 +20,7 @@ export type Book = {
     publisher?: string,
     year?: number,
     tags: Tag[],
+    active?: boolean,
 }
 
 export type Tag = {

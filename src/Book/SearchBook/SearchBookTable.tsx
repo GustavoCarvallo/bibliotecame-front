@@ -3,6 +3,7 @@ import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import {get} from "../../utils/http";
 import {Book} from "../Book";
 import "./SearchBookTable.css";
+import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
 
 type Props = {
     isAdmin: boolean,
@@ -33,7 +34,7 @@ const SearchBookTable = (props: Props) => {
                 component: props.isAdmin ?
                     (row => (
                         <div className={'admin-search-actions'}>
-                            <i className={row.active ? "far fa-check-circle search-book-green-icon" : "fas fa-ban search-book-red-icon"}/>
+                            <ActivateOrDeactivateButton defaultValue={row.active} id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"} onClick={() => props.openBookDetails(row.id)}/>
                         </div>
                     ))

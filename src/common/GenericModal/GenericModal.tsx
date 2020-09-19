@@ -6,9 +6,9 @@ type Props = {
     isOpen: boolean,
     onClose: () => void,
     title: String,
-    styles?: Object,
+    withHeader?: boolean
 }
-const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, styles, children}) => {
+const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, children, withHeader}) => {
 
     const constStyles = {
         content: {
@@ -16,21 +16,31 @@ const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, styles,
             borderRadius: '18px',
             boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
             padding: 0,
+            width: 'fit-content',
+            position: 'unset'
+        },
+        overlay: {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
         }
     }
 
     return (
         <ReactModal
             isOpen={isOpen}
-            style={Object.assign(constStyles, styles)}
+            style={Object.assign(constStyles)}
             onRequestClose={onClose}
         >
-                <div className={'header'}>
-                    <h1 className={"title"}>{title}</h1>
-                </div>
-                <div className={"body"}>
-                    {children}
-                </div>
+            {
+                withHeader ?
+                    <div className={'modal-header'}>
+                        {title && <h1 className={"modal-title"}>{title}</h1>}
+                    </div>:
+                    title && <h1 className={"modal-title"}>{title}</h1>
+
+            }
+            {children}
         </ReactModal>
     )
 }

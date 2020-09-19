@@ -1,0 +1,54 @@
+.book-details-container {
+    padding: 20px 60px;
+}
+
+.book-details-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-details-label {
+    font-weight: bold;
+    text-align: left;
+    font-family: Roboto, serif;
+}
+
+.book-details-component {
+    text-align: right;
+    font-weight: normal;
+    font-family: Roboto, serif;
+}
+
+.book-details-tag-container {
+    width: 45%;
+}
+
+.request-loan-button {
+    width: 30%;
+    padding: 2.5%;
+    border-radius: 33px;
+    background-color: #48a3fb;
+    border: none;
+}
+
+
+.request-loan-button-label {
+    font-family: Roboto, serif;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    margin: 0;
+}
+
+.request-loan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.available-copies-text {
+    color: #a4a8ad;
+    font-weight: normal;
+}

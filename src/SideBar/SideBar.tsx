@@ -11,7 +11,7 @@ const userRows = [
     {
         title: 'Búsqueda de Libros',
         icon: 'search',
-        path: '',
+        path: '/book',
     },
     {
         title: 'Préstamos Activos',

@@ -7,8 +7,7 @@
 .Toastify__toast{
     min-height: 50px;
     border-radius: 5px;
-    /*width: 170%;*/
-    top: 100px;
+    top: 125px;
     padding-left: 20px;
 }
 

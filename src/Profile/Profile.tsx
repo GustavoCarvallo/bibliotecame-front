@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import "./DeleteButton.css";
 import "../common/Notify.css";
-import "./Modal.css";
+import "./Profile.css";
 import {toast, ToastContainer} from "react-toastify";
-import {delAndGetStatus, get} from "../utils/http";
+import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 import EditProfile from "./EditProfile/EditProfile";
@@ -54,6 +54,8 @@ function Profile() {
         isAdmin: true,
     })
 
+    const BAD_REQUEST = 400;
+
     const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
     const openModal = () => setModalIsOpen(true);
@@ -81,15 +83,18 @@ function Profile() {
     }
 
     const deleteUser = () => {
-        const promise = delAndGetStatus("deleteUser/" + selectedProfile.id,
+        const promise = del("deleteUser/" + selectedProfile.id,
             {headers: {"Content-Type": "application/json"}, noAuth: true});
 
-        promise.then(res => {
-            if(res === 400){
-                notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
-            } else if(res === 200){
+        promise.then(() => {
+                localStorage.removeItem('token');
+                localStorage.removeItem('admin');
                 window.history.pushState("", "", "/login?successfulDelete")
                 window.location.reload();
+            })
+            .catch(error => {
+            if(error.status === BAD_REQUEST){
+                notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
             } else {
                 notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
             }
@@ -97,67 +102,55 @@ function Profile() {
         closeModal();
     }
 
-    const style = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            transform: 'translate(-50%, -50%)',
-            width: '600px',
-            height: '400px',
-            borderRadius: '18px',
-            boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
-            border: 'solid 1px #707070',
-            backgroundColor:' #ffffff',
-            fontFamily: 'Roboto'
-        }
-    }
+    return <div>
+            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
-    const renderView = (status: string) => {
-        switch (status){
-            case EDIT:
-                return (<>
-                    {success.success && <div className={'success-message-container'}>
-                        <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
-                        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
-                    </div>}
-                    <div className={"edit-profile-container"} id={"edit-profile-container"}>
-                        <EditProfile selectedProfile={selectedProfile}
-                                     setSelectedProfile={setSelectedProfile}
-                                     setSuccess={handleSetSuccess}
-                                     handleCancel={handleCloseCreation}/>
-                        <div>
-                            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
+            <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
+                <div className={"delete-account-body"}>
+                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
+                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
+                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                </div>
+            </GenericModal>
 
-                            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
-                                <div>
-                                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
-                                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
-                                </div>
-                            </GenericModal>
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+            />
 
-                            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-                            />
-
-                        </div>
-                        <div>
-                            <ul></ul>
-                        </div>
-                    </div>
-
-                </>);
-        }
-    }
-
-    return (
-        <div className={"book-main-container"}>
-            {renderView(status)}
         </div>
-    )
-
 }
+
+return (<>
+    {success.success && <div className={'success-message-container'}>
+        <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
+        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
+    </div>}
+    <div className={"edit-profile-container"} id={"edit-profile-container"}>
+        <EditProfile selectedProfile={selectedProfile}
+                     setSelectedProfile={setSelectedProfile}
+                     setSuccess={handleSetSuccess}
+                     handleCancel={handleCloseCreation}/>
+        <div>
+            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
+
+            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
+                <div>
+                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
+                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
+                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                </div>
+            </GenericModal>
+
+            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+            />
+
+        </div>
+        <div>
+            <ul></ul>
+        </div>
+    </div>
+
+</>);
 
 export default Profile;

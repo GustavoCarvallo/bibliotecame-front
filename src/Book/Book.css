@@ -1,6 +1,7 @@
 .book-main-container {
     justify-content: center;
     width: 100%;
+    overflow: scroll;
 }
 
 .book-search-container {
@@ -14,8 +15,8 @@
     height: 44px;
     border-radius: 22px;
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px #707070;
-    background-color: #ffffff;
+    border: solid 1px var(--brownish-grey);
+    background-color: var(--white);
     font-family: Helvetica, FontAwesome, sans-serif;
 }
 
@@ -25,25 +26,25 @@
 
 .add-button {
     font-size: 40px;
-    color: #4caf50;
+    color: var(--mid-green);
 }
 
 .create-book-container {
     width: 800px;
     height: 651px;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px #707070;
-    background-color: #ffffff;
+    border: solid 1px var(--brownish-grey);
+    background-color: var(--white);
     border-radius: 25px;
     margin: 5vh auto auto;
 }
 
 .edit-book-container {
     width: 800px;
-    height: 805px;
+    height: auto;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px #707070;
-    background-color: #ffffff;
+    border: solid 1px var(--brownish-grey);
+    background-color: var(--white);
     border-radius: 25px;
     margin: 3vh auto auto;
 }
@@ -52,21 +53,20 @@
     width: 450px;
     height: 50px;
     border-radius: 5px;
-    border: solid 1px #087f23;
-    background-color: #4caf50;
+    border: solid 1px var(--emerald-green);
+    background-color: var(--mid-green);
     display: grid;
     grid-template-columns: 5fr 1fr;
     margin: 2vh auto 0;
 }
 
 .success-text {
-    color: #ffffff;
+    color: var(--white);
     margin: auto;
 }
 
 .success-close {
     font-size: 25px;
-    color: #ffffff;
+    color: var(--white);
     margin: auto;
 }
-

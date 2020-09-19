@@ -1,0 +1,45 @@
+.tag-container {
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.tag-container .tag {
+    min-width: 90px;
+    height: 40px;
+    border-radius: 33px;
+    background-color: #dfe2e6;
+    display: flex;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.tag-container .deletable-tag {
+    justify-content: space-between;
+}
+
+.tag-container .non-deletable-tag {
+    justify-content: center;
+}
+
+.tag .tag-name {
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.81;
+    letter-spacing: normal;
+    text-align: left;
+    color: #030303;
+    margin: auto 10px;
+}
+
+.tag .delete-tag-icon {
+    width: fit-content;
+    color: #a4a8ad;
+    font-size: x-large;
+    margin-right: 10px;
+}

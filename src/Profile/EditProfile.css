@@ -1,4 +1,4 @@
-.fa-user {
+.edit-profile-grey-icon {
     width: 20px;
     height: 20px;
     object-fit: contain;
@@ -9,33 +9,11 @@
     left: 2%;
 }
 
-.fa-envelope {
+.edit-profile-black-icon{
     width: 20px;
     height: 20px;
     object-fit: contain;
     color: #030303;
-    font-size: x-large;
-    position: relative;
-    top: 25%;
-    left: 2%;
-}
-
-.fa-phone-alt {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    color: #a4a8ad;
-    font-size: x-large;
-    position: relative;
-    top: 25%;
-    left: 2%;
-}
-
-.fa-lock {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-    color: #a4a8ad;
     font-size: x-large;
     position: relative;
     top: 25%;
@@ -65,4 +43,5 @@
     background-color: #ffffff;
     border-radius: 25px;
     margin: 3vh auto auto;
+    position: relative;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import "../Book/CreateOrEditBook.css";
-import "./CreateOrEditProfile.css"
+import "./EditProfile.css"
+import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {Profile} from "./Profile";
 
 type Props = {
@@ -18,6 +19,7 @@ type Errors = {
     passwordLengthError: boolean,
     passwordMatchError: boolean,
     phoneNumberError: boolean,
+    alphanumericError: boolean,
     serverError?: number,
 }
 
@@ -27,18 +29,17 @@ const initialErrors = {
     passwordLengthError: false,
     passwordMatchError: false,
     phoneNumberError: false,
+    alphanumericError: false,
 };
 
-const CreateOrEditProfile = (props: Props) => {
-    const [password, setPassword] = React.useState<string>("");
+const EditProfile = (props: Props) => {
     const [confirmPassword, setConfirmPassword] = React.useState<string>("");
-
+    const regexp = new RegExp(/^([a-zA-Z0-9]){6,}$/);
     const [errors, setErrors] = React.useState<Errors>({...initialErrors})
 
     const handleSubmit = () => {
-        props.setProfile({...props.profile, password: password})
         let newErrors = validateProfile(props.profile);
-        let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError;
+        let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError && !newErrors.alphanumericError;
         if (valid) {
             props.handleSubmit(props.profile, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
         }else {
@@ -57,7 +58,7 @@ const CreateOrEditProfile = (props: Props) => {
         let passwordLengthError: boolean = false;
         let passwordMatchError: boolean = false;
         let phoneNumberError: boolean = false;
-
+        let alphanumericError: boolean = false;
 
         if (!profile.firstName || profile.firstName === "") {
             nameError = true;
@@ -65,14 +66,17 @@ const CreateOrEditProfile = (props: Props) => {
         if (!profile.lastName || profile.lastName === "") {
             lastNameError = true;
         }
-        if (!password || password.length<7) {
+        if (!profile.password || profile.password.length<7) {
             passwordLengthError = true;
         }
-        if (password !== confirmPassword) {
+        if (profile.password !== confirmPassword) {
             passwordMatchError = true;
         }
         if (!profile.phoneNumber || profile.phoneNumber === "") {
             phoneNumberError = true;
+        }
+        if (!profile.password || !regexp.test(profile.password)){
+            alphanumericError = true;
         }
 
         const newErrors: Errors = {
@@ -80,49 +84,54 @@ const CreateOrEditProfile = (props: Props) => {
             lastNameError,
             passwordLengthError,
             passwordMatchError,
-            phoneNumberError
+            phoneNumberError,
+            alphanumericError
         }
 
         return newErrors;
     }
 
     return (
-        <div className={"create-book"}>
+        <div >
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
-            {(errors.nameError && renderError("Completar nombre")) ||
-            (errors.lastNameError && renderError("Completar apellido")) ||
-            (errors.passwordLengthError && renderError("La contraseña debe tener más de 6 caracteres!")) ||
-            (errors.passwordMatchError && renderError("Las contraseñas deben coincidir!")) ||
-            (errors.serverError && renderStatusError(errors.serverError))
-            }
             <div>
+                <div className={"box"}>
+                    {(errors.nameError && renderError("Completar nombre")) ||
+                    (errors.lastNameError && renderError("Completar apellido")) ||
+                    (errors.passwordLengthError && renderError("La contraseña debe tener más de 6 caracteres!")) ||
+                    (errors.passwordMatchError && renderError("Las contraseñas deben coincidir!")) ||
+                    (errors.alphanumericError && renderError("La contraseña solo puede incluir letras y/o números!")) ||
+                    (errors.serverError && renderStatusError(errors.serverError))
+                    }
+                </div>
                 <div className="box">
+
                     <div className="rectangle-2">
-                        <i className="fas fa-user"></i>
+                        <i className="fas fa-user edit-profile-grey-icon"/>
                         <input className="input" placeholder="Nombre" value={props.profile.firstName}
                                onChange={event => props.setProfile({...props.profile, firstName: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <i className="fas fa-user"/>
+                        <i className="fas fa-user edit-profile-grey-icon"/>
                         <input className="input" placeholder="Apellido" value={props.profile.lastName}
                                onChange={event => props.setProfile({...props.profile, lastName: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <i className="fas fa-envelope"/>
+                        <i className="fas fa-envelope edit-profile-black-icon"/>
                         <input className="input" placeholder="Email" readOnly value={props.profile.email}/>
                     </div>
                     <div className="rectangle-2">
-                        <i className="fas fa-phone-alt"/>
+                        <i className="fas fa-phone-alt edit-profile-grey-icon"/>
                         <input className="input" placeholder="Telefono" value={props.profile.phoneNumber}
                                onChange={event => props.setProfile({...props.profile, phoneNumber: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <i className="fas fa-lock"/>
-                        <input className="input" placeholder="Contraseña" value={password}
-                               onChange={event => setPassword(event.target.value)}/>
+                        <i className="fas fa-lock edit-profile-grey-icon"/>
+                        <input className="input" placeholder="Contraseña"
+                               onChange={event => props.setProfile({...props.profile, password: event.target.value})}/>
                     </div>
                     <div className="rectangle-2">
-                        <i className="fas fa-lock"/>
+                        <i className="fas fa-lock edit-profile-grey-icon"/>
                         <input className="input" placeholder="Confirmar contraseña" value={confirmPassword}
                                onChange={event => setConfirmPassword(event.target.value)}/>
                     </div>
@@ -146,10 +155,12 @@ const renderStatusError = (status: number) => {
 
 const renderError = (message: string) => {
     return (
-        <div className={"error-box"}>
-            <div className={"error-message"}>{message}</div>
-        </div>
+        <ErrorBox error={message} show={true}/>
+    //
+    // <div className={"error-box"}>
+    //         <div className={"error-message"}>{message}</div>
+    //     </div>
     )
 }
 
-export default CreateOrEditProfile;
+export default EditProfile;

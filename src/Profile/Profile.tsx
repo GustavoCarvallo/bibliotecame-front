@@ -6,8 +6,7 @@ import {toast, ToastContainer} from "react-toastify";
 import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
-import EditProfile from "./EditProfile/EditProfile";
-import {bearString} from "../utils/mocksettings.json"; //Once Login is merged, replace this with actual token
+import EditProfileSubmitHandler from "./EditProfile/EditProfileSubmitHandler";
 
 
 export type Profile = {
@@ -32,8 +31,7 @@ export const EDIT = "EDIT";
 function Profile() {
 
     useEffect(()=>{
-        //When login is merged, Authorization should be in Http.tsx, so we need to erase this "bearString" mock.
-        get(`user/getLogged`, {headers: {"Content-Type": "application/json","Authorization": `Bearer ${bearString}`}})
+        get(`user/getLogged`)
             .then(res => setSelectedProfile(res))
             .catch(err => alert(err.message));},[])
 
@@ -43,16 +41,7 @@ function Profile() {
         success: false,
     });
 
-    const [selectedProfile, setSelectedProfile] = React.useState<Profile>({
-        //Should get this from localhost:8080/user/getlogged with the token as Header.
-        id: 5,
-        email: "genericMail@ing.austral.edu.ar",
-        password: "abcd1234",
-        firstName: "I'm still",
-        lastName: "Loading",
-        phoneNumber: "+I'llCallYouLater",
-        isAdmin: true,
-    })
+    const [selectedProfile, setSelectedProfile] = React.useState<Profile>({})
 
     const BAD_REQUEST = 400;
 
@@ -102,55 +91,45 @@ function Profile() {
         closeModal();
     }
 
-    return <div>
-            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
+    const renderView = (<>
+        {success.success && <div className={'success-message-container'}>
+            <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
+            <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
+        </div>}
+        <div className={"edit-profile-container"} id={"edit-profile-container"}>
+            <EditProfileSubmitHandler selectedProfile={selectedProfile}
+                                      setSelectedProfile={setSelectedProfile}
+                                      setSuccess={handleSetSuccess}
+                                      handleCancel={handleCloseCreation}/>
+            <div>
+                <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
-            <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
-                <div className={"delete-account-body"}>
-                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
-                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
-                </div>
-            </GenericModal>
+                <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
+                    <div className={"delete-account-body"}>
+                        <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
+                        <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
+                        <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                    </div>
+                </GenericModal>
 
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
+                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+                />
 
+            </div>
+            <div>
+                <ul></ul>
+            </div>
         </div>
+
+    </>);
+
+    return (
+        <div className={"book-main-container"}>
+            {renderView}
+        </div>
+    )
 }
 
-return (<>
-    {success.success && <div className={'success-message-container'}>
-        <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
-        <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
-    </div>}
-    <div className={"edit-profile-container"} id={"edit-profile-container"}>
-        <EditProfile selectedProfile={selectedProfile}
-                     setSelectedProfile={setSelectedProfile}
-                     setSuccess={handleSetSuccess}
-                     handleCancel={handleCloseCreation}/>
-        <div>
-            <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
-
-            <GenericModal styles={style} title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
-                <div>
-                    <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
-                    <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                    <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
-                </div>
-            </GenericModal>
-
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
-
-        </div>
-        <div>
-            <ul></ul>
-        </div>
-    </div>
-
-</>);
 
 export default Profile;

@@ -4,6 +4,7 @@ import CreateBook from "./CreateBook/CreateBook";
 import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
 import {get} from "../utils/http";
+import Button from "../common/Button/Button";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -39,7 +40,7 @@ type Props = {
 }
 
 const Book = (props: Props) => {
-    const [status, setStatus] = React.useState(SEARCH);
+    const [status, setStatus] = React.useState(EDIT);
 
     const [selectedBook, setSelectedBook] = React.useState<Book>({
         id: 2,
@@ -101,7 +102,7 @@ const Book = (props: Props) => {
                             />
                             <i className={'fas fa-plus-circle add-button'} onClick={handleOpenCreation}/>
                         </div>
-                        <button onClick={() => openBookDetails(3)}>Visualizar libro</button>
+                        <Button label={'Visualizar libro'} onClick={() => openBookDetails(3)}/>
                     </>)
             case EDIT:
                 return (<>

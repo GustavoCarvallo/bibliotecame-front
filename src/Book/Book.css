@@ -1,7 +1,6 @@
 .book-main-container {
     justify-content: center;
     width: 100%;
-    height: 700px;
     overflow: scroll;
 }
 

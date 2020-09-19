@@ -47,24 +47,9 @@ const rows = [
     }
 ]
 
-const styles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        transform: 'translate(-33.5%, -60%)',
-        width: '40vw',
-        border: 'solid 1px #707070',
-        borderRadius: '18px',
-        boxShadow: '10px 10px 6px 0 rgba(0, 0, 0, 0.16)',
-        padding: 0,
-    }
-}
-
 const BookDetails = (props: Props) => {
     return (
-        <GenericModal isOpen={props.isOpen} onClose={props.onClose} title={'Detalles'} styles={styles}>
+        <GenericModal isOpen={props.isOpen} onClose={props.onClose} title={'Detalles'} withHeader>
             <div className={'book-details-container'}>
                 {rows.map(row => (
                     <div className={'book-details-row'}>

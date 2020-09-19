@@ -92,15 +92,6 @@
     justify-content: center;
 }
 
-.tag-container {
-    width: 45%;
-    height: 70px;
-    border-radius: 18px;
-    margin: 2%;
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: scroll;
-}
 .tag {
     min-width: 124px;
     height: 40px;
@@ -158,7 +149,7 @@
 }
 
 .copies-table {
-    max-height: 150px;
+    height: 150px;
     margin: 2%;
     overflow-y: scroll;
 }
@@ -211,6 +202,7 @@ button:hover {
     cursor: pointer;
 }
 
-.creat-or-edit-tags-container {
+.create-or-edit-tags-container {
     width: 45%;
+    margin: 2%;
 }

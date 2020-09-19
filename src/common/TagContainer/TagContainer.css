@@ -1,13 +1,12 @@
 .tag-container {
     height: 70px;
     border-radius: 18px;
-    margin: 2%;
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
 }
 
-.tag {
+.tag-container .tag {
     min-width: 90px;
     height: 40px;
     border-radius: 33px;
@@ -17,15 +16,15 @@
     margin-top: 5px;
 }
 
-.deletable-tag {
+.tag-container .deletable-tag {
     justify-content: space-between;
 }
 
-.non-deletable-tag {
+.tag-container .non-deletable-tag {
     justify-content: center;
 }
 
-.tag-name {
+.tag .tag-name {
     font-family: Roboto, serif;
     font-size: 16px;
     font-weight: normal;
@@ -38,7 +37,7 @@
     margin: auto 10px;
 }
 
-.delete-tag-icon {
+.tag .delete-tag-icon {
     width: fit-content;
     color: #a4a8ad;
     font-size: x-large;

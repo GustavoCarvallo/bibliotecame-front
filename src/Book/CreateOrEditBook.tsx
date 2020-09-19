@@ -128,7 +128,7 @@ const CreateOrEditBook = (props: Props) => {
 
     const renderTags = (tags: Tag[]) => {
         return (
-            <div className={"creat-or-edit-tags-container"}>
+            <div className={"create-or-edit-tags-container"}>
                 <TagContainer tags={tags} deleteTag={deleteTag}/>
             </div>
             )

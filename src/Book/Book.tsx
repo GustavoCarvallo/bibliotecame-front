@@ -5,6 +5,7 @@ import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
 import {get} from "../utils/http";
 import Button from "../common/Button/Button";
+import SearchBook from "./SearchBook/SearchBook";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -40,17 +41,9 @@ type Props = {
 }
 
 const Book = (props: Props) => {
-    const [status, setStatus] = React.useState(EDIT);
+    const [status, setStatus] = React.useState(SEARCH);
 
-    const [selectedBook, setSelectedBook] = React.useState<Book>({
-        id: 2,
-        title: "Titulo del libro",
-        author: "Facundo Bocalandro",
-        publisher: "Editorial",
-        year: 2010,
-        tags: [{name: "tag1"}, {name: "tag2"}, {name: "tag3"}, {name: "tag4"}],
-        copies: [{id: '123', isBooked: false},{id: '1234', isBooked: false}, {id: '12345', isBooked: true}],
-    })
+    const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
 
     const handleOpenCreation = () => {
         setStatus(CREATE);
@@ -82,7 +75,7 @@ const Book = (props: Props) => {
     }
 
     const renderView = (status: string) => {
-        switch (status){
+        switch (status) {
             case CREATE:
                 return (<>
                     {success.success && <div className={'success-message-container'}>
@@ -95,31 +88,31 @@ const Book = (props: Props) => {
                 </>)
             case SEARCH:
                 return (
-                    <>
-                        <div className={"book-search-container"}>
-                            <input type={"text"} className={"search-field"}
-                                   placeholder={"Busque algún libro"}
-                            />
-                            <i className={'fas fa-plus-circle add-button'} onClick={handleOpenCreation}/>
-                        </div>
-                        <Button label={'Visualizar libro'} onClick={() => openBookDetails(3)}/>
-                    </>)
+                    <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
+                                openBookDetails={openBookDetails}/>
+                )
             case EDIT:
                 return (<>
                     {success.success && <div className={'success-message-container'}>
-                        <span className={'success-text'}>{success.message ?? 'El libro se ha modificado correctamente'}</span>
+                        <span
+                            className={'success-text'}>{success.message ?? 'El libro se ha modificado correctamente'}</span>
                         <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
-                    <div className={"edit-book-container"} id={"edit-book-container"}>
-                        <EditBook selectedBook={selectedBook}
-                                  setSelectedBook={setSelectedBook}
-                                  setSuccess={handleSetSuccess}
-                                  handleCancel={handleCloseCreation}/>
+                    <div className={"edit-book-container"}>
+                        {selectedBook && (<EditBook selectedBook={selectedBook}
+                                                    setSelectedBook={setSelectedBook}
+                                                    setSuccess={handleSetSuccess}
+                                                    handleCancel={handleCloseCreation}/>)
+                        }
                     </div>
                 </>)
             case DETAILS:
-                return <BookDetails isOpen={true} onClose={() => setStatus(SEARCH)} selectedBook={selectedBook}/>
-            default: return null;
+                return <>
+                    {selectedBook &&
+                    <BookDetails isOpen={true} onClose={() => setStatus(SEARCH)} selectedBook={selectedBook}/>}
+                </>
+            default:
+                return null;
         }
     }
 

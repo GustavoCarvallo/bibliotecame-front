@@ -1,0 +1,28 @@
+.admin-search-actions {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-book-green-icon {
+    font-size: 23px;
+    color: var(--mid-green);
+}
+
+.search-book-red-icon {
+    font-size: 23px;
+    color: var(--orangey-red);
+}
+
+.admin-search-actions .search-book-green-icon,.search-book-red-icon {
+    margin: 5px;
+}
+
+.search-book-eye {
+    font-size: 30px;
+}
+
+.search-book-green-icon:hover, .search-book-red-icon:hover, .search-book-eye:hover {
+    cursor: pointer;
+}

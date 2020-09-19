@@ -3,6 +3,7 @@ import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 import TagContainer from "../common/TagContainer/TagContainer";
+import GenericTable, {Column} from "../common/GenericTable/GenericTable";
 
 type Props = {
     book: Book,
@@ -45,6 +46,19 @@ const initialErrors = {
         yearUndefined: false,
     },
 };
+
+const copiesTableColumns: Column[] = [
+    {
+        header: 'ID de Ejemplar',
+        accessor: 'id'
+    },
+    {
+        header: 'Acciones',
+        component: row => (<i className={row.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>)
+    }
+]
+
+
 
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
@@ -178,21 +192,8 @@ const CreateOrEditBook = (props: Props) => {
                     {renderTags(props.book.tags)}
                     {!isCreate && (
                         <div className={"copies-container"}>
-                            <div className="copies-table">
-                                <div className={"copies-header-row"}>
-                                    <div className={"copies-header"}>ID de Ejemplar</div>
-                                    <div/>
-                                    <div className={"copies-header"}>Acciones</div>
-                                </div>
-                                {props.book?.copies?.map(copy => (
-                                    <div className={"copies-row"}>
-                                        <div className={"copies-col"}>{copy.id}</div>
-                                        <div/>
-                                        <div className={"copies-col"}>
-                                            <i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className={"copies-table-container"}>
+                                <GenericTable columns={copiesTableColumns} data={props.book?.copies ?? []} className={"table--2cols"}/>
                             </div>
                             <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {props.openNewCopyModal && props.openNewCopyModal()}}/>
                         </div>

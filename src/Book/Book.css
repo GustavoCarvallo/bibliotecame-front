@@ -4,31 +4,6 @@
     overflow: scroll;
 }
 
-.book-search-container {
-    width: 40%;
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    margin: 5% auto auto;
-}
-
-.search-field {
-    height: 44px;
-    border-radius: 22px;
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-    border: solid 1px var(--brownish-grey);
-    background-color: var(--white);
-    font-family: Helvetica, FontAwesome, sans-serif;
-}
-
-.search-field:focus {
-    border-color: transparent;
-}
-
-.add-button {
-    font-size: 40px;
-    color: var(--mid-green);
-}
-
 .create-book-container {
     width: 800px;
     height: 651px;

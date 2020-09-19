@@ -2,6 +2,7 @@ import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 
 type Props = {
@@ -12,7 +13,9 @@ type Props = {
     handleCancel: ()=>void,
     setSuccess: Function,
     openNewCopyModal?: Function,
-    newCopyError?: boolean,
+    activateCopy: Function,
+    deactivateCopy: Function,
+    newCopyError?: boolean
 }
 type Errors = {
     titleError: boolean,
@@ -189,7 +192,9 @@ const CreateOrEditBook = (props: Props) => {
                                         <div className={"copies-col"}>{copy.id}</div>
                                         <div/>
                                         <div className={"copies-col"}>
-                                            <i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
+                                            <ActivateDeactivateButton isActive={copy.isActive || false}
+                                                                      activateFunction={()=>props.activateCopy(copy)}
+                                                                      deactivateFunction={()=>props.deactivateCopy(copy)}/>
                                         </div>
                                     </div>
                                 ))}

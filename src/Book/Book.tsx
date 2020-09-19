@@ -28,6 +28,7 @@ export type Tag = {
 export type Copy = {
     id: string,
     isBooked?: boolean,
+    isActive?: boolean
 }
 
 type Success = {

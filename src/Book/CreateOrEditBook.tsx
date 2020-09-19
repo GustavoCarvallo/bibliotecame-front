@@ -3,7 +3,6 @@ import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
-import {toast, ToastContainer} from "react-toastify";
 import TagContainer from "../common/TagContainer/TagContainer";
 
 type Props = {
@@ -16,8 +15,7 @@ type Props = {
     openNewCopyModal?: Function,
     activateCopy: Function,
     deactivateCopy: Function,
-    newCopyError?: boolean,
-    actDeactCopyError?: boolean
+    newCopyError?: boolean
 }
 type Errors = {
     titleError: boolean,
@@ -197,7 +195,6 @@ const CreateOrEditBook = (props: Props) => {
                                             <ActivateDeactivateButton isActive={copy.isActive || false}
                                                                       activateFunction={()=>props.activateCopy(copy)}
                                                                       deactivateFunction={()=>props.deactivateCopy(copy)}/>
-                                            {/*<i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>*/}
                                         </div>
                                     </div>
                                 ))}

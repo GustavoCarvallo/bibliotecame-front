@@ -39,3 +39,8 @@ export const get = (url: string, config = {}) => request(url, "GET", null, confi
 export const post = (url: string, body: Object, config = {}) => request(url, "POST", body, config);
 export const put = (url: string, body: Object, config = {}) => request(url, "PUT", body, config);
 export const del = (url: string, config = {}) => request(url, "DELETE", null, config);
+
+export const deleteToken = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('admin');
+}

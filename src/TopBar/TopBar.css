@@ -56,11 +56,15 @@
 .sign-out-alt-solid {
    font-size: 33px;
     object-fit: contain;
-    margin-top: auto;
-    margin-bottom: auto;
 }
 
 .link-un-styled {
     text-decoration: none;
     color: inherit;
+}
+
+.log-out-icon-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: fit-content;
 }

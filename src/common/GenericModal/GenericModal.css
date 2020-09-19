@@ -1,8 +1,8 @@
-.header {
+.modal-header {
     background-color: var(--dodger-blue);
 }
 
-.header .title {
+.modal-header .modal-title {
     font-family: Playfair Display, serif;
     font-size: 70px;
     font-weight: 900;
@@ -16,7 +16,11 @@
     margin: 0 32px 0 32px;
 }
 
-.title {
+.modal-body {
+    padding: 20px;
+}
+
+.modal-title {
     font-family: Roboto, serif;
     font-size: 35px;
     font-weight: 500;

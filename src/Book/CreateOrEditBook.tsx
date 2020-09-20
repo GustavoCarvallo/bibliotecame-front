@@ -2,6 +2,7 @@ import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";
 
@@ -13,7 +14,9 @@ type Props = {
     handleCancel: ()=>void,
     setSuccess: Function,
     openNewCopyModal?: Function,
-    newCopyError?: boolean,
+    activateCopy: Function,
+    deactivateCopy: Function,
+    newCopyError?: boolean
 }
 type Errors = {
     titleError: boolean,
@@ -46,19 +49,6 @@ const initialErrors = {
         yearUndefined: false,
     },
 };
-
-const copiesTableColumns: Column[] = [
-    {
-        header: 'ID de Ejemplar',
-        accessor: 'id'
-    },
-    {
-        header: 'Acciones',
-        component: row => (<i className={row.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>)
-    }
-]
-
-
 
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
@@ -147,6 +137,19 @@ const CreateOrEditBook = (props: Props) => {
             </div>
             )
     }
+
+    const copiesTableColumns: Column[] = [
+        {
+            header: 'ID de Ejemplar',
+            accessor: 'id'
+        },
+        {
+            header: 'Acciones',
+            component: copy => <ActivateDeactivateButton isActive={copy.isActive || false}
+                                                        activateFunction={()=>props.activateCopy(copy)}
+                                                        deactivateFunction={()=>props.deactivateCopy(copy)}/>
+        }
+    ]
 
     return (
         <div className={"create-book"}>

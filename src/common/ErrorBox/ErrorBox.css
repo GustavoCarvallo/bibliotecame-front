@@ -1,4 +1,4 @@
-.error-box{
+.error-container{
     min-width: 70%;
     margin-left: 15%;
     margin-right: 15%;
@@ -11,16 +11,16 @@
     position: absolute;
 }
 
-.error-box.show {
+.error-container.show {
     display: flex;
 }
 
-.error-box.hide {
+.error-container.hide {
     display: none;
 
 }
 
-.error-box .error-text{
+.error-container .error-text{
     font-family: Roboto, serif;
     font-size: 18px;
     font-weight: 500;

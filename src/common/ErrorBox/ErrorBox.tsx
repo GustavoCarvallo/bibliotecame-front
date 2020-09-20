@@ -10,7 +10,7 @@ const ErrorBox = (props: Props) => {
     const {error, show} = props;
 
     return (
-        <div className={`error-box ${show ? 'show': 'hide'}`}>
+        <div className={`error-container ${show ? 'show': 'hide'}`}>
             {error && <span className={"error-text"}>{error}</span>}
         </div>
     )

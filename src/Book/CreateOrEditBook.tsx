@@ -2,7 +2,9 @@ import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
+import GenericTable, {Column} from "../common/GenericTable/GenericTable";
 
 type Props = {
     book: Book,
@@ -12,7 +14,9 @@ type Props = {
     handleCancel: ()=>void,
     setSuccess: Function,
     openNewCopyModal?: Function,
-    newCopyError?: boolean,
+    activateCopy: Function,
+    deactivateCopy: Function,
+    newCopyError?: boolean
 }
 type Errors = {
     titleError: boolean,
@@ -134,6 +138,19 @@ const CreateOrEditBook = (props: Props) => {
             )
     }
 
+    const copiesTableColumns: Column[] = [
+        {
+            header: 'ID de Ejemplar',
+            accessor: 'id'
+        },
+        {
+            header: 'Acciones',
+            component: copy => <ActivateDeactivateButton isActive={copy.active || false}
+                                                        activateFunction={()=>props.activateCopy(copy)}
+                                                        deactivateFunction={()=>props.deactivateCopy(copy)}/>
+        }
+    ]
+
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
@@ -178,21 +195,8 @@ const CreateOrEditBook = (props: Props) => {
                     {renderTags(props.book.tags)}
                     {!isCreate && (
                         <div className={"copies-container"}>
-                            <div className="copies-table">
-                                <div className={"copies-header-row"}>
-                                    <div className={"copies-header"}>ID de Ejemplar</div>
-                                    <div/>
-                                    <div className={"copies-header"}>Acciones</div>
-                                </div>
-                                {props.book?.copies?.map(copy => (
-                                    <div className={"copies-row"}>
-                                        <div className={"copies-col"}>{copy.id}</div>
-                                        <div/>
-                                        <div className={"copies-col"}>
-                                            <i className={copy.isBooked ? "far fa-check-circle copies-check" : "fas fa-ban copies-ban"}/>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className={"copies-table-container"}>
+                                <GenericTable columns={copiesTableColumns} data={props.book?.copies ?? []} className={"table--2cols"}/>
                             </div>
                             <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {props.openNewCopyModal && props.openNewCopyModal()}}/>
                         </div>

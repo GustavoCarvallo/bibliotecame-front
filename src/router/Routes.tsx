@@ -7,7 +7,6 @@ import {
     useParams
 } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
-import AdminRoute from "./AdminRoute";
 import ReverseAuthRoute from "./ReverseAuthRoute";
 import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
@@ -21,9 +20,10 @@ import Profile from "../Profile/Profile";
 import "../common/Notify.css";
 import Login from "../Login/Login"
 import "../common/Notify.css"
-import { loggedUser, isAdmin } from "../utils/mocksettings.json";
 
 const Router = () => {
+    const isAdmin = localStorage.getItem('admin') === 'true';
+
     return (
         <BrowserRouter>
             <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"> </script>

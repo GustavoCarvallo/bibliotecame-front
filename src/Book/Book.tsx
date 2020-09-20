@@ -5,11 +5,11 @@ import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
 import {get} from "../utils/http";
 import Button from "../common/Button/Button";
+import SearchBook from "./SearchBook/SearchBook";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
 export const EDIT = "EDIT";
-export const DETAILS = "DETAILS";
 
 export type Book = {
     id?: number,
@@ -19,6 +19,7 @@ export type Book = {
     publisher?: string,
     year?: number,
     tags: Tag[],
+    active?: boolean,
 }
 
 export type Tag = {
@@ -27,7 +28,8 @@ export type Tag = {
 
 export type Copy = {
     id: string,
-    isBooked?: boolean,
+    booked?: boolean,
+    active?: boolean
 }
 
 type Success = {
@@ -40,17 +42,9 @@ type Props = {
 }
 
 const Book = (props: Props) => {
-    const [status, setStatus] = React.useState(EDIT);
+    const [status, setStatus] = React.useState(SEARCH);
 
-    const [selectedBook, setSelectedBook] = React.useState<Book>({
-        id: 2,
-        title: "Titulo del libro",
-        author: "Facundo Bocalandro",
-        publisher: "Editorial",
-        year: 2010,
-        tags: [{name: "tag1"}, {name: "tag2"}, {name: "tag3"}, {name: "tag4"}],
-        copies: [{id: '123', isBooked: false},{id: '1234', isBooked: false}, {id: '12345', isBooked: true}],
-    })
+    const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
 
     const handleOpenCreation = () => {
         setStatus(CREATE);
@@ -59,6 +53,11 @@ const Book = (props: Props) => {
     const handleCloseCreation = () => {
         setSuccess({success: false});
         setStatus(SEARCH);
+    }
+
+    const handleCloseEdit = () => {
+        handleCloseCreation();
+        setSelectedBook(undefined);
     }
 
     const [success, setSuccess] = React.useState<Success>({
@@ -76,13 +75,13 @@ const Book = (props: Props) => {
         get(`book/${id}`)
             .then(res => {
                 setSelectedBook(res);
-                setStatus(props.isAdmin ? EDIT : DETAILS);
+                props.isAdmin && setStatus(EDIT);
             })
             .catch(err => console.log(err))
     }
 
     const renderView = (status: string) => {
-        switch (status){
+        switch (status) {
             case CREATE:
                 return (<>
                     {success.success && <div className={'success-message-container'}>
@@ -96,30 +95,29 @@ const Book = (props: Props) => {
             case SEARCH:
                 return (
                     <>
-                        <div className={"book-search-container"}>
-                            <input type={"text"} className={"search-field"}
-                                   placeholder={"Busque algún libro"}
-                            />
-                            <i className={'fas fa-plus-circle add-button'} onClick={handleOpenCreation}/>
-                        </div>
-                        <Button label={'Visualizar libro'} onClick={() => openBookDetails(3)}/>
-                    </>)
+                        <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
+                                    openBookDetails={openBookDetails}/>
+                        {selectedBook &&
+                        <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook}/>}
+                    </>
+                )
             case EDIT:
                 return (<>
                     {success.success && <div className={'success-message-container'}>
-                        <span className={'success-text'}>{success.message ?? 'El libro se ha modificado correctamente'}</span>
+                        <span
+                            className={'success-text'}>{success.message ?? 'El libro se ha modificado correctamente'}</span>
                         <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
-                    <div className={"edit-book-container"} id={"edit-book-container"}>
-                        <EditBook selectedBook={selectedBook}
-                                  setSelectedBook={setSelectedBook}
-                                  setSuccess={handleSetSuccess}
-                                  handleCancel={handleCloseCreation}/>
+                    <div className={"edit-book-container"}>
+                        {selectedBook && (<EditBook selectedBook={selectedBook}
+                                                    setSelectedBook={setSelectedBook}
+                                                    setSuccess={handleSetSuccess}
+                                                    handleCancel={handleCloseEdit}/>)
+                        }
                     </div>
                 </>)
-            case DETAILS:
-                return <BookDetails isOpen={true} onClose={() => setStatus(SEARCH)} selectedBook={selectedBook}/>
-            default: return null;
+            default:
+                return null;
         }
     }
 

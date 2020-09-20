@@ -35,7 +35,8 @@ const SearchBookTable = (props: Props) => {
                     (row => (
                         <div className={'admin-search-actions'}>
                             <ActivateOrDeactivateButton defaultValue={row.active} id={row.id}/>
-                            <i className={"fas fa-edit search-book-green-icon"} onClick={() => props.openBookDetails(row.id)}/>
+                            <i className={"fas fa-edit search-book-green-icon"}
+                               onClick={() => props.openBookDetails(row.id)}/>
                         </div>
                     ))
                     :
@@ -53,9 +54,11 @@ const SearchBookTable = (props: Props) => {
     }, [])
 
     return (
-        <GenericTable columns={columns}
-                      className={"table--4cols"}
-                      data={books}/>
+        <>
+            <GenericTable columns={columns}
+                          className={"table--4cols"}
+                          data={books}/>
+        </>
     )
 }
 

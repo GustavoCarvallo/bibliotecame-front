@@ -67,7 +67,7 @@ const ActivateOrDeactivateButton = (props: Props) => {
     return (
         <>
             {renderModal()}
-            <i className={active ? "far fa-check-circle search-book-green-icon" : "fas fa-ban search-book-red-icon"}
+            <i className={active ?  "fas fa-ban search-book-red-icon" : "far fa-check-circle search-book-green-icon"}
                onClick={() => openActivateModal()}/>
         </>
     )

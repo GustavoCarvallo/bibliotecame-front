@@ -10,7 +10,6 @@ import SearchBook from "./SearchBook/SearchBook";
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
 export const EDIT = "EDIT";
-export const DETAILS = "DETAILS";
 
 export type Book = {
     id?: number,
@@ -55,6 +54,11 @@ const Book = (props: Props) => {
         setStatus(SEARCH);
     }
 
+    const handleCloseEdit = () => {
+        handleCloseCreation();
+        setSelectedBook(undefined);
+    }
+
     const [success, setSuccess] = React.useState<Success>({
         success: false,
     });
@@ -70,7 +74,7 @@ const Book = (props: Props) => {
         get(`book/${id}`)
             .then(res => {
                 setSelectedBook(res);
-                setStatus(props.isAdmin ? EDIT : DETAILS);
+                props.isAdmin && setStatus(EDIT);
             })
             .catch(err => console.log(err))
     }
@@ -89,8 +93,12 @@ const Book = (props: Props) => {
                 </>)
             case SEARCH:
                 return (
-                    <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
-                                openBookDetails={openBookDetails}/>
+                    <>
+                        <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
+                                    openBookDetails={openBookDetails}/>
+                        {selectedBook &&
+                        <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook}/>}
+                    </>
                 )
             case EDIT:
                 return (<>
@@ -103,15 +111,10 @@ const Book = (props: Props) => {
                         {selectedBook && (<EditBook selectedBook={selectedBook}
                                                     setSelectedBook={setSelectedBook}
                                                     setSuccess={handleSetSuccess}
-                                                    handleCancel={handleCloseCreation}/>)
+                                                    handleCancel={handleCloseEdit}/>)
                         }
                     </div>
                 </>)
-            case DETAILS:
-                return <>
-                    {selectedBook &&
-                    <BookDetails isOpen={true} onClose={() => setStatus(SEARCH)} selectedBook={selectedBook}/>}
-                </>
             default:
                 return null;
         }

@@ -16,10 +16,10 @@ type Props = {
 const ActivateDeactivateCopyModal = (props: Props) => {
 
     const handleChange = () => {
-        if(props.copy.isBooked){
+        if(props.copy.booked){
             props.onError();
         } else {
-            props.onSuccess({id:props.copy.id, isBooked: props.copy.isBooked, isActive: !props.copy.isActive});
+            props.onSuccess({id:props.copy.id, booked: props.copy.booked, active: !props.copy.active});
         }
         props.onClose();
     }

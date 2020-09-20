@@ -24,23 +24,23 @@ const ActivateOrDeactivateButton = (props: Props) => {
 
     const activate = () => {
         post(`book/${props.id}/activate`,[],).then( () => {
-                alert(`Book ${props.id} activated!`);
+                alert('El libro ha sido activado correctamente');
                 setActive(true);
                 closeActivateModal();
             }
         ).catch(error => {
-            alert(`Got error ${error.status}!`)
+            alert('El libro no pudo ser activado correctamente')
         })
     }
 
     const deactivate = () => {
         post(`book/${props.id}/deactivate`,[],).then( () => {
-                alert(`Book ${props.id} deactivated!`);
+                alert('El libro ha sido desactivado correctamente');
                 setActive(false);
                 closeActivateModal();
             }
         ).catch(error => {
-            alert(`Got error ${error.status}!`)
+            alert('El libro no pudo ser desactivado correctamente')
         })
     }
 

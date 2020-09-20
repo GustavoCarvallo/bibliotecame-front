@@ -93,7 +93,8 @@ const EditBook = (props: Props) => {
     }
     const onActivateDeactivateCopySuccess = (copy:Copy) => {
         updateCopies(copy);
-        notifySuccess("Se cambio el estado del ejemplar satisfactoriamente")
+        // commented because the copy changes the state when the book form is submit.
+        //notifySuccess("Se cambio el estado del ejemplar satisfactoriamente")
     }
 
     const toastifyConfiguration: ToastOptions = {

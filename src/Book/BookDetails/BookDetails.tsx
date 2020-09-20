@@ -61,7 +61,7 @@ const BookDetails = (props: Props) => {
                     <button className="request-loan-button">
                         <p className="request-loan-button-label">Solicitar Prestamo</p>
                     </button>
-                    <h3 className={'available-copies-text'}>Ejemplares disponibles: {props.selectedBook.copies?.filter(copy => !copy.isBooked).length}</h3>
+                    <h3 className={'available-copies-text'}>Ejemplares disponibles: {props.selectedBook.copies?.filter(copy => !copy.booked).length}</h3>
                 </div>
             </div>
         </GenericModal>

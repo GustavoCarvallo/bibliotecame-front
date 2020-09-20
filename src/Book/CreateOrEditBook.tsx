@@ -145,7 +145,7 @@ const CreateOrEditBook = (props: Props) => {
         },
         {
             header: 'Acciones',
-            component: copy => <ActivateDeactivateButton isActive={copy.isActive || false}
+            component: copy => <ActivateDeactivateButton isActive={copy.active || false}
                                                         activateFunction={()=>props.activateCopy(copy)}
                                                         deactivateFunction={()=>props.deactivateCopy(copy)}/>
         }

@@ -148,39 +148,10 @@
     color:var(--mid-green);
 }
 
-.copies-table {
+.copies-table-container {
     height: 150px;
     margin: 2%;
     overflow-y: scroll;
-}
-
-.copies-header-row {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    border-bottom: solid 2px #707070;
-}
-
-.copies-header {
-    font-weight: bold;
-}
-
-.copies-row {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    border-bottom: solid 1px #707070;
-    height: 35px;
-}
-
-.copies-col {
-    height: 21px;
-    font-family: Roboto, serif;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2.81;
-    letter-spacing: normal;
-    text-align: center;
 }
 
 .copies-check {

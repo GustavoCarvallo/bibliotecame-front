@@ -12,7 +12,8 @@ type Props = {
 const EditProfileSubmitHandler = (props: Props) => {
 
     const handleSubmit = (profile: Profile, thenCallback: Function, catchCallback: Function) => {
-        put(`user/${props.selectedProfile.id}/update`, props.selectedProfile, {headers: {"Content-Type": "application/json"}})
+
+        put(`user/${props.selectedProfile.id}/update`, props.selectedProfile)
             .then(res => {
 
                 post("auth/", {

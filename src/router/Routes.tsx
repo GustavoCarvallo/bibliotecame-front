@@ -20,9 +20,9 @@ import Profile from "../Profile/Profile";
 import "../common/Notify.css";
 import Login from "../Login/Login"
 import "../common/Notify.css"
+const isAdmin = localStorage.getItem('admin') === 'true';
 
 const Router = () => {
-    const isAdmin = localStorage.getItem('admin') === 'true';
 
     return (
         <BrowserRouter>
@@ -61,7 +61,6 @@ const ContainedComponent = (props: ContainedComponentProps) => {
 }
 
 export function Home() {
-    const isAdmin = localStorage.getItem('admin') === 'true';
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>
@@ -78,7 +77,7 @@ export function ProfileView() {
         <div>
             <TopBar isAdmin={isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={isAdmin}/>
+                <SideBar isAdmin={isAdmin} selected={3}/>
                 <Profile/>
             </div>
         </div>

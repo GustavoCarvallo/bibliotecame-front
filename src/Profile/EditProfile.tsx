@@ -62,21 +62,27 @@ const EditProfile = (props: Props) => {
 
         if (!profile.firstName || profile.firstName === "") {
             nameError = true;
+            renderError("Completar nombre");
         }
         if (!profile.lastName || profile.lastName === "") {
             lastNameError = true;
+            renderError("Completar apellido");
         }
         if (!profile.password || profile.password.length<7) {
             passwordLengthError = true;
+            renderError("La contraseña debe tener más de 6 caracteres!");
         }
         if (profile.password !== confirmPassword) {
             passwordMatchError = true;
+            renderError("Las contraseñas deben coincidir!");
         }
         if (!profile.phoneNumber || profile.phoneNumber === "") {
             phoneNumberError = true;
+            renderError("Ingrese su número de telefono!")
         }
         if (!profile.password || !regexp.test(profile.password)){
             alphanumericError = true;
+            renderError("La contraseña solo puede incluir letras y/o números!");
         }
 
         const newErrors: Errors = {
@@ -96,13 +102,7 @@ const EditProfile = (props: Props) => {
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
             <div>
                 <div className={"box"}>
-                    {(errors.nameError && renderError("Completar nombre")) ||
-                    (errors.lastNameError && renderError("Completar apellido")) ||
-                    (errors.passwordLengthError && renderError("La contraseña debe tener más de 6 caracteres!")) ||
-                    (errors.passwordMatchError && renderError("Las contraseñas deben coincidir!")) ||
-                    (errors.alphanumericError && renderError("La contraseña solo puede incluir letras y/o números!")) ||
-                    (errors.serverError && renderStatusError(errors.serverError))
-                    }
+                    {errorChecker(errors)}
                 </div>
                 <div className="box">
 
@@ -147,19 +147,30 @@ const EditProfile = (props: Props) => {
 const renderStatusError = (status: number) => {
     switch (status) {
         case 400:
-            return renderError("Comprobar los datos que fueron introducidos")
+            return ("Comprobar los datos que fueron introducidos")
         default:
-            return renderError("Error del servidor")
+            return ("Error del servidor")
     }
+}
+
+const errorChecker = (errors : Errors) => {
+    let message = "";
+    if(errors.passwordMatchError) message="Las contraseñas deben coincidir!";
+    if(errors.alphanumericError) message="La contraseña solo puede incluir letras y/o números!";
+    if(errors.passwordLengthError) message="La contraseña debe tener más de 6 caracteres!";
+    if(errors.phoneNumberError) message="Inserte su número de telefono!";
+    if(errors.lastNameError) message="Completar apellido";
+    if(errors.nameError) message= "Completar nombre";
+    if(errors.serverError) message=renderStatusError(errors.serverError);
+    if(message===""){
+        return;
+    }
+    return renderError(message);
 }
 
 const renderError = (message: string) => {
     return (
         <ErrorBox error={message} show={true}/>
-    //
-    // <div className={"error-box"}>
-    //         <div className={"error-message"}>{message}</div>
-    //     </div>
     )
 }
 

@@ -33,7 +33,7 @@ function Profile() {
     useEffect(()=>{
         get(`user/getLogged`)
             .then(res => setSelectedProfile(res))
-            .catch(err => alert(err.message));},[])
+            .catch(err => console.log(err.message));},[])
 
     const [status, setStatus] = React.useState(EDIT);
 
@@ -72,8 +72,7 @@ function Profile() {
     }
 
     const deleteUser = () => {
-        const promise = del("deleteUser/" + selectedProfile.id,
-            {headers: {"Content-Type": "application/json"}, noAuth: true});
+        const promise = del("deleteUser/" + selectedProfile.id,);
 
         promise.then(() => {
                 localStorage.removeItem('token');

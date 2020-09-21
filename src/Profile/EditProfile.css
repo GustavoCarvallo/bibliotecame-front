@@ -45,3 +45,8 @@
     margin: 3vh auto auto;
     position: relative;
 }
+
+.edit-profile-screen input{
+    display: flex;
+    flex: 1;
+}

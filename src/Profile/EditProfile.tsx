@@ -3,6 +3,8 @@ import "../Book/CreateOrEditBook.css";
 import "./EditProfile.css"
 import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {Profile} from "./Profile";
+import PasswordToggle from "../common/PasswordToggle";
+
 
 type Props = {
     profile: Profile,
@@ -35,7 +37,9 @@ const initialErrors = {
 const EditProfile = (props: Props) => {
     const [confirmPassword, setConfirmPassword] = React.useState<string>("");
     const regexp = new RegExp(/^([a-zA-Z0-9]){6,}$/);
-    const [errors, setErrors] = React.useState<Errors>({...initialErrors})
+    const [errors, setErrors] = React.useState<Errors>({...initialErrors});
+    const [PasswordInputType, ToggleIcon] = PasswordToggle();
+    const [PasswordInputType2, ToggleIcon2] = PasswordToggle();
 
     const handleSubmit = () => {
         let newErrors = validateProfile(props.profile);
@@ -98,7 +102,7 @@ const EditProfile = (props: Props) => {
     }
 
     return (
-        <div >
+        <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
             <div>
                 <div className={"box"}>
@@ -128,12 +132,18 @@ const EditProfile = (props: Props) => {
                     <div className="rectangle-2">
                         <i className="fas fa-lock edit-profile-grey-icon"/>
                         <input className="input" placeholder="Contraseña"
-                               onChange={event => props.setProfile({...props.profile, password: event.target.value})}/>
+                               onChange={event => props.setProfile({...props.profile, password: event.target.value})}
+                               type={PasswordInputType.toString()}
+                        />
+                        <span className="icon">{ToggleIcon}</span>
                     </div>
                     <div className="rectangle-2">
                         <i className="fas fa-lock edit-profile-grey-icon"/>
                         <input className="input" placeholder="Confirmar contraseña" value={confirmPassword}
-                               onChange={event => setConfirmPassword(event.target.value)}/>
+                               onChange={event => setConfirmPassword(event.target.value)}
+                               type={PasswordInputType2.toString()}
+                        />
+                        <span className="icon">{ToggleIcon2}</span>
                     </div>
                 </div>
                 <button className="rectangle-6" onClick={handleSubmit}>

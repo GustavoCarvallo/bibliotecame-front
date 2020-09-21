@@ -135,7 +135,7 @@ const CreateOrEditBook = (props: Props) => {
             <div className={"create-or-edit-tags-container"}>
                 <TagContainer tags={tags} deleteTag={deleteTag}/>
             </div>
-            )
+        )
     }
 
     const copiesTableColumns: Column[] = [
@@ -146,8 +146,8 @@ const CreateOrEditBook = (props: Props) => {
         {
             header: 'Acciones',
             component: copy => <ActivateDeactivateButton isActive={copy.active || false}
-                                                        activateFunction={()=>props.activateCopy(copy)}
-                                                        deactivateFunction={()=>props.deactivateCopy(copy)}/>
+                                                         activateFunction={()=>props.activateCopy(copy)}
+                                                         deactivateFunction={()=>props.deactivateCopy(copy)}/>
         }
     ]
 
@@ -193,12 +193,15 @@ const CreateOrEditBook = (props: Props) => {
                         <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
                     </div>
                     {renderTags(props.book.tags)}
+                    <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>
                     {!isCreate && (
                         <div className={"copies-container"}>
                             <div className={"copies-table-container"}>
                                 <GenericTable columns={copiesTableColumns} data={props.book?.copies ?? []} className={"table--2cols"}/>
                             </div>
-                            <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {props.openNewCopyModal && props.openNewCopyModal()}}/>
+                            {props.book.active && <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {
+                                props.openNewCopyModal && props.openNewCopyModal()
+                            }}/>}
                         </div>
                     )}
                 </div>

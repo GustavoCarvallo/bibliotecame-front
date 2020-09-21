@@ -22,10 +22,11 @@ const EditProfileSubmitHandler = (props: Props) => {
                     },
                     {headers: {"Content-Type": "application/json"}, noAuth: true})
 
-                .then(res => {
-                    localStorage.setItem('token', res.accessToken.token);
-                    localStorage.setItem('admin', res.admin);
-                })
+                    .then(res => {
+                        localStorage.setItem('token', res.accessToken.token);
+                        localStorage.setItem('admin', res.admin);
+                        localStorage.setItem('fullName', res.fullName);
+                    })
                     .catch(err => catchCallback(err.status))
 
                 thenCallback()

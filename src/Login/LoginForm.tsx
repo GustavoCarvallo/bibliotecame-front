@@ -26,12 +26,13 @@ function LoginForm(props: Props){
                     email: email,
                     password: password
                 },
-                {headers: {"Content-Type": "application/json"}, noAuth: true});
+                {noAuth: true});
 
             promise.then(res => {
                 setHasError(false);
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
+                localStorage.setItem('fullName', res.fullName);
                 history.replace(props.whereTo);
                 history.go(0);
             })

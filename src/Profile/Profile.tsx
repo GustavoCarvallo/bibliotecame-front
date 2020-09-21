@@ -75,18 +75,18 @@ function Profile() {
         const promise = del("deleteUser/" + selectedProfile.id,);
 
         promise.then(() => {
-                localStorage.removeItem('token');
-                localStorage.removeItem('admin');
-                window.history.pushState("", "", "/login?successfulDelete")
-                window.location.reload();
-            })
-            .catch(error => {
-            if(error.status === BAD_REQUEST){
-                notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
-            } else {
-                notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
-            }
+            localStorage.removeItem('token');
+            localStorage.removeItem('admin');
+            window.history.pushState("", "", "/login?successfulDelete")
+            window.location.reload();
         })
+            .catch(error => {
+                if(error.status === BAD_REQUEST){
+                    notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
+                } else {
+                    notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
+                }
+            })
         closeModal();
     }
 
@@ -100,7 +100,7 @@ function Profile() {
                                       setSelectedProfile={setSelectedProfile}
                                       setSuccess={handleSetSuccess}
                                       handleCancel={handleCloseCreation}/>
-            <div>
+            <div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
                 <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
@@ -115,9 +115,6 @@ function Profile() {
                                 closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
                 />
 
-            </div>
-            <div>
-                <ul></ul>
             </div>
         </div>
 

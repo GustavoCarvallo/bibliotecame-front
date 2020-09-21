@@ -1,4 +1,5 @@
 .book-details-container {
+    width: 40vw;
     padding: 20px 60px;
 }
 
@@ -20,6 +21,8 @@
 }
 
 .book-details-tag-container {
+    display: flex;
+    align-items: center;
     width: 45%;
 }
 

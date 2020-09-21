@@ -3,7 +3,7 @@ import "./Login.css";
 import {toast, ToastContainer, ToastOptions} from "react-toastify";
 import LoginForm from "./LoginForm";
 import "../common/Notify.css"
-import {useLocation, useHistory} from 'react-router-dom';
+import {useLocation, useHistory, Link} from 'react-router-dom';
 
 function Login() {
 
@@ -46,6 +46,11 @@ function Login() {
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
                 <LoginForm whereTo="/home"/>
+                <div className={"register-button"}>
+                    <Link to={'signup'}>
+                        <span>¿Deseas Registrarte?</span>
+                    </Link>
+                </div>
             </div>
         </div>
     )

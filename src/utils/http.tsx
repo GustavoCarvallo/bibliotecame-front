@@ -9,7 +9,8 @@ const request = (url: string, method: string, body: Object | null, config: Confi
     const token = localStorage['token'];
     let headers = {...config.headers};
     if (!config.noAuth && token){
-        headers = {...config.headers, Authorization: "Bearer " + token};
+        if(method==="PUT" || method==="POST") headers = {...config.headers, Authorization: "Bearer " + token, "Content-Type": "application/json"}
+        else headers = {...config.headers, Authorization: "Bearer " + token};
     }
     const configuration: Object = {
         method: method,

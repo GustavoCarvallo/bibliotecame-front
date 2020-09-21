@@ -12,15 +12,17 @@ import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import SignUp from "../signUp/SignUp";
 import "./Routes.css";
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
 import Profile from "../Profile/Profile";
+import "../common/Notify.css";
 import Login from "../Login/Login"
 import "../common/Notify.css"
+const isAdmin = localStorage.getItem('admin') === 'true';
 
 const Router = () => {
-    const isAdmin = localStorage.getItem('admin') === 'true';
 
     return (
         <BrowserRouter>
@@ -30,7 +32,7 @@ const Router = () => {
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                     <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
-                    <AuthRoute path={'/profile/:userId'} component={ProfileView}/>
+                    <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
@@ -59,7 +61,6 @@ const ContainedComponent = (props: ContainedComponentProps) => {
 }
 
 export function Home() {
-    const isAdmin = localStorage.getItem('admin') === 'true';
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>
@@ -72,15 +73,12 @@ export function Home() {
 }
 
 export function ProfileView() {
-
-    let {userId} = useParams();
-
     return (
         <div>
-            <TopBar isAdmin={false}/>
+            <TopBar isAdmin={isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={false}/>
-                <Profile pathVariable={userId}/>
+                <SideBar isAdmin={isAdmin} selected={3}/>
+                <Profile/>
             </div>
         </div>
     );

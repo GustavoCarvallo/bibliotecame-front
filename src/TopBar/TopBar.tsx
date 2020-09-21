@@ -16,7 +16,7 @@ const TopBar = (props: Props) => {
             <div className={"top-bar-right"}>
                 <i className="far fa-user-circle user-circle-regular"/>
                 <div className={"top-bar-user-name"}>
-                    Juan Ignacio Rodriguez
+                    {localStorage.getItem('fullName')}
                     {props.isAdmin && <div>Administrador/a</div>}
                 </div>
                 <Link to={'/login'} className={'link-un-styled log-out-icon-container'} onClick={deleteToken}>

@@ -7,16 +7,11 @@ type Config = {
 
 const request = (url: string, method: string, body: Object | null, config: Config) => {
     const token = localStorage['token'];
-    let headers = {...config.headers};
-    if (!config.noAuth && token){
-        if(method==="PUT" || method==="POST") headers = {...config.headers, Authorization: "Bearer " + token, "Content-Type": "application/json"}
-        else headers = {...config.headers, Authorization: "Bearer " + token};
-    }
+    let headers = (!config.noAuth && token) ? {"Content-Type": "application/json", Authorization: "Bearer " + token} : {"Content-Type": "application/json"};
     const configuration: Object = {
         method: method,
         body: body ? JSON.stringify(body) : undefined,
         headers: headers,
-        ...config,
     };
     return fetch(baseUrl + url, configuration)
         .then(res => {

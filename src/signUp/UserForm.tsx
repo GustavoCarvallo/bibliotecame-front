@@ -26,6 +26,8 @@ const UserForm = () => {
 
         if (password1 !== password2) {
             setError("Las contraseñas no coinciden");
+        } else if (!password1.match(/^([a-zA-Z0-9]){6,}$/)) {
+            setError("La contraseña solo puede incluir letras y/o números!");
         } else {
 
             const promise = post("signup/", {
@@ -44,6 +46,7 @@ const UserForm = () => {
                     window.location.reload();
                 })
                 .catch(error => {
+                    console.log("error")
                     if (error.status === BAD_REQUEST) {
                         if (user.firstName === "" || user.lastName === "" || user.email === "" || user.phoneNumber === "" || password1 === "") {
                             setError("Por favor completar todos los campos")
@@ -51,6 +54,8 @@ const UserForm = () => {
                             setError("El email no pertenece a la organización o no es válido")
                         } else if (!/^([a-zA-Z0-9]{6,})$/.test(password1)) {
                             setError("Contraseña debe ser alfanumérica de 6 caracteres mínimo")
+                        } else {
+                            setError("Ya hay una cuenta asociada con este mail!");
                         }
                     } else {
                         setError("Error inesperado, intente de nuevo.");

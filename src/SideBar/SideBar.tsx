@@ -37,11 +37,6 @@ const adminRows = [
         path: '/book'
     },
     {
-        title: 'Ejemplares',
-        icon: 'copy',
-        path: ''
-    },
-    {
         title: 'Préstamos',
         icon: 'clipboard-list',
         path: ''
@@ -50,6 +45,11 @@ const adminRows = [
         title: 'Sanciones',
         icon: 'ban',
         path: ''
+    },
+    {
+        title: 'Mi Perfil',
+        icon: 'user-circle',
+        path: '/profile'
     }
 ]
 
@@ -59,7 +59,7 @@ const SideBar = (props: Props) => {
             <div className={"name-and-img-container"}>
                 <i className="far fa-user-circle user-circle-2x"/>
                 <div className={"side-bar-name-container"}>
-                    <div className={"side-bar-name"}>Juan Ignacio Rodriguez</div>
+                    <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
                     {props.isAdmin && <div className={"side-bar-name"}>Administrador/a</div>}
                 </div>
             </div>

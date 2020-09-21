@@ -118,3 +118,8 @@
 .login-screen .button:focus{
     outline: none;
 }
+
+.register-button {
+    font-style: italic;
+    padding-bottom: 20px;
+}

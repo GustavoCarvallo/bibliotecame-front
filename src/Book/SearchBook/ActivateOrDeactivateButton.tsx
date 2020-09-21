@@ -23,7 +23,7 @@ const ActivateOrDeactivateButton = (props: Props) => {
     const [modalOpen, setModalOpen] = React.useState(false);
 
     const activate = () => {
-        post(`book/${props.id}/activate`,[],).then( () => {
+        post(`book/${props.id}/activate`,[]).then( () => {
                 alert('El libro ha sido activado correctamente');
                 setActive(true);
                 closeActivateModal();
@@ -34,7 +34,7 @@ const ActivateOrDeactivateButton = (props: Props) => {
     }
 
     const deactivate = () => {
-        post(`book/${props.id}/deactivate`,[],).then( () => {
+        post(`book/${props.id}/deactivate`,[]).then( () => {
                 alert('El libro ha sido desactivado correctamente');
                 setActive(false);
                 closeActivateModal();

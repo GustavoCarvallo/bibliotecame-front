@@ -21,7 +21,7 @@ const CreateBook = (props: Props) => {
     const [book, setBook] = React.useState<Book>({...initialBook});
 
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
-        post("book", book, {headers: {"Content-Type": "application/json"}})
+        post("book", book)
             .then(res =>
             {
                 setBook({...initialBook})

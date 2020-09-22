@@ -1,0 +1,70 @@
+.top-bar {
+    height: 10vh;
+    border: solid 1px #707070;
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 1.5fr;
+}
+
+.top-bar-title {
+    width: 335px;
+    height: 72px;
+    font-family: PlayfairDisplay, serif;
+    font-size: 54px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: italic;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: left;
+    color: #030303;
+    margin: auto;
+}
+
+.top-bar-right {
+    display: grid;
+    grid-template-columns: 1.5fr 4fr 1fr;
+}
+
+.vertical-divider {
+    border-right: 2px solid #f1f1f1;
+}
+
+.user-circle-regular {
+    font-size: 35px;
+    object-fit: contain;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-self: center;
+}
+
+.top-bar-user-name {
+    width: 93px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.31;
+    letter-spacing: 0;
+    text-align: left;
+    color: #030303;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.sign-out-alt-solid {
+   font-size: 33px;
+    object-fit: contain;
+}
+
+.link-un-styled {
+    text-decoration: none;
+    color: inherit;
+}
+
+.log-out-icon-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: fit-content;
+}

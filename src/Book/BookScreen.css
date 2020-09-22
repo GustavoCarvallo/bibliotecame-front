@@ -1,0 +1,13 @@
+.book-screen .enable-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    color: var(--mid-green);
+}
+
+.book-screen .disable-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    color: var(--orangey-red);
+}

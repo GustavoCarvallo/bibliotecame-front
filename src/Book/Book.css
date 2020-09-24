@@ -4,6 +4,11 @@
     overflow: scroll;
 }
 
+.book-main-container .Toastify__toast-container{
+    margin-left: 130px;
+    top: -45px;
+}
+
 .create-book-container {
     width: 800px;
     height: 651px;

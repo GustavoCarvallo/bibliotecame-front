@@ -123,3 +123,7 @@
     font-style: italic;
     padding-bottom: 20px;
 }
+
+.login-form .field-container {
+    margin: 2%;
+}

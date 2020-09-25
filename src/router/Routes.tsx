@@ -3,8 +3,7 @@ import {
     BrowserRouter,
     Switch,
     Route,
-    Redirect,
-    useParams
+    Redirect
 } from "react-router-dom";
 import AuthRoute from "./AuthRoute";
 import ReverseAuthRoute from "./ReverseAuthRoute";
@@ -12,7 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import SignUp from "../signUp/SignUp";
 import "./Routes.css";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
@@ -28,6 +27,9 @@ const Router = () => {
         <BrowserRouter>
             <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"> </script>
             <div className="App">
+                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
+                />
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                     <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={0}/>}/>

@@ -8,6 +8,7 @@ type Props = {
     isOpen: boolean,
     onClose: () => void,
     selectedBook: Book,
+    handleLoan: (book :Book) => void
 }
 
 const rows = [
@@ -58,7 +59,7 @@ const BookDetails = (props: Props) => {
                     </div>
                 ))}
                 <div className={'request-loan-container'}>
-                    <button className="request-loan-button">
+                    <button className="request-loan-button" onClick={() => props.handleLoan(props.selectedBook)}>
                         <p className="request-loan-button-label">Solicitar Prestamo</p>
                     </button>
                     <h3 className={'available-copies-text'}>Ejemplares disponibles: {props.selectedBook.copies?.filter(copy => !copy.booked).length}</h3>

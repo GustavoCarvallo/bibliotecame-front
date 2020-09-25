@@ -10,3 +10,8 @@
 .delete-button-container {
     padding-bottom: 20px;
 }
+
+.Toastify__toast-container .profileToast{
+    margin-left: 18%;
+    top: 62px;
+}

@@ -13,6 +13,7 @@
 
 .error-container.show {
     display: flex;
+    justify-content: center;
 }
 
 .error-container.hide {

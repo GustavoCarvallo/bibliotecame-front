@@ -4,7 +4,7 @@ import CreateOrEditBook from "../CreateOrEditBook";
 import {put} from "../../utils/http";
 import CreateCopyModal from "../CreateCopy/CreateCopyModal";
 import ActivateDeactivateCopyModal from "../ActivateDeactivateCopy/ActivateDeactivateCopyModal";
-import {toast, ToastContainer, ToastOptions} from "react-toastify";
+import {toast,ToastOptions} from "react-toastify";
 import "./EditBook.css"
 
 type Props = {
@@ -104,19 +104,15 @@ const EditBook = (props: Props) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
+        className: "bookToast"
     }
 
     const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
 
-    const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
-
 
     return (
         <div className={"edit-book"}>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
             <CreateCopyModal isOpen={openNewCopy} onClose={closeNewCopyModal}
                              book={props.selectedBook}
                              onSuccess={onCreateCopySuccess}

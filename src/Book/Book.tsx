@@ -103,7 +103,7 @@ const Book = (props: Props) => {
     const notifyError = (message : string) => toast.error(message, toastifyConfigurations);
 
     const handleLoan = (book : Book) => {
-        const promise =  post(`loan/ ${book.id}`, {});
+        const promise =  post(`loan/${book.id}`, {});
         promise.then(res => {
             notifySuccess(res.expirationDate);
         })

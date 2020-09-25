@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Login.css";
-import {toast, ToastContainer, ToastOptions} from "react-toastify";
+import {toast, ToastOptions} from "react-toastify";
 import LoginForm from "./LoginForm";
 import "../common/Notify.css"
 import {useLocation, useHistory, Link} from 'react-router-dom';
@@ -39,9 +39,6 @@ function Login() {
 
     return (
         <div className={"login-screen"}>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
             <h1 className={"Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>

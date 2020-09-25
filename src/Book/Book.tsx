@@ -5,7 +5,7 @@ import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
 import {get, post} from "../utils/http";
 import SearchBook from "./SearchBook/SearchBook";
-import {toast, ToastContainer, ToastOptions} from "react-toastify";
+import {toast, ToastOptions} from "react-toastify";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -60,7 +60,8 @@ const Book = (props: Props) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined
+        progress: undefined,
+        className: "loanToast"
     }
 
     const handleOpenCreation = () => {
@@ -163,9 +164,6 @@ const Book = (props: Props) => {
 
     return (
         <div className={"book-main-container"}>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
             {renderView(status)}
         </div>
     )

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./DeleteButton.css";
 import "../common/Notify.css";
 import "./Profile.css";
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
@@ -57,7 +57,8 @@ function Profile() {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined});
+        progress: undefined,
+        className: "profileToast"});
 
     const handleSetSuccess = (success: boolean, message?: string) => {
         setSuccess({
@@ -110,10 +111,6 @@ function Profile() {
                         <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
                     </div>
                 </GenericModal>
-
-                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-                />
 
             </div>
         </div>

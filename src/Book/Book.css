@@ -4,9 +4,9 @@
     overflow: scroll;
 }
 
-.book-main-container .Toastify__toast-container{
-    margin-left: 130px;
-    top: -45px;
+.Toastify__toast-container .loanToast{
+    margin-left: 18%;
+    top: 62px;
 }
 
 .create-book-container {

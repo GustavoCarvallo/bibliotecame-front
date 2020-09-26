@@ -53,6 +53,7 @@ const SearchBookTable = (props: Props) => {
             <div className={"search-book-table"}>
                 <GenericTable columns={columns}
                               className={"table--4cols"}
+                              noDataText={"Libro no encontrado"}
                               data={props.paginationData?.content ?? []}/>
             </div>
             <div className={"search-book-pagination-container"}>

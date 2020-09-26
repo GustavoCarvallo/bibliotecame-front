@@ -5,6 +5,7 @@ type Props = {
     columns: Column[],
     data: any[],
     className?: string,
+    noDataText?: string,
 }
 
 export type Column = {
@@ -20,7 +21,7 @@ const GenericTable = (props: Props) => {
                 <div className={"generic-table-header-row"}>
                     {props.columns.map(column => <div className={"generic-table-header-text generic-table-column"}>{column.header}</div>)}
                 </div>
-                {props.data.map(row => (
+                {props.data.length > 0 ? props.data.map(row => (
                     <div className={"generic-table-row"}>
                         {props.columns.map(col => (
                             <div className={"generic-table-column"}>
@@ -29,7 +30,11 @@ const GenericTable = (props: Props) => {
                             )
                         )}
                     </div>
-                ))}
+                )) :
+                    (
+                        <div className={"no-data-text-container"}>{props.noDataText ?? "No hay información"}</div>
+                    )
+                }
             </div>
     )
 }

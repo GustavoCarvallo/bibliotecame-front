@@ -1,6 +1,7 @@
-.edit-book .Toastify__toast{
-    top: 145px;
-    left: 110px;
+
+.Toastify__toast-container .bookToast{
+    margin-left: 18%;
+    top: 152px;
 }
 
 .edit-book .rectangle-6{

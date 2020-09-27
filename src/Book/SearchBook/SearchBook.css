@@ -1,8 +1,14 @@
 .book-search-container {
-    width: 40%;
-    display: grid;
-    grid-template-columns: 4fr 1fr;
-    margin: 5% auto auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    margin-top: 5vh;
+    height: 50px;
+}
+
+.book-search-container .field-container {
+    width: 30vw;
 }
 
 .book-search-container .search-field {
@@ -21,6 +27,8 @@
 .book-search-container .add-button {
     font-size: 40px;
     color: var(--mid-green);
+    align-self: center;
+    margin-left: 10px;
 }
 
 .search-book-table-container {

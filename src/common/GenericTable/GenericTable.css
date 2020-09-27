@@ -1,4 +1,5 @@
 .generic-table-container {
+    height: inherit;
 }
 
 .generic-table-container .generic-table-header-row {
@@ -24,6 +25,16 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.generic-table-container .no-data-text-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto, serif;
+    font-size: 23px;
+    font-weight: bold;
 }
 
 .table--2cols .generic-table-column  { width: 50%; }

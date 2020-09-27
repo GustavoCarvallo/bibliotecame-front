@@ -1,13 +1,15 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
-import {get} from "../../utils/http";
-import {Book} from "../Book";
 import "./SearchBookTable.css";
 import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
+import ReactPaginate from 'react-paginate';
+import {PaginationData} from "./SearchBook";
 
 type Props = {
     isAdmin: boolean,
     openBookDetails: (id: number) => void,
+    paginationData?: PaginationData,
+    changePage: (page: number) => void;
 }
 
 const constColumns: Column[] = [
@@ -45,19 +47,31 @@ const SearchBookTable = (props: Props) => {
             }
         ];
 
-    const [books, setBooks] = React.useState<Book[]>([])
-
-    useEffect(() => {
-        get('book')
-            .then(res => setBooks(res))
-            .catch(err => console.log(err));
-    }, [])
 
     return (
         <>
-            <GenericTable columns={columns}
-                          className={"table--4cols"}
-                          data={books}/>
+            <div className={"search-book-table"}>
+                <GenericTable columns={columns}
+                              className={"table--4cols"}
+                              noDataText={"Libro no encontrado"}
+                              data={props.paginationData?.content ?? []}/>
+            </div>
+            <div className={"search-book-pagination-container"}>
+            <ReactPaginate pageCount={props.paginationData?.totalPages ?? 0}
+                           marginPagesDisplayed={2}
+                           pageRangeDisplayed={4}
+                           forcePage={props.paginationData?.pageable.pageNumber ?? 0}
+                           onPageChange={(data) => props.changePage(data.selected)}
+                           nextLabel={"Próximo"}
+                           previousLabel={"Anterior"}
+                           breakLabel={'...'}
+                           pageClassName={"pagination-page"}
+                           nextClassName={"pagination-next"}
+                           previousClassName={"pagination-previous"}
+                           breakClassName={"pagination-break"}
+                           activeClassName={"pagination-active-page"}
+                           containerClassName={"pagination-container"}/>
+            </div>
         </>
     )
 }

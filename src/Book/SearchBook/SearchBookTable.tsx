@@ -4,12 +4,21 @@ import "./SearchBookTable.css";
 import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
 import ReactPaginate from 'react-paginate';
 import {PaginationData} from "./SearchBook";
+import GenericModal from "../../common/GenericModal/GenericModal";
+import {post} from "../../utils/http";
+import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
 
 type Props = {
     isAdmin: boolean,
     openBookDetails: (id: number) => void,
     paginationData?: PaginationData,
     changePage: (page: number) => void;
+}
+
+export type ActivateInformation = {
+    id: number,
+    active: boolean,
+    callBack: (active: boolean)=>void,
 }
 
 const constColumns: Column[] = [
@@ -28,6 +37,9 @@ const constColumns: Column[] = [
 ]
 
 const SearchBookTable = (props: Props) => {
+    const [modalOpen, setModalOpen] = React.useState(false);
+    const [activateInformation, setActivateInformation] = React.useState<ActivateInformation | undefined>(undefined);
+
     const columns: Column[] =
         [
             ...constColumns,
@@ -36,7 +48,9 @@ const SearchBookTable = (props: Props) => {
                 component: props.isAdmin ?
                     (row => (
                         <div className={'admin-search-actions'}>
-                            <ActivateOrDeactivateButton defaultValue={row.active} id={row.id}/>
+                            <ActivateOrDeactivateButton defaultValue={row.active}
+                                                        openModal={openModal}
+                                                        id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
                                onClick={() => props.openBookDetails(row.id)}/>
                         </div>
@@ -47,9 +61,17 @@ const SearchBookTable = (props: Props) => {
             }
         ];
 
+    const openModal = (id: number, active: boolean, callBack: (active:boolean)=>void) => {
+        setModalOpen(true);
+        setActivateInformation({id, active, callBack});
+    }
+
 
     return (
         <>
+            <ActivateOrDeactivateModal open={modalOpen}
+                                       setOpen={setModalOpen}
+                                       activateInformation={activateInformation}/>
             <div className={"search-book-table"}>
                 <GenericTable columns={columns}
                               className={"table--4cols"}

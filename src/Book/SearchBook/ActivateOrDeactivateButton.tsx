@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {post} from "../../utils/http";
 import GenericModal from "../../common/GenericModal/GenericModal";
 
@@ -20,6 +20,8 @@ const deactivateText = "¿Estas seguro que quieres deshabilitar el libro?\n" +
 
 const ActivateOrDeactivateButton = (props: Props) => {
     const [active, setActive] = React.useState(props.defaultValue);
+    useEffect( () => setActive(props.defaultValue), [props])
+
     const [modalOpen, setModalOpen] = React.useState(false);
 
     const activate = () => {

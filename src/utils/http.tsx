@@ -21,7 +21,7 @@ const request = (url: string, method: string, body: Object | null, config: Confi
             return res.json()
         })
         .catch(status => {
-            if (status === 403 && token) {
+            if (status.status === 403 && token) {
                 console.error('Token has expired');
                 localStorage.removeItem('token');
                 localStorage.removeItem('admin');

@@ -50,7 +50,8 @@ const SearchBookTable = (props: Props) => {
                         <div className={'admin-search-actions'}>
                             <ActivateOrDeactivateButton defaultValue={row.active}
                                                         openModal={openModal}
-                                                        id={row.id}/>
+                                                        id={row.id}
+                                                        key={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
                                onClick={() => props.openBookDetails(row.id)}/>
                         </div>

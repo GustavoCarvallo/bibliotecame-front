@@ -1,5 +1,6 @@
 .generic-table-container {
     height: inherit;
+    min-height: inherit;
 }
 
 .generic-table-container .generic-table-header-row {
@@ -14,7 +15,7 @@
 .generic-table-container .generic-table-row {
     display: flex;
     border-bottom: solid 1px var(--brownish-grey);
-    height: 35px;
+    min-height: 35px;
 }
 
 .generic-table-container .generic-table-row .generic-table-column {
@@ -25,10 +26,14 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .generic-table-container .no-data-text-container {
-    height: 100%;
+    height: inherit;
+    min-height: inherit;
     display: flex;
     justify-content: center;
     align-items: center;

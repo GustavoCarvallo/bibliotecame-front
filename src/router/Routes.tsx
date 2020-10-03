@@ -19,6 +19,7 @@ import Profile from "../Profile/Profile";
 import "../common/Notify.css";
 import Login from "../Login/Login"
 import "../common/Notify.css"
+import LoanScreen from "../loan/LoanScreen";
 const isAdmin = localStorage.getItem('admin') === 'true';
 
 const Router = () => {
@@ -36,6 +37,7 @@ const Router = () => {
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen/>} isAdmin={isAdmin} selected={1}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>

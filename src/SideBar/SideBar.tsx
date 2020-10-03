@@ -16,7 +16,7 @@ const userRows = [
     {
         title: 'Préstamos Activos',
         icon: 'book',
-        path: '',
+        path: '/loans',
     },
     {
         title: 'Historial de Préstamos',

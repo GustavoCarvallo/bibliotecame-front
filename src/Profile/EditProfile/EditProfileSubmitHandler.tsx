@@ -27,12 +27,18 @@ const EditProfileSubmitHandler = (props: Props) => {
                         localStorage.setItem('admin', res.admin);
                         localStorage.setItem('fullName', res.fullName);
                     })
-                    .catch(err => catchCallback(err.status))
-
+                    .catch((error) => {
+                    error.then((e:any)=>{
+                        catchCallback(e);
+                    });
+                })
                 thenCallback()
             })
-            .catch(err => catchCallback(err.status));
-    }
+            .catch((error) => {
+                error.then((e:any)=>{
+                    catchCallback(e);
+                });
+            })    }
 
     return (
         <>

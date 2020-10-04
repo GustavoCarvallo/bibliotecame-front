@@ -107,9 +107,10 @@ const Book = (props: Props) => {
         promise.then(res => {
             notifySuccess(res.expirationDate);
         })
-            .catch(e => {
-                console.log(e);
-                notifyError(e);
+            .catch((error) => {
+                error.then((e:any)=>{
+                    notifyError(e);
+                });
             })
             .finally(()=> {
                 setSelectedBook(undefined);

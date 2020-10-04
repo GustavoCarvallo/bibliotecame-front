@@ -23,7 +23,7 @@ type Errors = {
     authorError: boolean,
     publisherError: boolean,
     yearErrors: YearErrors,
-    serverError?: number,
+    serverError?: string,
 }
 
 type YearErrors = {
@@ -65,7 +65,7 @@ const CreateOrEditBook = (props: Props) => {
         let newErrors = validateBook(props.book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit(props.book, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
+            props.handleSubmit(props.book, handleSuccess, (status: string) => setErrors({...newErrors, serverError: status}))
         }else {
             setErrors(newErrors);
         }
@@ -161,7 +161,7 @@ const CreateOrEditBook = (props: Props) => {
             (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
             (errors.yearErrors.yearHigher && renderError("Año debe ser menor a " + MAX_YEAR)) ||
             (errors.yearErrors.yearLower && renderError("Año debe ser mayor a " + MIN_YEAR)) ||
-            (errors.serverError && renderStatusError(errors.serverError))
+            (errors.serverError && renderError(errors.serverError))
             }
             <div>
                 <div className="box">
@@ -209,17 +209,6 @@ const CreateOrEditBook = (props: Props) => {
             </div>
         </div>
     )
-}
-
-const renderStatusError = (status: number) => {
-    switch (status) {
-        case 400:
-            return renderError("Comprobar que el autor y la editorial hayan sido cargados")
-        case 406:
-            return renderError("El libro ya existe en el sistema")
-        default:
-            return renderError("Error del servidor")
-    }
 }
 
 const renderError = (message: string) => {

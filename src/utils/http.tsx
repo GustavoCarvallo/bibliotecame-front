@@ -7,29 +7,33 @@ type Config = {
 
 const request = (url: string, method: string, body: Object | null, config: Config) => {
     const token = localStorage['token'];
-    let headers = (!config.noAuth && token) ? {"Content-Type": "application/json", Authorization: "Bearer " + token} : {"Content-Type": "application/json"};
+    let headers = (!config.noAuth && token) ? {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+    } : {"Content-Type": "application/json"};
     const configuration: Object = {
         method: method,
         body: body ? JSON.stringify(body) : undefined,
         headers: headers,
     };
     return fetch(baseUrl + url, configuration)
-        .then(res => {
-            if(!res.ok){
-                throw {status: res.status};
-            }
-            return res.json()
-        })
-        .catch(status => {
-            if (status === 403 && token) {
-                console.error('Token has expired');
-                localStorage.removeItem('token');
-                localStorage.removeItem('admin');
-                window.location.reload();
-            }
-            throw status;
-        });
+        .then(checkStatus).then(parseJSON);
 }
+
+export const checkStatus = (response: any) => {
+    const hasError = (response.status < 200 || response.status > 300)
+    if(response.status===403 && localStorage['token']) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('admin');
+            window.location.reload();
+        }
+    if(hasError) {
+        throw response.text()
+    }
+    return response;
+}
+
+export const parseJSON = (response: any) => response.json()
 
 export const get = (url: string, config = {}) => request(url, "GET", null, config);
 export const post = (url: string, body: Object, config = {}) => request(url, "POST", body, config);

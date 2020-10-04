@@ -32,8 +32,10 @@ const ActivateOrDeactivateModal = (props: Props) => {
                 props.activateInformation?.callBack(true);
                 closeActivateModal();
             }
-        ).catch(error => {
-            alert('El libro no pudo ser activado correctamente')
+        ).catch((error) => {
+            error.then((e:any)=>{
+                alert(e);
+            });
         })
     }
 
@@ -43,8 +45,10 @@ const ActivateOrDeactivateModal = (props: Props) => {
                 props.activateInformation?.callBack(false);
                 closeActivateModal();
             }
-        ).catch(error => {
-            alert('El libro no pudo ser desactivado correctamente')
+        ).catch((error) => {
+            error.then((e:any)=>{
+                alert(e);
+            });
         })
     }
 

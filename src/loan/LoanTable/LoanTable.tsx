@@ -8,17 +8,18 @@ type Props = {
 }
 
 const statusTypes = [
-    {key: 'PENDING_EXTENSION', class: 'pending-approval',translation: 'Prórroga Pend.'},
+    {key: 'PENDING_EXTENSION', class: 'pending-approval', translation: 'Prórroga Pend.'},
     {key: 'APPROVED_EXTENSION', class: 'approved', translation: 'Prórroga Rech.'},
     {key: 'REJECTED_EXTENSION', class: 'rejected', translation: 'Prórroga Acp.'},
     {key: 'DELAYED', class: 'delayed', translation: 'Atrasado'},
     {key: 'WITHDRAWN', class: 'withdrawn', translation: 'Retirado'},
+    {key: 'READY_FOR_WITHDRAWAL', class: 'withdrawn', translation: 'Listo para ret.'},
 ]
 
 const LoanTable = (props: Props) => {
     const getStatusComponent = (loanStatus: string) => {
         const statusObject = statusTypes.find(o => o.key === loanStatus);
-        return <div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>
+        return (<div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>)
     }
 
     const columns: Column[] = [
@@ -36,10 +37,13 @@ const LoanTable = (props: Props) => {
         },
         {
             header: "Acciones",
-            component: row => {return row.loanStatus === 'WITHDRAWN' ? <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>}
+            component: row => {
+                return row.loanStatus === 'WITHDRAWN' ?
+                    <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>
+            }
         }
     ]
-    return(
+    return (
         <GenericTable columns={columns}
                       className={"table--4cols"}
                       noDataText={"No hay reservas"}

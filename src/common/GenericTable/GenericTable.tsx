@@ -25,7 +25,7 @@ const GenericTable = (props: Props) => {
                     <div className={"generic-table-row"}>
                         {props.columns.map(col => (
                             <div className={"generic-table-column"}>
-                                {col.component ? col.component(row) : (col.accessor ? row[col.accessor] : undefined) }
+                                {col.component ? col.component(row) : (col.accessor ? <span className={"table-column-text"}>{row[col.accessor]}</span> : undefined) }
                             </div>
                             )
                         )}

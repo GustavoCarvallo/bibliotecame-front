@@ -15,20 +15,22 @@
 .generic-table-container .generic-table-row {
     display: flex;
     border-bottom: solid 1px var(--brownish-grey);
-    min-height: 35px;
+    height: 35px;
 }
 
 .generic-table-container .generic-table-row .generic-table-column {
     font-family: Roboto, serif;
     font-size: 16px;
-    line-height: 2.81;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.generic-table-column .table-column-text {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .generic-table-container .no-data-text-container {

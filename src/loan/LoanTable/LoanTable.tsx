@@ -13,7 +13,7 @@ const statusTypes = [
     {key: 'REJECTED_EXTENSION', class: 'rejected', translation: 'Prórroga Acp.'},
     {key: 'DELAYED', class: 'delayed', translation: 'Atrasado'},
     {key: 'WITHDRAWN', class: 'withdrawn', translation: 'Retirado'},
-    {key: 'READY_FOR_WITHDRAWAL', class: 'withdrawn', translation: 'Listo para ret.'},
+    {key: 'READY_FOR_WITHDRAWAL', class: 'ready-for-withdrawal', translation: 'Listo para ret.'},
 ]
 
 const LoanTable = (props: Props) => {

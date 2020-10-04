@@ -18,7 +18,11 @@
     background-color: var(--dodger-blue);
 }
 
-.loan-approved-chip,.loan-delayed-chip,.loan-pending-approval-chip,.loan-rejected-chip,.loan-withdrawn-chip {
+.loan-ready-for-withdrawal-chip {
+    background-color: var(--cerulean);
+}
+
+.loan-approved-chip,.loan-delayed-chip,.loan-pending-approval-chip,.loan-rejected-chip,.loan-withdrawn-chip,.loan-ready-for-withdrawal-chip {
     border-radius: 33px;
     color: var(--white);
     border: none;

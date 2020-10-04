@@ -4,8 +4,6 @@ import "./SearchBookTable.css";
 import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
 import ReactPaginate from 'react-paginate';
 import {PaginationData} from "./SearchBook";
-import GenericModal from "../../common/GenericModal/GenericModal";
-import {post} from "../../utils/http";
 import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
 
 type Props = {
@@ -50,8 +48,8 @@ const SearchBookTable = (props: Props) => {
                         <div className={'admin-search-actions'}>
                             <ActivateOrDeactivateButton defaultValue={row.active}
                                                         openModal={openModal}
-                                                        id={row.id}
-                                                        key={row.id}/>
+                                                        key={row.id}
+                                                        id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
                                onClick={() => props.openBookDetails(row.id)}/>
                         </div>

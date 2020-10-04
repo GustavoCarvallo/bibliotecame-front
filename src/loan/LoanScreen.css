@@ -1,0 +1,16 @@
+.loan-screen-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.loan-screen-container .loan-table-container {
+    padding: 50px 40px;
+    width: 50vw;
+    min-height: 20vh;
+    box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--brownish-grey);
+    background-color: var(--white);
+    border-radius: 25px;
+    margin: 3vh auto auto;
+}

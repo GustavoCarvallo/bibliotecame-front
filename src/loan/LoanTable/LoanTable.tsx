@@ -1,52 +1,42 @@
 import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
-import {dateDiffInDays, Extension, Loan} from "../LoanScreen";
+import {Loan} from "../LoanScreen";
 import "./LoanTable.css";
 
 type Props = {
     data: Loan[];
 }
 
-const translations = [
-    {key: 'PENDING-APPROVAL',value: 'Prórroga Pend.'},
-    {key: 'ACCEPTED', value: 'Prórroga Rech.'},
-    {key: 'REJECTED', value: 'Prórroga Acp.'},
-    {key: 'DUE', value: 'Atrasado'},
-    {key: 'WITHDRAWN', value: 'Retirado'}
+const statusTypes = [
+    {key: 'PENDING_EXTENSION', class: 'pending-approval',translation: 'Prórroga Pend.'},
+    {key: 'APPROVED_EXTENSION', class: 'approved', translation: 'Prórroga Rech.'},
+    {key: 'REJECTED_EXTENSION', class: 'rejected', translation: 'Prórroga Acp.'},
+    {key: 'DELAYED', class: 'delayed', translation: 'Atrasado'},
+    {key: 'WITHDRAWN', class: 'withdrawn', translation: 'Retirado'},
 ]
 
 const LoanTable = (props: Props) => {
-    const getStatusComponent = (expirationDate: string, extension: Extension) => {
-        const status = getStatus(expirationDate, extension);
-        const translation = translations.find(o => o.key === status);
-        return <div className={`loan-${status.toLowerCase()}-chip`}>{translation?.value ?? ''}</div>
-    }
-
-    const getStatus = (expirationDate: string, extension: Extension) => {
-        if (extension !== null){
-            if (extension.status === "PENDING_APPROVAL") return 'PENDING-APPROVAL';
-            return extension.status;
-        }else {
-            return dateDiffInDays(new Date(expirationDate), new Date()) > 0 ? 'DUE' : 'WITHDRAWN';
-        }
+    const getStatusComponent = (loanStatus: string) => {
+        const statusObject = statusTypes.find(o => o.key === loanStatus);
+        return <div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>
     }
 
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <span>{row.bookTitle} - {row.bookAuthor}</span>
+            component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
         },
         {
             header: "Fecha de devolución",
-            accessor: "expirationDate",
+            accessor: "expectedReturnDate",
         },
         {
             header: "Estado",
-            component: row => <>{getStatusComponent(row.expirationDate, row.extension)}</>,
+            component: row => <>{getStatusComponent(row.loanStatus)}</>
         },
         {
             header: "Acciones",
-            component: row => {return getStatus(row.expirationDate, row.extension) === 'WITHDRAWN' ? <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>}
+            component: row => {return row.loanStatus === 'WITHDRAWN' ? <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>}
         }
     ]
     return(

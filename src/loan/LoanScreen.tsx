@@ -1,25 +1,14 @@
 import React, {useEffect} from 'react';
 import "./LoanScreen.css";
 import LoanTable from "./LoanTable/LoanTable";
-import {Copy} from "../Book/Book";
 import {get} from "../utils/http";
 
 export type Loan = {
-    id?: number,
-    copy: Copy,
-    reservationDate: string,
-    withdrawalDate: string,
     returnDate: string,
-    expirationDate: string,
-    extension?: Extension,
-    bookTitle?: string,
-    bookAuthor?: string,
-}
-
-export type Extension = {
-    id?: number,
-    status: string,
-    creationDate: string
+    expectedReturnDate: string,
+    loanStatus: string,
+    bookTitle: string,
+    bookAuthor: string,
 }
 
 const LoanScreen = () => {
@@ -29,7 +18,7 @@ const LoanScreen = () => {
         get(`loan/actives`)
             .then(res => {
                 setLoans(res.filter((loan: Loan) => !loan.returnDate).sort((a: Loan, b: Loan) => {
-                    return dateDiffInDays(new Date(b.expirationDate), new Date(a.expirationDate));
+                    return dateDiffInDays(new Date(b.expectedReturnDate), new Date(a.expectedReturnDate));
                 }));
             })
             .catch(err => {})

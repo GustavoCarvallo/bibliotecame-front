@@ -6,11 +6,11 @@
     background-color: var(--scarlet);
 }
 
-.loan-accepted-chip {
+.loan-approved-chip {
     background-color: var(--mid-green);
 }
 
-.loan-due-chip {
+.loan-delayed-chip {
     background-color: var(--orangey-red);
 }
 
@@ -18,7 +18,7 @@
     background-color: var(--dodger-blue);
 }
 
-.loan-accepted-chip,.loan-due-chip,.loan-pending-approval-chip,.loan-rejected-chip,.loan-withdrawn-chip {
+.loan-approved-chip,.loan-delayed-chip,.loan-pending-approval-chip,.loan-rejected-chip,.loan-withdrawn-chip {
     border-radius: 33px;
     height: 70%;
     width: 70%;
@@ -50,4 +50,11 @@
 
 .request-extension-button:hover {
     cursor: pointer;
+}
+
+.loan-book-title-and-author {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

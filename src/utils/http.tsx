@@ -17,7 +17,23 @@ const request = (url: string, method: string, body: Object | null, config: Confi
         headers: headers,
     };
     return fetch(baseUrl + url, configuration)
-        .then(checkStatus).then(parseJSON);
+        .then(response => {
+            if(response.ok) return response.json();
+            // if the token has expired log out the user
+            else if(response.status === 403 && localStorage['token']) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('admin');
+                window.location.reload();
+            }
+            // if an error occurs on the server return the error as text (because we are returning plain text errors)
+            return response.text().then(error => {
+                throw (error)
+            })
+        })
+        // Catch connection errors and the error throw above.
+        .catch(error => {
+            throw(error)
+        })
 }
 
 export const checkStatus = (response: any) => {

@@ -45,9 +45,7 @@ const SearchBook = (props: Props) => {
                 setPaginationData(res);
             })
             .catch((error) => {
-                error.then((e:any)=>{
-                    alert(e);
-                });
+                    alert(error);
             })
     }
 

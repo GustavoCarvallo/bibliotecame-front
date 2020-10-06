@@ -28,10 +28,8 @@ const CreateBook = (props: Props) => {
                 setKey(key + 1);
                 thenCallback();
             })
-            .catch((error) => {
-                error.then((e:any)=>{
+            .catch((e) => {
                     catchCallback(e);
-                });
             })
     }
 

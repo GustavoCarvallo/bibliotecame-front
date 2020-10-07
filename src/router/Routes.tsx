@@ -39,7 +39,7 @@ const Router = () => {
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen/>} isAdmin={isAdmin} selected={1}/>}/>
-                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView onSuccess={notifySuccess} onError={notifyError}/>} isAdmin={isAdmin} selected={2}/>}/>
+                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} isAdmin={isAdmin} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -89,18 +89,5 @@ export function ProfileView() {
         </div>
     );
 }
-
-const toastifyConfiguration: ToastOptions = {
-    position: "top-center",
-    autoClose: 7000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-}
-
-const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
-const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
 
 export default Router;

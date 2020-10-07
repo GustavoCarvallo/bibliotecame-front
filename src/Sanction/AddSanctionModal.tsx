@@ -21,6 +21,11 @@ type User = {
 
 const AddSanctionModal = (props: Props) => {
 
+    const EXPECTATION_FAILED = 417;
+    const UNPROCESSABLE_ENTITY = 422;
+    const BAD_REQUEST = 400;
+
+
     const [sanction, setSanction] = useState<Sanction>({
         userEmail:"", endDate: new Date(), reason: ""
     })
@@ -33,9 +38,18 @@ const AddSanctionModal = (props: Props) => {
             props.onSuccess()
         })
             .catch(err => {
-                props.onError()
+                if(err.status === EXPECTATION_FAILED) props.onError("Fecha invalidad, debe ser posterior al dia de hoy y no mas de 3 meses desde ahora.")
+                else if(err.status === UNPROCESSABLE_ENTITY) props.onError("El alumno ya tiene una sancion activa.")
+                else if(err.status === BAD_REQUEST) props.onError("El email no fue reconosido por el sistema.")
+                else props.onError("Hubo un error. Intente de nuevo")
             })
         props.onClose();
+        setSanction({userEmail:"", endDate: new Date(), reason: ""})
+    }
+
+    const cancel = () => {
+        props.onClose()
+        setSanction({userEmail:"", endDate: new Date(), reason: ""})
     }
 
     const setList = (search: string) => {
@@ -61,7 +75,7 @@ const AddSanctionModal = (props: Props) => {
                             onChange={()=> {}}
                             onSelect={date => setSanction({userEmail: sanction.userEmail, endDate: date, reason: sanction.reason})}
                             placeholderText="Sancionado hasta"> </DatePicker>
-                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={props.onClose} createLabel={"Guardar"}/>
+                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}/>
             </div>
         </GenericModal>
     )

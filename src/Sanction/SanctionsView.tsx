@@ -18,8 +18,8 @@ const SanctionsView = () => {
         notifySuccess("Se ha sancionado al alumno/a exitosamente!")
     }
 
-    const onAddSanctionError = () => {
-        notifyError("Hubo un error, intente de nuevo")
+    const onAddSanctionError = (message: string) => {
+        notifyError(message)
     }
 
     const toastifyConfiguration: ToastOptions = {

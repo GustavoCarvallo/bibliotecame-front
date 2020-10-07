@@ -33,9 +33,9 @@ const AddSanctionModal = (props: Props) => {
     const [userList, setUserList] = useState<string[]>([])
 
     const handleAdd = () => {
-        const promise = post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
-        promise.then(res => {
-            props.onSuccess()
+        post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
+        .then(res => {
+            props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
         })
             .catch(err => {
                 if(err.status === EXPECTATION_FAILED) props.onError("Fecha invalidad, debe ser posterior al dia de hoy y no mas de 3 meses desde ahora.")
@@ -63,17 +63,17 @@ const AddSanctionModal = (props: Props) => {
         <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
             <div className={"add-sanction-body"}>
                 <DropdownInput list={userList}
-                               onChange={e => {setSanction({userEmail: e.target.value, endDate: sanction.endDate, reason: sanction.reason}); setList(e.target.value)}}
+                               onChange={e => {setSanction({...sanction, userEmail: e.target.value}); setList(e.target.value)}}
                                onSelect={row => setSanction({userEmail: row, endDate: sanction.endDate, reason: sanction.reason})}
                                placeholder={"Seleccione un alumno/a"}/>
                 <textarea className={"reason-input"}
                           value={sanction.reason}
-                          onChange={e => setSanction({userEmail: sanction.userEmail, endDate: sanction.endDate, reason: e.target.value})}
+                          onChange={e => setSanction({...sanction, reason: e.target.value})}
                           placeholder={"Ingrese una breve descripción del motivo de la sanción" }> </textarea>
                 <DatePicker className={"date-picker"}
                             selected={sanction.endDate}
                             onChange={()=> {}}
-                            onSelect={date => setSanction({userEmail: sanction.userEmail, endDate: date, reason: sanction.reason})}
+                            onSelect={date => setSanction({...sanction, endDate: date})}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}/>
             </div>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import IconButton from "../common/IconButton";
 import AddSanctionModal from "./AddSanctionModal";
-import {toast, ToastOptions} from "react-toastify";
 import "./SanctionsView.css"
 
 export type Sanction = {
@@ -10,31 +9,22 @@ export type Sanction = {
     reason: string
 }
 
-const SanctionsView = () => {
+type Props = {
+    onSuccess: (message:string) => void,
+    onError: (message:string) => void
+}
+
+const SanctionsView = (props: Props) => {
 
     const [sanctionModalState, setSanctionModalState] = useState<boolean>(false)
 
-    const onAddSanctionSuccess = (sanction:Sanction) => {
-        notifySuccess("Se ha sancionado al alumno/a exitosamente!")
+    const onAddSanctionSuccess = (message: string) => {
+        props.onSuccess(message)
     }
 
     const onAddSanctionError = (message: string) => {
-        notifyError(message)
+        props.onError(message)
     }
-
-    const toastifyConfiguration: ToastOptions = {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "sanctionToast"
-    }
-
-    const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
-    const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
 
     return(
         <div className={"sanctions-view"}>

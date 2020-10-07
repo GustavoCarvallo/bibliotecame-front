@@ -64,7 +64,7 @@ const AddSanctionModal = (props: Props) => {
             <div className={"add-sanction-body"}>
                 <DropdownInput list={userList}
                                onChange={e => {setSanction({...sanction, userEmail: e.target.value}); setList(e.target.value)}}
-                               onSelect={row => setSanction({userEmail: row, endDate: sanction.endDate, reason: sanction.reason})}
+                               onSelect={row => setSanction({...sanction, userEmail: row})}
                                placeholder={"Seleccione un alumno/a"}/>
                 <textarea className={"reason-input"}
                           value={sanction.reason}

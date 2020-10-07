@@ -1,0 +1,28 @@
+.add-sanction-body{
+    display: grid;
+    grid-template-columns: 700px;
+    grid-row-gap: 30px;
+    padding: 30px;
+}
+
+.sanction-modal  .modal-title{
+    color: var(--black);
+    font-family: Playfair Display, serif;
+}
+
+.add-sanction-body .reason-input{
+    width: 95%;
+    border-radius: 20px;
+    height: 125px;
+    padding: 2.5%;
+    font-family: Roboto, serif;
+    font-size: inherit;
+}
+
+.add-sanction-body .date-picker{
+    width: 96%;
+    border-radius: 18px;
+    border: solid 2px var(--cool-grey);
+    padding: 10px 2%;
+}
+

@@ -39,7 +39,7 @@ const adminRows = [
     {
         title: 'Préstamos',
         icon: 'clipboard-list',
-        path: ''
+        path: '/loans'
     },
     {
         title: 'Sanciones',

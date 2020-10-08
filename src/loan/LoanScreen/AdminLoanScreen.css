@@ -1,0 +1,84 @@
+.admin-loan-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.admin-loan-screen .success-message-container {
+    width: 50%;
+    height: 5%;
+    display: flex;
+    background-color: var(--mid-green);
+    color: var(--white);
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+
+.admin-loan-screen .success-message-container .success-message-text {
+    font-size: 16px;
+    font-family: Roboto, serif;
+}
+
+.admin-loan-screen .success-message-container .close-success-icon {
+    position: absolute;
+    right: 10px;
+    font-size: 30px;
+}
+
+.admin-loan-screen .success-message-container .close-success-icon:hover {
+    cursor: pointer;
+}
+
+.admin-loan-screen .success-message span {
+
+}
+
+.admin-loan-screen .admin-loan-table-container {
+    padding: 50px 40px;
+    width: 50vw;
+    height: 55vh;
+    box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--brownish-grey);
+    background-color: var(--white);
+    border-radius: 25px;
+}
+
+.admin-loan-screen .admin-loan-search-container {
+    width: 30vw;
+}
+
+.admin-loan-screen .admin-loan-search-container .field-container {
+    height: 5vh;
+}
+
+.loan-modal-body {
+    padding: 30px;
+    width: 30vw;
+}
+
+.loan-modal-body .loan-modal-button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.loan-modal-body .loan-modal-button-container .loan-modal-red-button,.loan-modal-green-button {
+    border: none;
+    border-radius: 33px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 20px;
+}
+
+.loan-modal-red-button {
+    background-color: var(--orangey-red);
+    color: var(--white);
+}
+
+.loan-modal-green-button {
+    background-color: var(--mid-green);
+    color: var(--white);
+}

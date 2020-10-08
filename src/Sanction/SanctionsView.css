@@ -1,0 +1,10 @@
+.sanctions-view .button-icon{
+    font-size: 2rem;
+    color: var(--mid-green);
+}
+
+.sanctions-view .icon{
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}

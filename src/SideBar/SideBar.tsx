@@ -44,7 +44,7 @@ const adminRows = [
     {
         title: 'Sanciones',
         icon: 'ban',
-        path: ''
+        path: '/sanctions'
     },
     {
         title: 'Mi Perfil',

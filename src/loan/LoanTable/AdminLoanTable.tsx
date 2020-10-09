@@ -11,7 +11,6 @@ type Props = {
     search: string,
     changePage: (page: number)=>void,
     paginationData?: PaginationData<Loan>,
-    handleAction: (info: Loan)=>void,
 }
 
 const AdminLoanTable = (props: Props) => {
@@ -36,14 +35,13 @@ const AdminLoanTable = (props: Props) => {
         {
             header: "Acciones",
             component: row => {
-                const onClick = () => props.handleAction(row);
                 switch (row.loanStatus) {
                     case "PENDING_EXTENSION":
-                        return <button className={"loan-table-button"} onClick={onClick}>Aceptar/Rechazar</button>
+                        return <button className={"loan-table-button"}>Aceptar/Rechazar</button>
                     case "DELAYED":
-                        return <button className={"loan-table-button"} onClick={onClick}>Confirmar devolución</button>
+                        return <button className={"loan-table-button"}>Confirmar devolución</button>
                     case "READY_FOR_WITHDRAWAL":
-                        return <button className={"loan-table-button"} onClick={onClick}>Confirmar retiro</button>
+                        return <button className={"loan-table-button"}>Confirmar retiro</button>
                     default:
                         return <></>
                 }

@@ -14,13 +14,13 @@ function LoginForm(props: Props){
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [hasError, setHasError] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (password === "" || email === "") {
-            setHasError(true);
+            setError("Las credenciales ingresadas no son correctas")
         } else {
             const promise = post("auth/", {
                     email: email,
@@ -29,15 +29,16 @@ function LoginForm(props: Props){
                 {noAuth: true});
 
             promise.then(res => {
-                setHasError(false);
+                setError("");
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
                 localStorage.setItem('fullName', res.fullName);
                 history.replace(props.whereTo);
                 history.go(0);
             })
-                .catch(() => {
-                    setHasError(true)
+                .catch(err => {
+                    if(err.status === 401) setError("Has sido sancionado. Comunicate con Administración")
+                    else setError("Las credenciales ingresadas no son correctas")
                 })
         }
     }
@@ -45,7 +46,7 @@ function LoginForm(props: Props){
 
     return (
         <div className={"login-form"}>
-            <ErrorBox error={"Las credenciales ingresadas no son correctas"} show={hasError}/>
+            <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit}>
                 <div className="box">
                     <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"}/>

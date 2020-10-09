@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
+import "./StudentLoanTable.css";
+import {get} from "../../utils/http";
 import {Loan} from "../LoanScreen";
-import "./LoanTable.css";
-
-type Props = {
-    data: Loan[];
-}
 
 const statusTypes = [
     {key: 'PENDING_EXTENSION', class: 'pending-approval', translation: 'Prórroga Pend.'},
@@ -13,14 +10,20 @@ const statusTypes = [
     {key: 'REJECTED_EXTENSION', class: 'rejected', translation: 'Prórroga Acp.'},
     {key: 'DELAYED', class: 'delayed', translation: 'Atrasado'},
     {key: 'WITHDRAWN', class: 'withdrawn', translation: 'Retirado'},
-    {key: 'READY_FOR_WITHDRAWAL', class: 'ready-for-withdrawal', translation: 'Listo para ret.'},
+    {key: 'READY_FOR_WITHDRAWAL', class: 'ready-for-withdrawal', translation: 'No retirado'},
 ]
 
-const LoanTable = (props: Props) => {
-    const getStatusComponent = (loanStatus: string) => {
-        const statusObject = statusTypes.find(o => o.key === loanStatus);
-        return (<div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>)
-    }
+const StudentLoanTable = () => {
+    const [loans, setLoans] = React.useState<Loan[]>([]);
+
+    useEffect(() => {
+        get(`loan/actives`)
+            .then(res => {
+                setLoans(res);
+            })
+            .catch(err => {
+            })
+    }, [])
 
     const columns: Column[] = [
         {
@@ -38,8 +41,7 @@ const LoanTable = (props: Props) => {
         {
             header: "Acciones",
             component: row => {
-                return row.loanStatus === 'WITHDRAWN' ?
-                    <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>
+                return row.loanStatus === 'WITHDRAWN' ? <button className={"loan-table-button"}>Solicitar Prórroga</button> : <></>
             }
         }
     ]
@@ -47,8 +49,13 @@ const LoanTable = (props: Props) => {
         <GenericTable columns={columns}
                       className={"table--4cols"}
                       noDataText={"No hay reservas"}
-                      data={props.data}/>
+                      data={loans}/>
     )
 }
 
-export default LoanTable;
+export const getStatusComponent = (loanStatus: string) => {
+    const statusObject = statusTypes.find(o => o.key === loanStatus);
+    return (<div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>)
+}
+
+export default StudentLoanTable;

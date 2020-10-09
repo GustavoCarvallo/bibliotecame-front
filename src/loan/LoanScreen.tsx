@@ -1,32 +1,29 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import "./LoanScreen.css";
-import LoanTable from "./LoanTable/LoanTable";
-import {get} from "../utils/http";
+import StudentLoanTable from "./LoanTable/StudentLoanTable";
+import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
 
 export type Loan = {
+    id: number,
     returnDate: string,
     expectedReturnDate: string,
     loanStatus: string,
     bookTitle: string,
     bookAuthor: string,
+    userEmail?: string,
 }
 
-const LoanScreen = () => {
-    const [loans, setLoans] = React.useState<Loan[]>([]);
+const LoanScreen = ({isAdmin}: { isAdmin: boolean }) => {
 
-    useEffect(() => {
-        get(`loan/actives`)
-            .then(res => {
-                setLoans(res);
-            })
-            .catch(err => {})
-    }, [])
-
-    return(
+    return (
         <div className={"loan-screen-container"}>
-            <div className={"loan-table-container"}>
-                <LoanTable data={loans}/>
-            </div>
+            {isAdmin ?
+                (<AdminLoanScreen/>)
+                :
+                (<div className={"student-loan-table-container"}>
+                    <StudentLoanTable/>
+                </div>)
+            }
         </div>
     )
 }

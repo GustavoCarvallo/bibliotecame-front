@@ -2,6 +2,7 @@ import React from 'react';
 import "./LoanScreen.css";
 import StudentLoanTable from "./LoanTable/StudentLoanTable";
 import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
+import {clearLoans} from "../utils/http";
 
 export type Loan = {
     id: number,
@@ -14,6 +15,8 @@ export type Loan = {
 }
 
 const LoanScreen = ({isAdmin}: { isAdmin: boolean }) => {
+
+    clearLoans(isAdmin);
 
     return (
         <div className={"loan-screen-container"}>

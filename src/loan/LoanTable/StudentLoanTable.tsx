@@ -1,8 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import "./StudentLoanTable.css";
-import {get} from "../../utils/http";
 import {Loan} from "../LoanScreen";
+
+type Props = {
+    data: Loan[];
+    handleRequestExtension: (row: Loan)=>void,
+}
 
 const statusTypes = [
     {key: 'PENDING_EXTENSION', class: 'pending-approval', translation: 'Prórroga Pend.'},
@@ -13,17 +17,7 @@ const statusTypes = [
     {key: 'READY_FOR_WITHDRAWAL', class: 'ready-for-withdrawal', translation: 'No retirado'},
 ]
 
-const StudentLoanTable = () => {
-    const [loans, setLoans] = React.useState<Loan[]>([]);
-
-    useEffect(() => {
-        get(`loan/actives`)
-            .then(res => {
-                setLoans(res);
-            })
-            .catch(err => {
-            })
-    }, [])
+const StudentLoanTable = (props: Props) => {
 
     const columns: Column[] = [
         {
@@ -41,15 +35,17 @@ const StudentLoanTable = () => {
         {
             header: "Acciones",
             component: row => {
-                return row.loanStatus === 'WITHDRAWN' ? <button className={"loan-table-button"}>Solicitar Prórroga</button> : <></>
+                return row.loanStatus === 'WITHDRAWN' ?
+                    <button className={"loan-table-button"} onClick={() => props.handleRequestExtension(row)}>Solicitar
+                        Prórroga</button> : <></>
             }
         }
     ]
     return (
-        <GenericTable columns={columns}
-                      className={"table--4cols"}
-                      noDataText={"No hay reservas"}
-                      data={loans}/>
+            <GenericTable columns={columns}
+                          className={"table--4cols"}
+                          noDataText={"No hay reservas"}
+                          data={props.data}/>
     )
 }
 

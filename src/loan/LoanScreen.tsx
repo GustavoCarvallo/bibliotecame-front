@@ -1,6 +1,6 @@
 import React from 'react';
 import "./LoanScreen.css";
-import StudentLoanTable from "./LoanTable/StudentLoanTable";
+import StudentLoanScreen from "./StudentLoanScreen/StudentLoanScreen";
 import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
 
 export type Loan = {
@@ -18,11 +18,9 @@ const LoanScreen = ({isAdmin}: { isAdmin: boolean }) => {
     return (
         <div className={"loan-screen-container"}>
             {isAdmin ?
-                (<AdminLoanScreen/>)
+                <AdminLoanScreen/>
                 :
-                (<div className={"student-loan-table-container"}>
-                    <StudentLoanTable/>
-                </div>)
+                <StudentLoanScreen/>
             }
         </div>
     )

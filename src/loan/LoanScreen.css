@@ -2,9 +2,10 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-top: 20px;
 }
 
-.loan-screen-container .loan-table-container {
+.loan-screen-container .student-loan-table-container {
     padding: 50px 40px;
     width: 50vw;
     min-height: 20vh;
@@ -12,5 +13,7 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 3vh auto auto;
+    height: fit-content;
 }
+
+

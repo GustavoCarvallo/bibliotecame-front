@@ -20,14 +20,14 @@ const request = (url: string, method: string, body: Object | null, config: Confi
             }
             return res.json()
         })
-        .catch(status => {
-            if (status === 403 && token) {
+        .catch(error => {
+            if (error.status === 403 && token) {
                 console.error('Token has expired');
                 localStorage.removeItem('token');
                 localStorage.removeItem('admin');
                 window.location.reload();
             }
-            throw status;
+            throw error;
         });
 }
 

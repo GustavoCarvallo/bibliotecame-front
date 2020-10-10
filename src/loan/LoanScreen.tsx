@@ -2,8 +2,10 @@ import React, {useEffect} from 'react';
 import "./LoanScreen.css";
 import LoanTable from "./LoanTable/LoanTable";
 import {get} from "../utils/http";
+import StudentLoanScreen from "./StudentLoanScreen/StudentLoanScreen";
 
 export type Loan = {
+    id: number,
     returnDate: string,
     expectedReturnDate: string,
     loanStatus: string,
@@ -12,21 +14,10 @@ export type Loan = {
 }
 
 const LoanScreen = () => {
-    const [loans, setLoans] = React.useState<Loan[]>([]);
-
-    useEffect(() => {
-        get(`loan/actives`)
-            .then(res => {
-                setLoans(res);
-            })
-            .catch(err => {})
-    }, [])
 
     return(
         <div className={"loan-screen-container"}>
-            <div className={"loan-table-container"}>
-                <LoanTable data={loans}/>
-            </div>
+            <StudentLoanScreen/>
         </div>
     )
 }

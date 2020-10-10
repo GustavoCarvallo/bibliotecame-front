@@ -5,6 +5,7 @@ import "./LoanTable.css";
 
 type Props = {
     data: Loan[];
+    handleRequestExtension: (row: Loan)=>void,
 }
 
 const statusTypes = [
@@ -17,6 +18,7 @@ const statusTypes = [
 ]
 
 const LoanTable = (props: Props) => {
+
     const getStatusComponent = (loanStatus: string) => {
         const statusObject = statusTypes.find(o => o.key === loanStatus);
         return (<div className={`loan-${statusObject?.class}-chip`}>{statusObject?.translation}</div>)
@@ -39,15 +41,16 @@ const LoanTable = (props: Props) => {
             header: "Acciones",
             component: row => {
                 return row.loanStatus === 'WITHDRAWN' ?
-                    <button className={"request-extension-button"}>Solicitar Prórroga</button> : <></>
+                    <button className={"request-extension-button"} onClick={() => props.handleRequestExtension(row)}>Solicitar
+                        Prórroga</button> : <></>
             }
         }
     ]
     return (
-        <GenericTable columns={columns}
-                      className={"table--4cols"}
-                      noDataText={"No hay reservas"}
-                      data={props.data}/>
+            <GenericTable columns={columns}
+                          className={"table--4cols"}
+                          noDataText={"No hay reservas"}
+                          data={props.data}/>
     )
 }
 

@@ -1,0 +1,12 @@
+.student-loan-screen {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.student-loan-screen .loan-message-container {
+    width: 25vw;
+    height: 5vh;
+}

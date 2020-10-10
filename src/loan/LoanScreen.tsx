@@ -1,7 +1,5 @@
 import React from 'react';
 import "./LoanScreen.css";
-import LoanTable from "./LoanTable/LoanTable";
-import {get} from "../utils/http";
 import StudentLoanScreen from "./StudentLoanScreen/StudentLoanScreen";
 import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
 

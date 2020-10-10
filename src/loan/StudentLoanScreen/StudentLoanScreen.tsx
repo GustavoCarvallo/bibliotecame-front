@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {Loan} from "../LoanScreen";
 import {get, post} from "../../utils/http";
-import LoanTable from "../LoanTable/LoanTable";
 import MessageBox from "../../common/MessageBox/MessageBox";
 import "./StudentLoanScreen.css";
+import StudentLoanTable from "../LoanTable/StudentLoanTable";
 
 const StudentLoanScreen = () => {
     const [loans, setLoans] = React.useState<Loan[]>([]);
@@ -56,14 +56,14 @@ const StudentLoanScreen = () => {
 
     return (
         <div className={"student-loan-screen"}>
-            {successMessage && <div className={"loan-message-container"}>
+            {successMessage && <div className={"student-loan-message-container"}>
                 <MessageBox message={successMessage} severity={"success"} handleClose={closeSuccessMessage}/>
             </div>}
-            {errorMessage && <div className={"loan-message-container"}>
+            {errorMessage && <div className={"student-loan-message-container"}>
                 <MessageBox message={errorMessage} severity={"error"} handleClose={closeErrorMessage}/>
             </div>}
-            <div className={"loan-table-container"}>
-                <LoanTable data={loans} handleRequestExtension={handleRequestExtension}/>
+            <div className={"student-loan-table-container"}>
+                <StudentLoanTable data={loans} handleRequestExtension={handleRequestExtension}/>
             </div>
         </div>
     )

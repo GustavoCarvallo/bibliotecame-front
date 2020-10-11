@@ -1,13 +1,12 @@
 .error-container{
     min-width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
     margin-top: 0;
     border-radius: 5px;
     border: solid 1px #a4a8ad;
     background-color: #f7d7db;
     line-height: 50px;
     top: 90px;
+    padding: 5px;
     position: absolute;
 }
 

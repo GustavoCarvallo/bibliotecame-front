@@ -11,8 +11,8 @@ type Props = {
     handleOpenCreation: (e: MouseEvent) => void,
 }
 
-export type PaginationData = {
-    content: Book[],
+export type PaginationData<T> = {
+    content: T[],
     totalPages: number,
     pageable: Pageable,
 }
@@ -24,7 +24,7 @@ type Pageable = {
 
 const SearchBook = (props: Props) => {
     const [searchFilter, setSearchFilter] = React.useState<string>("");
-    const [paginationData, setPaginationData] = React.useState<PaginationData | undefined>(undefined);
+    const [paginationData, setPaginationData] = React.useState<PaginationData<Book> | undefined>(undefined);
 
     useEffect(() => {
         getBooksByFilter(0, "");

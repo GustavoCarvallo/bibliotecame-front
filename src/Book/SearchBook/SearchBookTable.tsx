@@ -2,16 +2,15 @@ import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import "./SearchBookTable.css";
 import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
-import ReactPaginate from 'react-paginate';
 import {PaginationData} from "./SearchBook";
-import GenericModal from "../../common/GenericModal/GenericModal";
-import {post} from "../../utils/http";
 import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
+import {Book} from "../Book";
+import GenericPagination from "../../common/Pagination/GenericPagination";
 
 type Props = {
     isAdmin: boolean,
     openBookDetails: (id: number) => void,
-    paginationData?: PaginationData,
+    paginationData?: PaginationData<Book>,
     changePage: (page: number) => void;
 }
 
@@ -40,8 +39,7 @@ const SearchBookTable = (props: Props) => {
     const [modalOpen, setModalOpen] = React.useState(false);
     const [activateInformation, setActivateInformation] = React.useState<ActivateInformation | undefined>(undefined);
 
-    const columns: Column[] =
-        [
+    const columns: Column[] = [
             ...constColumns,
             {
                 header: 'Acciones',
@@ -50,6 +48,7 @@ const SearchBookTable = (props: Props) => {
                         <div className={'admin-search-actions'}>
                             <ActivateOrDeactivateButton defaultValue={row.active}
                                                         openModal={openModal}
+                                                        key={row.id}
                                                         id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
                                onClick={() => props.openBookDetails(row.id)}/>
@@ -79,20 +78,9 @@ const SearchBookTable = (props: Props) => {
                               data={props.paginationData?.content ?? []}/>
             </div>
             <div className={"search-book-pagination-container"}>
-            <ReactPaginate pageCount={props.paginationData?.totalPages ?? 0}
-                           marginPagesDisplayed={2}
-                           pageRangeDisplayed={4}
-                           forcePage={props.paginationData?.pageable.pageNumber ?? 0}
-                           onPageChange={(data) => props.changePage(data.selected)}
-                           nextLabel={"Próximo"}
-                           previousLabel={"Anterior"}
-                           breakLabel={'...'}
-                           pageClassName={"pagination-page"}
-                           nextClassName={"pagination-next"}
-                           previousClassName={"pagination-previous"}
-                           breakClassName={"pagination-break"}
-                           activeClassName={"pagination-active-page"}
-                           containerClassName={"pagination-container"}/>
+                <GenericPagination pageCount={props.paginationData?.totalPages ?? 0}
+                                   forcePage={props.paginationData?.pageable.pageNumber ?? 0}
+                                   onPageChange={(selected) => props.changePage(selected)}/>
             </div>
         </>
     )

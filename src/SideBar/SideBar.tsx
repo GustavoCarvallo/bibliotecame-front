@@ -16,7 +16,7 @@ const userRows = [
     {
         title: 'Préstamos Activos',
         icon: 'book',
-        path: '',
+        path: '/loans',
     },
     {
         title: 'Historial de Préstamos',
@@ -39,12 +39,12 @@ const adminRows = [
     {
         title: 'Préstamos',
         icon: 'clipboard-list',
-        path: ''
+        path: '/loans'
     },
     {
         title: 'Sanciones',
         icon: 'ban',
-        path: ''
+        path: '/sanctions'
     },
     {
         title: 'Mi Perfil',

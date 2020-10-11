@@ -108,10 +108,10 @@ const EditProfile = (props: Props) => {
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
+            <div className={"box"}>
+                {errorChecker(errors)}
+            </div>
             <div className={"edit-profile-body"}>
-                <div className={"box"}>
-                    {errorChecker(errors)}
-                </div>
                 <div className="edit-profile-grid">
                     <InputWithIcon icon={"fas fa-user"}
                                    placeholder={"Nombre"}

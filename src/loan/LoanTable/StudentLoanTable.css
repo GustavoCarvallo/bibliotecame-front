@@ -5,7 +5,7 @@
     background-color: var(--scarlet);
 }
 
-.loan-approved-chip {
+.loan-approved-chip, .loan-returned-chip {
     background-color: var(--mid-green);
 }
 
@@ -21,26 +21,28 @@
     background-color: var(--cerulean);
 }
 
-.loan-approved-chip, .loan-delayed-chip, .loan-pending-approval-chip, .loan-rejected-chip, .loan-withdrawn-chip, .loan-ready-for-withdrawal-chip {
+.loan-approved-chip, .loan-delayed-chip, .loan-pending-approval-chip, .loan-rejected-chip, .loan-withdrawn-chip, .loan-ready-for-withdrawal-chip, .loan-returned-chip {
     border-radius: 33px;
     color: var(--white);
     border: none;
-    padding: 2px 10px 2px 10px;
+    padding: 2px 10px;
     font-family: Roboto, serif;
     font-size: 16px;
     font-weight: bold;
+    width: 7rem;
 }
 
 .loan-table-button {
-    border-radius: 10px;
-    padding: 2px 10px 2px 10px;
+    border-radius: 9px;
+    padding: 4px 10px;
     color: var(--white);
     background-color: var(--dodger-blue);
     border: none;
     font-family: Roboto, serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     outline: none;
+    width: 9rem;
 }
 
 .loan-table-button:hover {

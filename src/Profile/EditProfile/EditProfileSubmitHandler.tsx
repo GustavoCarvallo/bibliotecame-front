@@ -28,16 +28,12 @@ const EditProfileSubmitHandler = (props: Props) => {
                         localStorage.setItem('fullName', res.fullName);
                     })
                     .catch((error) => {
-                    error.then((e:any)=>{
-                        catchCallback(e);
-                    });
+                        catchCallback(error);
                 })
                 thenCallback()
             })
             .catch((error) => {
-                error.then((e:any)=>{
-                    catchCallback(e);
-                });
+                    catchCallback(error);
             })    }
 
     return (

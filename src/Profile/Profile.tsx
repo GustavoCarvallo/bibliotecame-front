@@ -33,7 +33,7 @@ function Profile() {
     useEffect(()=>{
         get(`user/getLogged`)
             .then(res => setSelectedProfile(res))
-            .catch(err => console.log(err.message));},[])
+            .catch(err => console.log(err));},[])
 
     const [status, setStatus] = React.useState(EDIT);
 
@@ -80,9 +80,7 @@ function Profile() {
             window.location.reload();
         })
             .catch((error) => {
-                error.then((e:any)=>{
-                    notifyError(e);
-                });
+                    notifyError(error);
             })
         closeModal();
     }

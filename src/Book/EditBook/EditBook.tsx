@@ -29,9 +29,7 @@ const EditBook = (props: Props) => {
         put(`book/${book.id}`, book)
             .then(res => thenCallback())
             .catch((error) => {
-                error.then((e:any)=>{
-                    catchCallback(e);
-                });
+                    catchCallback(error);
             })
     }
 

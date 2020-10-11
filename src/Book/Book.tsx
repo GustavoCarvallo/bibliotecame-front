@@ -108,9 +108,7 @@ const Book = (props: Props) => {
             notifySuccess(res.expirationDate);
         })
             .catch((error) => {
-                error.then((e:any)=>{
-                    notifyError(e);
-                });
+                    notifyError(error);
             })
             .finally(()=> {
                 setSelectedBook(undefined);

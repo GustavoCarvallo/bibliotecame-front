@@ -38,10 +38,7 @@ const AddSanctionModal = (props: Props) => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
         })
             .catch(err => {
-                if(err.status === EXPECTATION_FAILED) props.onError("Fecha invalida, debe ser posterior al dia de hoy y no mas de 3 meses desde ahora.")
-                else if(err.status === UNPROCESSABLE_ENTITY) props.onError("El alumno ya tiene una sancion activa.")
-                else if(err.status === BAD_REQUEST) props.onError("El email no fue reconocido por el sistema.")
-                else props.onError("Hubo un error. Intente de nuevo")
+                props.onError(err)
             })
         props.onClose();
         setSanction({userEmail:"", endDate: new Date(), reason: ""})

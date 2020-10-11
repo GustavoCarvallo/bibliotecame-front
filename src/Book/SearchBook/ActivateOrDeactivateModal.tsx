@@ -33,9 +33,7 @@ const ActivateOrDeactivateModal = (props: Props) => {
                 closeActivateModal();
             }
         ).catch((error) => {
-            error.then((e:any)=>{
-                alert(e);
-            });
+                alert(error);
         })
     }
 
@@ -46,9 +44,7 @@ const ActivateOrDeactivateModal = (props: Props) => {
                 closeActivateModal();
             }
         ).catch((error) => {
-            error.then((e:any)=>{
-                alert(e);
-            });
+                alert(error);
         })
     }
 

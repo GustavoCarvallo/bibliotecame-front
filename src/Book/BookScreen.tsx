@@ -27,9 +27,7 @@ const BookScreen = () => {
                 alert(`Book ${id} deactivated!`);
             }
         ).catch((error) => {
-            error.then((e:any)=>{
-                alert(e);
-            });
+                alert(error);
         })
     }
 

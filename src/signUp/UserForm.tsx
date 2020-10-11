@@ -46,9 +46,7 @@ const UserForm = () => {
                     window.location.reload();
                 })
                 .catch((error) => {
-                    error.then((e:any)=>{
-                        setError(e);
-                    });
+                        setError(error);
                 })
         }
     }

@@ -31,7 +31,7 @@ const CreateCopyModal = (props: Props) => {
         <GenericModal title={"Nuevo Ejemplar"} isOpen={props.isOpen} onClose={props.onClose} withHeader>
             <div className={"new-copy-body"}>
                 <h1>Libro:</h1>
-                <InputWithIcon value={props.book.title} icon={'fas fa-book'} disabled={true}/>
+                <InputWithIcon value={props.book.title} icon={'fas fa-book'} readonly={true}/>
                 <h1>ID:</h1>
                 <InputWithIcon value={id} icon={'fas fa-fingerprint'} onChange={event => setId(event.target.value.toUpperCase())} placeholder={"Id del ejemplar"}/>
                 <CreateAndCancelButtons onCreate={handleCreate} onCancel={props.onClose}/>

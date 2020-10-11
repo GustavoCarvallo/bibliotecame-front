@@ -43,7 +43,7 @@ function Login() {
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
                 <LoginForm whereTo="/home"/>
-                <div className={"register-button"}>
+                    <div className={"register-button"}>
                     <Link to={'signup'}>
                         <span>¿Deseas Registrarte?</span>
                     </Link>

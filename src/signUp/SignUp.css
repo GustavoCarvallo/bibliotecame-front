@@ -94,11 +94,10 @@
 
 }
 
-.signup-screen .inputs{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 10% 4% 0;
+.signup-screen .signup-input-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
 }
 
 .signup-screen .icon {

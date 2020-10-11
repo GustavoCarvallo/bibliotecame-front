@@ -45,10 +45,10 @@ function LoginForm(props: Props){
 
 
     return (
-        <div className={"login-form"}>
+        <div className={"login-form-screen"}>
             <ErrorBox error={error} show={error !== ""}/>
-            <form onSubmit={handleSubmit}>
-                <div className="box">
+            <form onSubmit={handleSubmit} className="login-form">
+                <div className="login-form-input-container">
                     <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"}/>
                     <InputWithIcon icon={"fas fa-lock icon"} isPassword={true} onChange={e => setPassword(e.target.value)} value={password} placeholder={"Ingrese su contraseña"}/>
                 </div>

@@ -4,6 +4,7 @@ import "./EditProfile.css"
 import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {Profile} from "./Profile";
 import PasswordToggle from "../common/PasswordToggle";
+import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 
 
 type Props = {
@@ -104,47 +105,68 @@ const EditProfile = (props: Props) => {
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
-            <div>
+            <div className={"edit-profile-body"}>
                 <div className={"box"}>
                     {errorChecker(errors)}
                 </div>
-                <div className="box">
+                <div className="edit-profile-grid">
+                    <InputWithIcon icon={"fas fa-user"}
+                                   placeholder={"Nombre"}
+                                   value={props.profile.firstName}
+                                   onChange={event => props.setProfile({...props.profile, firstName: event.target.value})}/>
 
-                    <div className="rectangle-2">
-                        <i className="fas fa-user edit-profile-grey-icon"/>
-                        <input className="input" placeholder="Nombre" value={props.profile.firstName}
-                               onChange={event => props.setProfile({...props.profile, firstName: event.target.value})}/>
-                    </div>
-                    <div className="rectangle-2">
-                        <i className="fas fa-user edit-profile-grey-icon"/>
-                        <input className="input" placeholder="Apellido" value={props.profile.lastName}
-                               onChange={event => props.setProfile({...props.profile, lastName: event.target.value})}/>
-                    </div>
-                    <div className="rectangle-2">
-                        <i className="fas fa-envelope edit-profile-black-icon"/>
-                        <input className="input" placeholder="Email" readOnly value={props.profile.email}/>
-                    </div>
-                    <div className="rectangle-2">
-                        <i className="fas fa-phone-alt edit-profile-grey-icon"/>
-                        <input className="input" placeholder="Telefono" value={props.profile.phoneNumber}
-                               onChange={event => props.setProfile({...props.profile, phoneNumber: event.target.value})}/>
-                    </div>
-                    <div className="rectangle-2">
-                        <i className="fas fa-lock edit-profile-grey-icon"/>
-                        <input className="input" placeholder="Contraseña"
-                               onChange={event => props.setProfile({...props.profile, password: event.target.value})}
-                               type={PasswordInputType.toString()}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-user edit-profile-grey-icon"/>*/}
+                    {/*    <input className="input" placeholder="Nombre" value={props.profile.firstName}*/}
+                    {/*           onChange={event => props.setProfile({...props.profile, firstName: event.target.value})}/>*/}
+                    {/*</div>*/}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-user edit-profile-grey-icon"/>*/}
+                        <InputWithIcon icon={"fas fa-user"}
+                                       placeholder="Apellido"
+                                       value={props.profile.lastName}
+                                       onChange={event => props.setProfile({...props.profile, lastName: event.target.value})}/>
+                    {/*</div>*/}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-envelope edit-profile-black-icon"/>*/}
+                        <InputWithIcon
+                            // className="input"
+                            icon={"fas fa-envelope"}
+                            placeholder="Email"
+                            readonly={true}
+                            value={props.profile.email}/>
+                    {/*</div>*/}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-phone-alt edit-profile-grey-icon"/>*/}
+                        <InputWithIcon
+                            // className="input"
+                            icon={"fas fa-phone-alt"}
+                            placeholder="Telefono"
+                            value={props.profile.phoneNumber}
+                            onChange={event => props.setProfile({...props.profile, phoneNumber: event.target.value})}/>
+                    {/*</div>*/}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-lock edit-profile-grey-icon"/>*/}
+                        <InputWithIcon
+                            // className="input"
+                            icon={"fas fa-lock"}
+                            placeholder="Contraseña"
+                            onChange={event => props.setProfile({...props.profile, password: event.target.value})}
+                            isPassword={true}/>
+                        {/*<span className="icon">{ToggleIcon}</span>*/}
+                    {/*</div>*/}
+                    {/*<div className="rectangle-2">*/}
+                    {/*    <i className="fas fa-lock edit-profile-grey-icon"/>*/}
+                        <InputWithIcon
+                            // className="input"
+                            icon={"fas fa-lock"}
+                            placeholder="Confirmar contraseña"
+                            isPassword={true}
+                            value={confirmPassword}
+                            onChange={event => setConfirmPassword(event.target.value)}
                         />
-                        <span className="icon">{ToggleIcon}</span>
-                    </div>
-                    <div className="rectangle-2">
-                        <i className="fas fa-lock edit-profile-grey-icon"/>
-                        <input className="input" placeholder="Confirmar contraseña" value={confirmPassword}
-                               onChange={event => setConfirmPassword(event.target.value)}
-                               type={PasswordInputType2.toString()}
-                        />
-                        <span className="icon">{ToggleIcon2}</span>
-                    </div>
+                        {/*<span className="icon">{ToggleIcon2}</span>*/}
+                    {/*</div>*/}
                 </div>
                 <button className="rectangle-6" onClick={handleSubmit}>
                     <p className="save-button">{'Guardar cambios'}</p>

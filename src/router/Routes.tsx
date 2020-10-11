@@ -21,9 +21,8 @@ import Login from "../Login/Login"
 import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
-const isAdmin = localStorage.getItem('admin') === 'true';
-
 const Router = () => {
+    const isAdmin = localStorage.getItem('admin') === 'true';
 
     return (
         <BrowserRouter>
@@ -36,8 +35,8 @@ const Router = () => {
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
                     <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
-                    <AuthRoute path={'/profile'} component={ProfileView}/>
-                    <AuthRoute path={"/home"} component={Home}/>
+                    <AuthRoute path={'/profile'} component={() => <ProfileView isAdmin={isAdmin}/>}/>
+                    <AuthRoute path={"/home"} component={() => <Home isAdmin={isAdmin}/>}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={1}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} isAdmin={isAdmin} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
@@ -66,7 +65,7 @@ const ContainedComponent = (props: ContainedComponentProps) => {
     )
 }
 
-export function Home() {
+export function Home({isAdmin}: {isAdmin: boolean}) {
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>
@@ -78,7 +77,7 @@ export function Home() {
     );
 }
 
-export function ProfileView() {
+export function ProfileView({isAdmin}: {isAdmin: boolean}) {
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>

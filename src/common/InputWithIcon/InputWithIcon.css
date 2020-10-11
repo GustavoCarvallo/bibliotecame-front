@@ -27,64 +27,9 @@
     flex-grow: 5;
 }
 
-/*.toRight .input{*/
-/*    margin-left: 2%;*/
-/*}*/
-
-/*.input {*/
-/*    width: 80%;*/
-/*    height: 22px;*/
-/*    font-family: Roboto, serif;*/
-/*    font-size: 18px;*/
-/*    font-weight: normal;*/
-/*    font-stretch: normal;*/
-/*    font-style: normal;*/
-/*    line-height: 2.81;*/
-/*    letter-spacing: normal;*/
-/*    text-align: left;*/
-/*    color: #111111;*/
-/*    border: none;*/
-/*    margin-top: auto;*/
-/*    margin-bottom: auto;*/
-/*    margin-left: 0;*/
-/*}*/
-
-/*.input:focus, .Password:focus{*/
-/*    outline: none;*/
-
-/*}*/
-
-/*.field-container-disabled {*/
-/*    border: solid 1px #dfe2e6;*/
-/*    background-color: #f1f1f1;*/
-/*    border-radius: 18px;*/
-/*    margin-bottom: 7%;*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*    margin-right: auto;*/
-/*    margin-left: auto;*/
-/*}*/
-
 
 .generic-field-container .generic-field-icon {
     object-fit: contain;
     color: #a4a8ad;
     font-size: x-large;
 }
-
-/*.password{*/
-/*    width: 65%;*/
-/*    height: 22px;*/
-/*    font-family: Roboto, serif;*/
-/*    font-size: 18px;*/
-/*    font-weight: normal;*/
-/*    font-stretch: normal;*/
-/*    font-style: normal;*/
-/*    line-height: 2.81;*/
-/*    letter-spacing: normal;*/
-/*    text-align: left;*/
-/*    color: #111111;*/
-/*    border: none;*/
-/*    margin-top: auto;*/
-/*    margin-bottom: auto;*/
-/*}*/

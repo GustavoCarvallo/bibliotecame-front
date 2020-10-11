@@ -10,10 +10,10 @@ function Login() {
     const location = useLocation();
     const history = useHistory();
     const urlExtend = location.search;
-    const isSuccessSignUp : boolean = urlExtend === "?successfulSignUp";
-    const isSuccessDelete : boolean = urlExtend === "?successfulDelete";
+    const isSuccessSignUp: boolean = urlExtend === "?successfulSignUp";
+    const isSuccessDelete: boolean = urlExtend === "?successfulDelete";
 
-    const toastifyConfigurations : ToastOptions = {
+    const toastifyConfigurations: ToastOptions = {
         position: "top-center",
         autoClose: 7000,
         hideProgressBar: true,
@@ -27,12 +27,12 @@ function Login() {
 
     const notifyDelete = () => toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!', toastifyConfigurations);
 
-    if(isSuccessSignUp){
+    if (isSuccessSignUp) {
         notifySignUp();
         history.replace(location.pathname);
     }
 
-    if(isSuccessDelete){
+    if (isSuccessDelete) {
         notifyDelete();
         history.replace(location.pathname);
     }
@@ -43,7 +43,7 @@ function Login() {
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
                 <LoginForm whereTo="/home"/>
-                    <div className={"register-button"}>
+                <div className={"register-button"}>
                     <Link to={'signup'}>
                         <span>¿Deseas Registrarte?</span>
                     </Link>

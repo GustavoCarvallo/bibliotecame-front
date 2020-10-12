@@ -1,9 +1,7 @@
 import React from 'react';
 import "../Book/CreateOrEditBook.css";
 import "./EditProfile.css"
-import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {Profile} from "./Profile";
-import PasswordToggle from "../common/PasswordToggle";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {toast, ToastOptions} from "react-toastify";
 
@@ -39,10 +37,6 @@ const EditProfile = (props: Props) => {
     const [confirmPassword, setConfirmPassword] = React.useState<string>("");
     const regexp = new RegExp(/^([a-zA-Z0-9]){6,}$/);
     const [errors, setErrors] = React.useState<Errors>({...initialErrors});
-    const [PasswordInputType, ToggleIcon] = PasswordToggle();
-    const [PasswordInputType2, ToggleIcon2] = PasswordToggle();
-    const [showErrorBox, setShowErrorBox] = React.useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = React.useState<string>("");
 
     const handleSubmit = () => {
         let newErrors = validateProfile(props.profile);
@@ -62,11 +56,6 @@ const EditProfile = (props: Props) => {
         }
     }
 
-    const renderError = (message: string) => {
-        setShowErrorBox(true);
-        setErrorMessage(message);
-    }
-
     const toastifyConfiguration: ToastOptions = {
         className: "in-toast"
     }
@@ -76,7 +65,7 @@ const EditProfile = (props: Props) => {
         toast.success(message, toastifyConfiguration);
     }
 
-    const notifyError = (message: string) => {
+    const renderError = (message: string) => {
         toast.dismiss();
         toast.error(message, toastifyConfiguration);
     }
@@ -134,10 +123,7 @@ const EditProfile = (props: Props) => {
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
-            <div className={"box"}>
-                {errorChecker(errors)}
-                <ErrorBox error={errorMessage} show={showErrorBox} hideErrorBox={() => setShowErrorBox(false)}/>
-            </div>
+            {errorChecker(errors)}
             <div className={"edit-profile-body"}>
                 <div className="edit-profile-grid">
                     <InputWithIcon icon={"fas fa-user"}

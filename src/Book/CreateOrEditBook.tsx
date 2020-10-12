@@ -58,8 +58,6 @@ const CreateOrEditBook = (props: Props) => {
     const MIN_YEAR = 800;
 
     const [errors, setErrors] = React.useState<Errors>({...initialErrors})
-    const [errorMessage, setErrorMessage] = React.useState<string>("");
-    const [showError, setShowError] = React.useState<boolean>(false);
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
         name: "",
@@ -172,17 +170,14 @@ const CreateOrEditBook = (props: Props) => {
     ]
 
     const renderError = (message: string) => {
-        setErrorMessage(message);
-        setShowError(true);
+        notifyError(message);
     }
 
 
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
-            <div className={"error-box"}>
-                <ErrorBox error={errorMessage} show={showError} hideErrorBox={()=>setShowError(false)}/>
-            </div>
+
             {(props.newCopyError && renderError("Error al crear ejemplar")) ||
             (errors.serverError && renderError(errors.serverError))
             }

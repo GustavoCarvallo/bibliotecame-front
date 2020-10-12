@@ -28,13 +28,13 @@ const SanctionsView = () => {
     }
     const notifyError = (message: string) => {
         toast.dismiss();
-        toast.error(message, toastifyConfiguration);
+        toast.error(message);
     }
 
     return(
         <div className={"sanctions-view"}>
             <IconButton icon={"fas fa-plus-circle"} onClick={()=>setSanctionModalState(true)}/>
-            <AddSanctionModal isOpen={sanctionModalState} onClose={()=>setSanctionModalState(false)} onSuccess={onAddSanctionSuccess}/>
+            <AddSanctionModal isOpen={sanctionModalState} onClose={()=>setSanctionModalState(false)} onSuccess={onAddSanctionSuccess} onError={notifyError}/>
         </div>
     )
 }

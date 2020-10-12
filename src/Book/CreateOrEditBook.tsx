@@ -5,6 +5,8 @@ import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCa
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";
+import ErrorBox from "../common/ErrorBox/ErrorBox";
+import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
     book: Book,
@@ -12,11 +14,11 @@ type Props = {
     handleSubmit: Function,
     type: string,
     handleCancel: ()=>void,
-    setSuccess: Function,
     openNewCopyModal?: Function,
     activateCopy: Function,
     deactivateCopy: Function,
-    newCopyError?: boolean
+    newCopyError?: boolean,
+    successMessage: string
 }
 type Errors = {
     titleError: boolean,
@@ -56,6 +58,8 @@ const CreateOrEditBook = (props: Props) => {
     const MIN_YEAR = 800;
 
     const [errors, setErrors] = React.useState<Errors>({...initialErrors})
+    const [errorMessage, setErrorMessage] = React.useState<string>("");
+    const [showError, setShowError] = React.useState<boolean>(false);
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
         name: "",
@@ -71,9 +75,19 @@ const CreateOrEditBook = (props: Props) => {
         }
     }
 
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
     const handleSuccess = () => {
-        props.setSuccess(true);
+        toast.dismiss();
+        toast.success(props.successMessage, toastifyConfiguration);
         setErrors({...initialErrors, serverError: undefined})
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
     }
 
     const validateBook = (book: Book) => {
@@ -88,19 +102,25 @@ const CreateOrEditBook = (props: Props) => {
 
         if (!book.title || book.title === "") {
             titleError = true;
+            renderError("Completar título");
         }
         if (!book.author || book.author === "") {
             authorError = true;
+            renderError("Completar autor")
         }
         if (!book.publisher || book.publisher === "") {
             publisherError = true;
+            renderError("Completar editorial")
         }
         if (!book.year) {
             yearErrors.yearUndefined = true;
+            renderError("Completar año")
         } else if (book.year > MAX_YEAR) {
             yearErrors.yearHigher = true;
+            renderError("Año debe ser menor a " + MAX_YEAR)
         } else if (book.year < MIN_YEAR) {
             yearErrors.yearLower = true;
+            renderError("Año debe ser mayor a " + MIN_YEAR)
         }
 
         const newErrors: Errors = {
@@ -151,16 +171,19 @@ const CreateOrEditBook = (props: Props) => {
         }
     ]
 
+    const renderError = (message: string) => {
+        setErrorMessage(message);
+        setShowError(true);
+    }
+
+
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
+            <div className={"error-box"}>
+                <ErrorBox error={errorMessage} show={showError} hideErrorBox={()=>setShowError(false)}/>
+            </div>
             {(props.newCopyError && renderError("Error al crear ejemplar")) ||
-            (errors.titleError && renderError("Completar título")) ||
-            (errors.authorError && renderError("Completar autor")) ||
-            (errors.publisherError && renderError("Completar editorial")) ||
-            (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
-            (errors.yearErrors.yearHigher && renderError("Año debe ser menor a " + MAX_YEAR)) ||
-            (errors.yearErrors.yearLower && renderError("Año debe ser mayor a " + MIN_YEAR)) ||
             (errors.serverError && renderError(errors.serverError))
             }
             <div>
@@ -211,12 +234,5 @@ const CreateOrEditBook = (props: Props) => {
     )
 }
 
-const renderError = (message: string) => {
-    return (
-        <div className={"error-box"}>
-            <div className={"error-message"}>{message}</div>
-        </div>
-    )
-}
 
 export default CreateOrEditBook;

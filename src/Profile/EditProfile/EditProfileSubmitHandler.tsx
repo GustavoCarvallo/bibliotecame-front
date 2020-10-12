@@ -6,7 +6,6 @@ import EditProfile from "../EditProfile";
 type Props = {
     selectedProfile: Profile,
     setSelectedProfile: Function,
-    setSuccess: Function,
     handleCancel: ()=>void,}
 
 const EditProfileSubmitHandler = (props: Props) => {
@@ -39,7 +38,6 @@ const EditProfileSubmitHandler = (props: Props) => {
     return (
         <>
             <EditProfile handleCancel={props.handleCancel}
-                         setSuccess={props.setSuccess}
                          type={EDIT} handleSubmit={handleSubmit}
                          profile={props.selectedProfile}
                          setProfile={props.setSelectedProfile}/>

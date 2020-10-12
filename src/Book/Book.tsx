@@ -53,17 +53,6 @@ const Book = (props: Props) => {
 
     const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
 
-    const toastifyConfigurations : ToastOptions = {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "loanToast"
-    }
-
     const handleOpenCreation = () => {
         setStatus(CREATE);
     }
@@ -82,13 +71,6 @@ const Book = (props: Props) => {
         success: false,
     });
 
-    const handleSetSuccess = (success: boolean, message?: string) => {
-        setSuccess({
-            success,
-            message
-        })
-    }
-
     const openBookDetails = (id: number) => {
         get(`book/${id}`)
             .then(res => {
@@ -98,9 +80,19 @@ const Book = (props: Props) => {
             .catch(err => console.log(err))
     }
 
-    const notifySuccess = (expirationDate : string) => toast.success('Solicitud de prestamo satisfactoria. Recuerde que debe devolverlo antes del ' + expirationDate, toastifyConfigurations);
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
 
-    const notifyError = (message : string) => toast.error(message, toastifyConfigurations);
+    const notifySuccess = (expirationDate : string) => {
+        toast.dismiss();
+        toast.success('Solicitud de prestamo satisfactoria. Recuerde que debe devolverlo antes del ' + expirationDate, toastifyConfiguration);
+    }
+
+    const notifyError = (message : string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
 
     const handleLoan = (book : Book) => {
         const promise =  post(`loan/${book.id}`, {});
@@ -125,7 +117,7 @@ const Book = (props: Props) => {
                         <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
                     <div className={"create-book-container"}>
-                        <CreateBook handleCancel={handleCloseCreation} setSuccess={handleSetSuccess}/>
+                        <CreateBook handleCancel={handleCloseCreation}/>
                     </div>
                 </>)
             case SEARCH:
@@ -147,7 +139,6 @@ const Book = (props: Props) => {
                     <div className={"edit-book-container"}>
                         {selectedBook && (<EditBook selectedBook={selectedBook}
                                                     setSelectedBook={setSelectedBook}
-                                                    setSuccess={handleSetSuccess}
                                                     handleCancel={handleCloseEdit}/>)
                         }
                     </div>

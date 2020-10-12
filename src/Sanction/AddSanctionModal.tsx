@@ -7,12 +7,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {get, post} from "../utils/http";
 import "./AddSanctionModal.css"
+import ErrorBox from "../common/ErrorBox/ErrorBox";
 
 type Props = {
     isOpen: boolean,
     onClose: ()=>void,
-    onSuccess: Function,
-    onError: Function
+    onSuccess: Function
 }
 
 type User = {
@@ -31,17 +31,20 @@ const AddSanctionModal = (props: Props) => {
     })
 
     const [userList, setUserList] = useState<string[]>([])
+    const [errorMessage, setErrorMessage] = useState<string>("")
+    const [showError, setShowError] = useState<boolean>(false)
 
     const handleAdd = () => {
         post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
         .then(res => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
+            props.onClose();
+            setSanction({userEmail:"", endDate: new Date(), reason: ""})
         })
             .catch(err => {
-                props.onError(err)
+                setErrorMessage(err);
+                setShowError(true);
             })
-        props.onClose();
-        setSanction({userEmail:"", endDate: new Date(), reason: ""})
     }
 
     const cancel = () => {
@@ -59,6 +62,7 @@ const AddSanctionModal = (props: Props) => {
     return(
         <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
             <div className={"add-sanction-body"}>
+                <ErrorBox error={errorMessage} show={showError} hideErrorBox={()=> setShowError(false)} />
                 <DropdownInput list={userList}
                                onChange={e => {setSanction({...sanction, userEmail: e.target.value}); setList(e.target.value)}}
                                onSelect={row => setSanction({...sanction, userEmail: row})}

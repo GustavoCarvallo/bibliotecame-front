@@ -15,3 +15,11 @@
     margin-left: 18%;
     top: 62px;
 }
+
+.profile-main-container{
+    display: flex;
+    padding: 7%;
+    justify-content: center;
+    width: 86%;
+    overflow: scroll;
+}

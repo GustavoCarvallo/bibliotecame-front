@@ -18,27 +18,23 @@ const SanctionsView = () => {
         notifySuccess(message)
     }
 
-    const onAddSanctionError = (message: string) => {
-        notifyError(message)
-    }
-
     const toastifyConfiguration: ToastOptions = {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+        className: "in-toast"
     }
 
-    const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
-    const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
+    }
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
 
     return(
         <div className={"sanctions-view"}>
             <IconButton icon={"fas fa-plus-circle"} onClick={()=>setSanctionModalState(true)}/>
-            <AddSanctionModal isOpen={sanctionModalState} onClose={()=>setSanctionModalState(false)} onSuccess={onAddSanctionSuccess} onError={onAddSanctionError}/>
+            <AddSanctionModal isOpen={sanctionModalState} onClose={()=>setSanctionModalState(false)} onSuccess={onAddSanctionSuccess}/>
         </div>
     )
 }

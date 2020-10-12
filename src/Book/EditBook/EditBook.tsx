@@ -10,7 +10,6 @@ import "./EditBook.css"
 type Props = {
     selectedBook: Book,
     setSelectedBook: Function,
-    setSuccess: Function,
     handleCancel: ()=>void,
 }
 
@@ -31,12 +30,12 @@ const EditBook = (props: Props) => {
             .catch((error) => {
                     catchCallback(error);
             })
+        props.handleCancel();
     }
 
     const openNewCopyModal = () => {
         setOpenNewCopy(true);
         setNewCopyError(false);
-        props.setSuccess(false);
     }
 
     const closeNewCopyModal = () => {
@@ -100,17 +99,13 @@ const EditBook = (props: Props) => {
     }
 
     const toastifyConfiguration: ToastOptions = {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "bookToast"
+        className: "in-toast"
     }
 
-    const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
 
 
     return (
@@ -124,14 +119,14 @@ const EditBook = (props: Props) => {
                                          onSuccess={onActivateDeactivateCopySuccess} onError={onActivateDeactivateCopyError}
                                          isActive={openAsActivate}/>
             <CreateOrEditBook handleCancel={props.handleCancel}
-                              setSuccess={props.setSuccess}
                               type={EDIT} handleSubmit={handleSubmit}
                               book={props.selectedBook}
                               setBook={props.setSelectedBook}
                               newCopyError={newCopyError}
                               openNewCopyModal={openNewCopyModal}
                               activateCopy={activateCopy}
-                              deactivateCopy={deactivateCopy}/>
+                              deactivateCopy={deactivateCopy}
+                              successMessage={'El libro se ha modificado exitosamente.'}/>
         </div>
     )
 }

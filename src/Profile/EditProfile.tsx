@@ -5,6 +5,7 @@ import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {Profile} from "./Profile";
 import PasswordToggle from "../common/PasswordToggle";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
+import {toast, ToastOptions} from "react-toastify";
 
 
 type Props = {
@@ -12,8 +13,7 @@ type Props = {
     setProfile: Function,
     handleSubmit: Function,
     type: string,
-    handleCancel: () => void,
-    setSuccess: Function,
+    handleCancel: () => void
 }
 
 type Errors = {
@@ -41,6 +41,8 @@ const EditProfile = (props: Props) => {
     const [errors, setErrors] = React.useState<Errors>({...initialErrors});
     const [PasswordInputType, ToggleIcon] = PasswordToggle();
     const [PasswordInputType2, ToggleIcon2] = PasswordToggle();
+    const [showErrorBox, setShowErrorBox] = React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<string>("");
 
     const handleSubmit = () => {
         let newErrors = validateProfile(props.profile);
@@ -52,8 +54,35 @@ const EditProfile = (props: Props) => {
         }
     }
 
+    const errorChecker = (errors: Errors) => {
+        let message = "";
+        if (errors.serverError) renderError(errors.serverError);
+        if (message === "") {
+            return;
+        }
+    }
+
+    const renderError = (message: string) => {
+        setShowErrorBox(true);
+        setErrorMessage(message);
+    }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
+
     const handleSuccess = () => {
-        props.setSuccess(true);
+        notifySuccess('El perfil se ha modificado correctamente');
         setErrors({...initialErrors, serverError: undefined})
     }
 
@@ -107,6 +136,7 @@ const EditProfile = (props: Props) => {
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
             <div className={"box"}>
                 {errorChecker(errors)}
+                <ErrorBox error={errorMessage} show={showErrorBox} hideErrorBox={() => setShowErrorBox(false)}/>
             </div>
             <div className={"edit-profile-body"}>
                 <div className="edit-profile-grid">
@@ -153,27 +183,6 @@ const EditProfile = (props: Props) => {
                 </button>
             </div>
         </div>
-    )
-}
-
-const errorChecker = (errors : Errors) => {
-    let message = "";
-    if(errors.passwordMatchError) message="Las contraseñas deben coincidir!";
-    if(errors.alphanumericError) message="La contraseña solo puede incluir letras y/o números!";
-    if(errors.passwordLengthError) message="La contraseña debe tener más de 6 caracteres!";
-    if(errors.phoneNumberError) message="Inserte su número de telefono!";
-    if(errors.lastNameError) message="Completar apellido";
-    if(errors.nameError) message= "Completar nombre";
-    if(errors.serverError) message=errors.serverError;
-    if(message===""){
-        return;
-    }
-    return renderError(message);
-}
-
-const renderError = (message: string) => {
-    return (
-        <ErrorBox error={message} show={true}/>
     )
 }
 

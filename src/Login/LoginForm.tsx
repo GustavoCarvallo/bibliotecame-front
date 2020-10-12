@@ -45,7 +45,7 @@ function LoginForm(props: Props){
 
     return (
         <div className={"login-form-screen"}>
-            <ErrorBox error={error} show={error !== ""}/>
+            <ErrorBox error={error} show={error !== ""} hideErrorBox={()=>setError("")}/>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="login-form-input-container">
                     <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"}/>

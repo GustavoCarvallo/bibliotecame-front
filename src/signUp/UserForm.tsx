@@ -72,7 +72,7 @@ const UserForm = () => {
 
     return (
         <div className={"form-content"}>
-            <ErrorBox error={error} show={error !== ""}/>
+            <ErrorBox error={error} show={error !== ""} hideErrorBox={()=> setError("")}/>
             <form onSubmit={handleSubmit}>
                 <div className="signup-input-container">
                     <InputWithIcon icon={"fas fa-user"} value={user.firstName} onChange={e => onChangeUser(e.target.value, 1)} placeholder={"Nombre"}/>

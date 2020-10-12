@@ -4,27 +4,17 @@ import {get, post} from "../../utils/http";
 import MessageBox from "../../common/MessageBox/MessageBox";
 import "./StudentLoanScreen.css";
 import StudentLoanTable from "../LoanTable/StudentLoanTable";
+import {toast, ToastOptions} from "react-toastify";
 
 const StudentLoanScreen = () => {
     const [loans, setLoans] = React.useState<Loan[]>([]);
-    const [successMessage, setSuccessMessage] = React.useState<string | undefined>(undefined);
-    const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
-
-    const closeSuccessMessage = () => {
-        setSuccessMessage(undefined);
-    }
-
-    const closeErrorMessage = () => {
-        setErrorMessage(undefined);
-    }
 
     useEffect(() => {
 
         getActiveLoans();
 
         return () => {
-            closeSuccessMessage();
-            closeErrorMessage();
+            toast.dismiss();
         }
     }, [])
 
@@ -38,18 +28,31 @@ const StudentLoanScreen = () => {
             })
     }
 
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast",
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
+    }
+
     const handleRequestExtension = (row: Loan) => {
         const valid = checkStudentCanMakeExtension();
         if (valid) {
             post(`extension/${row.id}`, {})
                 .then(() => {
-                    setSuccessMessage("Has solicitado la prórroga correctamente");
+                    notifySuccess("Has solicitado la prórroga correctamente");
                     getActiveLoans();
                 }).catch(err=>{
-                    setErrorMessage(err);
+                    notifyError(err);
             })
         } else {
-            setErrorMessage("No debes tener préstamos atrasados para solicitar una prórroga")
+            notifyError("No debes tener préstamos atrasados para solicitar una prórroga")
         }
     }
 
@@ -59,12 +62,6 @@ const StudentLoanScreen = () => {
 
     return (
         <div className={"student-loan-screen"}>
-            {successMessage && <div className={"student-loan-message-container"}>
-                <MessageBox message={successMessage} severity={"success"} handleClose={closeSuccessMessage}/>
-            </div>}
-            {errorMessage && <div className={"student-loan-message-container"}>
-                <MessageBox message={errorMessage} severity={"error"} handleClose={closeErrorMessage}/>
-            </div>}
             <div className={"student-loan-table-container"}>
                 <StudentLoanTable data={loans} handleRequestExtension={handleRequestExtension}/>
             </div>

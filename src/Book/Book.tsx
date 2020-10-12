@@ -6,6 +6,7 @@ import BookDetails from "./BookDetails/BookDetails";
 import {get, post} from "../utils/http";
 import SearchBook from "./SearchBook/SearchBook";
 import {toast, ToastOptions} from "react-toastify";
+import {isAdmin} from "../router/Routes";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -38,8 +39,6 @@ type Success = {
 }
 
 const Book = () => {
-
-    const isAdmin = localStorage.getItem('admin') === 'true';
 
     const BAD_REQUEST = 400;
     const UNAUTHORIZED = 401;

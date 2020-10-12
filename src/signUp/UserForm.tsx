@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {post} from "../utils/http";
-import ErrorBox from "../common/ErrorBox/ErrorBox";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
+import {toast} from "react-toastify";
 
 interface User {
     email: string,
@@ -13,21 +13,22 @@ interface User {
 
 const UserForm = () => {
 
-    const BAD_REQUEST = 400;
-
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
     const [user, setUser] = useState<User>({email:"", password:"",phoneNumber:"",  firstName:"", lastName:""})
-    const [error, setError] = useState<string>("")
 
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message);
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         if (password1 !== password2) {
-            setError("Las contraseñas no coinciden");
+            notifyError("Las contraseñas no coinciden");
         } else if (!password1.match(/^([a-zA-Z0-9]){6,}$/)) {
-            setError("La contraseña solo puede incluir letras y/o números!");
+            notifyError("La contraseña solo puede incluir letras y/o números!");
         } else {
 
             const promise = post("signup/", {
@@ -46,7 +47,7 @@ const UserForm = () => {
                     window.location.reload();
                 })
                 .catch((error) => {
-                        setError(error);
+                        notifyError(error);
                 })
         }
     }
@@ -72,7 +73,6 @@ const UserForm = () => {
 
     return (
         <div className={"form-content"}>
-            <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit}>
                 <div className="signup-input-container">
                     <InputWithIcon icon={"fas fa-user"} value={user.firstName} onChange={e => onChangeUser(e.target.value, 1)} placeholder={"Nombre"}/>

@@ -2,6 +2,7 @@ import React from 'react';
 import {ActivateInformation} from "./SearchBookTable";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {post} from "../../utils/http";
+import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
     open: boolean,
@@ -26,25 +27,39 @@ const ActivateOrDeactivateModal = (props: Props) => {
         props.setOpen(false);
     }
 
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifySuccess = (message: String) => {
+        toast.dismiss()
+        toast.success(message, toastifyConfiguration)
+    }
+
+    const notifyError = (message: String) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
+    }
+
     const activate = () => {
         post(`book/${props.activateInformation?.id}/activate`,[]).then( () => {
-                alert('El libro ha sido activado correctamente');
+                notifySuccess('El libro ha sido activado correctamente');
                 props.activateInformation?.callBack(true);
                 closeActivateModal();
             }
-        ).catch((error) => {
-                alert(error);
+        ).catch(error => {
+            notifyError(error)
         })
     }
 
     const deactivate = () => {
         post(`book/${props.activateInformation?.id}/deactivate`,[]).then( () => {
-                alert('El libro ha sido desactivado correctamente');
+                notifySuccess('El libro ha sido desactivado correctamente');
                 props.activateInformation?.callBack(false);
                 closeActivateModal();
             }
         ).catch((error) => {
-                alert(error);
+                notifyError(error);
         })
     }
 

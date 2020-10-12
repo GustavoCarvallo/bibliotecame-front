@@ -128,19 +128,17 @@ const AdminLoanScreen = () => {
     }
 
     const toastifyConfiguration: ToastOptions = {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        className: "bookToast",
-        toastId: 1                  // con el id no se repiten
+        className: "in-toast",
     }
 
-    const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
-    const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
+    }
 
     return (
         <div className={"admin-loan-screen"}>

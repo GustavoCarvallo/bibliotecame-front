@@ -21,11 +21,6 @@ type User = {
 
 const AddSanctionModal = (props: Props) => {
 
-    const EXPECTATION_FAILED = 417;
-    const UNPROCESSABLE_ENTITY = 422;
-    const BAD_REQUEST = 400;
-
-
     const [sanction, setSanction] = useState<Sanction>({
         userEmail:"", endDate: new Date(), reason: ""
     })
@@ -34,14 +29,13 @@ const AddSanctionModal = (props: Props) => {
 
     const handleAdd = () => {
         post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
-        .then(res => {
+        .then(() => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
+            cancel()
         })
             .catch(err => {
                 props.onError(err)
             })
-        props.onClose();
-        setSanction({userEmail:"", endDate: new Date(), reason: ""})
     }
 
     const cancel = () => {

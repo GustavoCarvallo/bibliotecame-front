@@ -7,29 +7,37 @@ type Config = {
 
 const request = (url: string, method: string, body: Object | null, config: Config) => {
     const token = localStorage['token'];
-    let headers = (!config.noAuth && token) ? {"Content-Type": "application/json", Authorization: "Bearer " + token} : {"Content-Type": "application/json"};
+    let headers = (!config.noAuth && token) ? {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token
+    } : {"Content-Type": "application/json"};
     const configuration: Object = {
         method: method,
         body: body ? JSON.stringify(body) : undefined,
         headers: headers,
     };
     return fetch(baseUrl + url, configuration)
-        .then(res => {
-            if(!res.ok){
-                throw {status: res.status};
-            }
-            return res.json()
-        })
-        .catch(error => {
-            if (error.status === 403 && token) {
-                console.error('Token has expired');
+        .then(response => {
+            if(response.ok) return response.json();
+            // if the token has expired log out the user
+            else if(response.status === 403 && localStorage['token']) {
                 localStorage.removeItem('token');
                 localStorage.removeItem('admin');
                 window.location.reload();
             }
-            throw error;
-        });
+            // if an error occurs on the server return the errorMessage in case we intentionally threw that error, or a generic one in case an unexpected exception rises.
+            return response.json().then(error => {
+                if(error.hasOwnProperty('message')) {
+                    throw (error.message)
+                } else throw ("¡Error inesperado del servidor!")
+            })
+        })
+        // Catch connection errors and the error throw above.
+        .catch(error => {
+            throw(error)
+        })
 }
+
 
 const clear = (isAdmin: boolean, config: Config) => {
     const token = localStorage['token'];

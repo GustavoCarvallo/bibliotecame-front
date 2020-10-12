@@ -45,23 +45,9 @@ const UserForm = () => {
                     window.history.pushState("", "", "/login?successfulSignUp")
                     window.location.reload();
                 })
-                .catch(error => {
-                    console.log("error")
-                    if (error.status === BAD_REQUEST) {
-                        if (user.firstName === "" || user.lastName === "" || user.email === "" || user.phoneNumber === "" || password1 === "") {
-                            setError("Por favor completar todos los campos")
-                        } else if (!user.email.includes(".austral.edu.") || !user.email.includes("@")) {
-                            setError("El email no pertenece a la organización o no es válido")
-                        } else if (!/^([a-zA-Z0-9]{6,})$/.test(password1)) {
-                            setError("Contraseña debe ser alfanumérica de 6 caracteres mínimo")
-                        } else {
-                            setError("Ya hay una cuenta asociada con este mail!");
-                        }
-                    } else {
-                        setError("Error inesperado, intente de nuevo.");
-                    }
+                .catch((error) => {
+                        setError(error);
                 })
-
         }
     }
 

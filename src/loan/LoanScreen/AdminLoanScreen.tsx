@@ -31,6 +31,7 @@ const AdminLoanScreen = () => {
                 setPaginationData(res);
             })
             .catch(err => {
+                console.log(err)
             })
     }
 

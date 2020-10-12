@@ -34,6 +34,7 @@ const StudentLoanScreen = () => {
                 setLoans(res);
             })
             .catch(err => {
+                console.log(err)
             })
     }
 
@@ -44,7 +45,9 @@ const StudentLoanScreen = () => {
                 .then(() => {
                     setSuccessMessage("Has solicitado la prórroga correctamente");
                     getActiveLoans();
-                })
+                }).catch(err=>{
+                    setErrorMessage(err);
+            })
         } else {
             setErrorMessage("No debes tener préstamos atrasados para solicitar una prórroga")
         }

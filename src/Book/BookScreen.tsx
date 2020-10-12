@@ -14,8 +14,10 @@ const BookScreen = () => {
         post(`book/${id}/activate`,[],).then( () => {
                 alert(`Book ${id} activated!`);
             }
-        ).catch(error => {
-            alert(`Got error ${error.status}!`)
+        ).catch((error) => {
+            error.then((e:any)=>{
+                alert(e);
+            });
         })
     }
 
@@ -24,8 +26,8 @@ const BookScreen = () => {
         post(`book/${id}/deactivate`,[],).then( () => {
                 alert(`Book ${id} deactivated!`);
             }
-        ).catch(error => {
-            alert(`Got error ${error.status}!`)
+        ).catch((error) => {
+                alert(error);
         })
     }
 

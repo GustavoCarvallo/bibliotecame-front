@@ -33,7 +33,7 @@ function Profile() {
     useEffect(()=>{
         get(`user/getLogged`)
             .then(res => setSelectedProfile(res))
-            .catch(err => console.log(err.message));},[])
+            .catch(err => console.log(err));},[])
 
     const [status, setStatus] = React.useState(EDIT);
 
@@ -42,8 +42,6 @@ function Profile() {
     });
 
     const [selectedProfile, setSelectedProfile] = React.useState<Profile>({})
-
-    const BAD_REQUEST = 400;
 
     const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
@@ -81,12 +79,8 @@ function Profile() {
             window.history.pushState("", "", "/login?successfulDelete")
             window.location.reload();
         })
-            .catch(error => {
-                if(error.status === BAD_REQUEST){
-                    notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
-                } else {
-                    notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
-                }
+            .catch((error) => {
+                    notifyError(error);
             })
         closeModal();
     }

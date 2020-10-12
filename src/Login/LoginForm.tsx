@@ -37,8 +37,7 @@ function LoginForm(props: Props){
                 history.go(0);
             })
                 .catch(err => {
-                    if(err.status === 401) setError("Has sido sancionado. Comunicate con Administración")
-                    else setError("Las credenciales ingresadas no son correctas")
+                    setError(err)
                 })
         }
     }

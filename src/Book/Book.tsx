@@ -107,13 +107,8 @@ const Book = (props: Props) => {
         promise.then(res => {
             notifySuccess(res.expirationDate);
         })
-            .catch(e => {
-                if(e.status === BAD_REQUEST) notifyError('No se pudo realizar el préstamo ya que tiene prestamos atrasados.');
-                else if (e.status === TOO_MANY_REQUESTS) notifyError('No se pudo realizar el préstamo ya que tiene demasiados prestamos activos.');
-                else if (e.status === NOT_ACCEPTABLE) notifyError('No se pudo realizar el préstamo ya que ya tiene un prestamo de este libro.');
-                else if (e.status === EXPECTATION_FAILED) notifyError('Este libro no tiene ejemplates disponibles.');
-                else if (e.status === UNAUTHORIZED) notifyError('Debe ser un alumno para realizar un prestamo.');
-                else notifyError('Error inesperado. Intente de nuevo.');
+            .catch((error) => {
+                    notifyError(error);
             })
             .finally(()=> {
                 setSelectedBook(undefined);

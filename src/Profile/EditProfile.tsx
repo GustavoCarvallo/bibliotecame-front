@@ -23,7 +23,7 @@ type Errors = {
     passwordMatchError: boolean,
     phoneNumberError: boolean,
     alphanumericError: boolean,
-    serverError?: number,
+    serverError?: string,
 }
 
 const initialErrors = {
@@ -46,11 +46,8 @@ const EditProfile = (props: Props) => {
         let newErrors = validateProfile(props.profile);
         let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError && !newErrors.alphanumericError;
         if (valid) {
-            props.handleSubmit(props.profile, handleSuccess, (status: number) => setErrors({
-                ...newErrors,
-                serverError: status
-            }))
-        } else {
+            props.handleSubmit(props.profile, handleSuccess, (status: string) => setErrors({...newErrors, serverError: status}))
+        }else {
             setErrors(newErrors);
         }
     }
@@ -159,25 +156,16 @@ const EditProfile = (props: Props) => {
     )
 }
 
-const renderStatusError = (status: number) => {
-    switch (status) {
-        case 400:
-            return ("Comprobar los datos que fueron introducidos")
-        default:
-            return ("Error del servidor")
-    }
-}
-
-const errorChecker = (errors: Errors) => {
+const errorChecker = (errors : Errors) => {
     let message = "";
-    if (errors.passwordMatchError) message = "Las contraseñas deben coincidir!";
-    if (errors.alphanumericError) message = "La contraseña solo puede incluir letras y/o números!";
-    if (errors.passwordLengthError) message = "La contraseña debe tener más de 6 caracteres!";
-    if (errors.phoneNumberError) message = "Inserte su número de telefono!";
-    if (errors.lastNameError) message = "Completar apellido";
-    if (errors.nameError) message = "Completar nombre";
-    if (errors.serverError) message = renderStatusError(errors.serverError);
-    if (message === "") {
+    if(errors.passwordMatchError) message="Las contraseñas deben coincidir!";
+    if(errors.alphanumericError) message="La contraseña solo puede incluir letras y/o números!";
+    if(errors.passwordLengthError) message="La contraseña debe tener más de 6 caracteres!";
+    if(errors.phoneNumberError) message="Inserte su número de telefono!";
+    if(errors.lastNameError) message="Completar apellido";
+    if(errors.nameError) message= "Completar nombre";
+    if(errors.serverError) message=errors.serverError;
+    if(message===""){
         return;
     }
     return renderError(message);

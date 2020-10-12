@@ -1,3 +1,3 @@
 export const userInformation = {
-    isAdmin: localStorage.getItem('admin'),
+    isAdmin: localStorage.getItem('admin') === 'true',
 }

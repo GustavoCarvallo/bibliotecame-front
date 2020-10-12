@@ -21,8 +21,10 @@ import Login from "../Login/Login"
 import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
+import {userInformation} from "../utils/userInformation";
+export const isAdmin = userInformation.isAdmin;
+
 const Router = () => {
-    const isAdmin = localStorage.getItem('admin') === 'true';
 
     return (
         <BrowserRouter>
@@ -33,12 +35,12 @@ const Router = () => {
                 />
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={isAdmin} selected={0}/>}/>
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
-                    <AuthRoute path={'/profile'} component={() => <ProfileView isAdmin={isAdmin}/>}/>
-                    <AuthRoute path={"/home"} component={() => <Home isAdmin={isAdmin}/>}/>
-                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={1}/>}/>
-                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} isAdmin={isAdmin} selected={2}/>}/>
+                    <AuthRoute path={'/profile'} component={ProfileView}/>
+                    <AuthRoute path={"/home"} component={Home}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
+                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -48,7 +50,6 @@ const Router = () => {
 }
 
 type ContainedComponentProps = {
-    isAdmin: boolean,
     children: Function,
     selected?: number,
 }
@@ -56,16 +57,16 @@ type ContainedComponentProps = {
 const ContainedComponent = (props: ContainedComponentProps) => {
     return(
         <div>
-            <TopBar isAdmin={props.isAdmin}/>
+            <TopBar isAdmin={isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={props.isAdmin} selected={props.selected}/>
+                <SideBar isAdmin={isAdmin} selected={props.selected}/>
                 {props.children()}
             </div>
         </div>
     )
 }
 
-export function Home({isAdmin}: {isAdmin: boolean}) {
+export function Home() {
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>
@@ -77,7 +78,7 @@ export function Home({isAdmin}: {isAdmin: boolean}) {
     );
 }
 
-export function ProfileView({isAdmin}: {isAdmin: boolean}) {
+export function ProfileView() {
     return (
         <div>
             <TopBar isAdmin={isAdmin}/>

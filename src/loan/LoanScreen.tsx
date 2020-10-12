@@ -3,6 +3,7 @@ import "./LoanScreen.css";
 import StudentLoanScreen from "./StudentLoanScreen/StudentLoanScreen";
 import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
 import {clearLoans} from "../utils/http";
+import {isAdmin} from "../router/Routes";
 
 export type Loan = {
     id: number,
@@ -14,7 +15,7 @@ export type Loan = {
     userEmail?: string,
 }
 
-const LoanScreen = ({isAdmin}: { isAdmin: boolean }) => {
+const LoanScreen = () => {
 
     clearLoans(isAdmin);
 

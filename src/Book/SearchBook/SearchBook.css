@@ -1,13 +1,18 @@
+.search-book-screen {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
 .book-search-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-content: center;
-    margin-top: 5vh;
     height: 50px;
-}
-
-.book-search-container .field-container {
     width: 30vw;
 }
 

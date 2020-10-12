@@ -11,7 +11,7 @@ const TopBar = (props: Props) => {
     return (
         <div className={"top-bar"}>
             <div/>
-            <div className={"top-bar-title"}><Link to={"/home"} className={"link-un-styled"}>Bibliotecame</Link></div>
+            <div className={"top-bar-title"}><Link to={"/book"} className={"link-un-styled"}>Bibliotecame</Link></div>
             <div className={"vertical-divider"}/>
             <div className={"top-bar-right"}>
                 <i className="far fa-user-circle user-circle-regular"/>

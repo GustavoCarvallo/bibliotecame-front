@@ -30,8 +30,8 @@ export type UserInformation = {
 const Router = () => {
 
     const [userInformation, setUserInformation] = React.useState<UserInformation>({
-        fullName: null,
-        isAdmin: false,
+        fullName: localStorage.getItem('fullName'),
+        isAdmin: localStorage.getItem('admin') === "true",
     });
 
     return (

@@ -74,7 +74,7 @@ const UserForm = () => {
         <div className={"form-content"}>
             <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit}>
-                <div className="inputs">
+                <div className="signup-input-container">
                     <InputWithIcon icon={"fas fa-user"} value={user.firstName} onChange={e => onChangeUser(e.target.value, 1)} placeholder={"Nombre"}/>
                     <InputWithIcon icon={"fas fa-user"} value={user.lastName} onChange={e => onChangeUser(e.target.value, 2)} placeholder={"Apellido"}/>
                     <InputWithIcon icon={"fas fa-envelope"} value={user.email} onChange={e => onChangeUser(e.target.value, 3)} placeholder={"Correo Electrónico"}/>

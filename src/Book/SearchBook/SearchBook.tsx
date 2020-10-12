@@ -50,7 +50,7 @@ const SearchBook = (props: Props) => {
     }
 
     return (
-        <>
+        <div className="search-book-screen">
             <div className={"book-search-container"}>
                 <InputWithIcon icon={'fas fa-search'}
                                value={searchFilter}
@@ -66,7 +66,7 @@ const SearchBook = (props: Props) => {
                                  openBookDetails={props.openBookDetails}
                                  changePage={changePage}/>
             </div>
-        </>
+        </div>
     )
 }
 

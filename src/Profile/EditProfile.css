@@ -50,3 +50,14 @@
     display: flex;
     flex: 1;
 }
+
+.edit-profile-grid {
+    width: inherit;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.edit-profile-body {
+    padding: 20px;
+}

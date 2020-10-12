@@ -39,10 +39,22 @@ const request = (url: string, method: string, body: Object | null, config: Confi
 }
 
 
+const clear = (isAdmin: boolean, config: Config) => {
+    const token = localStorage['token'];
+    let headers = (!config.noAuth && token) ? {"Content-Type": "application/json", Authorization: "Bearer " + token} : {"Content-Type": "application/json"};
+    const configuration: Object = {
+        method: "DELETE",
+        body: undefined,
+        headers: headers,
+    };
+    return fetch(baseUrl + `loan/${isAdmin? "admin" : "user"}/clear`, configuration)
+}
+
 export const get = (url: string, config = {}) => request(url, "GET", null, config);
 export const post = (url: string, body: Object, config = {}) => request(url, "POST", body, config);
 export const put = (url: string, body: Object, config = {}) => request(url, "PUT", body, config);
 export const del = (url: string, config = {}) => request(url, "DELETE", null, config);
+export const clearLoans = (isAdmin: boolean, config = {}) => clear(isAdmin, config);
 
 export const deleteToken = () => {
     localStorage.removeItem('token');

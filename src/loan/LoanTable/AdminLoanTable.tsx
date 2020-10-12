@@ -11,6 +11,7 @@ type Props = {
     search: string,
     changePage: (page: number)=>void,
     paginationData?: PaginationData<Loan>,
+    handleAction: (info: Loan)=>void
 }
 
 const AdminLoanTable = (props: Props) => {
@@ -30,18 +31,22 @@ const AdminLoanTable = (props: Props) => {
         },
         {
             header: "Fecha de devolución",
-            accessor: "expectedReturnDate",
+            component: row => <span className={"table-column-text"}>{row.returnDate !== null ? row.returnDate : row.expectedReturnDate}</span>
         },
         {
             header: "Acciones",
             component: row => {
+                const onClick = () => props.handleAction(row);
                 switch (row.loanStatus) {
                     case "PENDING_EXTENSION":
-                        return <button className={"loan-table-button"}>Aceptar/Rechazar</button>
+                        return <button className={"loan-table-button"} onClick={onClick}>Aceptar/Rechazar</button>
+                    case "APPROVED_EXTENSION":
+                    case "REJECTED_EXTENSION":
+                    case "WITHDRAWN":
                     case "DELAYED":
-                        return <button className={"loan-table-button"}>Confirmar devolución</button>
+                        return <button className={"loan-table-button"} onClick={onClick}>Confirmar devoluc.</button>
                     case "READY_FOR_WITHDRAWAL":
-                        return <button className={"loan-table-button"}>Confirmar retiro</button>
+                        return <button className={"loan-table-button"} onClick={onClick}>Confirmar retiro</button>
                     default:
                         return <></>
                 }

@@ -33,7 +33,7 @@ const Router = () => {
                 />
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={0}/>}/>
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} isAdmin={isAdmin} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={() => <ProfileView isAdmin={isAdmin}/>}/>
                     <AuthRoute path={"/home"} component={() => <Home isAdmin={isAdmin}/>}/>

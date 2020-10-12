@@ -37,11 +37,9 @@ type Success = {
     message?: string,
 }
 
-type Props = {
-    isAdmin: boolean,
-}
+const Book = () => {
 
-const Book = (props: Props) => {
+    const isAdmin = localStorage.getItem('admin') === 'true';
 
     const BAD_REQUEST = 400;
     const UNAUTHORIZED = 401;
@@ -93,7 +91,7 @@ const Book = (props: Props) => {
         get(`book/${id}`)
             .then(res => {
                 setSelectedBook(res);
-                props.isAdmin && setStatus(EDIT);
+                isAdmin && setStatus(EDIT);
             })
             .catch(err => console.log(err))
     }
@@ -131,7 +129,7 @@ const Book = (props: Props) => {
             case SEARCH:
                 return (
                     <>
-                        <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
+                        <SearchBook isAdmin={isAdmin} handleOpenCreation={handleOpenCreation}
                                     openBookDetails={openBookDetails}/>
                         {selectedBook &&
                         <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook} handleLoan={handleLoan}/>}

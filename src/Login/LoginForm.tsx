@@ -8,7 +8,7 @@ type Props = {
     whereTo: string
 }
 
-function LoginForm(props: Props){
+function LoginForm(props: Props) {
 
     const history = useHistory();
 
@@ -33,12 +33,10 @@ function LoginForm(props: Props){
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
                 localStorage.setItem('fullName', res.fullName);
-                history.replace(props.whereTo);
-                history.go(0);
+                history.push(props.whereTo);
+            }).catch(err => {
+                setError(err);
             })
-                .catch(err => {
-                    setError(err)
-                })
         }
     }
 
@@ -48,8 +46,11 @@ function LoginForm(props: Props){
             <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="login-form-input-container">
-                    <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email} placeholder={"Ingrese su correo electrónico"}/>
-                    <InputWithIcon icon={"fas fa-lock icon"} isPassword={true} onChange={e => setPassword(e.target.value)} value={password} placeholder={"Ingrese su contraseña"}/>
+                    <InputWithIcon icon={"fas fa-envelope icon"} onChange={e => setEmail(e.target.value)} value={email}
+                                   placeholder={"Ingrese su correo electrónico"}/>
+                    <InputWithIcon icon={"fas fa-lock icon"} isPassword={true}
+                                   onChange={e => setPassword(e.target.value)} value={password}
+                                   placeholder={"Ingrese su contraseña"}/>
                 </div>
 
                 <button type="submit" className="button">Iniciar Sesión</button>

@@ -47,7 +47,7 @@ const Router = () => {
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={() => <ProfileView userInformation={userInformation}/>}/>
                     <AuthRoute path={"/home"} component={() => <Home userInformation={userInformation}/>}/>
-                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} userInformation={userInformation} selected={1}/>}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen isAdmin={userInformation.isAdmin}/>} userInformation={userInformation} selected={1}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} userInformation={userInformation} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>

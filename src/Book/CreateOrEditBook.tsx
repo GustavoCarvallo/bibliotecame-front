@@ -5,7 +5,6 @@ import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCa
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";
-import ErrorBox from "../common/ErrorBox/ErrorBox";
 import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
@@ -100,25 +99,25 @@ const CreateOrEditBook = (props: Props) => {
 
         if (!book.title || book.title === "") {
             titleError = true;
-            renderError("Completar título");
+            notifyError("Completar título");
         }
         if (!book.author || book.author === "") {
             authorError = true;
-            renderError("Completar autor")
+            notifyError("Completar autor")
         }
         if (!book.publisher || book.publisher === "") {
             publisherError = true;
-            renderError("Completar editorial")
+            notifyError("Completar editorial")
         }
         if (!book.year) {
             yearErrors.yearUndefined = true;
-            renderError("Completar año")
+            notifyError("Completar año")
         } else if (book.year > MAX_YEAR) {
             yearErrors.yearHigher = true;
-            renderError("Año debe ser menor a " + MAX_YEAR)
+            notifyError("Año debe ser menor a " + MAX_YEAR)
         } else if (book.year < MIN_YEAR) {
             yearErrors.yearLower = true;
-            renderError("Año debe ser mayor a " + MIN_YEAR)
+            notifyError("Año debe ser mayor a " + MIN_YEAR)
         }
 
         const newErrors: Errors = {
@@ -169,17 +168,13 @@ const CreateOrEditBook = (props: Props) => {
         }
     ]
 
-    const renderError = (message: string) => {
-        notifyError(message);
-    }
-
 
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
 
-            {(props.newCopyError && renderError("Error al crear ejemplar")) ||
-            (errors.serverError && renderError(errors.serverError))
+            {(props.newCopyError && notifyError("Error al crear ejemplar")) ||
+            (errors.serverError && notifyError(errors.serverError))
             }
             <div>
                 <div className="box">
@@ -208,7 +203,7 @@ const CreateOrEditBook = (props: Props) => {
                                    }
                                }}
                                maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
-                        <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
+                        <i className="fas fa-plus icon" onClick={() => addTag(tagToAdd)}/>
                     </div>
                     {renderTags(props.book.tags)}
                     <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>

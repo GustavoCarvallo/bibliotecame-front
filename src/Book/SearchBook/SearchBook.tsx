@@ -61,10 +61,9 @@ const SearchBook = (props: Props) => {
                 }
             </div>
             <div className={"search-book-table-container"}>
-                <SearchBookTable isAdmin={props.isAdmin}
-                                 paginationData={paginationData}
+                <SearchBookTable paginationData={paginationData}
                                  openBookDetails={props.openBookDetails}
-                                 changePage={changePage}/>
+                                 changePage={changePage} isAdmin={props.isAdmin}/>
             </div>
         </div>
     )

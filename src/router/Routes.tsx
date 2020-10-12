@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     BrowserRouter,
     Switch,
@@ -21,10 +21,18 @@ import Login from "../Login/Login"
 import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
-import {userInformation} from "../utils/userInformation";
-export const isAdmin = userInformation.isAdmin;
+
+export type UserInformation = {
+    fullName: string | null,
+    isAdmin: boolean
+}
 
 const Router = () => {
+
+    const [userInformation, setUserInformation] = React.useState<UserInformation>({
+        fullName: null,
+        isAdmin: false,
+    });
 
     return (
         <BrowserRouter>
@@ -34,13 +42,13 @@ const Router = () => {
                                 closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
                 />
                 <Switch>
-                    <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={0}/>}/>
+                    <ReverseAuthRoute path={"/login"} component={() => <Login setUserInformation={setUserInformation}/>}/> //Requires not being logged in
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={userInformation.isAdmin}/>} userInformation={userInformation} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
-                    <AuthRoute path={'/profile'} component={ProfileView}/>
-                    <AuthRoute path={"/home"} component={Home}/>
-                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
-                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} selected={2}/>}/>
+                    <AuthRoute path={'/profile'} component={() => <ProfileView userInformation={userInformation}/>}/>
+                    <AuthRoute path={"/home"} component={() => <Home userInformation={userInformation}/>}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} userInformation={userInformation} selected={1}/>}/>
+                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} userInformation={userInformation} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -50,6 +58,7 @@ const Router = () => {
 }
 
 type ContainedComponentProps = {
+    userInformation: UserInformation,
     children: Function,
     selected?: number,
 }
@@ -57,33 +66,33 @@ type ContainedComponentProps = {
 const ContainedComponent = (props: ContainedComponentProps) => {
     return(
         <div>
-            <TopBar isAdmin={isAdmin}/>
+            <TopBar isAdmin={props.userInformation.isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={isAdmin} selected={props.selected}/>
+                <SideBar isAdmin={props.userInformation.isAdmin} selected={props.selected}/>
                 {props.children()}
             </div>
         </div>
     )
 }
 
-export function Home() {
+export function Home({userInformation}: {userInformation: UserInformation}) {
     return (
         <div>
-            <TopBar isAdmin={isAdmin}/>
+            <TopBar isAdmin={userInformation.isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={isAdmin}/>
+                <SideBar isAdmin={userInformation.isAdmin}/>
                 <h2>Welcome!</h2>
             </div>
         </div>
     );
 }
 
-export function ProfileView() {
+export function ProfileView({userInformation}: {userInformation: UserInformation}) {
     return (
         <div>
-            <TopBar isAdmin={isAdmin}/>
+            <TopBar isAdmin={userInformation.isAdmin}/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={isAdmin} selected={3}/>
+                <SideBar isAdmin={userInformation.isAdmin} selected={3}/>
                 <Profile/>
             </div>
         </div>

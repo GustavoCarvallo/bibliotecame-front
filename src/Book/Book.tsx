@@ -6,7 +6,6 @@ import BookDetails from "./BookDetails/BookDetails";
 import {get, post} from "../utils/http";
 import SearchBook from "./SearchBook/SearchBook";
 import {toast, ToastOptions} from "react-toastify";
-import {isAdmin} from "../router/Routes";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -38,7 +37,11 @@ type Success = {
     message?: string,
 }
 
-const Book = () => {
+type Props = {
+    isAdmin: boolean,
+}
+
+const Book = (props: Props) => {
 
     const BAD_REQUEST = 400;
     const UNAUTHORIZED = 401;
@@ -90,7 +93,7 @@ const Book = () => {
         get(`book/${id}`)
             .then(res => {
                 setSelectedBook(res);
-                isAdmin && setStatus(EDIT);
+                props.isAdmin && setStatus(EDIT);
             })
             .catch(err => console.log(err))
     }
@@ -128,8 +131,8 @@ const Book = () => {
             case SEARCH:
                 return (
                     <>
-                        <SearchBook isAdmin={isAdmin} handleOpenCreation={handleOpenCreation}
-                                    openBookDetails={openBookDetails}/>
+                        <SearchBook handleOpenCreation={handleOpenCreation}
+                                    openBookDetails={openBookDetails} isAdmin={props.isAdmin}/>
                         {selectedBook &&
                         <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook} handleLoan={handleLoan}/>}
                     </>

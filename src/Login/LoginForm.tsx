@@ -3,9 +3,11 @@ import {useHistory} from 'react-router-dom'
 import {post} from "../utils/http";
 import ErrorBox from "../common/ErrorBox/ErrorBox";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
+import {UserInformation} from "../router/Routes";
 
 type Props = {
-    whereTo: string
+    whereTo: string,
+    setUserInformation: (info: UserInformation)=>void,
 }
 
 function LoginForm(props: Props) {
@@ -33,6 +35,10 @@ function LoginForm(props: Props) {
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
                 localStorage.setItem('fullName', res.fullName);
+                props.setUserInformation({
+                    fullName: res.fullName,
+                    isAdmin: res.admin,
+                });
                 history.push(props.whereTo);
             }).catch(err => {
                 setError(err);

@@ -3,7 +3,6 @@ import "./LoanScreen.css";
 import StudentLoanScreen from "./StudentLoanScreen/StudentLoanScreen";
 import AdminLoanScreen from "./LoanScreen/AdminLoanScreen";
 import {clearLoans} from "../utils/http";
-import {isAdmin} from "../router/Routes";
 
 export type Loan = {
     id: number,
@@ -15,13 +14,17 @@ export type Loan = {
     userEmail?: string,
 }
 
-const LoanScreen = () => {
+type Props = {
+    isAdmin: boolean,
+}
 
-    clearLoans(isAdmin);
+const LoanScreen = (props: Props) => {
+
+    clearLoans(props.isAdmin);
 
     return (
         <div className={"loan-screen-container"}>
-            {isAdmin ?
+            {props.isAdmin ?
                 <AdminLoanScreen/>
                 :
                 <StudentLoanScreen/>

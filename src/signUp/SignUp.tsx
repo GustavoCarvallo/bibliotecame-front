@@ -1,6 +1,7 @@
 import React from 'react'
 import './SignUp.css'
 import UserForm from './UserForm';
+import {Link} from "react-router-dom";
 
 function SignUp() {
 
@@ -10,6 +11,11 @@ function SignUp() {
             <div className="registration-box">
                 <h2 className="sub-title"> Registro</h2>
                 <UserForm/>
+                <div className={"register-button"}>
+                    <Link to={'login'}>
+                        <span>Ya tengo una cuenta</span>
+                    </Link>
+                </div>
             </div>
         </div>
     )

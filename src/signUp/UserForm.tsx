@@ -26,7 +26,7 @@ const UserForm = () => {
         e.preventDefault();
 
         if (password1 !== password2) notifyError("Las contraseñas no coinciden");
-        else if (!password1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{7,}$/)) notifyError("¡La contraseña debe ser mayor que 6 e incluir numero y letras !");
+        else if (!password1.match(/^(?=.*\d)(?=.*[a-zA-Z]).{7,}$/)) notifyError("¡La contraseña debe ser mayor que 6 e incluir numero y letras!");
         else if(user.firstName === "" ||
                   user.lastName === "" ||
                   user.email === "" ||

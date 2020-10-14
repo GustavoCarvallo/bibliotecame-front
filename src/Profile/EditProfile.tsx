@@ -35,7 +35,7 @@ const initialErrors = {
 
 const EditProfile = (props: Props) => {
     const [confirmPassword, setConfirmPassword] = React.useState<string>("");
-    const regexp = new RegExp(/^([a-zA-Z0-9]){6,}$/);
+    const regexp = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z]).{7,}$/);
     const [errors, setErrors] = React.useState<Errors>({...initialErrors});
 
     const handleSubmit = () => {

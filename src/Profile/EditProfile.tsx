@@ -43,17 +43,9 @@ const EditProfile = (props: Props) => {
         let newErrors = validateProfile(props.profile);
         let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError && !newErrors.alphanumericError;
         if (valid) {
-            props.handleSubmit(props.profile, handleSuccess, (status: string) => setErrors({...newErrors, serverError: status}))
+            props.handleSubmit(props.profile, handleSuccess, (status: string) => renderError(status))
         }else {
             setErrors(newErrors);
-        }
-    }
-
-    const errorChecker = (errors: Errors) => {
-        let message = "";
-        if (errors.serverError) renderError(errors.serverError);
-        if (message === "") {
-            return;
         }
     }
 
@@ -139,7 +131,6 @@ const EditProfile = (props: Props) => {
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
-            {errorChecker(errors)}
             <div className={"edit-profile-body"}>
                 <div className="edit-profile-grid">
                     <InputWithIcon icon={"fas fa-user"}

@@ -66,7 +66,7 @@ const CreateOrEditBook = (props: Props) => {
         let newErrors = validateBook(props.book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit(props.book, handleSuccess, (status: string) => setErrors({...newErrors, serverError: status}))
+            props.handleSubmit(props.book, handleSuccess, (status: string) => notifyError(status))
         }else {
             setErrors(newErrors);
         }
@@ -172,10 +172,6 @@ const CreateOrEditBook = (props: Props) => {
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
-
-            {(props.newCopyError && notifyError("Error al crear ejemplar")) ||
-            (errors.serverError && notifyError(errors.serverError))
-            }
             <div>
                 <div className="box">
                     <div className="rectangle-2">

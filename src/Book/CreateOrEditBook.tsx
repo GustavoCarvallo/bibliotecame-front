@@ -169,10 +169,10 @@ const CreateOrEditBook = (props: Props) => {
     ]
 
     function isActive() {
-        return (props.book.title !== "" && props.book.title !== undefined) &&
+        return (props.book.title !== undefined && props.book.title !== "") &&
             (props.book.publisher !== "" && props.book.publisher !== undefined)&&
             (props.book.author !== "" && props.book.author !== undefined) &&
-            props.book.year !== undefined
+            props.book.year !== undefined && !isNaN(props.book.year)
     }
 
 

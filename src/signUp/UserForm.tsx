@@ -70,7 +70,19 @@ const UserForm = () => {
         }
     }
 
+    function isActive() {
+        return user.firstName !== "" && user.lastName !== "" &&
+            user.email !== "" && user.phoneNumber !== "" &&
+            password1 !== "" && password2 !== "";
 
+    }
+
+    const buttonStyleDeactivated = {
+        color: '#48a3fb', backgroundColor: '#e4e9f0'
+    }
+    const buttonStyleActivated = {
+        color: '#ffffff', backgroundColor: '#48a3fb'
+    }
     return (
         <div className={"form-content"}>
             <form onSubmit={handleSubmit}>
@@ -84,7 +96,7 @@ const UserForm = () => {
 
                 </div>
 
-                <button type="submit" className="button">Registrarme</button>
+                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>Registrarme</button>
 
             </form>
         </div>

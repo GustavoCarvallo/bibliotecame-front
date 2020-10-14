@@ -38,6 +38,7 @@ const EditProfile = (props: Props) => {
     const regexp = new RegExp(/^([a-zA-Z0-9]){6,}$/);
     const [errors, setErrors] = React.useState<Errors>({...initialErrors});
 
+
     const handleSubmit = () => {
         let newErrors = validateProfile(props.profile);
         let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError && !newErrors.alphanumericError;
@@ -120,6 +121,21 @@ const EditProfile = (props: Props) => {
         return newErrors;
     }
 
+    function isActive(){
+        return ( props.profile.firstName!=="" &&
+            props.profile.lastName!=="" &&
+            props.profile.password!=="" &&
+            props.profile.phoneNumber!=="" &&
+            confirmPassword!=="")
+    }
+
+    const buttonStyleDeactivated = {
+        color: '#48a3fb', backgroundColor: '#e4e9f0'
+    }
+    const buttonStyleActivated = {
+        color: '#ffffff', backgroundColor: '#48a3fb'
+    }
+
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
@@ -154,6 +170,7 @@ const EditProfile = (props: Props) => {
                     <InputWithIcon
                         icon={"fas fa-lock"}
                         placeholder="Contraseña"
+                        value={props.profile.password}
                         onChange={event => props.setProfile({...props.profile, password: event.target.value})}
                         isPassword={true}/>
                     <InputWithIcon
@@ -164,7 +181,7 @@ const EditProfile = (props: Props) => {
                         onChange={event => setConfirmPassword(event.target.value)}
                     />
                 </div>
-                <button className="rectangle-6" onClick={handleSubmit}>
+                <button className="rectangle-6" onClick={handleSubmit} style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>
                     <p className="save-button">{'Guardar cambios'}</p>
                 </button>
             </div>

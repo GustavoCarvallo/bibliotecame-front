@@ -168,6 +168,13 @@ const CreateOrEditBook = (props: Props) => {
         }
     ]
 
+    function isActive() {
+        return (props.book.title !== "" && props.book.title !== undefined) &&
+            (props.book.publisher !== "" && props.book.publisher !== undefined)&&
+            (props.book.author !== "" && props.book.author !== undefined) &&
+            props.book.year !== undefined
+    }
+
 
     return (
         <div className={"create-book"}>
@@ -218,7 +225,7 @@ const CreateOrEditBook = (props: Props) => {
                         </div>
                     )}
                 </div>
-                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit}/>
+                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit} isActivated={isActive()}/>
             </div>
         </div>
     )

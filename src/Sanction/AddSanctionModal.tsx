@@ -66,7 +66,9 @@ const AddSanctionModal = (props: Props) => {
                             onChange={()=> {}}
                             onSelect={date => setSanction({...sanction, endDate: date})}
                             placeholderText="Sancionado hasta"> </DatePicker>
-                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}/>
+                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}
+                                        isActivated={sanction.userEmail !== "" && sanction.userEmail !== undefined &&
+                                                    sanction.reason !== "" && sanction.reason !== undefined}/>
             </div>
         </GenericModal>
     )

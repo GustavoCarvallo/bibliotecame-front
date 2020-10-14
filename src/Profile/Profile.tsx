@@ -32,7 +32,9 @@ function Profile() {
 
     useEffect(()=>{
         get(`user/getLogged`)
-            .then(res => setSelectedProfile(res))
+            .then(res => {
+                setSelectedProfile({id:res.id, email:res.email, password: "", firstName: res.firstName, lastName: res.lastName, phoneNumber: res.phoneNumber, isAdmin: res.isAdmin});
+            })
             .catch(err => console.log(err));},[])
 
     const [status, setStatus] = React.useState(EDIT);

@@ -73,6 +73,10 @@
     padding: 15px 20px;
 }
 
+.loan-modal-red-button:focus,.loan-modal-green-button:focus{
+    outline: none;
+}
+
 .loan-modal-red-button {
     background-color: var(--orangey-red);
     color: var(--white);

@@ -25,8 +25,12 @@ const DropdownInput = (props: Props) => {
 
     const handleChange = (e : ChangeEvent<HTMLInputElement>) =>{
         setShowDropdown(selected !== "");
-        setSelected(e.target.value)
-        props.onChange(e)
+        changeInputState(e.target.value)
+    }
+
+    const changeInputState = (value: string) => {
+        setSelected(value)
+        props.onChange(value)
     }
 
     return(
@@ -37,7 +41,7 @@ const DropdownInput = (props: Props) => {
                        type={'text'}
                        onChange={e => handleChange(e)}
                        placeholder={props.placeholder}/>
-                <i className={`fas fa-times icon`} onClick={() => setSelected("")} style={{color: selected && selected !== "" ? '#030303' : '#a4a8ad'}}/>
+                <i className={`fas fa-times icon`} onClick={() => changeInputState("")} style={{color: selected && selected !== "" ? '#030303' : '#a4a8ad'}}/>
                 <span className="drop-icon icon" onClick={flipDropdown}><i className="fas fa-chevron-down"> </i></span>
             </div>
             <div className={"drop-list"}>

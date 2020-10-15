@@ -45,6 +45,12 @@ function LoginForm(props: Props){
         toast.error(message)
     }
 
+    const buttonStyleDeactivated = {
+        color: '#48a3fb', backgroundColor: '#e4e9f0'
+    }
+    const buttonStyleActivated = {
+        color: '#ffffff', backgroundColor: '#48a3fb'
+    }
 
     return (
         <div className={"login-form-screen"}>
@@ -54,7 +60,7 @@ function LoginForm(props: Props){
                     <InputWithIcon icon={"fas fa-lock icon"} isPassword={true} onChange={e => setPassword(e.target.value)} value={password} placeholder={"Ingrese su contraseña"}/>
                 </div>
 
-                <button type="submit" className="button">Iniciar Sesión</button>
+                <button type="submit" className="button" style={(email !== "" && password !== "") ? buttonStyleActivated : buttonStyleDeactivated}>Iniciar Sesión</button>
 
             </form>
         </div>

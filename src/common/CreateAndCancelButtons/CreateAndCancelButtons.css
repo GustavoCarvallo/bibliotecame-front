@@ -13,14 +13,15 @@
     border: none;
     margin-top: 5%;
     margin-bottom: 8%;
+    color: #48a3fb;
 }
 
-.rectangle-6:hover {
-    background-color: #48a3fb;
+.rectangle-6:focus{
+    outline: none;
 }
 
-.rectangle-6:hover .save-button {
-    color: #ffffff;
+.rectangle-6-red:focus{
+    outline: none;
 }
 
 .save-button {
@@ -32,7 +33,6 @@
     line-height: 1.31;
     letter-spacing: 0;
     text-align: center;
-    color: #48a3fb;
     margin: 0;
 }
 

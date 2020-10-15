@@ -26,11 +26,11 @@ const CreateBook = (props: Props) => {
                 setBook({...initialBook})
                 setKey(key + 1);
                 thenCallback();
+                props.handleCancel();
             })
             .catch((e) => {
                     catchCallback(e);
             })
-        props.handleCancel();
     }
 
     return <CreateOrEditBook handleCancel={props.handleCancel}

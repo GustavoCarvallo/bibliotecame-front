@@ -21,13 +21,11 @@ function LoginForm(props: Props) {
         if (password === "" || email === "") {
             notifyError("Las credenciales ingresadas no son correctas")
         } else {
-            const promise = post("auth/", {
+
+            post("auth/", {
                     email: email,
                     password: password
-                },
-                {noAuth: true});
-
-            promise.then(res => {
+                }, {noAuth: true}).then(res => {
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
                 localStorage.setItem('fullName', res.fullName);
@@ -35,9 +33,6 @@ function LoginForm(props: Props) {
             }).catch(err => {
                 notifyError(err);
             })
-                .catch(err => {
-                    notifyError(err)
-                })
         }
     }
 

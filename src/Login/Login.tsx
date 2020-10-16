@@ -4,14 +4,9 @@ import {toast, ToastOptions} from "react-toastify";
 import LoginForm from "./LoginForm";
 import "../common/Notify.css"
 import {useLocation, useHistory, Link} from 'react-router-dom';
-import {UserInformation} from "../router/Routes";
 
 
-type Props = {
-    setUserInformation: (info: UserInformation)=>void,
-}
-
-function Login(props: Props) {
+function Login() {
 
     const location = useLocation();
     const history = useHistory();
@@ -48,7 +43,7 @@ function Login(props: Props) {
             <h1 className={"Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
-                <LoginForm whereTo="/book" setUserInformation={props.setUserInformation}/>
+                <LoginForm whereTo="/book"/>
                 <div className={"register-button"}>
                     <Link to={'signup'}>
                         <span>¿Deseas Registrarte?</span>

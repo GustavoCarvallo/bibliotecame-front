@@ -22,17 +22,16 @@ import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 
-export type UserInformation = {
-    fullName: string | null,
-    isAdmin: boolean
+
+export const isAdmin = () => {
+    return localStorage.getItem('admin') === 'true';
+}
+
+export const fullName = () => {
+    return localStorage.getItem('fullName');
 }
 
 const Router = () => {
-
-    const [userInformation, setUserInformation] = React.useState<UserInformation>({
-        fullName: localStorage.getItem('fullName'),
-        isAdmin: localStorage.getItem('admin') === "true",
-    });
 
     return (
         <BrowserRouter>
@@ -42,13 +41,13 @@ const Router = () => {
                                 closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
                 />
                 <Switch>
-                    <ReverseAuthRoute path={"/login"} component={() => <Login setUserInformation={setUserInformation}/>}/> //Requires not being logged in
-                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={() => <Book isAdmin={userInformation.isAdmin}/>} userInformation={userInformation} selected={0}/>}/>
+                    <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
-                    <AuthRoute path={'/profile'} component={() => <ProfileView userInformation={userInformation}/>}/>
-                    <AuthRoute path={"/home"} component={() => <Home userInformation={userInformation}/>}/>
-                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen isAdmin={userInformation.isAdmin}/>} userInformation={userInformation} selected={1}/>}/>
-                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} userInformation={userInformation} selected={2}/>}/>
+                    <AuthRoute path={'/profile'} component={ProfileView}/>
+                    <AuthRoute path={"/home"} component={Home}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
+                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
@@ -58,7 +57,6 @@ const Router = () => {
 }
 
 type ContainedComponentProps = {
-    userInformation: UserInformation,
     children: Function,
     selected?: number,
 }
@@ -66,33 +64,33 @@ type ContainedComponentProps = {
 const ContainedComponent = (props: ContainedComponentProps) => {
     return(
         <div>
-            <TopBar isAdmin={props.userInformation.isAdmin}/>
+            <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={props.userInformation.isAdmin} selected={props.selected}/>
+                <SideBar selected={props.selected}/>
                 {props.children()}
             </div>
         </div>
     )
 }
 
-export function Home({userInformation}: {userInformation: UserInformation}) {
+export function Home() {
     return (
         <div>
-            <TopBar isAdmin={userInformation.isAdmin}/>
+            <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={userInformation.isAdmin}/>
+                <SideBar/>
                 <h2>Welcome!</h2>
             </div>
         </div>
     );
 }
 
-export function ProfileView({userInformation}: {userInformation: UserInformation}) {
+export function ProfileView() {
     return (
         <div>
-            <TopBar isAdmin={userInformation.isAdmin}/>
+            <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar isAdmin={userInformation.isAdmin} selected={3}/>
+                <SideBar selected={3}/>
                 <Profile/>
             </div>
         </div>

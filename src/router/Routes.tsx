@@ -21,6 +21,7 @@ import Login from "../Login/Login"
 import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
+import LoanHistory from "../LoanHistory/LoanHistory";
 const isAdmin = localStorage.getItem('admin') === 'true';
 
 const Router = () => {
@@ -39,6 +40,7 @@ const Router = () => {
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={() => <LoanScreen isAdmin={isAdmin}/>} isAdmin={isAdmin} selected={1}/>}/>
+                    <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} isAdmin={isAdmin} selected={2}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={() => <SanctionsView/>} isAdmin={isAdmin} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>

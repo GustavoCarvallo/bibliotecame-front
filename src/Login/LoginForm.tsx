@@ -33,7 +33,7 @@ function LoginForm(props: Props) {
                 localStorage.setItem('fullName', res.fullName);
                 history.push(props.whereTo);
             }).catch(err => {
-                setError(err);
+                notifyError(err);
             })
                 .catch(err => {
                     notifyError(err)

@@ -5,9 +5,9 @@ import {Book} from "../Book";
 import {get} from "../../utils/http";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import {toast} from "react-toastify";
+import {isAdmin} from "../../router/Routes";
 
 type Props = {
-    isAdmin: boolean,
     openBookDetails: (id: number) => void,
     handleOpenCreation: (e: MouseEvent) => void,
 }
@@ -24,6 +24,8 @@ type Pageable = {
 
 
 const SearchBook = (props: Props) => {
+    const admin = isAdmin();
+
     const [searchFilter, setSearchFilter] = React.useState<string>("");
     const [paginationData, setPaginationData] = React.useState<PaginationData<Book> | undefined>(undefined);
 
@@ -67,13 +69,12 @@ const SearchBook = (props: Props) => {
                                value={searchFilter}
                                onChange={handleFilterChange}
                                placeholder={"Busque algún libro"}/>
-                {props.isAdmin &&
+                {admin &&
                 <i className={'fas fa-plus-circle add-button'} onClick={props.handleOpenCreation}/>
                 }
             </div>
             <div className={"search-book-table-container"}>
-                <SearchBookTable isAdmin={props.isAdmin}
-                                 paginationData={paginationData}
+                <SearchBookTable paginationData={paginationData}
                                  openBookDetails={props.openBookDetails}
                                  changePage={changePage}/>
             </div>

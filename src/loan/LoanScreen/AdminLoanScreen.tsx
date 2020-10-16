@@ -58,12 +58,28 @@ const AdminLoanScreen = () => {
             case "PENDING_EXTENSION":
                 title = "Solicitud de prórroga";
                 bodyText = `El alumno ${info.userEmail} ha solicitado
-                            un prórroga del libro “${info.bookTitle} - ${info.bookAuthor}”
+                            una prórroga del libro “${info.bookTitle} - ${info.bookAuthor}”
                             con fecha de devolución el ${expectedReturnDate.toLocaleDateString()}.\n
                             Si acepta la prórroga la nueva fecha de devolución será
                             el ${addDays(expectedReturnDate, 3)?.toLocaleDateString()}`;
-                cancelButton = {text: "Rechazar prórroga", onClick: () => {}};
-                acceptButton = {text: "Aceptar prórroga", onClick: () => {}};
+                cancelButton = {text: "Rechazar prórroga", onClick: () => {
+                        put(`extension/${info.id}/reject`,{})
+                            .then(() => {
+                                successfulRequest("Se ha rechazado la prórroga correctamente.")
+                            })
+                            .catch(err => {
+                                failedRequest(err)
+                            })
+                    }};
+                acceptButton = {text: "Aceptar prórroga", onClick: () => {
+                        put(`extension/${info.id}/approve`,{})
+                            .then(() => {
+                                successfulRequest("Se ha aceptado la prórroga correctamente.")
+                            })
+                            .catch(err => {
+                                failedRequest(err)
+                            })
+                    }};
                 break;
             case "WITHDRAWN":
             case "DELAYED":

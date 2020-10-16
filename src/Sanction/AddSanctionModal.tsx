@@ -21,11 +21,6 @@ type User = {
 
 const AddSanctionModal = (props: Props) => {
 
-    const EXPECTATION_FAILED = 417;
-    const UNPROCESSABLE_ENTITY = 422;
-    const BAD_REQUEST = 400;
-
-
     const [sanction, setSanction] = useState<Sanction>({
         userEmail:"", endDate: new Date(), reason: ""
     })
@@ -34,14 +29,13 @@ const AddSanctionModal = (props: Props) => {
 
     const handleAdd = () => {
         post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
-        .then(res => {
+        .then(() => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
+            cancel()
         })
             .catch(err => {
                 props.onError(err)
             })
-        props.onClose();
-        setSanction({userEmail:"", endDate: new Date(), reason: ""})
     }
 
     const cancel = () => {
@@ -60,7 +54,7 @@ const AddSanctionModal = (props: Props) => {
         <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
             <div className={"add-sanction-body"}>
                 <DropdownInput list={userList}
-                               onChange={e => {setSanction({...sanction, userEmail: e.target.value}); setList(e.target.value)}}
+                               onChange={val => {setSanction({...sanction, userEmail: val}); setList(val)}}
                                onSelect={row => setSanction({...sanction, userEmail: row})}
                                placeholder={"Seleccione un alumno/a"}/>
                 <textarea className={"reason-input"}
@@ -72,7 +66,9 @@ const AddSanctionModal = (props: Props) => {
                             onChange={()=> {}}
                             onSelect={date => setSanction({...sanction, endDate: date})}
                             placeholderText="Sancionado hasta"> </DatePicker>
-                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}/>
+                <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}
+                                        isActivated={sanction.userEmail !== "" && sanction.userEmail !== undefined &&
+                                                    sanction.reason !== "" && sanction.reason !== undefined}/>
             </div>
         </GenericModal>
     )

@@ -4,6 +4,7 @@ import SearchBookTable from "./SearchBookTable";
 import {Book} from "../Book";
 import {get} from "../../utils/http";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
+import {toast} from "react-toastify";
 import {isAdmin} from "../../router/Routes";
 
 type Props = {
@@ -28,6 +29,16 @@ const SearchBook = (props: Props) => {
     const [searchFilter, setSearchFilter] = React.useState<string>("");
     const [paginationData, setPaginationData] = React.useState<PaginationData<Book> | undefined>(undefined);
 
+    const notifySuccess = (message: String) => {
+        toast.dismiss()
+        toast.success(message)
+    }
+
+    const notifyError = (message: String) => {
+        toast.dismiss()
+        toast.error(message)
+    }
+
     useEffect(() => {
         getBooksByFilter(0, "");
     }, [])
@@ -47,7 +58,7 @@ const SearchBook = (props: Props) => {
                 setPaginationData(res);
             })
             .catch((error) => {
-                    alert(error);
+                    notifyError(error);
             })
     }
 

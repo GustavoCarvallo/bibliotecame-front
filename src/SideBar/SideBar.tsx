@@ -1,9 +1,9 @@
 import React from 'react';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
+import {isAdmin} from "../router/Routes";
 
 type Props = {
-    isAdmin: boolean;
     selected?: number,
 }
 
@@ -54,16 +54,18 @@ const adminRows = [
 ]
 
 const SideBar = (props: Props) => {
+    const admin = isAdmin();
+
     return (
         <div className={"side-bar"}>
             <div className={"name-and-img-container"}>
                 <i className="far fa-user-circle user-circle-2x"/>
                 <div className={"side-bar-name-container"}>
                     <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
-                    {props.isAdmin && <div className={"side-bar-name"}>Administrador/a</div>}
+                    {admin && <div className={"side-bar-name"}>Administrador/a</div>}
                 </div>
             </div>
-            {renderRows(props.isAdmin, props.selected)}
+            {renderRows(admin, props.selected)}
         </div>
     )
 }

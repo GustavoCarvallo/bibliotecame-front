@@ -6,9 +6,9 @@ import {PaginationData} from "./SearchBook";
 import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
 import {Book} from "../Book";
 import GenericPagination from "../../common/Pagination/GenericPagination";
+import {isAdmin} from "../../router/Routes";
 
 type Props = {
-    isAdmin: boolean,
     openBookDetails: (id: number) => void,
     paginationData?: PaginationData<Book>,
     changePage: (page: number) => void;
@@ -36,6 +36,7 @@ const constColumns: Column[] = [
 ]
 
 const SearchBookTable = (props: Props) => {
+    const admin = isAdmin();
     const [modalOpen, setModalOpen] = React.useState(false);
     const [activateInformation, setActivateInformation] = React.useState<ActivateInformation | undefined>(undefined);
 
@@ -43,7 +44,7 @@ const SearchBookTable = (props: Props) => {
             ...constColumns,
             {
                 header: 'Acciones',
-                component: props.isAdmin ?
+                component: admin ?
                     (row => (
                         <div className={'admin-search-actions'}>
                             <ActivateOrDeactivateButton defaultValue={row.active}

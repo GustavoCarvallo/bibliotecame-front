@@ -5,7 +5,7 @@ import "./Profile.css";
 import {toast, ToastOptions} from "react-toastify";
 import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import EditProfileSubmitHandler from "./EditProfile/EditProfileSubmitHandler";
 
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
-import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";

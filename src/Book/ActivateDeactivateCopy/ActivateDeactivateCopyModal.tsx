@@ -1,7 +1,7 @@
 import React from 'react'
 import {Copy} from "../Book";
 import GenericModal from "../../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import "./ActivateDeactivateCopyModal.css"
 
 type Props = {

@@ -4,14 +4,25 @@ import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import {Loan} from "../../loan/LoanScreen";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
+import ReviewModal, {Review} from "../ReviewModal/ReviewModal";
 
 type Props = {
     paginationData?: PaginationData<Loan>,
-    handleAction: (row: Loan) => void,
     changePage: (page: number) => void,
+    createReview: (bookId: number, review: Review, callBack: ()=>void)=>void,
+}
+
+type ReviewModalInfo = {
+    open: boolean,
+    bookId: number,
 }
 
 const LoanHistoryTable = (props: Props) => {
+    const [reviewModalInfo, setReviewModalInfo] = React.useState<ReviewModalInfo>({
+        open: false,
+        bookId: 0
+    })
+
     const columns: Column[] = [
         {
             header: "Libro",
@@ -28,17 +39,36 @@ const LoanHistoryTable = (props: Props) => {
         {
             header: "Acciones",
             component: row => {
-                const onClick = () => props.handleAction(row);
                 return row.reviewId ?
-                    <button className={"loan-table-button"} onClick={onClick}>Mod. Calif</button>
+                    <button className={"loan-table-button"} onClick={() => {}}>Mod. Calif</button>
                     :
-                    <button className={"loan-table-button"} onClick={onClick}>Calificar</button>
+                    <button className={"loan-table-button"} onClick={() => openReviewModal(row.bookId)}>Calificar</button>
             }
         }
     ]
 
+    const openReviewModal = (bookId: number) => {
+        setReviewModalInfo({
+            open: true,
+            bookId: bookId
+        })
+    }
+
+    const closeReviewModal = () => {
+        setReviewModalInfo({
+            open: false,
+            bookId: 0
+        })
+    }
+
+    const createReview = (bookId: number, review: Review) => {
+        props.createReview(bookId, review, closeReviewModal);
+    }
+
     return (
         <>
+            <ReviewModal open={reviewModalInfo.open} bookId={reviewModalInfo.bookId}
+                         closeModal={closeReviewModal} createReview={createReview} key={reviewModalInfo.bookId}/>
             <GenericTable columns={columns}
                           className={"table--4cols"}
                           noDataText={"No hay reservas"}

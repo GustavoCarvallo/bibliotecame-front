@@ -1,0 +1,19 @@
+.generic-grey-and-blue-button {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 33px;
+    background-color: var(--dodger-blue);
+    border: none;
+    padding: 20px 55px;
+}
+
+.generic-grey-and-blue-button:disabled {
+    color: var(--dodger-blue);
+    background-color: #e4e9f0
+}
+
+.generic-grey-and-blue-button:focus {
+    outline: none;
+}

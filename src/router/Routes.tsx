@@ -31,6 +31,16 @@ export const fullName = () => {
     return localStorage.getItem('fullName');
 }
 
+export const notifyError = (message: string) => {
+    toast.dismiss()
+    toast.error(message)
+}
+
+export const notifySuccess = (message: string) => {
+    toast.dismiss();
+    toast.success(message);
+}
+
 const Router = () => {
 
     return (

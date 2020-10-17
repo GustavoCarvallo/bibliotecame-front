@@ -31,11 +31,11 @@ const ReviewModal = (props: Props) => {
             <div className={"review-modal-body"}>
                 <div className={"review-modal-value-container"}>
                     <span className={"review-modal-label"}>Calificación: </span>
-                    <Rating emptySymbol={"far fa-star empty-star"} fractions={2} fullSymbol={"fas fa-star full-star"}
+                    <Rating emptySymbol={"far fa-star empty-star"} fractions={1} fullSymbol={"fas fa-star full-star"}
                             initialRating={review.value} onChange={(rating) => setReview({...review, value: rating})}/>
                 </div>
                 <div className={"review-modal-description-container"}>
-                    <span className={"review-modal-label"}>Descripción</span>
+                    <span className={"review-modal-label"}>Descripción: </span>
                     <textarea className={"review-modal-description"}
                               rows={4} cols={70}
                               value={review.description}

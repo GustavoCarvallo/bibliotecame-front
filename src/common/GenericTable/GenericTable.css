@@ -15,7 +15,7 @@
 .generic-table-container .generic-table-row {
     display: flex;
     border-bottom: solid 1px var(--brownish-grey);
-    height: 35px;
+    min-height: 35px;
 }
 
 .generic-table-container .generic-table-row .generic-table-column {

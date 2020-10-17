@@ -21,7 +21,7 @@ const userRows = [
     {
         title: 'Historial de Préstamos',
         icon: 'history',
-        path: ''
+        path: '/loan-history'
     },
     {
         title: 'Mi Perfil',

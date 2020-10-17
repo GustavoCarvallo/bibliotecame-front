@@ -13,6 +13,7 @@ export type Loan = {
     bookTitle: string,
     bookAuthor: string,
     userEmail?: string,
+    reviewId?: number,
 }
 
 const LoanScreen = () => {

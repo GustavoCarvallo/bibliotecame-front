@@ -7,8 +7,8 @@ import GenericPagination from "../../common/Pagination/GenericPagination";
 
 type Props = {
     paginationData?: PaginationData<Loan>,
-    handleAction: (row: Loan)=>void,
-    changePage: (page: number)=>void,
+    handleAction: (row: Loan) => void,
+    changePage: (page: number) => void,
 }
 
 const LoanHistoryTable = (props: Props) => {
@@ -29,12 +29,10 @@ const LoanHistoryTable = (props: Props) => {
             header: "Acciones",
             component: row => {
                 const onClick = () => props.handleAction(row);
-                switch (row.loanStatus) {
-                    case "RATED":
-                        return <button className={"loan-history-table-button"} onClick={onClick}>Mod. Calif</button>
-                    default:
-                        return <button className={"loan-table-button"} onClick={onClick}>Calificar</button>
-                }
+                return row.reviewId ?
+                    <button className={"loan-table-button"} onClick={onClick}>Mod. Calif</button>
+                    :
+                    <button className={"loan-table-button"} onClick={onClick}>Calificar</button>
             }
         }
     ]

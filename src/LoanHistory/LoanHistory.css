@@ -15,3 +15,8 @@
     background-color: var(--white);
     border-radius: 25px;
 }
+
+.loan-history-screen .loan-history-success-container {
+    height: 5vh;
+    width: 30vw;
+}

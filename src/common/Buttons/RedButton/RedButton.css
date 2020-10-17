@@ -1,0 +1,14 @@
+.generic-red-button {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 33px;
+    background-color: var(--orangey-red);
+    border: none;
+    padding: 20px 55px;
+}
+
+.generic-red-button:focus {
+    outline: none;
+}

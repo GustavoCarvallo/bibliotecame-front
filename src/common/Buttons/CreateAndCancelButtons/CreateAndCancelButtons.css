@@ -16,13 +16,6 @@
     color: #48a3fb;
 }
 
-.rectangle-6:focus{
-    outline: none;
-}
-
-.rectangle-6-red:focus{
-    outline: none;
-}
 
 .save-button {
     font-family: Roboto, serif;
@@ -34,27 +27,4 @@
     letter-spacing: 0;
     text-align: center;
     margin: 0;
-}
-
-.cancel-button {
-    font-family: Roboto, serif;
-    font-size: 20px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.31;
-    letter-spacing: 0;
-    text-align: center;
-    color: #ffffff;
-    margin: 0;
-}
-
-.rectangle-6-red {
-    width: 30%;
-    padding: 2.5%;
-    border-radius: 33px;
-    background-color: #f44336;
-    border: none;
-    margin-top: 5%;
-    margin-bottom: 8%;
 }

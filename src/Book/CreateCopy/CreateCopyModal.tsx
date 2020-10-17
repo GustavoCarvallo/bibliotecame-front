@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import GenericModal from "../../common/GenericModal/GenericModal";
 import "./CreateCopyModal.css";
-import CreateAndCancelButtons from "../../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import {Book} from "../Book";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 

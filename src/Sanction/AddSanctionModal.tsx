@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Sanction} from "./SanctionsView";
 import GenericModal from "../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import DropdownInput from "../common/DropDownInput/DropDownInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";

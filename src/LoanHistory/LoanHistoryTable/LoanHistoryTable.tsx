@@ -18,11 +18,11 @@ const LoanHistoryTable = (props: Props) => {
             component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
         },
         {
-            header: "Fecha de devolución",
+            header: "Fecha de vencimiento",
             accessor: "expectedReturnDate",
         },
         {
-            header: "Fecha en que fue devuelto",
+            header: "Fecha de devolución",
             accessor: "returnDate"
         },
         {

@@ -4,8 +4,9 @@ import CreateBook from "./CreateBook/CreateBook";
 import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
 import {get, post} from "../utils/http";
-import SearchBook from "./SearchBook/SearchBook";
+import SearchBook, {SearchForm} from "./SearchBook/SearchBook";
 import {toast, ToastOptions} from "react-toastify";
+import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import {isAdmin} from "../router/Routes";
 
 const SEARCH = "SEARCH";
@@ -42,18 +43,19 @@ const Book = () => {
 
     const admin = isAdmin();
 
-    const BAD_REQUEST = 400;
-    const UNAUTHORIZED = 401;
-    const TOO_MANY_REQUESTS = 429;
-    const EXPECTATION_FAILED = 417;
-    const NOT_ACCEPTABLE = 406;
-
     const [status, setStatus] = React.useState(SEARCH);
-
+    const [searchForm, setSearchForm] = React.useState<SearchForm>({title:"", author:"", publisher:"", tags:[], year:""})
     const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
+    const [filterModal, setFilterModal] = React.useState<boolean>(false);
+    const [callSearch, setCallSearch] = React.useState<boolean>(false);
+    const [callAdvancedSearch, setCallAdvancedSearch] = React.useState<boolean>(false);
 
     const handleOpenCreation = () => {
         setStatus(CREATE);
+    }
+
+    const handleOpenFilter = () => {
+        setFilterModal(true);
     }
 
     const handleCloseCreation = () => {
@@ -93,6 +95,12 @@ const Book = () => {
         toast.error(message, toastifyConfiguration);
     }
 
+    const handleCancelFilterModal = () => {
+        setFilterModal(false);
+        setSearchForm({title:"", author:"", publisher:"", tags:[], year:""});
+        setCallSearch(true);
+    }
+
     const handleLoan = (book : Book) => {
         const promise =  post(`loan/${book.id}`, {});
         promise.then(res => {
@@ -122,10 +130,22 @@ const Book = () => {
             case SEARCH:
                 return (
                     <>
-                        <SearchBook handleOpenCreation={handleOpenCreation}
-                                    openBookDetails={openBookDetails}/>
+                        <SearchBook callAdvancedSearch={callAdvancedSearch}
+                                    callSearch={callSearch}
+                                    setCallAdvancedSearch={setCallAdvancedSearch}
+                                    setCallSearch={setCallSearch}
+                                    handleOpenCreation={handleOpenCreation} handleOpenFilter={handleOpenFilter}
+                                    openBookDetails={openBookDetails} searchForm={searchForm} setSearchForm={setSearchForm}/>
                         {selectedBook &&
                         <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook} handleLoan={handleLoan}/>}
+                        {filterModal &&
+                        <AdvancedSearch isOpen={true}
+                                        setDone={setCallAdvancedSearch}
+                                        onCancel={handleCancelFilterModal}
+                                        onClose={()=> setFilterModal(false)}
+                                        searchForm={searchForm}
+                                        changeSearchForm={setSearchForm}/>
+                        }
                     </>
                 )
             case EDIT:

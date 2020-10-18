@@ -26,11 +26,14 @@ const EditBook = (props: Props) => {
 
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
         put(`book/${book.id}`, book)
-            .then(res => thenCallback())
+            .then(res => {
+                thenCallback()
+                props.handleCancel();
+
+            })
             .catch((error) => {
                     catchCallback(error);
             })
-        props.handleCancel();
     }
 
     const openNewCopyModal = () => {

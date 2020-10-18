@@ -81,7 +81,10 @@ const AdminLoanScreen = () => {
                             })
                     }};
                 break;
+            case "APPROVED_EXTENSION":
             case "WITHDRAWN":
+            case "REJECTED_EXTENSION":
+
             case "DELAYED":
                 title = "Solicitud de devolución";
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha devuelto

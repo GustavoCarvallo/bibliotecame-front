@@ -172,7 +172,7 @@ const EditProfile = (props: Props) => {
                         onChange={event => setConfirmPassword(event.target.value)}
                     />
                 </div>
-                <button className="rectangle-6" onClick={handleSubmit} style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>
+                <button className="rectangle-6" onClick={handleSubmit} disabled={!isActive()} style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>
                     <p className="save-button">{'Guardar cambios'}</p>
                 </button>
             </div>

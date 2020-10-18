@@ -8,12 +8,10 @@
 }
 
 .book-search-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
     align-content: center;
     height: 50px;
-    width: 30vw;
+    grid-template-columns: 30vw 5vw;
 }
 
 .book-search-container .search-field {
@@ -30,10 +28,10 @@
 }
 
 .book-search-container .add-button {
-    font-size: 40px;
+    font-size: 35px;
     color: var(--mid-green);
     align-self: center;
-    margin-left: 10px;
+    justify-self: end;
 }
 
 .search-book-table-container {

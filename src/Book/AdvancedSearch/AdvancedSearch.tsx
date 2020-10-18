@@ -9,6 +9,7 @@ import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/
 type Props = {
     isOpen: boolean,
     onClose: () => void,
+    onCancel: () => void,
     searchForm: SearchForm,
     changeSearchForm: (s: SearchForm) => void,
     setDone: (b: boolean) => void
@@ -73,7 +74,7 @@ const AdvancedSearch = (props: Props) => {
                 <CreateAndCancelButtons onCreate={() =>{
                     props.setDone(true);
                     props.onClose()
-                }} onCancel={props.onClose} createLabel={"Buscar"} isActivated={props.searchForm.title !== "" ||
+                }} onCancel={props.onCancel} createLabel={"Buscar"} isActivated={props.searchForm.title !== "" ||
                                                                                 props.searchForm.author !== "" ||
                                                                                 props.searchForm.publisher !=="" ||
                                                                                 props.searchForm.year !== "" ||

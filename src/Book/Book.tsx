@@ -48,6 +48,7 @@ const Book = () => {
     const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
     const [filterModal, setFilterModal] = React.useState<boolean>(false);
     const [callSearch, setCallSearch] = React.useState<boolean>(false);
+    const [callAdvancedSearch, setCallAdvancedSearch] = React.useState<boolean>(false);
 
     const handleOpenCreation = () => {
         setStatus(CREATE);
@@ -94,6 +95,12 @@ const Book = () => {
         toast.error(message, toastifyConfiguration);
     }
 
+    const handleCancelFilterModal = () => {
+        setFilterModal(false);
+        setSearchForm({title:"", author:"", publisher:"", tags:[], year:""});
+        setCallSearch(true);
+    }
+
     const handleLoan = (book : Book) => {
         const promise =  post(`loan/${book.id}`, {});
         promise.then(res => {
@@ -123,12 +130,21 @@ const Book = () => {
             case SEARCH:
                 return (
                     <>
-                        <SearchBook callAdvancedSearch={callSearch} setCallAdvancedSearch={setCallSearch} handleOpenCreation={handleOpenCreation} handleOpenFilter={handleOpenFilter}
+                        <SearchBook callAdvancedSearch={callAdvancedSearch}
+                                    callSearch={callSearch}
+                                    setCallAdvancedSearch={setCallAdvancedSearch}
+                                    setCallSearch={setCallSearch}
+                                    handleOpenCreation={handleOpenCreation} handleOpenFilter={handleOpenFilter}
                                     openBookDetails={openBookDetails} searchForm={searchForm} setSearchForm={setSearchForm}/>
                         {selectedBook &&
                         <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook} handleLoan={handleLoan}/>}
                         {filterModal &&
-                        <AdvancedSearch isOpen={true} setDone={setCallSearch} onClose={() => setFilterModal(false)} searchForm={searchForm} changeSearchForm={setSearchForm}/>
+                        <AdvancedSearch isOpen={true}
+                                        setDone={setCallAdvancedSearch}
+                                        onCancel={handleCancelFilterModal}
+                                        onClose={()=> setFilterModal(false)}
+                                        searchForm={searchForm}
+                                        changeSearchForm={setSearchForm}/>
                         }
                     </>
                 )

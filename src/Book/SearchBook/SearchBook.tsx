@@ -14,7 +14,9 @@ type Props = {
     searchForm : SearchForm,
     setSearchForm: (s:SearchForm) => void,
     callAdvancedSearch : boolean,
+    callSearch : boolean,
     setCallAdvancedSearch : (b: boolean) => void
+    setCallSearch : (b: boolean) => void
 }
 
 export type PaginationData<T> = {
@@ -42,11 +44,6 @@ const SearchBook = (props: Props) => {
     const [searchFilter, setSearchFilter] = React.useState<string>("");
     const [paginationData, setPaginationData] = React.useState<PaginationData<Book> | undefined>(undefined);
 
-    const notifySuccess = (message: String) => {
-        toast.dismiss()
-        toast.success(message)
-    }
-
     const notifyError = (message: String) => {
         toast.dismiss()
         toast.error(message)
@@ -62,6 +59,13 @@ const SearchBook = (props: Props) => {
             props.setCallAdvancedSearch(false);
         }
     },[props.callAdvancedSearch])
+
+    useEffect(() => {
+        if(props.callSearch){
+            getBooksByFilter(0, searchFilter);
+            props.setCallSearch(false);
+        }
+    },[props.callSearch])
 
     const handleFilterChange = (event: any) => {
         getBooksByFilter(0, event.target.value);

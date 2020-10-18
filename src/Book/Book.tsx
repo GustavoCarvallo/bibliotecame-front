@@ -8,6 +8,7 @@ import SearchBook, {SearchForm} from "./SearchBook/SearchBook";
 import {toast, ToastOptions} from "react-toastify";
 import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
 import {isAdmin} from "../router/Routes";
+import {Review} from "../LoanHistory/ReviewModal/ReviewModal";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -22,6 +23,7 @@ export type Book = {
     year?: number,
     tags: Tag[],
     active?: boolean,
+    reviews: Review[],
 }
 
 export type Tag = {

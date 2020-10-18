@@ -3,6 +3,7 @@ import "./ReviewModal.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import Rating from "react-rating";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import Profile from "../../Profile/Profile";
 
 type Props = {
     open: boolean,
@@ -14,6 +15,9 @@ type Props = {
 export type Review = {
     value: number,
     description?: string,
+    userModel?: {
+        email?: string
+    },
 }
 
 const ReviewModal = (props: Props) => {

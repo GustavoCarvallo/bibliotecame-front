@@ -4,6 +4,7 @@
 }
 
 .book-details-row {
+    height: 59px;
     display: flex;
     justify-content: space-between;
 }
@@ -38,6 +39,20 @@
     outline: none;
 }
 
+.book-review-value-container {
+    padding: 1%;
+}
+
+.book-review-value-container .empty-star,.full-star {
+    font-size: 40px;
+}
+.book-review-value-container .empty-star {
+    color: #edd100;
+}
+
+.book-review-value-container .full-star {
+    color: #edd100;
+}
 
 .request-loan-button-label {
     font-family: Roboto, serif;

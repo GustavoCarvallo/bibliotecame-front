@@ -48,6 +48,10 @@ function LoginForm(props: Props) {
         color: '#ffffff', backgroundColor: '#48a3fb'
     }
 
+    function isActive() {
+        return (email !== "" && password !== "");
+    }
+
     return (
         <div className={"login-form-screen"}>
             <form onSubmit={handleSubmit} className="login-form">
@@ -59,7 +63,7 @@ function LoginForm(props: Props) {
                                    placeholder={"Ingrese su contraseña"}/>
                 </div>
 
-                <button type="submit" className="button" style={(email !== "" && password !== "") ? buttonStyleActivated : buttonStyleDeactivated}>Iniciar Sesión</button>
+                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated} disabled={!isActive()}>Iniciar Sesión</button>
 
             </form>
         </div>

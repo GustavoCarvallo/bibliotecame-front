@@ -99,7 +99,7 @@ const UserForm = () => {
 
                 </div>
 
-                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>Registrarme</button>
+                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated} disabled={!isActive()}>Registrarme</button>
 
             </form>
         </div>

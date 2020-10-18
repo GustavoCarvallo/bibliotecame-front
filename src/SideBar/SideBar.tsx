@@ -59,10 +59,12 @@ const SideBar = (props: Props) => {
     return (
         <div className={"side-bar"}>
             <div className={"name-and-img-container"}>
-                <i className="far fa-user-circle user-circle-2x"/>
-                <div className={"side-bar-name-container"}>
-                    <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
-                    {admin && <div className={"side-bar-name"}>Administrador/a</div>}
+                <div className={"name-and-img"}>
+                    <i className="far fa-user-circle user-circle-2x"/>
+                    <div className={"side-bar-name-container"}>
+                        <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
+                        {admin && <div className={"side-bar-name"}>Administrador/a</div>}
+                    </div>
                 </div>
             </div>
             {renderRows(admin, props.selected)}

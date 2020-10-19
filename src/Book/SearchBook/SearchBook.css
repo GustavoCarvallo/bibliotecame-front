@@ -34,6 +34,10 @@
     justify-self: end;
 }
 
+.book-search-container .add-button:hover {
+    cursor: pointer;
+}
+
 .search-book-table-container {
     padding: 50px 40px;
     width: 45vw;

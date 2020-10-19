@@ -29,7 +29,9 @@ const ActivateDeactivateCopyModal = (props: Props) => {
             <div className={"act-deact-copy-body"}>
                 <p className={"text"}>¿Estas seguro que quieres {props.isActive? "habilitar" : "deshabilitar" } el ejemplar?</p>
                 <p className={"text"}>Ten en cuenta que el ejemplar {props.isActive? "empezará a" : "dejará de" } estar disponible para ser reservado.</p>
-                <CreateAndCancelButtons onCreate={handleChange} onCancel={props.onClose} createLabel={"Confirmar"}/>
+                <div className={"buttons-container"}>
+                    <CreateAndCancelButtons onCreate={handleChange} onCancel={props.onClose} createLabel={"Confirmar"} isActivated={true}/>
+                </div>
             </div>
         </GenericModal>
     )

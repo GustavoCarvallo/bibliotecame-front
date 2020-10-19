@@ -38,7 +38,9 @@ const CreateCopyModal = (props: Props) => {
                 <InputWithIcon value={props.book.title} icon={'fas fa-book'} readonly={true}/>
                 <h1>ID:</h1>
                 <InputWithIcon value={id} icon={'fas fa-fingerprint'} onChange={event => setId(event.target.value.toUpperCase())} placeholder={"Id del ejemplar"}/>
-                <CreateAndCancelButtons onCreate={handleCreate} onCancel={props.onClose} isActivated={isActive()}/>
+                <div className={"buttons-container"}>
+                    <CreateAndCancelButtons onCreate={handleCreate} onCancel={props.onClose} isActivated={isActive()}/>
+                </div>
             </div>
         </GenericModal>
     )

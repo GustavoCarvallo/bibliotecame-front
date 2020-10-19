@@ -21,3 +21,7 @@
 .new-copy-body .input{
     width: 90%;
 }
+
+.new-copy-body .buttons-container {
+    margin-top: 30px;
+}

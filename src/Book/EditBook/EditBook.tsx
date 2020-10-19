@@ -73,6 +73,8 @@ const EditBook = (props: Props) => {
             year: props.selectedBook.year,
             publisher: props.selectedBook.publisher,
             tags: props.selectedBook.tags,
+            active: props.selectedBook.active,
+            reviews: props.selectedBook.reviews,
             copies: newCopies})
     }
 

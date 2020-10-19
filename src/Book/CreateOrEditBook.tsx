@@ -209,7 +209,8 @@ const CreateOrEditBook = (props: Props) => {
                         <i className="fas fa-plus icon" onClick={() => addTag(tagToAdd)}/>
                     </div>
                     {renderTags(props.book.tags)}
-                    <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>
+                    {!isCreate &&
+                        <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>}
                     {!isCreate && (
                         <div className={"copies-container"}>
                             <div className={"copies-table-container"}>

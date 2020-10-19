@@ -13,6 +13,7 @@ const initialBook = {
     publisher: undefined,
     year: undefined,
     tags: [],
+    reviews: [],
 }
 
 const CreateBook = (props: Props) => {

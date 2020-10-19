@@ -3,6 +3,8 @@ import GenericModal from "../../common/GenericModal/GenericModal";
 import {Book} from "../Book";
 import "./BookDetails.css";
 import TagContainer from "../../common/TagContainer/TagContainer";
+import Rating from "react-rating";
+import ReviewsContainer from "../BookReviews/ReviewsContainer";
 
 type Props = {
     isOpen: boolean,
@@ -45,8 +47,31 @@ const rows = [
                 </div>
             )
         },
-    }
+    },
+    {
+        label: 'Calificación',
+        component: (book: Book) => {
+            let score = 0;
+            let total = 0;
+            if(book.reviews !== []){
+                book.reviews?.forEach(review => {
+                    score= score + review.value;
+                    total= total + 1;
+                });
+                score = score / total;
+            }
+            return (
+                <div className={"book-review-value-container"}>
+                    <Rating emptySymbol={"far fa-star empty-star"} fractions={1} fullSymbol={"fas fa-star full-star"}
+                            initialRating={score} readonly={true}/>
+                            ({total})
+                </div>
+            )
+        }
+    },
+
 ]
+
 
 const BookDetails = (props: Props) => {
     return (
@@ -58,6 +83,8 @@ const BookDetails = (props: Props) => {
                         {row.component(props.selectedBook)}
                     </div>
                 ))}
+                <h1 className={'book-details-label'}>Reseñas:</h1>
+                <ReviewsContainer reviews={props.selectedBook.reviews}/>
                 <div className={'request-loan-container'}>
                     <button className="request-loan-button" onClick={() => props.handleLoan(props.selectedBook)}>
                         <p className="request-loan-button-label">Solicitar Prestamo</p>

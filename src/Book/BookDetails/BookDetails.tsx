@@ -43,7 +43,7 @@ const rows = [
         component: (book: Book) => {
             return (
                 <div className={'book-details-tag-container'}>
-                    <TagContainer tags={book.tags}/>
+                    <TagContainer tags={book.tags} reverse={true}/>
                 </div>
             )
         },

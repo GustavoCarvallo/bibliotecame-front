@@ -4,9 +4,9 @@
 }
 
 .book-details-row {
-    height: 59px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .book-details-label {

@@ -4,6 +4,11 @@
     display: flex;
     flex-wrap: wrap;
     overflow-y: scroll;
+    width: 100%;
+}
+
+.tag-container.reverse-container {
+    flex-direction: row-reverse;
 }
 
 .tag-container .tag {

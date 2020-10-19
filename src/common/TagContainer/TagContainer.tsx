@@ -5,9 +5,10 @@ import "./TagContainer.css";
 type Props = {
     tags: Tag[],
     deleteTag?: (tag: Tag)=>void,
+    reverse?: boolean,
 }
 const TagContainer = (props: Props) => {
-    return(<div className={"tag-container"}>
+    return(<div className={`tag-container ${props.reverse? 'reverse-container' : ''}`}>
             {props.tags.map(tag => (
                 <div className={"tag " + (props.deleteTag ? "deletable-tag" : "non-deletable-tag")}>
                     <div className={"tag-name"}>{tag.name}</div>

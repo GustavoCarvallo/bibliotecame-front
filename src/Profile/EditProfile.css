@@ -37,7 +37,7 @@
 
 .edit-profile-container {
     width: 800px;
-    height: auto;
+    height: fit-content;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px #707070;
     background-color: #ffffff;

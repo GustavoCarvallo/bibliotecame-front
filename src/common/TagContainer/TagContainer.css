@@ -11,6 +11,10 @@
     flex-direction: row-reverse;
 }
 
+.tag-container.align-center {
+    align-items: center;
+}
+
 .tag-container .tag {
     min-width: 90px;
     height: 40px;

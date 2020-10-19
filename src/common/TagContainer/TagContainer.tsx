@@ -6,9 +6,10 @@ type Props = {
     tags: Tag[],
     deleteTag?: (tag: Tag)=>void,
     reverse?: boolean,
+    alignCenter?: boolean
 }
 const TagContainer = (props: Props) => {
-    return(<div className={`tag-container ${props.reverse? 'reverse-container' : ''}`}>
+    return(<div className={`tag-container${props.reverse? ' reverse-container' : ''}${props.alignCenter? ' align-center': ''}`}>
             {props.tags.map(tag => (
                 <div className={"tag " + (props.deleteTag ? "deletable-tag" : "non-deletable-tag")}>
                     <div className={"tag-name"}>{tag.name}</div>

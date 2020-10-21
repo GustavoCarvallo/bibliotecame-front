@@ -1,18 +1,19 @@
 import React, {useState} from 'react'
-import {Sanction} from "./SanctionsView";
-import GenericModal from "../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
-import DropdownInput from "../common/DropDownInput/DropDownInput";
+import {Sanction} from "../SanctionsView";
+import GenericModal from "../../common/GenericModal/GenericModal";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import DropdownInput from "../../common/DropDownInput/DropDownInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {get, post} from "../utils/http";
+import {get, post} from "../../utils/http";
 import "./AddSanctionModal.css"
 
 type Props = {
     isOpen: boolean,
     onClose: ()=>void,
     onSuccess: Function,
-    onError: Function
+    onError: Function,
+    getList: Function
 }
 
 type User = {
@@ -31,6 +32,7 @@ const AddSanctionModal = (props: Props) => {
         post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
         .then(() => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
+            props.getList();
             cancel()
         })
             .catch(err => {

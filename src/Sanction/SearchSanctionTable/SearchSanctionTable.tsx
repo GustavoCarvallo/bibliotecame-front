@@ -19,11 +19,11 @@ const constColumns: Column[] = [
         accessor: 'email'
     },
     {
-        header: 'Fecha de Creación',
+        header: 'Sancionado Desde',
         accessor: 'creationDate'
     },
     {
-        header: 'Fecha de Finalización',
+        header: 'Sancionado Hasta',
         accessor: 'endDate'
     },
 ]
@@ -36,7 +36,7 @@ const SearchBookTable = (props: Props) => {
     const columns: Column[] = [
         ...constColumns,
         {
-            header: 'Editar',
+            header: 'Acciones',
             component:
                 (row => (
                     <div className={'admin-search-actions'}>

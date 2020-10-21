@@ -73,7 +73,7 @@ const SanctionsView = () => {
                 <InputWithIcon icon={'fas fa-search'}
                                value={searchFilter}
                                onChange={handleFilterChange}
-                               placeholder={"Busque algún libro"}/>
+                               placeholder={"Busque alguna sanción"}/>
                 <IconButton icon={"fas fa-plus-circle"} onClick={()=>setSanctionModalState(true)}/>
             </div>
             <div className={"search-book-table-container"}>

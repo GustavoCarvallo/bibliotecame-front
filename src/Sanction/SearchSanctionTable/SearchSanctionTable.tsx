@@ -1,10 +1,7 @@
 import React from "react";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
-import {Book} from "../../Book/Book";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import {isAdmin} from "../../router/Routes";
-import ActivateOrDeactivateButton from "../../Book/SearchBook/ActivateOrDeactivateButton";
-import ActivateOrDeactivateModal from "../../Book/SearchBook/ActivateOrDeactivateModal";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import {SanctionDisplay} from "../SanctionsView";
 
@@ -58,7 +55,7 @@ const SearchBookTable = (props: Props) => {
             <div className={"search-book-table"}>
                 <GenericTable columns={columns}
                               className={"table--4cols"}
-                              noDataText={"Libro no encontrado"}
+                              noDataText={"Sanción no encontrada"}
                               data={props.paginationData?.content ?? []}/>
             </div>
             <div className={"search-book-pagination-container"}>

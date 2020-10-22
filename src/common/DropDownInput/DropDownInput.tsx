@@ -3,9 +3,11 @@ import "./DropDownInput.css";
 
 type Props = {
     placeholder?: string,
-    onChange:  (event: any)=>void,
-    onSelect: (event: any)=>void,
-    list: string[]
+    onChange?:  (event: any)=>void,
+    onSelect?: (event: any)=>void,
+    list?: string[],
+    value?: string,
+    readonly?: boolean
 }
 
 const DropdownInput = (props: Props) => {
@@ -20,7 +22,7 @@ const DropdownInput = (props: Props) => {
     const handleSelect = (row: string) => {
         setSelected(row)
         setShowDropdown(false);
-        props.onSelect(row)
+        if (props.onSelect) props.onSelect(row)
     }
 
     const handleChange = (e : ChangeEvent<HTMLInputElement>) =>{
@@ -30,22 +32,23 @@ const DropdownInput = (props: Props) => {
 
     const changeInputState = (value: string) => {
         setSelected(value)
-        props.onChange(value)
+        if (props.onChange) props.onChange(value)
     }
 
     return(
         <div className={ "dropdown-container"}>
-            <div className={"dropdown-input-container"}>
+            <div className={`dropdown-input-container ${props.readonly? 'readonly': ''}`}>
                 <input className={"input"}
-                       value={selected}
+                       value={(props.value) ? props.value : selected}
                        type={'text'}
+                       readOnly={props.readonly}
                        onChange={e => handleChange(e)}
                        placeholder={props.placeholder}/>
                 <i className={`fas fa-times icon`} onClick={() => changeInputState("")} style={{color: selected && selected !== "" ? '#030303' : '#a4a8ad'}}/>
                 <span className="drop-icon icon" onClick={flipDropdown}><i className="fas fa-chevron-down"> </i></span>
             </div>
             <div className={"drop-list"}>
-            {(props.list.length > 0 && showDropdown) ? props.list.map(row => (
+            {(props.list && !props.readonly && props.list.length > 0 && showDropdown) ? props.list.map(row => (
                     <div className={"generic-drop-row"}>
                         <span onClick={e => handleSelect(row)}>{row}</span>
                     </div>

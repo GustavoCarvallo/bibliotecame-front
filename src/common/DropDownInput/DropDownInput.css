@@ -11,6 +11,14 @@
     border-radius: 18px;
 }
 
+.dropdown-container .dropdown-input-container .input{
+    background-color: inherit;
+}
+
+.readonly{
+    background-color: #dfe2e6;
+}
+
 .dropdown-input-container .icon{
     display: flex;
     justify-content: center;

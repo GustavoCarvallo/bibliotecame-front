@@ -18,7 +18,6 @@ const request = (url: string, method: string, body: Object | null, config: Confi
     };
     return fetch(baseUrl + url, configuration)
         .then(response => {
-            debugger
             if(response.ok) return response.json();
             // if the token has expired log out the user
             else if(response.status === 403 && localStorage['token']) {

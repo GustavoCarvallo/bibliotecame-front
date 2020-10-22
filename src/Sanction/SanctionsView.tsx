@@ -42,7 +42,6 @@ const SanctionsView = () => {
     const getSanctionsByFilter = (page: number, search: string) => {
         get(`sanction/activeList?page=${page}&search=${search}`)
             .then(res => {
-                debugger
                 setPaginationData(res);
             })
             .catch((error) => {

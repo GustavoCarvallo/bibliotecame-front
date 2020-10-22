@@ -7,6 +7,7 @@ import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {get} from "../utils/http";
 import {PaginationData} from "../Book/SearchBook/SearchBook";
 import SearchSanctionTable from "./SearchSanctionTable/SearchSanctionTable";
+import EditSanctionModal from "./EditSanctionModal/EditSanctionModal";
 
 export type Sanction = {
     userEmail: string,
@@ -17,15 +18,18 @@ export type Sanction = {
 export type SanctionDisplay = {
     id: number,
     email: string,
-    creationDate: Date,
-    endDate: Date
+    creationDate: string,
+    endDate: string,
+    reason: string
 }
 
 const SanctionsView = () => {
 
     const [sanctionModalState, setSanctionModalState] = useState<boolean>(false)
+    const [editModalState, setEditModalState] = useState<boolean>(false)
     const [searchFilter, setSearchFilter] = useState<string>("")
     const [paginationData, setPaginationData] = React.useState<PaginationData<SanctionDisplay> | undefined>(undefined);
+    const [selectedSanction, setSelectedSanction] = React.useState<SanctionDisplay>({id:0, email:"", creationDate:"", endDate:"", reason:""})
 
     const onAddSanctionSuccess = (message: string) => {
         notifySuccess(message)
@@ -54,6 +58,16 @@ const SanctionsView = () => {
         getSanctionsByFilter(page, searchFilter);
     }
 
+    const openEditSanction = (row: SanctionDisplay) => {
+        setSelectedSanction(row);
+        setEditModalState(true);
+    }
+
+    const closeEditSanction = () => {
+        setSelectedSanction({id:0, email:"", creationDate:"", endDate:"", reason:""});
+        setEditModalState(false);
+    }
+
     const toastifyConfiguration: ToastOptions = {
         className: "in-toast"
     }
@@ -78,9 +92,20 @@ const SanctionsView = () => {
             </div>
             <div className={"search-book-table-container"}>
                 <SearchSanctionTable paginationData={paginationData}
-                                 changePage={changePage}/>
+                                     changePage={changePage}
+                                     openEditSanction={openEditSanction}/>
             </div>
-            <AddSanctionModal isOpen={sanctionModalState} getList={()=> changePage(0)} onClose={()=>setSanctionModalState(false)} onSuccess={onAddSanctionSuccess} onError={notifyError}/>
+            <AddSanctionModal isOpen={sanctionModalState}
+                              getList={()=> changePage(0)}
+                              onClose={()=>setSanctionModalState(false)}
+                              onSuccess={onAddSanctionSuccess}
+                              onError={notifyError}/>
+            <EditSanctionModal sanction={selectedSanction}
+                               isOpen={editModalState}
+                               onClose={closeEditSanction}
+                               onSuccess={notifySuccess}
+                               onError={notifyError}
+                               getList={()=> changePage(0)}/>
         </div>
     )
 }

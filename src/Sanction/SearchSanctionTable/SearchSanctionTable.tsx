@@ -1,13 +1,13 @@
 import React from "react";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
-import {isAdmin} from "../../router/Routes";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import {SanctionDisplay} from "../SanctionsView";
 
 type Props = {
     paginationData?: PaginationData<SanctionDisplay>,
-    changePage: (page: number) => void;
+    changePage: (page: number) => void,
+    openEditSanction: (row:SanctionDisplay) => void
 }
 
 const constColumns: Column[] = [
@@ -25,9 +25,7 @@ const constColumns: Column[] = [
     },
 ]
 
-const SearchBookTable = (props: Props) => {
-    const admin = isAdmin();
-    const [modalOpen, setModalOpen] = React.useState(false);
+const SearchSanctionTable = (props: Props) => {
 
 
     const columns: Column[] = [
@@ -38,16 +36,11 @@ const SearchBookTable = (props: Props) => {
                 (row => (
                     <div className={'admin-search-actions'}>
                         <i className={"fas fa-edit search-book-green-icon"}
-                           onClick={()=> {}}/>
+                           onClick={()=> {props.openEditSanction(row)}}/>
                     </div>
                 ))
         }
     ];
-
-    // const openModal = (id: number, active: boolean, callBack: (active:boolean)=>void) => {
-    //     setModalOpen(true);
-    //     setActivateInformation({id, active, callBack});
-    // }
 
 
     return (
@@ -67,4 +60,4 @@ const SearchBookTable = (props: Props) => {
     )
 }
 
-export default SearchBookTable;
+export default SearchSanctionTable;

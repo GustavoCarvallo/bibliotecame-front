@@ -5,22 +5,26 @@ import {Loan} from "../../loan/LoanScreen";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import ReviewModal, {Review} from "../ReviewModal/ReviewModal";
+import {get} from "../../utils/http";
 
 type Props = {
     paginationData?: PaginationData<Loan>,
     changePage: (page: number) => void,
     createReview: (bookId: number, review: Review, callBack: ()=>void)=>void,
+    editReview: (reviewId: number, review: Review, callBack: ()=>void)=>void,
 }
 
 type ReviewModalInfo = {
     open: boolean,
-    bookId: number,
+    id: number,
+    onEdit?: boolean,
+    review?: Review
 }
 
 const LoanHistoryTable = (props: Props) => {
     const [reviewModalInfo, setReviewModalInfo] = React.useState<ReviewModalInfo>({
         open: false,
-        bookId: 0
+        id: -1
     })
 
     const columns: Column[] = [
@@ -40,24 +44,36 @@ const LoanHistoryTable = (props: Props) => {
             header: "Acciones",
             component: row => {
                 return row.reviewId ?
-                    <button className={"loan-table-button"} onClick={() => {}}>Mod. Calif</button>
+                    <button className={"loan-table-button"} onClick={() => openReviewModal(row.reviewId, true)}>Mod. Calif</button>
                     :
                     <button className={"loan-table-button"} onClick={() => openReviewModal(row.bookId)}>Calificar</button>
             }
         }
     ]
 
-    const openReviewModal = (bookId: number) => {
-        setReviewModalInfo({
-            open: true,
-            bookId: bookId
-        })
+    const openReviewModal = (id: number, onEdit?: boolean) => {
+        if (onEdit) {
+            get(`review/${id}`)
+                .then(review => {
+                    setReviewModalInfo({
+                        open: true,
+                        id,
+                        onEdit,
+                        review
+                    })
+                })
+        } else {
+            setReviewModalInfo({
+                open: true,
+                id
+            })
+        }
     }
 
     const closeReviewModal = () => {
         setReviewModalInfo({
             open: false,
-            bookId: 0
+            id: -1
         })
     }
 
@@ -65,10 +81,15 @@ const LoanHistoryTable = (props: Props) => {
         props.createReview(bookId, review, closeReviewModal);
     }
 
+    const editReview = (reviewId: number, review: Review) => {
+        props.editReview(reviewId, review, closeReviewModal);
+    }
+
     return (
         <>
-            <ReviewModal open={reviewModalInfo.open} bookId={reviewModalInfo.bookId}
-                         closeModal={closeReviewModal} createReview={createReview} key={reviewModalInfo.bookId}/>
+            <ReviewModal open={reviewModalInfo.open} id={reviewModalInfo.id}
+                         closeModal={closeReviewModal} onSave={reviewModalInfo.onEdit ? editReview : createReview}
+                         key={reviewModalInfo.id} review={reviewModalInfo.review}/>
             <GenericTable columns={columns}
                           className={"table--4cols"}
                           noDataText={"No hay reservas"}

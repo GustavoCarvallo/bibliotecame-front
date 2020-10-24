@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Sanction} from "../SanctionsView";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
@@ -22,6 +22,10 @@ type User = {
 }
 
 const AddSanctionModal = (props: Props) => {
+
+    useEffect(() => {
+       setList("")
+    }, [])
 
     const [sanction, setSanction] = useState<Sanction>({
         userEmail:"", endDate: new Date(), reason: ""

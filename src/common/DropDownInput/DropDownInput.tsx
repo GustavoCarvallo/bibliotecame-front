@@ -40,7 +40,7 @@ const DropdownInput = (props: Props) => {
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setShowDropdown(selected !== "");
+        setShowDropdown(e.target.value !== "");
         changeInputState(e.target.value)
     }
 

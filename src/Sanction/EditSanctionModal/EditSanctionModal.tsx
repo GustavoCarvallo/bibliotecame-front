@@ -6,6 +6,7 @@ import DropdownInput from "../../common/DropDownInput/DropDownInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {put} from "../../utils/http";
+import {addDays} from "../../utils/AddDays";
 
 type Props = {
     sanction: SanctionDisplay,
@@ -53,7 +54,7 @@ const EditSanctionModal = (props: Props) => {
     }
 
     return(
-        <GenericModal title={"Modificar Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
+        <GenericModal title={"Modificar Sanción"} isOpen={props.isOpen} onClose={props.onClose} titleClassName={"sanction-modal-title"}>
             <div className={"add-sanction-body"}>
                 <DropdownInput value={props.sanction.email} readonly={true}/>
                 <textarea className={"reason-input readonly"}
@@ -62,6 +63,8 @@ const EditSanctionModal = (props: Props) => {
                             selected={newEndDate}
                             onChange={()=> {}}
                             onSelect={date => setNewEndDate(date)}
+                            minDate={new Date()}
+                            maxDate={addDays(new Date(), 90)}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleEdit()} onCancel={cancel} createLabel={"Guardar"}
                                         isActivated={true}/>

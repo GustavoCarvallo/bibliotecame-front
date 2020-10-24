@@ -1,16 +1,30 @@
-import React, {ChangeEvent, useState} from 'react'
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react'
 import "./DropDownInput.css";
 
 type Props = {
     placeholder?: string,
-    onChange?:  (event: any)=>void,
-    onSelect?: (event: any)=>void,
+    onChange?: (event: any) => void,
+    onSelect?: (event: any) => void,
     list?: string[],
     value?: string,
-    readonly?: boolean
+    readonly?: boolean,
 }
 
 const DropdownInput = (props: Props) => {
+
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClick);
+        return () => document.removeEventListener('mousedown', handleClick);
+    },[])
+
+    const handleClick = (e: MouseEvent) => {
+        // @ts-ignore
+        if (dropdownRef.current !== null && !dropdownRef.current.contains(e.target)){
+            setShowDropdown(false);
+        }
+    }
 
     const [showDropdown, setShowDropdown] = useState<boolean>()
     const [selected, setSelected] = useState<string>()
@@ -25,7 +39,7 @@ const DropdownInput = (props: Props) => {
         if (props.onSelect) props.onSelect(row)
     }
 
-    const handleChange = (e : ChangeEvent<HTMLInputElement>) =>{
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setShowDropdown(selected !== "");
         changeInputState(e.target.value)
     }
@@ -35,29 +49,30 @@ const DropdownInput = (props: Props) => {
         if (props.onChange) props.onChange(value)
     }
 
-    return(
-        <div className={ "dropdown-container"}>
-            <div className={`dropdown-input-container ${props.readonly? 'readonly': ''}`}>
+    return (
+        <div className={"dropdown-container"} ref={dropdownRef}>
+            <div className={`dropdown-input-container ${props.readonly ? 'readonly' : ''}`}>
                 <input className={"input"}
                        value={(props.value) ? props.value : selected}
                        type={'text'}
                        readOnly={props.readonly}
                        onChange={e => handleChange(e)}
                        placeholder={props.placeholder}/>
-                <i className={`fas fa-times icon`} onClick={() => changeInputState("")} style={{color: selected && selected !== "" ? '#030303' : '#a4a8ad'}}/>
+                <i className={`fas fa-times icon`} onClick={() => changeInputState("")}
+                   style={{color: selected && selected !== "" ? '#030303' : '#a4a8ad'}}/>
                 <span className="drop-icon icon" onClick={flipDropdown}><i className="fas fa-chevron-down"> </i></span>
             </div>
-            <div className={"drop-list"}>
-            {(props.list && !props.readonly && props.list.length > 0 && showDropdown) ? props.list.map(row => (
-                    <div className={"generic-drop-row"}>
-                        <span onClick={e => handleSelect(row)}>{row}</span>
-                    </div>
-                )) :
+            {(props.list && !props.readonly && props.list.length > 0 && showDropdown) ? (<div className={"drop-list"}>
+                    {props.list.map(row => (
+                        <div className={"generic-drop-row"}>
+                            <span onClick={e => handleSelect(row)}>{row}</span>
+                        </div>
+                    ))}
+                </div>) :
                 (
-                    <div className={"no-drop-container"}> </div>
+                    <div className={"no-drop-container"}/>
                 )
             }
-            </div>
         </div>
     )
 }

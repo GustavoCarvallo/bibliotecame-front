@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {get, post} from "../../utils/http";
 import "./AddSanctionModal.css"
+import {addDays} from "../../utils/AddDays";
 
 type Props = {
     isOpen: boolean,
@@ -53,7 +54,7 @@ const AddSanctionModal = (props: Props) => {
     }
 
     return(
-        <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
+        <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose} titleClassName={"sanction-modal-title"}>
             <div className={"add-sanction-body"}>
                 <DropdownInput list={userList}
                                onChange={val => {setSanction({...sanction, userEmail: val}); setList(val)}}
@@ -67,6 +68,8 @@ const AddSanctionModal = (props: Props) => {
                             selected={sanction.endDate}
                             onChange={()=> {}}
                             onSelect={date => setSanction({...sanction, endDate: date})}
+                            minDate={new Date()}
+                            maxDate={addDays(new Date(), 90)}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}
                                         isActivated={sanction.userEmail !== "" && sanction.userEmail !== undefined &&

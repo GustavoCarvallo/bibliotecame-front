@@ -7,8 +7,9 @@ type Props = {
     onClose: () => void,
     title: String,
     withHeader?: boolean
+    titleClassName?: string,
 }
-const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, children, withHeader}) => {
+const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, children, withHeader, titleClassName}) => {
 
     const constStyles = {
         content: {
@@ -37,7 +38,7 @@ const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, childre
                     <div className={'modal-header'}>
                         {title && <h1 className={"modal-title"}>{title}</h1>}
                     </div>:
-                    title && <h1 className={"modal-title"}>{title}</h1>
+                    title && <h1 className={`modal-title ${titleClassName ?? ''}`}>{title}</h1>
 
             }
             {children}

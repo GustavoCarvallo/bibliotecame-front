@@ -17,6 +17,7 @@
     padding: 2.5%;
     font-family: Roboto, serif;
     font-size: inherit;
+    outline: none;
 }
 
 .add-sanction-body .date-picker{
@@ -24,5 +25,14 @@
     border-radius: 18px;
     border: solid 2px var(--cool-grey);
     padding: 10px 2%;
+    outline: none;
+}
+
+.sanction-modal-title {
+    font-family: PlayfairDisplay, serif;
+    font-size: 50px;
+    font-weight: 900;
+    font-stretch: normal;
+    font-style: italic;
 }
 

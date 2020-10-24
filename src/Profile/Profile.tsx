@@ -7,6 +7,7 @@ import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import EditProfileSubmitHandler from "./EditProfile/EditProfileSubmitHandler";
+import {isAdmin} from "../router/Routes";
 
 
 export type Profile = {
@@ -29,6 +30,8 @@ export const CREATE = "CREATE";
 export const EDIT = "EDIT";
 
 function Profile() {
+
+    const admin = isAdmin();
 
     useEffect(()=>{
         get(`user/getLogged`)
@@ -84,18 +87,18 @@ function Profile() {
             <EditProfileSubmitHandler selectedProfile={selectedProfile}
                                       setSelectedProfile={setSelectedProfile}
                                       handleCancel={handleCloseCreation}/>
-            <div className={"delete-button-container"}>
+            {!admin && (<div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
                 <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
                     <div className={"delete-account-body"}>
                         <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
                         <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                        <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                        <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal} isActivated={true}/>
                     </div>
                 </GenericModal>
 
-            </div>
+            </div>)}
         </div>
 
     </>);

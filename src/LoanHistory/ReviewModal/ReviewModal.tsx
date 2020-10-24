@@ -2,17 +2,18 @@ import React from 'react';
 import "./ReviewModal.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import Rating from "react-rating";
-import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
-import Profile from "../../Profile/Profile";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";;
 
 type Props = {
     open: boolean,
-    bookId: number,
+    id: number,
     closeModal: () => void,
-    createReview: (bookId: number, review: Review)=>void,
+    onSave: (id: number, review: Review)=>void,
+    review?: Review
 }
 
 export type Review = {
+    id?: number,
     value: number,
     description?: string,
     userModel?: {
@@ -21,9 +22,11 @@ export type Review = {
 }
 
 const ReviewModal = (props: Props) => {
+
     const [review, setReview] = React.useState<Review>({
-        value: 1,
-        description: ''
+        value: props.review?.value ?? 1,
+        description: props.review?.description ?? '',
+        id: props.review?.id ?? undefined,
     })
 
     const isActive = () => {
@@ -46,7 +49,7 @@ const ReviewModal = (props: Props) => {
                               onChange={event => setReview({...review, description: event.target.value})}
                               placeholder={"Escriba una breve reseña"}/>
                 </div>
-                <CreateAndCancelButtons onCancel={props.closeModal} onCreate={() => props.createReview(props.bookId, review)} isActivated={isActive()}/>
+                <CreateAndCancelButtons onCancel={props.closeModal} onCreate={() => props.onSave(props.id, review)} isActivated={isActive()}/>
             </div>
         </GenericModal>
     )

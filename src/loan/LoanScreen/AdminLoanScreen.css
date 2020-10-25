@@ -50,6 +50,10 @@
     width: 30vw;
 }
 
+.admin-loan-search-container{
+    display: -webkit-inline-box;
+}
+
 .admin-loan-screen .admin-loan-search-container .field-container {
     height: 5vh;
 }

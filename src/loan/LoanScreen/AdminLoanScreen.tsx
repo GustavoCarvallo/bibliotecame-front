@@ -8,6 +8,7 @@ import "./AdminLoanScreen.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {toast, ToastOptions} from "react-toastify";
 import {addDays} from "../../utils/AddDays";
+import ReminderButton from "../ReminderButton/ReminderButton";
 
 type ModalInfo = {
     open: boolean,
@@ -18,12 +19,14 @@ type ModalInfo = {
 const AdminLoanScreen = () => {
     const [search, setSearch] = React.useState("");
     const [paginationData, setPaginationData] = React.useState<PaginationData<Loan> | undefined>(undefined);
+    const [showReminderButton, setShowReminderButton] = React.useState(false);
     const [modalInfo, setModalInfo] = React.useState<ModalInfo>({
         open: false,
     });
 
     useEffect(() => {
         getData(0, search);
+        checkDelayed();
     }, [])
 
     const getData = (page: number, search: string) => {
@@ -47,6 +50,17 @@ const AdminLoanScreen = () => {
 
     const closeModal = () => {
         setModalInfo({open: false})
+    }
+
+    function checkDelayed(){
+        get("loan/delayed/check")
+            .then(res => {
+                console.log(res)
+                setShowReminderButton(res)
+            })
+            .catch(err =>{
+                notifyError(err);
+            })
     }
 
     const handleAction = (info: Loan) => {
@@ -171,6 +185,10 @@ const AdminLoanScreen = () => {
                                value={search}
                                onChange={(e) => changeSearch(e.target.value)}
                                placeholder={"Busque un préstamo"}/>
+                <ReminderButton label={"Enviar Recordatorios"}
+                                success={notifySuccess}
+                                error={notifyError}
+                                disabled={showReminderButton}/>
             </div>
             <div className={"admin-loan-table-container"}>
                 <AdminLoanTable search={search}

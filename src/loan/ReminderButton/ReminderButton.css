@@ -1,0 +1,53 @@
+.reminder-button {
+    font-family: Roboto, serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 33px;
+    background-color: var(--dodger-blue);
+    border: none;
+    padding: 12px 16px;
+    outline: none;
+}
+
+.generic-grey-and-blue-button:disabled {
+    color: var(--dodger-blue);
+    background-color: #e4e9f0
+}
+
+.generic-grey-and-blue-button:focus {
+    outline: none;
+}
+
+.reminder-modal-body {
+    padding: 30px;
+    width: 30vw;
+}
+
+.reminder-modal-body .reminder-modal-button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.reminder-modal-body .reminder-modal-button-container .reminder-modal-red-button,.reminder-modal-green-button {
+    border: none;
+    border-radius: 33px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 20px;
+}
+
+.reminder-modal-red-button:focus,.reminder-modal-green-button:focus{
+    outline: none;
+}
+
+.reminder-modal-red-button {
+    background-color: var(--orangey-red);
+    color: var(--white);
+}
+
+.reminder-modal-green-button {
+    background-color: var(--mid-green);
+    color: var(--white);
+}

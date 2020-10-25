@@ -16,7 +16,7 @@ const LoanHistory = () => {
     }, [])
 
     const getData = (page: number) => {
-        get(`loan/history?page=${page}`)
+        get(`loan/history?page=${page}&search=`)
             .then(res => {
                 setPaginationData(res);
             })

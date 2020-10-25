@@ -16,7 +16,7 @@ type ModalInfo = {
     title?: string,
     body?: ReactElement<any>
 }
-const GreyAndBlueButton = (props: Props) => {
+const ReminderButton = (props: Props) => {
 
     const [modalInfo, setModalInfo] = React.useState<ModalInfo>({
         open: false,
@@ -69,4 +69,4 @@ const GreyAndBlueButton = (props: Props) => {
         )
 }
 
-export default GreyAndBlueButton;
+export default ReminderButton;

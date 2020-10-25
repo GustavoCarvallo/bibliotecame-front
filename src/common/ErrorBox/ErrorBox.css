@@ -1,18 +1,17 @@
 .error-container{
-    min-width: 70%;
-    margin-left: 15%;
-    margin-right: 15%;
+    min-width: 50%;
     margin-top: 0;
     border-radius: 5px;
     border: solid 1px #a4a8ad;
     background-color: #f7d7db;
     line-height: 50px;
     top: 90px;
-    position: absolute;
+    padding: 5px;
 }
 
 .error-container.show {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .error-container.hide {
@@ -31,4 +30,18 @@
     color: #030303;
     margin-top: auto;
     margin-bottom: auto;
+    min-width: 85%;
+}
+
+.error-container .error-button {
+    background-color: #f7d7db;
+    border: none;
+    font-size: xx-large;
+    font-weight: bolder;
+    padding-left: 20px;
+}
+
+.error-button:focus{
+    outline: none;
+    border: none;
 }

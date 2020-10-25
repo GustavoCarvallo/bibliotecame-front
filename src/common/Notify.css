@@ -4,6 +4,11 @@
     width: 100%;
 }
 
+.Toastify__toast-container .in-toast{
+    left: 8rem;
+    top: 5rem;
+}
+
 .Toastify__toast{
     min-height: 50px;
     border-radius: 5px;

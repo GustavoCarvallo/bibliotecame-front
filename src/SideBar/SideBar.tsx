@@ -1,9 +1,9 @@
 import React from 'react';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
+import {isAdmin} from "../router/Routes";
 
 type Props = {
-    isAdmin: boolean;
     selected?: number,
 }
 
@@ -16,12 +16,12 @@ const userRows = [
     {
         title: 'Préstamos Activos',
         icon: 'book',
-        path: '',
+        path: '/loans',
     },
     {
         title: 'Historial de Préstamos',
         icon: 'history',
-        path: ''
+        path: '/loan-history'
     },
     {
         title: 'Mi Perfil',
@@ -39,12 +39,12 @@ const adminRows = [
     {
         title: 'Préstamos',
         icon: 'clipboard-list',
-        path: ''
+        path: '/loans'
     },
     {
         title: 'Sanciones',
         icon: 'ban',
-        path: ''
+        path: '/sanctions'
     },
     {
         title: 'Mi Perfil',
@@ -54,16 +54,20 @@ const adminRows = [
 ]
 
 const SideBar = (props: Props) => {
+    const admin = isAdmin();
+
     return (
         <div className={"side-bar"}>
             <div className={"name-and-img-container"}>
-                <i className="far fa-user-circle user-circle-2x"/>
-                <div className={"side-bar-name-container"}>
-                    <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
-                    {props.isAdmin && <div className={"side-bar-name"}>Administrador/a</div>}
+                <div className={"name-and-img"}>
+                    <i className="far fa-user-circle user-circle-2x"/>
+                    <div className={"side-bar-name-container"}>
+                        <div className={"side-bar-name"}>{localStorage.getItem('fullName')}</div>
+                        {admin && <div className={"side-bar-name"}>Administrador/a</div>}
+                    </div>
                 </div>
             </div>
-            {renderRows(props.isAdmin, props.selected)}
+            {renderRows(admin, props.selected)}
         </div>
     )
 }

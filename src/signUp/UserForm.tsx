@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {post} from "../utils/http";
-import ErrorBox from "../common/ErrorBox/ErrorBox";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
+import {toast} from "react-toastify";
 
 interface User {
     email: string,
@@ -13,22 +13,28 @@ interface User {
 
 const UserForm = () => {
 
-    const BAD_REQUEST = 400;
-
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
     const [user, setUser] = useState<User>({email:"", password:"",phoneNumber:"",  firstName:"", lastName:""})
-    const [error, setError] = useState<string>("")
 
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message);
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (password1 !== password2) {
-            setError("Las contraseñas no coinciden");
-        } else if (!password1.match(/^([a-zA-Z0-9]){6,}$/)) {
-            setError("La contraseña solo puede incluir letras y/o números!");
-        } else {
+        if (password1 !== password2) notifyError("Las contraseñas no coinciden");
+        else if (!password1.match(/^(?=.*\d)(?=.*[a-zA-Z])([a-zA-Z0-9]+){7,}$/)) notifyError("¡La contraseña debe ser mayor que 6 e incluir numero y letras!");
+        else if(user.firstName === "" ||
+                  user.lastName === "" ||
+                  user.email === "" ||
+                  user.phoneNumber === "" ||
+                  password1 === "" ||
+                  password2 === "") notifyError("Debe completar todos los campos");
+        else if(!user.email.match(/^[\w-.]+@([\w-]+\.austral.edu.)+[\w-]{2,4}$/)) notifyError("El email no pertenece a la organización o no es válido");
+        else {
 
             const promise = post("signup/", {
                     email: user.email,
@@ -38,30 +44,14 @@ const UserForm = () => {
                     phoneNumber: user.phoneNumber
                 },
                 {headers: {"Content-Type": "application/json"}, noAuth: true});
-
-
             promise
                 .then(() => {
                     window.history.pushState("", "", "/login?successfulSignUp")
                     window.location.reload();
                 })
-                .catch(error => {
-                    console.log("error")
-                    if (error.status === BAD_REQUEST) {
-                        if (user.firstName === "" || user.lastName === "" || user.email === "" || user.phoneNumber === "" || password1 === "") {
-                            setError("Por favor completar todos los campos")
-                        } else if (!user.email.includes(".austral.edu.") || !user.email.includes("@")) {
-                            setError("El email no pertenece a la organización o no es válido")
-                        } else if (!/^([a-zA-Z0-9]{6,})$/.test(password1)) {
-                            setError("Contraseña debe ser alfanumérica de 6 caracteres mínimo")
-                        } else {
-                            setError("Ya hay una cuenta asociada con este mail!");
-                        }
-                    } else {
-                        setError("Error inesperado, intente de nuevo.");
-                    }
+                .catch((error) => {
+                        notifyError(error);
                 })
-
         }
     }
 
@@ -83,12 +73,23 @@ const UserForm = () => {
         }
     }
 
+    function isActive() {
+        return user.firstName !== "" && user.lastName !== "" &&
+            user.email !== "" && user.phoneNumber !== "" &&
+            password1 !== "" && password2 !== "";
 
+    }
+
+    const buttonStyleDeactivated = {
+        color: '#48a3fb', backgroundColor: '#e4e9f0'
+    }
+    const buttonStyleActivated = {
+        color: '#ffffff', backgroundColor: '#48a3fb'
+    }
     return (
         <div className={"form-content"}>
-            <ErrorBox error={error} show={error !== ""}/>
             <form onSubmit={handleSubmit}>
-                <div className="inputs">
+                <div className="signup-input-container">
                     <InputWithIcon icon={"fas fa-user"} value={user.firstName} onChange={e => onChangeUser(e.target.value, 1)} placeholder={"Nombre"}/>
                     <InputWithIcon icon={"fas fa-user"} value={user.lastName} onChange={e => onChangeUser(e.target.value, 2)} placeholder={"Apellido"}/>
                     <InputWithIcon icon={"fas fa-envelope"} value={user.email} onChange={e => onChangeUser(e.target.value, 3)} placeholder={"Correo Electrónico"}/>
@@ -98,7 +99,7 @@ const UserForm = () => {
 
                 </div>
 
-                <button type="submit" className="button">Registrarme</button>
+                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated} disabled={!isActive()}>Registrarme</button>
 
             </form>
         </div>

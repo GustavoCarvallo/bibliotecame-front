@@ -5,7 +5,6 @@ import CreateOrEditBook from "../CreateOrEditBook";
 
 type Props = {
     handleCancel: ()=>void,
-    setSuccess: Function,
 }
 
 const initialBook = {
@@ -14,6 +13,7 @@ const initialBook = {
     publisher: undefined,
     year: undefined,
     tags: [],
+    reviews: [],
 }
 
 const CreateBook = (props: Props) => {
@@ -27,17 +27,22 @@ const CreateBook = (props: Props) => {
                 setBook({...initialBook})
                 setKey(key + 1);
                 thenCallback();
+                props.handleCancel();
             })
-            .catch(err => catchCallback(err.status));
+            .catch((e) => {
+                    catchCallback(e);
+            })
     }
 
     return <CreateOrEditBook handleCancel={props.handleCancel}
                              book={book}
                              setBook={setBook}
-                             setSuccess={props.setSuccess}
                              type={CREATE}
                              key={key}
-                             handleSubmit={handleSubmit} activateCopy={()=>{}} deactivateCopy={()=>{}}/>
+                             handleSubmit={handleSubmit}
+                             successMessage={'El libro se ha creado exitosamente.'}
+                             activateCopy={()=>{}}
+                             deactivateCopy={()=>{}}/>
 }
 
 export default CreateBook;

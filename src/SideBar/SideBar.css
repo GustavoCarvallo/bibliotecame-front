@@ -9,8 +9,16 @@
 }
 
 .name-and-img-container {
-    margin: auto;
-    border-bottom: 2px solid #707070;
+    padding: 20px;
+}
+
+.name-and-img {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #707070;
 }
 
 .user-circle-2x {
@@ -19,10 +27,7 @@
 }
 
 .side-bar-name-container {
-    width: 80%;
-    justify-self: center;
-    margin: auto;
-    padding-bottom: 10px;
+    width: fit-content;
 }
 
 .side-bar-name {

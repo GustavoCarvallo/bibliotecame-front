@@ -1,3 +1,7 @@
+.search-book-table {
+    height: 90%;
+}
+
 .admin-search-actions {
     height: 100%;
     display: flex;

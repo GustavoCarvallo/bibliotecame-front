@@ -1,10 +1,11 @@
 import React from 'react';
 import "./CreateOrEditBook.css";
 import {Book, CREATE, Tag} from "./Book";
-import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ActivateDeactivateButton from "../common/ActivateDeactivateButton/ActivateDeactivateButton";
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";
+import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
     book: Book,
@@ -12,18 +13,18 @@ type Props = {
     handleSubmit: Function,
     type: string,
     handleCancel: ()=>void,
-    setSuccess: Function,
     openNewCopyModal?: Function,
     activateCopy: Function,
     deactivateCopy: Function,
-    newCopyError?: boolean
+    newCopyError?: boolean,
+    successMessage: string
 }
 type Errors = {
     titleError: boolean,
     authorError: boolean,
     publisherError: boolean,
     yearErrors: YearErrors,
-    serverError?: number,
+    serverError?: string,
 }
 
 type YearErrors = {
@@ -65,15 +66,25 @@ const CreateOrEditBook = (props: Props) => {
         let newErrors = validateBook(props.book);
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
-            props.handleSubmit(props.book, handleSuccess, (status: number) => setErrors({...newErrors, serverError: status}))
+            props.handleSubmit(props.book, handleSuccess, (status: string) => notifyError(status))
         }else {
             setErrors(newErrors);
         }
     }
 
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
     const handleSuccess = () => {
-        props.setSuccess(true);
+        toast.dismiss();
+        toast.success(props.successMessage, toastifyConfiguration);
         setErrors({...initialErrors, serverError: undefined})
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
     }
 
     const validateBook = (book: Book) => {
@@ -88,19 +99,25 @@ const CreateOrEditBook = (props: Props) => {
 
         if (!book.title || book.title === "") {
             titleError = true;
+            notifyError("Completar título");
         }
         if (!book.author || book.author === "") {
             authorError = true;
+            notifyError("Completar autor")
         }
         if (!book.publisher || book.publisher === "") {
             publisherError = true;
+            notifyError("Completar editorial")
         }
         if (!book.year) {
             yearErrors.yearUndefined = true;
+            notifyError("Completar año")
         } else if (book.year > MAX_YEAR) {
             yearErrors.yearHigher = true;
+            notifyError("Año debe ser menor a " + MAX_YEAR)
         } else if (book.year < MIN_YEAR) {
             yearErrors.yearLower = true;
+            notifyError("Año debe ser mayor a " + MIN_YEAR)
         }
 
         const newErrors: Errors = {
@@ -151,18 +168,17 @@ const CreateOrEditBook = (props: Props) => {
         }
     ]
 
+    function isActive() {
+        return (props.book.title !== undefined && props.book.title !== "") &&
+            (props.book.publisher !== "" && props.book.publisher !== undefined)&&
+            (props.book.author !== "" && props.book.author !== undefined) &&
+            props.book.year !== undefined && !isNaN(props.book.year)
+    }
+
+
     return (
         <div className={"create-book"}>
             <div className={"create-book-title"}>{isCreate ? 'Nuevo Libro' : 'Editar Libro'}</div>
-            {(props.newCopyError && renderError("Error al crear ejemplar")) ||
-            (errors.titleError && renderError("Completar título")) ||
-            (errors.authorError && renderError("Completar autor")) ||
-            (errors.publisherError && renderError("Completar editorial")) ||
-            (errors.yearErrors.yearUndefined && renderError("Completar año")) ||
-            (errors.yearErrors.yearHigher && renderError("Año debe ser menor a " + MAX_YEAR)) ||
-            (errors.yearErrors.yearLower && renderError("Año debe ser mayor a " + MIN_YEAR)) ||
-            (errors.serverError && renderStatusError(errors.serverError))
-            }
             <div>
                 <div className="box">
                     <div className="rectangle-2">
@@ -190,10 +206,11 @@ const CreateOrEditBook = (props: Props) => {
                                    }
                                }}
                                maxLength={35} onChange={event => setTagToAdd({name: event.target.value})}/>
-                        <i className="fas fa-plus icon" onClick={event => addTag(tagToAdd)}/>
+                        <i className="fas fa-plus icon" onClick={() => addTag(tagToAdd)}/>
                     </div>
                     {renderTags(props.book.tags)}
-                    <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>
+                    {!isCreate &&
+                        <h3 className={'available-copies-text'}>Ejemplares reservados: {props.book.copies?.filter(copy => copy.booked).length}</h3>}
                     {!isCreate && (
                         <div className={"copies-container"}>
                             <div className={"copies-table-container"}>
@@ -205,29 +222,11 @@ const CreateOrEditBook = (props: Props) => {
                         </div>
                     )}
                 </div>
-                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit}/>
+                <CreateAndCancelButtons onCancel={props.handleCancel} onCreate={handleSubmit} isActivated={isActive()}/>
             </div>
         </div>
     )
 }
 
-const renderStatusError = (status: number) => {
-    switch (status) {
-        case 400:
-            return renderError("Comprobar que el autor y la editorial hayan sido cargados")
-        case 406:
-            return renderError("El libro ya existe en el sistema")
-        default:
-            return renderError("Error del servidor")
-    }
-}
-
-const renderError = (message: string) => {
-    return (
-        <div className={"error-box"}>
-            <div className={"error-message"}>{message}</div>
-        </div>
-    )
-}
 
 export default CreateOrEditBook;

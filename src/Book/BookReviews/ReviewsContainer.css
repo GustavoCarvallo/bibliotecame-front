@@ -1,0 +1,35 @@
+.review-container-value-container {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-container-value-container .empty-star, .review-container-value-container .full-star {
+    font-size: 20px;
+}
+
+.review-container-value-container .empty-star {
+    color: #edd100;
+}
+
+.review-container-value-container .full-star {
+    color: #edd100;
+}
+
+.email-review-containter {
+    color: #a4a8ad;
+    margin: 10px;
+}
+
+.review-text-container {
+    margin: 10px;
+}
+
+.book-review-individual .empty-star,.full-star{
+}
+
+.review-container{
+    overflow-y: scroll;
+    height: 100px;
+}
+

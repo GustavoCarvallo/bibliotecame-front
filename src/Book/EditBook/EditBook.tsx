@@ -4,13 +4,12 @@ import CreateOrEditBook from "../CreateOrEditBook";
 import {put} from "../../utils/http";
 import CreateCopyModal from "../CreateCopy/CreateCopyModal";
 import ActivateDeactivateCopyModal from "../ActivateDeactivateCopy/ActivateDeactivateCopyModal";
-import {toast, ToastContainer, ToastOptions} from "react-toastify";
+import {toast,ToastOptions} from "react-toastify";
 import "./EditBook.css"
 
 type Props = {
     selectedBook: Book,
     setSelectedBook: Function,
-    setSuccess: Function,
     handleCancel: ()=>void,
 }
 
@@ -27,14 +26,19 @@ const EditBook = (props: Props) => {
 
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
         put(`book/${book.id}`, book)
-            .then(res => thenCallback())
-            .catch(err => catchCallback(err.status));
+            .then(res => {
+                thenCallback()
+                props.handleCancel();
+
+            })
+            .catch((error) => {
+                    catchCallback(error);
+            })
     }
 
     const openNewCopyModal = () => {
         setOpenNewCopy(true);
         setNewCopyError(false);
-        props.setSuccess(false);
     }
 
     const closeNewCopyModal = () => {
@@ -69,6 +73,8 @@ const EditBook = (props: Props) => {
             year: props.selectedBook.year,
             publisher: props.selectedBook.publisher,
             tags: props.selectedBook.tags,
+            active: props.selectedBook.active,
+            reviews: props.selectedBook.reviews,
             copies: newCopies})
     }
 
@@ -98,25 +104,17 @@ const EditBook = (props: Props) => {
     }
 
     const toastifyConfiguration: ToastOptions = {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
+        className: "in-toast"
     }
 
-    const notifyError = (message: string) => toast.error(message, toastifyConfiguration);
-
-    const notifySuccess = (message: string) => toast.success(message, toastifyConfiguration);
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
 
 
     return (
         <div className={"edit-book"}>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
             <CreateCopyModal isOpen={openNewCopy} onClose={closeNewCopyModal}
                              book={props.selectedBook}
                              onSuccess={onCreateCopySuccess}
@@ -126,14 +124,14 @@ const EditBook = (props: Props) => {
                                          onSuccess={onActivateDeactivateCopySuccess} onError={onActivateDeactivateCopyError}
                                          isActive={openAsActivate}/>
             <CreateOrEditBook handleCancel={props.handleCancel}
-                              setSuccess={props.setSuccess}
                               type={EDIT} handleSubmit={handleSubmit}
                               book={props.selectedBook}
                               setBook={props.setSelectedBook}
                               newCopyError={newCopyError}
                               openNewCopyModal={openNewCopyModal}
                               activateCopy={activateCopy}
-                              deactivateCopy={deactivateCopy}/>
+                              deactivateCopy={deactivateCopy}
+                              successMessage={'El libro se ha modificado exitosamente.'}/>
         </div>
     )
 }

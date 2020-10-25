@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import "./DeleteButton.css";
 import "../common/Notify.css";
 import "./Profile.css";
-import {toast, ToastContainer} from "react-toastify";
+import {toast, ToastOptions} from "react-toastify";
 import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../common/CreateAndCancelButtons/CreateAndCancelButtons";
+import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import EditProfileSubmitHandler from "./EditProfile/EditProfileSubmitHandler";
 
 
@@ -32,8 +32,10 @@ function Profile() {
 
     useEffect(()=>{
         get(`user/getLogged`)
-            .then(res => setSelectedProfile(res))
-            .catch(err => console.log(err.message));},[])
+            .then(res => {
+                setSelectedProfile({id:res.id, email:res.email, password: "", firstName: res.firstName, lastName: res.lastName, phoneNumber: res.phoneNumber, isAdmin: res.isAdmin});
+            })
+            .catch(err => console.log(err));},[])
 
     const [status, setStatus] = React.useState(EDIT);
 
@@ -43,27 +45,18 @@ function Profile() {
 
     const [selectedProfile, setSelectedProfile] = React.useState<Profile>({})
 
-    const BAD_REQUEST = 400;
-
     const [ModalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
     const openModal = () => setModalIsOpen(true);
     const closeModal = () => setModalIsOpen(false);
 
-    const notifyError = (message: string) => toast.error(message, {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined});
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
 
-    const handleSetSuccess = (success: boolean, message?: string) => {
-        setSuccess({
-            success,
-            message
-        })
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
     }
 
     const handleCloseCreation = () => {
@@ -80,25 +73,16 @@ function Profile() {
             window.history.pushState("", "", "/login?successfulDelete")
             window.location.reload();
         })
-            .catch(error => {
-                if(error.status === BAD_REQUEST){
-                    notifyError('No se pudo eliminar tu cuenta porque tienes prestamos activos');
-                } else {
-                    notifyError('No se pudo eliminar su cuenta por un error inesperado. Intente de nuevo');
-                }
+            .catch((error) => {
+                    notifyError(error);
             })
         closeModal();
     }
 
     const renderView = (<>
-        {success.success && <div className={'success-message-container'}>
-            <span className={'success-text'}>{success.message ?? 'El perfil se ha modificado correctamente'}</span>
-            <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
-        </div>}
         <div className={"edit-profile-container"} id={"edit-profile-container"}>
             <EditProfileSubmitHandler selectedProfile={selectedProfile}
                                       setSelectedProfile={setSelectedProfile}
-                                      setSuccess={handleSetSuccess}
                                       handleCancel={handleCloseCreation}/>
             <div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
@@ -111,17 +95,13 @@ function Profile() {
                     </div>
                 </GenericModal>
 
-                <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                                closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-                />
-
             </div>
         </div>
 
     </>);
 
     return (
-        <div className={"book-main-container"}>
+        <div className={"profile-main-container"}>
             {renderView}
         </div>
     )

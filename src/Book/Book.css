@@ -1,17 +1,24 @@
 .book-main-container {
+    display: flex;
     justify-content: center;
     width: 100%;
     overflow: scroll;
 }
 
+.Toastify__toast-container .loanToast{
+    margin-left: 18%;
+    top: 62px;
+}
+
 .create-book-container {
     width: 800px;
-    height: 651px;
+    height: fit-content;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 5vh auto auto;
+    padding: 2rem;
+    align-self: center;
 }
 
 .edit-book-container {
@@ -21,7 +28,8 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 3vh auto auto;
+    padding: 1rem;
+    align-self: center;
 }
 
 .success-message-container {

@@ -1,13 +1,23 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
-import {get} from "../../utils/http";
-import {Book} from "../Book";
 import "./SearchBookTable.css";
 import ActivateOrDeactivateButton from "./ActivateOrDeactivateButton";
+import {PaginationData} from "./SearchBook";
+import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
+import {Book} from "../Book";
+import GenericPagination from "../../common/Pagination/GenericPagination";
+import {isAdmin} from "../../router/Routes";
 
 type Props = {
-    isAdmin: boolean,
     openBookDetails: (id: number) => void,
+    paginationData?: PaginationData<Book>,
+    changePage: (page: number) => void;
+}
+
+export type ActivateInformation = {
+    id: number,
+    active: boolean,
+    callBack: (active: boolean)=>void,
 }
 
 const constColumns: Column[] = [
@@ -26,15 +36,21 @@ const constColumns: Column[] = [
 ]
 
 const SearchBookTable = (props: Props) => {
-    const columns: Column[] =
-        [
+    const admin = isAdmin();
+    const [modalOpen, setModalOpen] = React.useState(false);
+    const [activateInformation, setActivateInformation] = React.useState<ActivateInformation | undefined>(undefined);
+
+    const columns: Column[] = [
             ...constColumns,
             {
                 header: 'Acciones',
-                component: props.isAdmin ?
+                component: admin ?
                     (row => (
                         <div className={'admin-search-actions'}>
-                            <ActivateOrDeactivateButton defaultValue={row.active} id={row.id}/>
+                            <ActivateOrDeactivateButton defaultValue={row.active}
+                                                        openModal={openModal}
+                                                        key={row.id}
+                                                        id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
                                onClick={() => props.openBookDetails(row.id)}/>
                         </div>
@@ -45,19 +61,28 @@ const SearchBookTable = (props: Props) => {
             }
         ];
 
-    const [books, setBooks] = React.useState<Book[]>([])
+    const openModal = (id: number, active: boolean, callBack: (active:boolean)=>void) => {
+        setModalOpen(true);
+        setActivateInformation({id, active, callBack});
+    }
 
-    useEffect(() => {
-        get('book')
-            .then(res => setBooks(res))
-            .catch(err => console.log(err));
-    }, [])
 
     return (
         <>
-            <GenericTable columns={columns}
-                          className={"table--4cols"}
-                          data={books}/>
+            <ActivateOrDeactivateModal open={modalOpen}
+                                       setOpen={setModalOpen}
+                                       activateInformation={activateInformation}/>
+            <div className={"search-book-table"}>
+                <GenericTable columns={columns}
+                              className={"table--4cols"}
+                              noDataText={"Libro no encontrado"}
+                              data={props.paginationData?.content ?? []}/>
+            </div>
+            <div className={"search-book-pagination-container"}>
+                <GenericPagination pageCount={props.paginationData?.totalPages ?? 0}
+                                   forcePage={props.paginationData?.pageable.pageNumber ?? 0}
+                                   onPageChange={(selected) => props.changePage(selected)}/>
+            </div>
         </>
     )
 }

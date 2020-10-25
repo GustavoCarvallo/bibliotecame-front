@@ -3,6 +3,7 @@ import {post} from "../utils/http"
 import "./BookScreen.css"
 import IconButton from "../common/IconButton";
 import ModalComponent from "../common/Modal";
+import {toast, ToastOptions} from "react-toastify";
 
 const BookScreen = () => {
 
@@ -12,22 +13,40 @@ const BookScreen = () => {
         setIsActive(true);
 
         post(`book/${id}/activate`,[],).then( () => {
-                alert(`Book ${id} activated!`);
+                notifySuccess(`Libro habilitado satisfactoriamente!`);
             }
-        ).catch(error => {
-            alert(`Got error ${error.status}!`)
+        ).catch((error) => {
+            error.then((e:any)=>{
+                notifyError(e);
+            });
         })
     }
 
     const deactivate = (id: number) => {
         setIsActive(false);
         post(`book/${id}/deactivate`,[],).then( () => {
-                alert(`Book ${id} deactivated!`);
+            notifySuccess(`Libro deshabilitado satisfactoriamente!`);
             }
-        ).catch(error => {
-            alert(`Got error ${error.status}!`)
+        ).catch((error) => {
+                notifyError(error);
         })
     }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifySuccess = (message: String) => {
+        toast.dismiss()
+        toast.success(message, toastifyConfiguration)
+    }
+
+    const notifyError = (message: String) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
+    }
+
+
 
     return <div className={"book-screen"}>
         {bookIsActive ?

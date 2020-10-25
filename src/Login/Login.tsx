@@ -1,51 +1,45 @@
 import React from 'react'
 import "./Login.css";
-import {toast, ToastContainer, ToastOptions} from "react-toastify";
+import {toast} from "react-toastify";
 import LoginForm from "./LoginForm";
 import "../common/Notify.css"
 import {useLocation, useHistory, Link} from 'react-router-dom';
+
 
 function Login() {
 
     const location = useLocation();
     const history = useHistory();
     const urlExtend = location.search;
-    const isSuccessSignUp : boolean = urlExtend === "?successfulSignUp";
-    const isSuccessDelete : boolean = urlExtend === "?successfulDelete";
+    const isSuccessSignUp: boolean = urlExtend === "?successfulSignUp";
+    const isSuccessDelete: boolean = urlExtend === "?successfulDelete";
 
-    const toastifyConfigurations : ToastOptions = {
-        position: "top-center",
-        autoClose: 7000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined
+    const notifySignUp = () => {
+        toast.dismiss();
+        toast.success('Se ha registrado exitosamente!');
     }
 
-    const notifySignUp = () => toast.success('Se ha registrado exitosamente!', toastifyConfigurations);
+    const notifyDelete = () => {
+        toast.dismiss();
+        toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');
+    }
 
-    const notifyDelete = () => toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!', toastifyConfigurations);
-
-    if(isSuccessSignUp){
+    if (isSuccessSignUp) {
         notifySignUp();
         history.replace(location.pathname);
     }
 
-    if(isSuccessDelete){
+    if (isSuccessDelete) {
         notifyDelete();
         history.replace(location.pathname);
     }
 
     return (
         <div className={"login-screen"}>
-            <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-                            closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover
-            />
             <h1 className={"Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
-                <LoginForm whereTo="/home"/>
+                <LoginForm whereTo="/book"/>
                 <div className={"register-button"}>
                     <Link to={'signup'}>
                         <span>¿Deseas Registrarte?</span>

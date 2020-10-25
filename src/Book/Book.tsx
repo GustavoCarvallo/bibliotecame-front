@@ -3,9 +3,12 @@ import "./Book.css";
 import CreateBook from "./CreateBook/CreateBook";
 import EditBook from "./EditBook/EditBook";
 import BookDetails from "./BookDetails/BookDetails";
-import {get} from "../utils/http";
-import Button from "../common/Button/Button";
-import SearchBook from "./SearchBook/SearchBook";
+import {get, post} from "../utils/http";
+import SearchBook, {SearchForm} from "./SearchBook/SearchBook";
+import {toast, ToastOptions} from "react-toastify";
+import AdvancedSearch from "./AdvancedSearch/AdvancedSearch";
+import {isAdmin} from "../router/Routes";
+import {Review} from "../LoanHistory/ReviewModal/ReviewModal";
 
 const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
@@ -20,6 +23,7 @@ export type Book = {
     year?: number,
     tags: Tag[],
     active?: boolean,
+    reviews: Review[],
 }
 
 export type Tag = {
@@ -37,17 +41,23 @@ type Success = {
     message?: string,
 }
 
-type Props = {
-    isAdmin: boolean,
-}
+const Book = () => {
 
-const Book = (props: Props) => {
+    const admin = isAdmin();
+
     const [status, setStatus] = React.useState(SEARCH);
-
+    const [searchForm, setSearchForm] = React.useState<SearchForm>({title:"", author:"", publisher:"", tags:[], year:""})
     const [selectedBook, setSelectedBook] = React.useState<Book | undefined>(undefined)
+    const [filterModal, setFilterModal] = React.useState<boolean>(false);
+    const [callSearch, setCallSearch] = React.useState<boolean>(false);
+    const [callAdvancedSearch, setCallAdvancedSearch] = React.useState<boolean>(false);
 
     const handleOpenCreation = () => {
         setStatus(CREATE);
+    }
+
+    const handleOpenFilter = () => {
+        setFilterModal(true);
     }
 
     const handleCloseCreation = () => {
@@ -64,21 +74,48 @@ const Book = (props: Props) => {
         success: false,
     });
 
-    const handleSetSuccess = (success: boolean, message?: string) => {
-        setSuccess({
-            success,
-            message
-        })
-    }
-
     const openBookDetails = (id: number) => {
         get(`book/${id}`)
             .then(res => {
                 setSelectedBook(res);
-                props.isAdmin && setStatus(EDIT);
+                admin && setStatus(EDIT);
             })
             .catch(err => console.log(err))
     }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifySuccess = (expirationDate : string) => {
+        toast.dismiss();
+        toast.success('Solicitud de prestamo satisfactoria. Recuerde que debe devolverlo antes del ' + expirationDate, toastifyConfiguration);
+    }
+
+    const notifyError = (message : string) => {
+        toast.dismiss();
+        toast.error(message, toastifyConfiguration);
+    }
+
+    const handleCancelFilterModal = () => {
+        setFilterModal(false);
+        setSearchForm({title:"", author:"", publisher:"", tags:[], year:""});
+        setCallSearch(true);
+    }
+
+    const handleLoan = (book : Book) => {
+        const promise =  post(`loan/${book.id}`, {});
+        promise.then(res => {
+            notifySuccess(res.expirationDate);
+        })
+            .catch((error) => {
+                    notifyError(error);
+            })
+            .finally(()=> {
+                setSelectedBook(undefined);
+            })
+    }
+
 
     const renderView = (status: string) => {
         switch (status) {
@@ -89,16 +126,28 @@ const Book = (props: Props) => {
                         <i className="fas fa-times success-close" onClick={() => setSuccess({success: false})}/>
                     </div>}
                     <div className={"create-book-container"}>
-                        <CreateBook handleCancel={handleCloseCreation} setSuccess={handleSetSuccess}/>
+                        <CreateBook handleCancel={handleCloseCreation}/>
                     </div>
                 </>)
             case SEARCH:
                 return (
                     <>
-                        <SearchBook isAdmin={props.isAdmin} handleOpenCreation={handleOpenCreation}
-                                    openBookDetails={openBookDetails}/>
+                        <SearchBook callAdvancedSearch={callAdvancedSearch}
+                                    callSearch={callSearch}
+                                    setCallAdvancedSearch={setCallAdvancedSearch}
+                                    setCallSearch={setCallSearch}
+                                    handleOpenCreation={handleOpenCreation} handleOpenFilter={handleOpenFilter}
+                                    openBookDetails={openBookDetails} searchForm={searchForm} setSearchForm={setSearchForm}/>
                         {selectedBook &&
-                        <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook}/>}
+                        <BookDetails isOpen={true} onClose={() => setSelectedBook(undefined)} selectedBook={selectedBook} handleLoan={handleLoan}/>}
+                        {filterModal &&
+                        <AdvancedSearch isOpen={true}
+                                        setDone={setCallAdvancedSearch}
+                                        onCancel={handleCancelFilterModal}
+                                        onClose={()=> setFilterModal(false)}
+                                        searchForm={searchForm}
+                                        changeSearchForm={setSearchForm}/>
+                        }
                     </>
                 )
             case EDIT:
@@ -111,7 +160,6 @@ const Book = (props: Props) => {
                     <div className={"edit-book-container"}>
                         {selectedBook && (<EditBook selectedBook={selectedBook}
                                                     setSelectedBook={setSelectedBook}
-                                                    setSuccess={handleSetSuccess}
                                                     handleCancel={handleCloseEdit}/>)
                         }
                     </div>

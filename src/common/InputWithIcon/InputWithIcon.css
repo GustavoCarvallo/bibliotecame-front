@@ -1,86 +1,35 @@
-/*.field-container {*/
-/*    border: solid 1px #dfe2e6;*/
-/*    border-radius: 18px;*/
-/*    display: grid;*/
-/*    grid-template-columns: 1fr 10fr;*/
-/*    padding: 10px;*/
-/*}*/
-
-.field-container{
+.generic-field-container{
     border-radius: 18px;
     border: solid 1px #dfe2e6;
     background-color: #ffffff;
-    margin-bottom: 7%;
     display: flex;
-    flex-wrap: wrap;
-    margin-right: auto;
-    margin-left: auto;
+    justify-content: space-evenly;
+    padding: 10px;
+    width: inherit;
 }
 
-.field-container.toRight{
+.generic-field-container.toRight{
     flex-direction: row-reverse;
 }
 
-.toRight .input{
-    margin-left: 2%;
-}
-
-.input {
-    width: 80%;
-    height: 22px;
+.generic-field-container .generic-input,.generic-password-input {
     font-family: Roboto, serif;
     font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2.81;
-    letter-spacing: normal;
     text-align: left;
     color: #111111;
     border: none;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 0;
-}
-
-.input:focus, .Password:focus{
     outline: none;
-
+    width: 100%;
 }
 
-.field-container-disabled {
-    border: solid 1px #dfe2e6;
-    background-color: #f1f1f1;
-    border-radius: 18px;
-    margin-bottom: 7%;
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: auto;
-    margin-left: auto;
+.generic-field-container .generic-field-input-container {
+    padding: 0 20px;
+    flex-grow: 5;
 }
 
 
-.icon {
+.generic-field-container .generic-field-icon {
     object-fit: contain;
     color: #a4a8ad;
     font-size: x-large;
-    width: 15%;
-    margin: auto;
-}
-
-.Password{
-    width: 65%;
-    height: 22px;
-    font-family: Roboto, serif;
-    font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 2.81;
-    letter-spacing: normal;
-    text-align: left;
-    color: #111111;
-    border: none;
-    margin-top: auto;
-    margin-bottom: auto;
 }

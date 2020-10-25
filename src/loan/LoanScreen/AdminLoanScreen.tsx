@@ -7,6 +7,7 @@ import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import "./AdminLoanScreen.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {toast, ToastOptions} from "react-toastify";
+import {addDays} from "../../utils/AddDays";
 
 type ModalInfo = {
     open: boolean,
@@ -179,13 +180,6 @@ const AdminLoanScreen = () => {
             </div>
         </div>
     )
-}
-
-function addDays(date: Date | undefined, days: number) {
-    if (!date) return;
-    let newDay = new Date(date);
-    newDay.setDate(date.getDate() + days);
-    return newDay;
 }
 
 export default AdminLoanScreen;

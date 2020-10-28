@@ -69,7 +69,7 @@ const AdminIncorporationScreen = () => {
     return (
         <div className={"admin-incorporation-screen"}>
             <div className={"admin-incorporation-card"}>
-                <div>
+                <div className={"admin-incorporation-table-container"}>
                     <GenericTable columns={columns} data={paginationData?.content ?? []} className={"table--5cols"}/>
                 </div>
                 <GenericPagination pageCount={paginationData?.totalPages ?? 0}

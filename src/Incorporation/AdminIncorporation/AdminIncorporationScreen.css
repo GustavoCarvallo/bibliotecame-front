@@ -6,7 +6,7 @@
 }
 
 .admin-incorporation-screen .admin-incorporation-card {
-    width: 60vw;
+    width: 65vw;
     height: 55vh;
     border-radius: 33px;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
@@ -61,5 +61,9 @@
     grid-template-columns: 1fr 3fr;
     width: 100%;
     grid-gap: 15px;
+}
+
+.admin-incorporation-card .admin-incorporation-table-container {
+    width: inherit;
 }
 

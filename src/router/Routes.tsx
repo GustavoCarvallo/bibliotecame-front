@@ -23,6 +23,7 @@ import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 import LoanHistory from "../LoanHistory/LoanHistory";
 import VerifyToken from "../Login/VerifyToken";
+import AdminIncorporationScreen from "../Incorporation/AdminIncorporation/AdminIncorporationScreen";
 
 export const isAdmin = () => {
     return localStorage.getItem('admin') === 'true';
@@ -60,6 +61,7 @@ const Router = () => {
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>
+                    <AuthRoute path={"/incorporation"} component={() => <ContainedComponent children={AdminIncorporationScreen} selected={3}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <ReverseAuthRoute path={"/verify/:token"} component={() => <VerifyToken/>}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
@@ -103,7 +105,7 @@ export function ProfileView() {
         <div>
             <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar selected={3}/>
+                <SideBar selected={isAdmin()?  4: 3}/>
                 <Profile/>
             </div>
         </div>

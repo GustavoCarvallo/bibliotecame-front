@@ -11,7 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import SignUp from "../signUp/SignUp";
 import "./Routes.css";
-import {toast, ToastContainer, ToastOptions} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
@@ -22,6 +22,7 @@ import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 import LoanHistory from "../LoanHistory/LoanHistory";
+import VerifyToken from "../Login/VerifyToken";
 
 export const isAdmin = () => {
     return localStorage.getItem('admin') === 'true';
@@ -60,6 +61,7 @@ const Router = () => {
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
+                    <ReverseAuthRoute path={"/verify/:token"} component={() => <VerifyToken/>}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
             </div>

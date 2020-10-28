@@ -13,24 +13,41 @@ function Login() {
     const urlExtend = location.search;
     const isSuccessSignUp: boolean = urlExtend === "?successfulSignUp";
     const isSuccessDelete: boolean = urlExtend === "?successfulDelete";
+    const isSuccessVerification: boolean = urlExtend === "?successfulVerification";
+    const isUnsuccessVerification: boolean = urlExtend === "?unsuccessfulVerification";
 
-    const notifySignUp = () => {
+    const notifyInfo = (message: string) => {
         toast.dismiss();
-        toast.success('Se ha registrado exitosamente!');
+        toast.info(message);
     }
 
-    const notifyDelete = () => {
+    const notifyError = (message: string) => {
         toast.dismiss();
-        toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');
+        toast.error(message);
+    }
+
+    const notifyVerification = () => {
+        toast.dismiss();
+        toast.success('Tu cuenta ha sido verificada correctamente, ya puede iniciar sesión!');
     }
 
     if (isSuccessSignUp) {
-        notifySignUp();
+        notifyInfo('Recuerde verificar su cuenta antes de ingresar!');
+        history.replace(location.pathname);
+    }
+
+    if(isSuccessVerification){
+        notifyVerification();
+        history.replace(location.pathname);
+    }
+
+    if(isUnsuccessVerification){
+        notifyError('El token no es valido');
         history.replace(location.pathname);
     }
 
     if (isSuccessDelete) {
-        notifyDelete();
+        notifyInfo('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');
         history.replace(location.pathname);
     }
 

@@ -103,7 +103,7 @@ export function ProfileView() {
         <div>
             <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar selected={3}/>
+                <SideBar selected={isAdmin() ? 3: 4}/>
                 <Profile/>
             </div>
         </div>

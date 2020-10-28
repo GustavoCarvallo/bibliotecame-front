@@ -2,6 +2,43 @@
     height: 90%;
 }
 
-.loan-history-table-container .loan-table-button {
+.loan-history-table-container .loan-history-table-button {
     padding: 6px 10px;
+    border-radius: 9px;
+    color: var(--white);
+    background-color: var(--dodger-blue);
+    border: none;
+    font-family: Roboto, serif;
+    font-size: 14px;
+    font-weight: bold;
+    outline: none;
+    width: 100%;
+}
+
+.loan-history-table-container .edit-review-button-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-gap: 10px;
+}
+
+.delete-review-modal-body {
+    width: 30vw;
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.delete-review-modal-body .delete-review-modal-text {
+    width: 70%;
+    font-family: Roboto, serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--black);
+}
+
+.delete-review-modal-body .delete-review-modal-buttons {
+    padding: 15px;
+    width: 100%;
 }

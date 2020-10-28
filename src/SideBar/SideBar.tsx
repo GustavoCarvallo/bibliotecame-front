@@ -24,6 +24,11 @@ const userRows = [
         path: '/loan-history'
     },
     {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation-request'
+    },
+    {
         title: 'Mi Perfil',
         icon: 'user-circle',
         path: '/profile'
@@ -45,6 +50,11 @@ const adminRows = [
         title: 'Sanciones',
         icon: 'ban',
         path: '/sanctions'
+    },
+    {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation'
     },
     {
         title: 'Mi Perfil',

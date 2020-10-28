@@ -13,16 +13,23 @@ function Login() {
     const urlExtend = location.search;
     const isSuccessSignUp: boolean = urlExtend === "?successfulSignUp";
     const isSuccessDelete: boolean = urlExtend === "?successfulDelete";
+    const isSuccessVerification: boolean = urlExtend === "?successfulVerification";
+    const isUnsuccessVerification: boolean = urlExtend === "?unsuccessfulVerification";
     const isSuccessResetStart: boolean = urlExtend === "?successfulResetStart";
     const isSuccessReset: boolean = urlExtend === "?successfulReset";
 
-    const notifySuccess = (message: string) => {
-        toast.dismiss();
-        toast.success(message);
-    }
     const notifyInfo = (message: string) => {
         toast.dismiss();
         toast.info(message);
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss();
+        toast.error(message);
+    }
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message);
     }
 
     if (isSuccessSignUp) {
@@ -36,6 +43,16 @@ function Login() {
         history.replace(location.pathname);
     }else if (isSuccessReset) {
         notifySuccess('Se ha restaurado su contraseña correctamente!');
+        history.replace(location.pathname);
+    }
+
+    if(isSuccessVerification){
+        notifySuccess('Tu cuenta ha sido verificada correctamente, ya puede iniciar sesión!');
+        history.replace(location.pathname);
+    }
+
+    if(isUnsuccessVerification){
+        notifyError('El token no es valido');
         history.replace(location.pathname);
     }
 

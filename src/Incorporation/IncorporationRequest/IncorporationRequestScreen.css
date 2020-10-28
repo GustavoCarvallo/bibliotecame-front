@@ -1,0 +1,17 @@
+.incorporation-request-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.incorporation-request-screen .add-button {
+    font-size: 35px;
+    color: var(--mid-green);
+    align-self: center;
+    justify-self: end;
+}
+
+.incorporation-request-screen .add-button:hover {
+    cursor: pointer;
+}

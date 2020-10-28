@@ -24,6 +24,11 @@ const userRows = [
         path: '/loan-history'
     },
     {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation-request'
+    },
+    {
         title: 'Mi Perfil',
         icon: 'user-circle',
         path: '/profile'

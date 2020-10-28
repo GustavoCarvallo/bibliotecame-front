@@ -19,7 +19,7 @@ const NewPassword = () => {
         else {
             put(`reset/${token}`, {password: password1})
                 .then(() => {
-                    history.push('login?successfulReset')
+                    history.push("/login?successfulReset")
                 })
                 .catch(error => {
                     notifyError(error)

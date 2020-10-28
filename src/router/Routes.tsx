@@ -11,7 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import SignUp from "../signUp/SignUp";
 import "./Routes.css";
-import {toast, ToastContainer, ToastOptions} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
@@ -22,6 +22,8 @@ import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 import LoanHistory from "../LoanHistory/LoanHistory";
+import VerifyToken from "../Login/VerifyToken";
+import AdminIncorporationScreen from "../Incorporation/AdminIncorporation/AdminIncorporationScreen";
 import IncorporationRequestScreen from "../Incorporation/IncorporationRequest/IncorporationRequestScreen";
 
 export const isAdmin = () => {
@@ -61,7 +63,9 @@ const Router = () => {
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/incorporation-request"} component={() => <ContainedComponent children={IncorporationRequestScreen} selected={3}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>
+                    <AuthRoute path={"/incorporation"} component={() => <ContainedComponent children={AdminIncorporationScreen} selected={3}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
+                    <ReverseAuthRoute path={"/verify/:token"} component={() => <VerifyToken/>}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
                 </Switch>
             </div>
@@ -103,7 +107,7 @@ export function ProfileView() {
         <div>
             <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar selected={isAdmin() ? 3: 4}/>
+                <SideBar selected={4}/>
                 <Profile/>
             </div>
         </div>

@@ -52,6 +52,11 @@ const adminRows = [
         path: '/sanctions'
     },
     {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation'
+    },
+    {
         title: 'Mi Perfil',
         icon: 'user-circle',
         path: '/profile'

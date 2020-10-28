@@ -13,24 +13,29 @@ function Login() {
     const urlExtend = location.search;
     const isSuccessSignUp: boolean = urlExtend === "?successfulSignUp";
     const isSuccessDelete: boolean = urlExtend === "?successfulDelete";
+    const isSuccessResetStart: boolean = urlExtend === "?successfulResetStart";
+    const isSuccessReset: boolean = urlExtend === "?successfulReset";
 
-    const notifySignUp = () => {
+    const notifySuccess = (message: string) => {
         toast.dismiss();
-        toast.success('Se ha registrado exitosamente!');
+        toast.success(message);
     }
-
-    const notifyDelete = () => {
+    const notifyInfo = (message: string) => {
         toast.dismiss();
-        toast.info('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');
+        toast.info(message);
     }
 
     if (isSuccessSignUp) {
-        notifySignUp();
+        notifySuccess('Se ha registrado exitosamente!');
         history.replace(location.pathname);
-    }
-
-    if (isSuccessDelete) {
-        notifyDelete();
+    }else if (isSuccessDelete) {
+        notifyInfo('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');
+        history.replace(location.pathname);
+    }else if (isSuccessResetStart) {
+        notifySuccess('Restauración de contraseña iniciada, revise su casilla de correo!');
+        history.replace(location.pathname);
+    }else if (isSuccessReset) {
+        notifySuccess('Se ha restaurado su contraseña correctamente!');
         history.replace(location.pathname);
     }
 
@@ -40,6 +45,11 @@ function Login() {
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
                 <LoginForm whereTo="/book"/>
+                <div className={"reset-password-button"}>
+                    <Link to={'forgotPassword'} className={'forgot'}>
+                        <span>¿Has olvidado tu contraseña?</span>
+                    </Link>
+                </div>
                 <div className={"register-button"}>
                     <Link to={'signup'}>
                         <span>¿Deseas Registrarte?</span>

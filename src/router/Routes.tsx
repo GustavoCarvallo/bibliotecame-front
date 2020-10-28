@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Switch,
@@ -11,7 +11,7 @@ import TopBar from "../TopBar/TopBar";
 import SideBar from "../SideBar/SideBar";
 import SignUp from "../signUp/SignUp";
 import "./Routes.css";
-import {toast, ToastContainer, ToastOptions} from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Book from "../Book/Book";
 import BookScreen from "../Book/BookScreen";
@@ -22,6 +22,8 @@ import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 import LoanHistory from "../LoanHistory/LoanHistory";
+import ResetPassword from "../Login/ResetPassword/ResetPassword";
+import NewPassword from "../Login/ResetPassword/NewPassword";
 
 export const isAdmin = () => {
     return localStorage.getItem('admin') === 'true';
@@ -56,6 +58,8 @@ const Router = () => {
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
+                    <ReverseAuthRoute path={"/forgotPassword"} component={ResetPassword}/>
+                    <ReverseAuthRoute path={"/reset/:token"} component={NewPassword}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>

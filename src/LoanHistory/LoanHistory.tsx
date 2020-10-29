@@ -3,7 +3,7 @@ import "./LoanHistory.css";
 import LoanHistoryTable from "./LoanHistoryTable/LoanHistoryTable";
 import {PaginationData} from "../Book/SearchBook/SearchBook";
 import {Loan} from "../loan/LoanScreen";
-import {get, post, put} from "../utils/http";
+import {del, get, post, put} from "../utils/http";
 import {Review} from "./ReviewModal/ReviewModal";
 import {notifyError, notifySuccess} from "../router/Routes";
 
@@ -49,12 +49,23 @@ const LoanHistory = () => {
             .catch(err => notifyError(err));
     }
 
+    const deleteReview = (reviewId: number, callBack: () => void) => {
+        del(`review/${reviewId}`)
+            .then(() => {
+                callBack();
+                getData(0);
+                notifySuccess('La reseña se ha eliminado correctamente!')
+            })
+            .catch(err => notifyError(err));
+    }
+
     return (
         <div className={"loan-history-screen"}>
             <div className={"loan-history-table-container"}>
                 <LoanHistoryTable paginationData={paginationData}
                                   changePage={changePage} createReview={createReview}
-                                  editReview={editReview}/>
+                                  editReview={editReview}
+                                  deleteReview={deleteReview}/>
             </div>
         </div>
     )

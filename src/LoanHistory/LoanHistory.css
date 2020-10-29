@@ -1,9 +1,10 @@
 .loan-history-screen {
+    width: inherit;
+    height: inherit;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+    padding-top: 30px;
 }
 
 .loan-history-screen .loan-history-table-container {
@@ -14,9 +15,17 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
+    margin: 3vh auto auto;
 }
 
 .loan-history-screen .loan-history-success-container {
     height: 5vh;
     width: 30vw;
+}
+
+.loan-history-screen .search-container {
+    display: grid;
+    align-content: center;
+    height: 50px;
+    grid-template-columns: 30vw;
 }

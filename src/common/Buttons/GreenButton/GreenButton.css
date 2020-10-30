@@ -1,0 +1,19 @@
+.generic-green-button {
+    font-family: Roboto, serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 33px;
+    background-color: var(--mid-green);
+    border: none;
+    padding: 20px 55px;
+}
+
+.generic-green-button:disabled {
+    color: var(--mid-green);
+    background-color: #e4e9f0
+}
+
+.generic-green-button:focus {
+    outline: none;
+}

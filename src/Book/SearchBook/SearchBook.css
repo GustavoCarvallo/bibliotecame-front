@@ -40,7 +40,7 @@
 
 .search-book-table-container {
     padding: 50px 40px;
-    width: 45vw;
+    width: 50vw;
     height: 55vh;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px var(--brownish-grey);

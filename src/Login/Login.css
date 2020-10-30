@@ -73,6 +73,14 @@
     height: 22px;
 }
 
+.login-screen .reset-password-button{
+    padding: 0 0 1rem 0;
+}
+
+.login-screen .forgot{
+    color: var(--cool-grey);
+}
+
 /*.login-screen .input:focus, .Password:focus{*/
 /*    outline: none;*/
 
@@ -97,8 +105,7 @@
     border-radius: 33px;
     background-color: #e4e9f0;
     border: none;
-    margin-top: 5%;
-    margin-bottom: 10%;
+    margin: 5% 0;
     font-family: Roboto, serif;
     font-size: 20px;
     font-weight: bold;

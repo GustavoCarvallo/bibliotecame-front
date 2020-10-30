@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {
     BrowserRouter,
     Switch,
@@ -22,6 +22,8 @@ import "../common/Notify.css"
 import LoanScreen from "../loan/LoanScreen";
 import SanctionsView from "../Sanction/SanctionsView";
 import LoanHistory from "../LoanHistory/LoanHistory";
+import ResetPassword from "../Login/ResetPassword/ResetPassword";
+import NewPassword from "../Login/ResetPassword/NewPassword";
 import VerifyToken from "../Login/VerifyToken";
 import AdminIncorporationScreen from "../Incorporation/AdminIncorporation/AdminIncorporationScreen";
 import IncorporationRequestScreen from "../Incorporation/IncorporationRequest/IncorporationRequestScreen";
@@ -59,6 +61,8 @@ const Router = () => {
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
+                    <ReverseAuthRoute path={"/forgotPassword"} component={ResetPassword}/>
+                    <ReverseAuthRoute path={"/reset/:token"} component={NewPassword}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/incorporation-request"} component={() => <ContainedComponent children={IncorporationRequestScreen} selected={3}/>}/>

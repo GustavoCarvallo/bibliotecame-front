@@ -1,8 +1,9 @@
 .incorporation-request-screen {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
+    gap: 20px;
+    padding-top: 30px;
 }
 
 .incorporation-request-screen .add-button {

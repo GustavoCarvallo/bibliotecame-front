@@ -67,6 +67,10 @@
     width: inherit;
 }
 
+.admin-incorporation-table-container .generic-table-container {
+    height: 100%;
+}
+
 .accept-reject-incorporation-modal-body {
     height: 25vh;
     width: 30vw;

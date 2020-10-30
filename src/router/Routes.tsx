@@ -26,7 +26,7 @@ import ResetPassword from "../Login/ResetPassword/ResetPassword";
 import NewPassword from "../Login/ResetPassword/NewPassword";
 import VerifyToken from "../Login/VerifyToken";
 import AdminIncorporationScreen from "../Incorporation/AdminIncorporation/AdminIncorporationScreen";
-import IncorporationRequestScreen from "../Incorporation/IncorporationRequest/IncorporationRequestScreen";
+import IncorporationRequestScreen from "../Incorporation/StudentIncorporation/IncorporationRequestScreen";
 
 export const isAdmin = () => {
     return localStorage.getItem('admin') === 'true';

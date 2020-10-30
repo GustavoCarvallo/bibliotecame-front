@@ -8,10 +8,10 @@ import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
-type IncorporationRequest = {
+export type IncorporationRequest = {
     id: number,
     date: string,
-    userEmail: string,
+    userEmail?: string,
     title: string,
     status: string,
     author: string,
@@ -22,7 +22,7 @@ type AcceptRejectModalInfo = {
     incorporationRequest?: IncorporationRequest,
 }
 
-const statusLabels = [
+export const incorporationStatusLabels = [
     {status: 'PENDING', label: "A revisar"},
     {status: 'APPROVED', label: "Aprobada"},
     {status: 'REJECTED', label: "Rechazada"},
@@ -65,8 +65,7 @@ const AdminIncorporationScreen = () => {
         },
         {
             header: "Estado",
-            component: row => <div
-                className={`admin-incorporation-${row.status?.toLowerCase()}-chip`}>{statusLabels.find(statusObject => statusObject.status === row.status)?.label}</div>
+            component: row => <div className={`admin-incorporation-${row.status?.toLowerCase()}-chip`}>{incorporationStatusLabels.find(statusObject => statusObject.status === row.status)?.label}</div>
         },
         {
             header: "Acciones",

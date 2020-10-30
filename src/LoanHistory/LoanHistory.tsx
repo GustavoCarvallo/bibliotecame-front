@@ -60,7 +60,7 @@ const LoanHistory = () => {
         del(`review/${reviewId}`)
             .then(() => {
                 callBack();
-                getData(0);
+                getData(0, "");
                 notifySuccess('La reseña se ha eliminado correctamente!')
             })
             .catch(err => notifyError(err));

@@ -9,6 +9,7 @@ import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 export type IncorporationRequest = {
+    id: number,
     date: string,
     userEmail?: string,
     title: string,

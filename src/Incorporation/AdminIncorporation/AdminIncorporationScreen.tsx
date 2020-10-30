@@ -6,15 +6,15 @@ import {get} from "../../utils/http";
 import {notifyError} from "../../router/Routes";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 
-type IncorporationRequest = {
+export type IncorporationRequest = {
     date: string,
-    userEmail: string,
+    userEmail?: string,
     title: string,
     status: string,
     author: string,
 }
 
-const statusLabels = [
+export const incorporationStatusLabels = [
     {status: 'PENDING', label: "A revisar"},
     {status: 'APPROVED', label: "Aprobada"},
     {status: 'REJECTED', label: "Rechazada"},
@@ -54,7 +54,7 @@ const AdminIncorporationScreen = () => {
         },
         {
             header: "Estado",
-            component: row => <div className={`admin-incorporation-${row.status?.toLowerCase()}-chip`}>{statusLabels.find(statusObject => statusObject.status === row.status)?.label}</div>
+            component: row => <div className={`admin-incorporation-${row.status?.toLowerCase()}-chip`}>{incorporationStatusLabels.find(statusObject => statusObject.status === row.status)?.label}</div>
         },
         {
             header: "Acciones",

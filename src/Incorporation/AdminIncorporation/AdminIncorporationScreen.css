@@ -67,3 +67,7 @@
     width: inherit;
 }
 
+.admin-incorporation-table-container .generic-table-container {
+    height: 100%;
+}
+

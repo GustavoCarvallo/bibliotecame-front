@@ -71,3 +71,16 @@
     height: 100%;
 }
 
+.accept-reject-incorporation-modal-body {
+    height: 25vh;
+    width: 30vw;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.accept-reject-incorporation-modal-body .accept-reject-incorporation-modal-text {
+    width: 80%;
+}

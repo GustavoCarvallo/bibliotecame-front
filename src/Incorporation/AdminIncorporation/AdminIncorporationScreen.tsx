@@ -2,9 +2,11 @@ import React, {useEffect} from 'react';
 import "./AdminIncorporationScreen.css"
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
-import {get} from "../../utils/http";
-import {notifyError} from "../../router/Routes";
+import {get, put} from "../../utils/http";
+import {notifyError, notifySuccess} from "../../router/Routes";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
+import GenericModal from "../../common/GenericModal/GenericModal";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 export type IncorporationRequest = {
     date: string,
@@ -12,6 +14,11 @@ export type IncorporationRequest = {
     title: string,
     status: string,
     author: string,
+}
+
+type AcceptRejectModalInfo = {
+    open: boolean,
+    incorporationRequest?: IncorporationRequest,
 }
 
 export const incorporationStatusLabels = [
@@ -22,6 +29,9 @@ export const incorporationStatusLabels = [
 
 const AdminIncorporationScreen = () => {
     const [paginationData, setPaginationData] = React.useState<PaginationData<IncorporationRequest> | undefined>(undefined);
+    const [acceptRejectModalInfo, setAcceptRejectModalInfo] = React.useState<AcceptRejectModalInfo>({
+        open: false,
+    });
 
     useEffect(() => {
         getData(0);
@@ -60,14 +70,65 @@ const AdminIncorporationScreen = () => {
             header: "Acciones",
             component: row => (<div className={"admin-incorporation-actions"}>
                 <button className={"admin-incorporation-table-button"}>Ver</button>
-                {row.status === "PENDING" && <button className={"admin-incorporation-table-button"}>Aceptar/Rechazar</button>}
+                {row.status === "PENDING" && <button className={"admin-incorporation-table-button"}
+                                                     onClick={() => openAcceptRejectModal(row)}>Aceptar/Rechazar</button>}
             </div>)
         }
     ]
 
+    const openAcceptRejectModal = (incorporationRequest: IncorporationRequest) => {
+        setAcceptRejectModalInfo({
+            open: true,
+            incorporationRequest,
+        })
+    }
+
+    const closeAcceptRejectModal = () => {
+        setAcceptRejectModalInfo({
+            open: false,
+        })
+    }
+
+    const approveIncorporationRequest = (id?: number) => {
+        put(`request/approve/${id}`, {})
+            .then(() => {
+                notifySuccess("La incorporación ha sido aceptada correctamente!");
+                getData(0);
+                closeAcceptRejectModal();
+            })
+            .catch(err => notifyError(err));
+    }
+
+    const rejectIncorporationRequest = (id?: number) => {
+        put(`request/reject/${id}`, {})
+            .then(() => {
+                notifySuccess("La incorporación ha sido rechazada correctamente!");
+                getData(0);
+                closeAcceptRejectModal();
+            })
+            .catch(err => notifyError(err));
+    }
+
 
     return (
         <div className={"admin-incorporation-screen"}>
+            <GenericModal isOpen={acceptRejectModalInfo.open} title={"Solicitud de Incorporación"}
+                          onClose={closeAcceptRejectModal}>
+                <div className={"accept-reject-incorporation-modal-body"}>
+                    <div className={"accept-reject-incorporation-modal-text"}>
+                        <p>El alumno {acceptRejectModalInfo.incorporationRequest?.userEmail} ha solicitado
+                            la incorporación del libro {acceptRejectModalInfo.incorporationRequest?.title}
+                            de {acceptRejectModalInfo.incorporationRequest?.author}.</p>
+                        <p>¿Desea aceptar o rechazar la solicitud?</p>
+                    </div>
+                    <CreateAndCancelButtons
+                        onCancel={() => rejectIncorporationRequest(acceptRejectModalInfo.incorporationRequest?.id)}
+                        onCreate={() => approveIncorporationRequest(acceptRejectModalInfo.incorporationRequest?.id)}
+                        createLabel={'Aceptar'}
+                        cancelLabel={'Rechazar'}
+                        isActivated={true}/>
+                </div>
+            </GenericModal>
             <div className={"admin-incorporation-card"}>
                 <div className={"admin-incorporation-table-container"}>
                     <GenericTable columns={columns} data={paginationData?.content ?? []} className={"table--5cols"}/>

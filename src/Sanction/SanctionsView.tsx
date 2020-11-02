@@ -40,13 +40,13 @@ const SanctionsView = () => {
     }, [])
 
     const getSanctionsByFilter = (page: number, search: string) => {
-        get(`sanction/activeList?page=${page}&search=${search}`)
-            .then(res => {
-                setPaginationData(res);
-            })
-            .catch((error) => {
-                notifyError(error);
-            })
+            get(`sanction?page=${page}&search=${search}`)
+                .then(res => {
+                    setPaginationData(res);
+                })
+                .catch((error) => {
+                    notifyError(error);
+                })
     }
 
     const handleFilterChange = (event: any) => {

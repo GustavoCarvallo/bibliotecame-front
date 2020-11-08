@@ -4,6 +4,8 @@
     align-items: center;
     justify-content: center;
     background-color: var(--app-grey);
+    gap: 20px;
+    padding-top: 30px;
 }
 
 .admin-incorporation-screen .admin-incorporation-card {

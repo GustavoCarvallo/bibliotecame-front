@@ -8,6 +8,7 @@ import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ReactTooltip from "react-tooltip";
+import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 
 export type AdminIncorporationRequest = {
     id: number,
@@ -34,13 +35,15 @@ const AdminIncorporationScreen = () => {
     const [acceptRejectModalInfo, setAcceptRejectModalInfo] = React.useState<AcceptRejectModalInfo>({
         open: false,
     });
+    const [searchFilter, setSearchFilter] = React.useState<string>("");
+
 
     useEffect(() => {
-        getData(0);
+        getData(0, searchFilter);
     }, [])
 
-    const getData = (page: number) => {
-        get(`request?page=${page}`)
+    const getData = (page: number, searchFilter: string) => {
+        get(`request?page=${page}&search=${searchFilter}`)
             .then(res => {
                 setPaginationData(res);
             })
@@ -48,7 +51,12 @@ const AdminIncorporationScreen = () => {
     }
 
     const changePage = (page: number) => {
-        getData(page);
+        getData(page, searchFilter);
+    }
+
+    const handleFilterChange = (e: any) => {
+        setSearchFilter(e.target.value);
+        getData(0, e.target.value);
     }
 
     const columns: Column[] = [
@@ -98,7 +106,7 @@ const AdminIncorporationScreen = () => {
         put(`request/approve/${id}`, {})
             .then(() => {
                 notifySuccess("La incorporación ha sido aceptada correctamente!");
-                getData(0);
+                getData(0, searchFilter);
                 closeAcceptRejectModal();
             })
             .catch(err => notifyError(err));
@@ -108,7 +116,7 @@ const AdminIncorporationScreen = () => {
         put(`request/reject/${id}`, {})
             .then(() => {
                 notifySuccess("La incorporación ha sido rechazada correctamente!");
-                getData(0);
+                getData(0, searchFilter);
                 closeAcceptRejectModal();
             })
             .catch(err => notifyError(err));
@@ -134,6 +142,12 @@ const AdminIncorporationScreen = () => {
                         isActivated={true}/>
                 </div>
             </GenericModal>
+            <div className={"book-search-container"}>
+                <InputWithIcon icon={'fas fa-search'}
+                               value={searchFilter}
+                               onChange={handleFilterChange}
+                               placeholder={"Busque una solicitud"}/>
+            </div>
             <div className={"admin-incorporation-card"}>
                 <div className={"admin-incorporation-table-container"}>
                     <GenericTable columns={columns} data={paginationData?.content ?? []} className={"table--5cols"}/>

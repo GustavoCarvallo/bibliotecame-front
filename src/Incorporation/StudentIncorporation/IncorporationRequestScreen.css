@@ -6,6 +6,12 @@
     padding-top: 30px;
 }
 
+.incorporation-request-form-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .incorporation-request-screen .add-button {
     font-size: 35px;
     color: var(--mid-green);

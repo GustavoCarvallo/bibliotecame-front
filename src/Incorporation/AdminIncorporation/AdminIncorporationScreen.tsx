@@ -9,7 +9,7 @@ import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ReactTooltip from "react-tooltip";
 
-export type IncorporationRequest = {
+export type AdminIncorporationRequest = {
     id: number,
     date: string,
     userEmail?: string,
@@ -20,7 +20,7 @@ export type IncorporationRequest = {
 
 type AcceptRejectModalInfo = {
     open: boolean,
-    incorporationRequest?: IncorporationRequest,
+    incorporationRequest?: AdminIncorporationRequest,
 }
 
 export const incorporationStatusLabels = [
@@ -30,7 +30,7 @@ export const incorporationStatusLabels = [
 ]
 
 const AdminIncorporationScreen = () => {
-    const [paginationData, setPaginationData] = React.useState<PaginationData<IncorporationRequest> | undefined>(undefined);
+    const [paginationData, setPaginationData] = React.useState<PaginationData<AdminIncorporationRequest> | undefined>(undefined);
     const [acceptRejectModalInfo, setAcceptRejectModalInfo] = React.useState<AcceptRejectModalInfo>({
         open: false,
     });
@@ -81,7 +81,7 @@ const AdminIncorporationScreen = () => {
         }
     ]
 
-    const openAcceptRejectModal = (incorporationRequest: IncorporationRequest) => {
+    const openAcceptRejectModal = (incorporationRequest: AdminIncorporationRequest) => {
         setAcceptRejectModalInfo({
             open: true,
             incorporationRequest,

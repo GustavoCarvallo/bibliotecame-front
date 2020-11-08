@@ -1,14 +1,17 @@
 import React from 'react';
-import "./CreateIncorporationRequest.css";
+import "./IncorporationRequestForm.css";
 import CreateAndCancelButtons from "../../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import {post} from "../../../utils/http";
 import {notifyError, notifySuccess} from "../../../router/Routes";
+import RedButton from "../../../common/Buttons/RedButton/RedButton";
 
 type Props = {
     onCancel: ()=>void,
+    form?: IncorporationRequest,
+    disabled?: boolean
 }
 
-type IncorporationRequest = {
+export type IncorporationRequest = {
     title: string,
     author: string,
     publisher?: string,
@@ -25,8 +28,8 @@ const initialForm = {
 const MAX_YEAR = (new Date()).getFullYear();
 const MIN_YEAR = 800;
 
-const CreateIncorporationRequest = (props: Props) => {
-    const [form, setForm] = React.useState<IncorporationRequest>({...initialForm})
+const IncorporationRequestForm = (props: Props) => {
+    const [form, setForm] = React.useState<IncorporationRequest>(props.form ?? {...initialForm})
 
     const changeTitle = (event: any) => {
         setForm({...form, title: event.target.value});
@@ -67,28 +70,31 @@ const CreateIncorporationRequest = (props: Props) => {
     }
 
     return (
-        <div className={"create-incorporation-request"}>
-            <h1 className={"create-incorporation-request-title"}>Solicitud de Incorporación</h1>
-            <div className={"create-incorporation-body"}>
-                <div className={"create-incorporation-form"}>
+        <div className={"incorporation-request-form"}>
+            <h1 className={"incorporation-request-form-title"}>Solicitud de Incorporación</h1>
+            <div className={"incorporation-request-form-container"}>
+                <div className={"incorporation-request-form-body"}>
                     <input type="text" value={form.title} placeholder={"Título del libro"} onChange={changeTitle}
-                           className={"create-incorporation-field"}/>
+                           className={"incorporation-request-form-field"} disabled={props.disabled}/>
                     <input type="text" value={form.author} placeholder={"Autor del libro"} onChange={changeAuthor}
-                           className={"create-incorporation-field"}/>
+                           className={"incorporation-request-form-field"} disabled={props.disabled}/>
                     <input type="text" value={form.publisher ?? ''} placeholder={"Editorial del libro (opcional)"}
-                           onChange={changePublisher} className={"create-incorporation-field"}/>
+                           onChange={changePublisher} className={"incorporation-request-form-field"} disabled={props.disabled}/>
                     <input type="number" value={form.year ?? ''} placeholder={"Año del libro (opcional)"} onChange={changeYear}
-                           className={"create-incorporation-field"}/>
-                    <textarea className={"create-incorporation-reason"}
+                           className={"incorporation-request-form-field"} disabled={props.disabled}/>
+                    <textarea className={"incorporation-request-form-reason"}
                               rows={4} cols={70}
                               value={form.reason}
                               onChange={changeReason}
-                              placeholder={"Razón de la solicitud"}/>
+                              placeholder={"Razón de la solicitud"} disabled={props.disabled}/>
                 </div>
-                <CreateAndCancelButtons onCancel={props.onCancel} onCreate={handleCreate} isActivated={checkIsActivated()}/>
+                {props.disabled?
+                    <RedButton label={"Volver"} onClick={props.onCancel}/>
+                    :
+                    <CreateAndCancelButtons onCancel={props.onCancel} onCreate={handleCreate} isActivated={checkIsActivated()}/>}
             </div>
         </div>
     )
 }
 
-export default CreateIncorporationRequest;
+export default IncorporationRequestForm;

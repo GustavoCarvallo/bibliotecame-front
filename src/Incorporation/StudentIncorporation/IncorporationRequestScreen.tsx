@@ -1,20 +1,22 @@
 import React, {useEffect} from 'react';
 import "./IncorporationRequestScreen.css";
-import CreateIncorporationRequest from "./CreateIncorporationRequest/CreateIncorporationRequest";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
-import {IncorporationRequest, incorporationStatusLabels} from "../AdminIncorporation/AdminIncorporationScreen";
+import {incorporationStatusLabels} from "../AdminIncorporation/AdminIncorporationScreen";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import {get} from "../../utils/http";
 import {notifyError} from "../../router/Routes";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import ReactTooltip from "react-tooltip";
+import IncorporationRequestForm, {IncorporationRequest} from "./CreateIncorporationRequest/IncorporationRequestForm";
 
 const SEARCH = "SEARCH";
 const CREATE = "CREATE";
+const VIEW = "VIEW";
 
 const IncorporationRequestScreen = () => {
     const [status, setStatus] = React.useState(SEARCH);
     const [paginationData, setPaginationData] = React.useState<PaginationData<IncorporationRequest> | undefined>(undefined);
+    const [selectedIncorporationRequest, setSelectedIncorporationRequest] = React.useState<IncorporationRequest | undefined>(undefined);
 
     useEffect(() => {
         getData(0);
@@ -61,15 +63,27 @@ const IncorporationRequestScreen = () => {
             header: "Acciones",
             component: row => (<>
                 <ReactTooltip/>
-                <i className={"fas fa-eye search-book-eye"} data-tip={"Ver"}/>
+                <i className={"fas fa-eye search-book-eye"} data-tip={"Ver"} onClick={() => openRequestInformation(row.id)}/>
                 </>)
         }
     ]
 
+    const openRequestInformation = (id: number) => {
+        get(`request/${id}`)
+            .then(res => {
+                setSelectedIncorporationRequest({
+                    ...res,
+                    year: res.year === 0 ? null : res.year,
+                });
+                setStatus(VIEW);
+            })
+            .catch(err => notifyError(err));
+    }
+
     return (
-        <div className={"incorporation-request-screen"}>
-            {status === SEARCH && (
-                <>
+        <>
+            {status === SEARCH ? (
+                <div className={"incorporation-request-screen"}>
                     <ReactTooltip/>
                     <i className={'fas fa-plus-circle add-button'} onClick={openCreateScreen} data-tip={"Crear"}/>
                     <div className={"student-incorporation-card"}>
@@ -81,11 +95,16 @@ const IncorporationRequestScreen = () => {
                                            forcePage={paginationData?.pageable.pageNumber ?? 0}
                                            onPageChange={(selected) => changePage(selected)}/>
                     </div>
-                </>
-            )
-            }
-            {status === CREATE && <CreateIncorporationRequest onCancel={openSearchScreen}/>}
-        </div>
+                </div>
+            ) : (
+                <div className={"incorporation-request-form-screen"}>
+                    {status === CREATE && <IncorporationRequestForm onCancel={openSearchScreen}/>}
+                    {status === VIEW &&
+                    <IncorporationRequestForm form={selectedIncorporationRequest} onCancel={openSearchScreen}
+                                              disabled={true}/>}
+                </div>
+            )}
+        </>
     )
 }
 

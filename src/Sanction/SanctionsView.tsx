@@ -88,7 +88,7 @@ const SanctionsView = () => {
                                value={searchFilter}
                                onChange={handleFilterChange}
                                placeholder={"Busque alguna sanción"}/>
-                <IconButton icon={"fas fa-plus-circle"} onClick={()=>setSanctionModalState(true)}/>
+                <IconButton icon={"fas fa-plus-circle"} onClick={()=>setSanctionModalState(true)} tooltip={"Crear"}/>
             </div>
             <div className={"search-book-table-container"}>
                 <SearchSanctionTable paginationData={paginationData}

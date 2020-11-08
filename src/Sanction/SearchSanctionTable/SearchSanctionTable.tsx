@@ -3,6 +3,7 @@ import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import {SanctionDisplay} from "../SanctionsView";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     paginationData?: PaginationData<SanctionDisplay>,
@@ -35,8 +36,9 @@ const SearchSanctionTable = (props: Props) => {
             component:
                 (row => (
                     <div className={'admin-search-actions'}>
+                        <ReactTooltip/>
                         <i className={"fas fa-edit search-book-green-icon"}
-                           onClick={()=> {props.openEditSanction(row)}}/>
+                           onClick={()=> {props.openEditSanction(row)}} data-tip={"Editar"}/>
                     </div>
                 ))
         }

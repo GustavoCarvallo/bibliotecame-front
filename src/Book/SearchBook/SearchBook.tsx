@@ -6,17 +6,18 @@ import {get, put} from "../../utils/http";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import {toast} from "react-toastify";
 import {isAdmin} from "../../router/Routes";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     openBookDetails: (id: number) => void,
     handleOpenCreation: (e: MouseEvent) => void,
     handleOpenFilter: (e: MouseEvent) => void,
-    searchForm : SearchForm,
-    setSearchForm: (s:SearchForm) => void,
-    callAdvancedSearch : boolean,
-    callSearch : boolean,
-    setCallAdvancedSearch : (b: boolean) => void
-    setCallSearch : (b: boolean) => void
+    searchForm: SearchForm,
+    setSearchForm: (s: SearchForm) => void,
+    callAdvancedSearch: boolean,
+    callSearch: boolean,
+    setCallAdvancedSearch: (b: boolean) => void
+    setCallSearch: (b: boolean) => void
 }
 
 export type PaginationData<T> = {
@@ -54,18 +55,18 @@ const SearchBook = (props: Props) => {
     }, [])
 
     useEffect(() => {
-        if(props.callAdvancedSearch){
+        if (props.callAdvancedSearch) {
             getBooksByAdvancedFilter(0);
             props.setCallAdvancedSearch(false);
         }
-    },[props.callAdvancedSearch])
+    }, [props.callAdvancedSearch])
 
     useEffect(() => {
-        if(props.callSearch){
+        if (props.callSearch) {
             getBooksByFilter(0, searchFilter);
             props.setCallSearch(false);
         }
-    },[props.callSearch])
+    }, [props.callSearch])
 
     const handleFilterChange = (event: any) => {
         getBooksByFilter(0, event.target.value);
@@ -73,31 +74,31 @@ const SearchBook = (props: Props) => {
     }
 
     const changePage = (page: number) => {
-        if(props.searchForm.title !== "" ||
+        if (props.searchForm.title !== "" ||
             props.searchForm.author !== "" ||
-            props.searchForm.publisher !=="" ||
+            props.searchForm.publisher !== "" ||
             props.searchForm.year !== "" ||
-            props.searchForm.tags.length !==0){
+            props.searchForm.tags.length !== 0) {
             getBooksByAdvancedFilter(page);
-        } else{
+        } else {
             getBooksByFilter(page, searchFilter);
         }
     }
 
     const getBooksByFilter = (page: number, search: string) => {
-        props.setSearchForm({title:"", author:"", publisher:"", tags:[], year:""})
+        props.setSearchForm({title: "", author: "", publisher: "", tags: [], year: ""})
         get(`book/search?page=${page}&search=${search}`)
             .then(res => {
                 setPaginationData(res);
             })
             .catch((error) => {
-                    notifyError(error);
+                notifyError(error);
             })
     }
 
     const getBooksByAdvancedFilter = (page: number) => {
         const tagNames = props.searchForm.tags.map(i => i.name)
-        put(`book/advancedSearch?page=${page}`, {...props.searchForm, tags: tagNames, title:searchFilter})
+        put(`book/advancedSearch?page=${page}`, {...props.searchForm, tags: tagNames, title: searchFilter})
             .then(res => {
                 setPaginationData(res);
             })
@@ -108,16 +109,17 @@ const SearchBook = (props: Props) => {
 
     return (
         <div className="search-book-screen">
+            <ReactTooltip/>
             <div className={"book-search-container"}>
                 <InputWithIcon icon={'fas fa-search'}
                                value={searchFilter}
                                onChange={handleFilterChange}
                                placeholder={"Busque algún libro"}/>
                 {admin &&
-                <i className={'fas fa-plus-circle add-button'} onClick={props.handleOpenCreation}/>
+                <i className={'fas fa-plus-circle add-button'} onClick={props.handleOpenCreation} data-tip={"Crear"}/>
                 }
                 {!admin &&
-                <i className="fas fa-filter add-button" onClick={props.handleOpenFilter}/>
+                <i className="fas fa-filter add-button" onClick={props.handleOpenFilter} data-tip={"Filtros"}/>
                 }
             </div>
             <div className={"search-book-table-container"}>

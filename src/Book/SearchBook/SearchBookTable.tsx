@@ -7,7 +7,7 @@ import ActivateOrDeactivateModal from "./ActivateOrDeactivateModal";
 import {Book} from "../Book";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import {isAdmin} from "../../router/Routes";
-
+import ReactTooltip from "react-tooltip";
 type Props = {
     openBookDetails: (id: number) => void,
     paginationData?: PaginationData<Book>,
@@ -47,17 +47,20 @@ const SearchBookTable = (props: Props) => {
                 component: admin ?
                     (row => (
                         <div className={'admin-search-actions'}>
+                            <ReactTooltip/>
                             <ActivateOrDeactivateButton defaultValue={row.active}
                                                         openModal={openModal}
                                                         key={row.id}
                                                         id={row.id}/>
                             <i className={"fas fa-edit search-book-green-icon"}
-                               onClick={() => props.openBookDetails(row.id)}/>
+                               onClick={() => props.openBookDetails(row.id)} data-tip={"Editar"}/>
                         </div>
                     ))
                     :
-                    (row => (<i className={"fas fa-eye search-book-eye"}
-                                onClick={() => props.openBookDetails(row.id)}/>))
+                    (row => (<>
+                        <ReactTooltip/>
+                        <i className={"fas fa-eye search-book-eye"}
+                                onClick={() => props.openBookDetails(row.id)} data-tip={"Ver"}/></>))
             }
         ];
 

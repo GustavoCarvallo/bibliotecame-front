@@ -138,6 +138,10 @@
     color:var(--mid-green);
 }
 
+.copies-add-button:hover {
+    cursor: pointer;
+}
+
 .copies-table-container {
     height: 150px;
     margin: 2%;

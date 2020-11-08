@@ -1,5 +1,6 @@
 import React from 'react';
 import "./GenericTable.css";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     columns: Column[],
@@ -25,7 +26,10 @@ const GenericTable = (props: Props) => {
                     <div className={"generic-table-row"}>
                         {props.columns.map(col => (
                             <div className={"generic-table-column"}>
-                                {col.component ? col.component(row) : (col.accessor ? <span className={"table-column-text"}>{row[col.accessor]}</span> : undefined) }
+                                {col.component ? col.component(row) : (col.accessor ? <>
+                                    <ReactTooltip/>
+                                    <span className={"table-column-text"} data-tip={row[col.accessor]}>{row[col.accessor]}</span>
+                                </> : undefined) }
                             </div>
                             )
                         )}

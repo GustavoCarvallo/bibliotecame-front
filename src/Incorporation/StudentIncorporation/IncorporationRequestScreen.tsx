@@ -7,6 +7,7 @@ import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import {get} from "../../utils/http";
 import {notifyError} from "../../router/Routes";
 import GenericPagination from "../../common/Pagination/GenericPagination";
+import ReactTooltip from "react-tooltip";
 
 const SEARCH = "SEARCH";
 const CREATE = "CREATE";
@@ -42,7 +43,10 @@ const IncorporationRequestScreen = () => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <div className={'loan-book-title-and-author'}>{row.title} - {row.author}</div>
+            component: row => <>
+                <ReactTooltip/>
+                <div className={'loan-book-title-and-author'} data-tip={`${row.title} - ${row.author}`}>{row.title} - {row.author}</div>
+            </>
         },
         {
             header: "Fecha",
@@ -55,7 +59,10 @@ const IncorporationRequestScreen = () => {
         },
         {
             header: "Acciones",
-            component: row => (<i className={"fas fa-eye search-book-eye"}/>)
+            component: row => (<>
+                <ReactTooltip/>
+                <i className={"fas fa-eye search-book-eye"} data-tip={"Ver"}/>
+                </>)
         }
     ]
 
@@ -63,7 +70,8 @@ const IncorporationRequestScreen = () => {
         <div className={"incorporation-request-screen"}>
             {status === SEARCH && (
                 <>
-                    <i className={'fas fa-plus-circle add-button'} onClick={openCreateScreen}/>
+                    <ReactTooltip/>
+                    <i className={'fas fa-plus-circle add-button'} onClick={openCreateScreen} data-tip={"Crear"}/>
                     <div className={"student-incorporation-card"}>
                         <div className={"student-incorporation-table-container"}>
                             <GenericTable columns={columns} data={paginationData?.content ?? []}

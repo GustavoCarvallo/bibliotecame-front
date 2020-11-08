@@ -1,14 +1,18 @@
 import React from "react";
 import "../Book/BookScreen.css"
+import ReactTooltip from "react-tooltip";
 
 interface Props {
     icon: String,
-    onClick : Function
+    onClick: Function,
+    tooltip?: string,
 }
 
 const IconButton = (props: Props) => {
-    return (<i className={`${props.icon} button-icon`} onClick={()=> props.onClick()}>
-    </i>)
+    return (<>
+        <ReactTooltip/>
+        <i className={`${props.icon} button-icon`} onClick={() => props.onClick()} data-tip={props.tooltip ?? undefined}/>
+    </>)
 }
 
 export default IconButton;

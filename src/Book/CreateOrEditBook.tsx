@@ -6,6 +6,7 @@ import ActivateDeactivateButton from "../common/ActivateDeactivateButton/Activat
 import TagContainer from "../common/TagContainer/TagContainer";
 import GenericTable, {Column} from "../common/GenericTable/GenericTable";
 import {toast, ToastOptions} from "react-toastify";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     book: Book,
@@ -216,7 +217,8 @@ const CreateOrEditBook = (props: Props) => {
                             <div className={"copies-table-container"}>
                                 <GenericTable columns={copiesTableColumns} data={props.book?.copies ?? []} className={"table--2cols"}/>
                             </div>
-                            {props.book.active && <i className={'fas fa-plus-circle copies-add-button'} onClick={() => {
+                            <ReactTooltip/>
+                            {props.book.active && <i className={'fas fa-plus-circle copies-add-button'} data-tip={"Agregar"} onClick={() => {
                                 props.openNewCopyModal && props.openNewCopyModal()
                             }}/>}
                         </div>

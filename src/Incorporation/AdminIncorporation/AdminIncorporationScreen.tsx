@@ -7,6 +7,7 @@ import {notifyError, notifySuccess} from "../../router/Routes";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import ReactTooltip from "react-tooltip";
 
 export type IncorporationRequest = {
     id: number,
@@ -53,7 +54,10 @@ const AdminIncorporationScreen = () => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <div className={'loan-book-title-and-author'}>{row.title} - {row.author}</div>
+            component: row => <>
+                <ReactTooltip/>
+                <div className={'loan-book-title-and-author'} data-tip={`${row.title} - ${row.author}`}>{row.title} - {row.author}</div>
+            </>
         },
         {
             header: "Fecha",

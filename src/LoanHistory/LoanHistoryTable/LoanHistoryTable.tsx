@@ -8,6 +8,7 @@ import ReviewModal, {Review} from "../ReviewModal/ReviewModal";
 import {get} from "../../utils/http";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     paginationData?: PaginationData<Loan>,
@@ -43,7 +44,10 @@ const LoanHistoryTable = (props: Props) => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
+            component: row => <>
+                <ReactTooltip/>
+                <span className={'loan-book-title-and-author'} data-tip={`${row.bookTitle} - ${row.bookAuthor}`}>{row.bookTitle} - {row.bookAuthor}</span>
+            </>
         },
         {
             header: "Fecha de vencimiento",

@@ -7,6 +7,7 @@ import {get} from "../../utils/http";
 import {notifyError} from "../../router/Routes";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import ReactTooltip from "react-tooltip";
+import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import IncorporationRequestForm, {IncorporationRequest} from "./CreateIncorporationRequest/IncorporationRequestForm";
 
 const SEARCH = "SEARCH";
@@ -16,14 +17,15 @@ const VIEW = "VIEW";
 const IncorporationRequestScreen = () => {
     const [status, setStatus] = React.useState(SEARCH);
     const [paginationData, setPaginationData] = React.useState<PaginationData<IncorporationRequest> | undefined>(undefined);
+    const [searchFilter, setSearchFilter] = React.useState<string>("");
     const [selectedIncorporationRequest, setSelectedIncorporationRequest] = React.useState<IncorporationRequest | undefined>(undefined);
 
     useEffect(() => {
-        if (status === SEARCH) getData(0);
+        if (status === SEARCH) getData(0, searchFilter);
     }, [status])
 
-    const getData = (page: number) => {
-        get(`request/user?page=${page}`)
+    const getData = (page: number, search: string) => {
+        get(`request/user?page=${page}&search=${search}`)
             .then(res => {
                 setPaginationData(res);
             })
@@ -31,7 +33,7 @@ const IncorporationRequestScreen = () => {
     }
 
     const changePage = (page: number) => {
-        getData(page);
+        getData(page, searchFilter);
     }
 
     const openCreateScreen = () => {
@@ -40,6 +42,11 @@ const IncorporationRequestScreen = () => {
 
     const openSearchScreen = () => {
         setStatus(SEARCH);
+    }
+
+    const handleFilterChange = (e: any) => {
+        setSearchFilter(e.target.value);
+        getData(0, e.target.value);
     }
 
     const columns: Column[] = [
@@ -85,7 +92,17 @@ const IncorporationRequestScreen = () => {
             {status === SEARCH ? (
                 <div className={"incorporation-request-screen"}>
                     <ReactTooltip/>
-                    <i className={'fas fa-plus-circle add-button'} onClick={openCreateScreen} data-tip={"Crear"}/>
+                    <div className={"book-search-container"}>
+                        <InputWithIcon icon={'fas fa-search'}
+                                       value={searchFilter}
+                                       onChange={handleFilterChange}
+                                       placeholder={"Busque una solicitud"}/>
+                        <ReactTooltip/>
+                        <i className={'fas fa-plus-circle add-button'} onClick={() => {
+                            openCreateScreen();
+                            ReactTooltip.hide();
+                        }} data-tip={"Crear"}/>
+                    </div>
                     <div className={"student-incorporation-card"}>
                         <div className={"student-incorporation-table-container"}>
                             <GenericTable columns={columns} data={paginationData?.content ?? []}

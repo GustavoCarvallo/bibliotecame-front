@@ -5,7 +5,6 @@ import LoginForm from "./LoginForm";
 import "../common/Notify.css"
 import {useLocation, useHistory, Link} from 'react-router-dom';
 
-
 function Login() {
 
     const location = useLocation();
@@ -61,7 +60,7 @@ function Login() {
             <h1 className={"Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <h2 className="sub-title"> Iniciar Sesión</h2>
-                <LoginForm whereTo="/book"/>
+                <LoginForm whereToAdmin={"/dashboard"} whereToUser={"/book"}/>
                 <div className={"reset-password-button"}>
                     <Link to={'forgotPassword'} className={'forgot'}>
                         <span>¿Has olvidado tu contraseña?</span>

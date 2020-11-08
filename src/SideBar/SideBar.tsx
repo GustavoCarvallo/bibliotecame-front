@@ -37,6 +37,11 @@ const userRows = [
 
 const adminRows = [
     {
+        title: 'Dashboard',
+        icon: 'chart-pie',
+        path: '/dashboard'
+    },
+    {
         title: 'Libros',
         icon: 'book',
         path: '/book'

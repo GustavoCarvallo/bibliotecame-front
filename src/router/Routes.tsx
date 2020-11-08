@@ -27,6 +27,7 @@ import NewPassword from "../Login/ResetPassword/NewPassword";
 import VerifyToken from "../Login/VerifyToken";
 import AdminIncorporationScreen from "../Incorporation/AdminIncorporation/AdminIncorporationScreen";
 import IncorporationRequestScreen from "../Incorporation/StudentIncorporation/IncorporationRequestScreen";
+import Dashboard from "../Dashboard/Dashboard";
 
 export const isAdmin = () => {
     return localStorage.getItem('admin') === 'true';
@@ -57,17 +58,18 @@ const Router = () => {
                 />
                 <Switch>
                     <ReverseAuthRoute path={"/login"} component={Login}/> //Requires not being logged in
-                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={0}/>}/>
+                    <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={isAdmin() ? 1 : 0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={ProfileView}/>
                     <AuthRoute path={"/home"} component={Home}/>
                     <ReverseAuthRoute path={"/forgotPassword"} component={ResetPassword}/>
                     <ReverseAuthRoute path={"/reset/:token"} component={NewPassword}/>
-                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={1}/>}/>
+                    <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={isAdmin() ? 2 : 1}/>}/>
                     <AuthRoute path={"/loan-history"} component={() => <ContainedComponent children={LoanHistory} selected={2}/>}/>
                     <AuthRoute path={"/incorporation-request"} component={() => <ContainedComponent children={IncorporationRequestScreen} selected={3}/>}/>
-                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={2}/>}/>
-                    <AuthRoute path={"/incorporation"} component={() => <ContainedComponent children={AdminIncorporationScreen} selected={3}/>}/>
+                    <AuthRoute path={"/sanctions"} component={() => <ContainedComponent children={SanctionsView} selected={3}/>}/>
+                    <AuthRoute path={"/incorporation"} component={() => <ContainedComponent children={AdminIncorporationScreen} selected={4}/>}/>
+                    <AuthRoute path={"/dashboard"} component={() => <ContainedComponent children={Dashboard} selected={0}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <ReverseAuthRoute path={"/verify/:token"} component={() => <VerifyToken/>}/>
                     <Route path={"/"}> <Redirect to={"/home"}/> </Route>
@@ -111,7 +113,7 @@ export function ProfileView() {
         <div>
             <TopBar/>
             <div className={"side-bar-container"}>
-                <SideBar selected={4}/>
+                <SideBar selected={isAdmin()? 5 : 4}/>
                 <Profile/>
             </div>
         </div>

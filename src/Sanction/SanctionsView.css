@@ -3,11 +3,12 @@
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
+    background-color: var(--app-grey);
 }
 
 .sanctions-view .button-icon{
     font-size: 2.2rem;
-    color: var(--mid-green);
+    color: var(--app-green);
     align-self: center;
     display: flex;
     justify-content: flex-end;

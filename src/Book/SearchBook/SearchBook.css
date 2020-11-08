@@ -29,7 +29,7 @@
 
 .book-search-container .add-button {
     font-size: 35px;
-    color: var(--mid-green);
+    color: var(--app-green);
     align-self: center;
     justify-self: end;
 }

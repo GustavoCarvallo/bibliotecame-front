@@ -121,10 +121,10 @@ const EditProfile = (props: Props) => {
     }
 
     const buttonStyleDeactivated = {
-        color: '#48a3fb', backgroundColor: '#e4e9f0'
+        color: 'var(--app-green)', backgroundColor: 'var(--app-grey)'
     }
     const buttonStyleActivated = {
-        color: '#ffffff', backgroundColor: '#48a3fb'
+        color: '#ffffff', backgroundColor: 'var(--app-green)'
     }
 
     return (

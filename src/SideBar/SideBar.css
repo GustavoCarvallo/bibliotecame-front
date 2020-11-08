@@ -2,7 +2,8 @@
     width: 259px;
     border: solid 1px #707070;
     border-top: transparent;
-    background-color: #ffffff;
+    background-color: var(--app-violet);
+    color: var(--app-grey);
     height: 89vh;
     display: grid;
     grid-template-rows: 2fr 1fr 1fr 1fr 1fr 2fr;
@@ -18,7 +19,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #707070;
+    border-bottom: 1px solid var(--app-grey);
 }
 
 .user-circle-2x {
@@ -38,7 +39,6 @@
     font-style: normal;
     line-height: 1.33;
     letter-spacing: 0;
-    color: #030303;
     margin: auto;
 }
 
@@ -68,6 +68,6 @@
 }
 
 .selected-row {
-    background-color: #48a3fb;
+    background-color: var(--dodger-blue);
     color: #ffffff;
 }

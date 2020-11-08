@@ -2,7 +2,7 @@
     width: 160px;
     height: 40px;
     border-radius: 10px;
-    background-color:var(--orangey-red);
+    background-color:var(--app-red);
     border: none;
     color: var(--white);
     font-size: 16px;

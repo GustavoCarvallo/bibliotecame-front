@@ -14,7 +14,7 @@
 }
 
 .error-message-box-container {
-    background-color: var(--orangey-red);
+    background-color: var(--app-red);
     border: solid 1px var(--scarlet);
 }
 

@@ -4,13 +4,13 @@
     font-weight: bold;
     color: #ffffff;
     border-radius: 33px;
-    background-color: var(--mid-green);
+    background-color: var(--app-green);
     border: none;
     padding: 20px 55px;
 }
 
 .generic-green-button:disabled {
-    color: var(--mid-green);
+    color: var(--app-green);
     background-color: #e4e9f0
 }
 

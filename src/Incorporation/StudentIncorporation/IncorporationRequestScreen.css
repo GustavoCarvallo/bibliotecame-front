@@ -4,17 +4,19 @@
     align-items: center;
     gap: 20px;
     padding-top: 30px;
+    background-color: var(--app-grey);
 }
 
 .incorporation-request-form-screen {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--app-grey);
 }
 
 .incorporation-request-screen .add-button {
     font-size: 35px;
-    color: var(--mid-green);
+    color: var(--app-green);
     align-self: center;
     justify-self: end;
 }
@@ -29,6 +31,7 @@
     border-radius: 33px;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px var(--brownish-grey);
+    background-color: #ffffff;
     padding: 30px;
     display: grid;
     grid-template-rows: 7fr 1fr;

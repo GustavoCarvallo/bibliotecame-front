@@ -19,8 +19,8 @@ const IncorporationRequestScreen = () => {
     const [selectedIncorporationRequest, setSelectedIncorporationRequest] = React.useState<IncorporationRequest | undefined>(undefined);
 
     useEffect(() => {
-        getData(0);
-    }, [])
+        if (status === SEARCH) getData(0);
+    }, [status])
 
     const getData = (page: number) => {
         get(`request/user?page=${page}`)

@@ -142,8 +142,7 @@ const LoanHistoryTable = (props: Props) => {
                     <p className={"delete-review-modal-text"}>¿ Esta seguro que desea eliminar esta reseña?</p>
                     <p className={"delete-review-modal-text"}>Tenga en cuenta que esta acción no se puede revertir.</p>
                     <div className={"delete-review-modal-buttons"}>
-                        <CreateAndCancelButtons greenConfirm={true}
-                                                onCreate={() => deleteReview(deleteReviewModalInfo.id)}
+                        <CreateAndCancelButtons onCreate={() => deleteReview(deleteReviewModalInfo.id)}
                                                 onCancel={closeDeleteReviewModal} createLabel={"Eliminar"}
                                                 isActivated={true}/>
                     </div>

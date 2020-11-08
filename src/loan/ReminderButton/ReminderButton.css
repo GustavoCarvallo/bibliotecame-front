@@ -11,8 +11,8 @@
 }
 
 .generic-grey-and-blue-button:disabled {
-    color: var(--dodger-blue);
-    background-color: #e4e9f0
+    color: var(--app-green);
+    background-color: var(--app-grey)
 }
 
 .generic-grey-and-blue-button:focus {
@@ -43,7 +43,7 @@
 }
 
 .reminder-modal-red-button {
-    background-color: var(--orangey-red);
+    background-color: var(--app-red);
     color: var(--white);
 }
 

@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react';
 import "./ReminderButton.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {get} from "../../utils/http";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 
 type Props = {
@@ -45,10 +46,7 @@ const ReminderButton = (props: Props) => {
                 al menos 1 préstamo atrasado, para recordarles
                 qué deben devolver los ejemplares.</p>
             <p className={"text"}>¿Está seguro que desea continuar?</p>
-            <div className={"reminder-modal-button-container"}>
-                <button className={"reminder-modal-red-button"} onClick={closeModal}>Cancelar</button>
-                <button className={"reminder-modal-green-button"} onClick={sendReminders}>Confirmar</button>
-            </div>
+            <CreateAndCancelButtons onCancel={closeModal} onCreate={sendReminders} createLabel={"Confirmar"} isActivated={true}/>
         </div>})
     }
 

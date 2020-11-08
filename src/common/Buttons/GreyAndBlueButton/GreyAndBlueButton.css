@@ -11,7 +11,7 @@
 
 .generic-grey-and-blue-button:disabled {
     color: var(--dodger-blue);
-    background-color: #e4e9f0
+    background-color: var(--light-periwinkle);
 }
 
 .generic-grey-and-blue-button:focus {

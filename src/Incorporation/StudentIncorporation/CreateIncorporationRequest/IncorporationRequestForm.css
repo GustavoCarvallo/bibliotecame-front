@@ -3,6 +3,7 @@
     border-radius: 33px;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
     border: solid 1px var(--brownish-grey);
+    background-color: #ffffff;
 }
 
 .incorporation-request-form .incorporation-request-form-title {

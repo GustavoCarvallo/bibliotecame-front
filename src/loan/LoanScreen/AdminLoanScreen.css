@@ -87,7 +87,7 @@
 }
 
 .loan-modal-red-button {
-    background-color: var(--orangey-red);
+    background-color: var(--app-red);
     color: var(--white);
 }
 

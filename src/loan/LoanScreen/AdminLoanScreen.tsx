@@ -9,6 +9,7 @@ import GenericModal from "../../common/GenericModal/GenericModal";
 import {toast, ToastOptions} from "react-toastify";
 import {addDays} from "../../utils/AddDays";
 import ReminderButton from "../ReminderButton/ReminderButton";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type ModalInfo = {
     open: boolean,
@@ -135,10 +136,10 @@ const AdminLoanScreen = () => {
         const body = (
             <div className={"loan-modal-body"}>
                 <p>{bodyText}</p>
-                <div className={"loan-modal-button-container"}>
-                    <button className={"loan-modal-red-button"} onClick={cancelButton?.onClick}>{cancelButton?.text}</button>
-                    <button className={"loan-modal-green-button"} onClick={acceptButton?.onClick}>{acceptButton?.text}</button>
-                </div>
+                <CreateAndCancelButtons onCreate={() => {if(acceptButton?.onClick) acceptButton.onClick()}}
+                                        onCancel={() => {if (cancelButton?.onClick) cancelButton.onClick()}}
+                                        cancelLabel={cancelButton?.text}
+                                        createLabel={acceptButton?.text} isActivated={true}/>
             </div>
         )
 

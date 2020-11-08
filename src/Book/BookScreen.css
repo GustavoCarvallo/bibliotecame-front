@@ -2,12 +2,12 @@
     width: 20px;
     height: 20px;
     object-fit: contain;
-    color: var(--mid-green);
+    color: var(--app-green);
 }
 
 .book-screen .disable-icon {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    color: var(--orangey-red);
+    color: #000000;
 }

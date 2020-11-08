@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
+    background-color: var(--app-grey);
 }
 
 .loan-history-screen .loan-history-table-container {

@@ -23,4 +23,9 @@
     justify-content: center;
     width: 86%;
     overflow: scroll;
+    background-color: var(--app-grey);
+}
+
+.profile-main-container::-webkit-scrollbar {
+    display: none;
 }

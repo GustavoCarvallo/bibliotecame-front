@@ -9,6 +9,7 @@ import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ReactTooltip from "react-tooltip";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
+import IncorporationRequestViewer from "./IncorporationRequestFormViewer/IncorporationRequestViewer";
 
 export type AdminIncorporationRequest = {
     id: number,
@@ -36,7 +37,8 @@ const AdminIncorporationScreen = () => {
         open: false,
     });
     const [searchFilter, setSearchFilter] = React.useState<string>("");
-
+    const [requestModal, setRequestModal] = React.useState<boolean>(false)
+    const [selectedId, setSelectedId] = React.useState<number>(0)
 
     useEffect(() => {
         getData(0, searchFilter);
@@ -82,7 +84,8 @@ const AdminIncorporationScreen = () => {
         {
             header: "Acciones",
             component: row => (<div className={"admin-incorporation-actions"}>
-                <button className={"admin-incorporation-table-button"}>Ver</button>
+                <i className={"fas fa-eye search-book-eye"} data-tip={"Ver"} onClick={() => openRequestModal(row.id)}/>
+                {/*<button className={"admin-incorporation-table-button"} onClick={()=>openRequestModal(row.id)}>Ver</button>*/}
                 {row.status === "PENDING" && <button className={"admin-incorporation-table-button"}
                                                      onClick={() => openAcceptRejectModal(row)}>Aceptar/Rechazar</button>}
             </div>)
@@ -122,9 +125,19 @@ const AdminIncorporationScreen = () => {
             .catch(err => notifyError(err));
     }
 
+    function closeRequestModal(){
+        setRequestModal(false)
+    }
+
+    function openRequestModal(id:number){
+        setSelectedId(id)
+        setRequestModal(true)
+    }
 
     return (
-        <div className={"admin-incorporation-screen"}>
+        <>
+            {requestModal && <IncorporationRequestViewer onCancel={closeRequestModal} isOpen={requestModal} onClose={closeRequestModal} id={selectedId}/>}
+            <div className={"admin-incorporation-screen"}>
             <GenericModal isOpen={acceptRejectModalInfo.open} title={"Solicitud de Incorporación"}
                           onClose={closeAcceptRejectModal}>
                 <div className={"accept-reject-incorporation-modal-body"}>
@@ -157,6 +170,7 @@ const AdminIncorporationScreen = () => {
                                    onPageChange={(selected) => changePage(selected)}/>
             </div>
         </div>
+            </>
     )
 }
 

@@ -4,7 +4,6 @@ import {notifyError} from "../../../router/Routes";
 import GenericModal from "../../../common/GenericModal/GenericModal";
 import "./IncorporationRequestViewer.css"
 import { Profile } from '../../../Profile/Profile';
-import GreyAndBlueButton from "../../../common/Buttons/GreyAndBlueButton/GreyAndBlueButton";
 import Button from "../../../common/Button/Button";
 
 type Props = {

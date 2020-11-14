@@ -42,7 +42,6 @@
     border: solid 1px #707070;
     background-color: #ffffff;
     border-radius: 25px;
-    /*margin: 8vh auto auto;*/
     position: relative;
 }
 
@@ -85,4 +84,12 @@
     background-color: #e4e9f0;
     border: none;
     color: #48a3fb;
+}
+
+.edit-profile-submit-button:focus {
+    outline: none;
+}
+
+.edit-profile-submit-button:focus {
+    outline: none;
 }

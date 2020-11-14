@@ -3,12 +3,12 @@ import "./AdminIncorporationScreen.css"
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import {get, put} from "../../utils/http";
-import {notifyError, notifySuccess} from "../../router/Routes";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import ReactTooltip from "react-tooltip";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
+import {toast, ToastOptions} from "react-toastify";
 import IncorporationRequestViewer from "./IncorporationRequestFormViewer/IncorporationRequestViewer";
 
 export type AdminIncorporationRequest = {
@@ -39,6 +39,22 @@ const AdminIncorporationScreen = () => {
     const [searchFilter, setSearchFilter] = React.useState<string>("");
     const [requestModal, setRequestModal] = React.useState<boolean>(false)
     const [selectedId, setSelectedId] = React.useState<number>(0)
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
+    }
+
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
+    }
+
+
 
     useEffect(() => {
         getData(0, searchFilter);

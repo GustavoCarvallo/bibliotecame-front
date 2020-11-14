@@ -2,8 +2,8 @@ import React from 'react';
 import "./IncorporationRequestForm.css";
 import CreateAndCancelButtons from "../../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import {post} from "../../../utils/http";
-import {notifyError, notifySuccess} from "../../../router/Routes";
 import RedButton from "../../../common/Buttons/RedButton/RedButton";
+import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
     onCancel: ()=>void,
@@ -49,6 +49,20 @@ const IncorporationRequestForm = (props: Props) => {
 
     const changeReason = (event: any) => {
         setForm({...form, reason: event.target.value});
+    }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
+    }
+
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
     }
 
     const handleCreate = () => {

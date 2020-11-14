@@ -29,9 +29,8 @@
 }
 
 .signup-screen .registration-box{
-    width: 50%;
-    /* height: 651px; */
-    margin: 0 25%;
+    width: 45%;
+    margin: 0 30%;
     border-radius: 33px;
     border: solid 1px #707070;
     background-color: #ffffff;

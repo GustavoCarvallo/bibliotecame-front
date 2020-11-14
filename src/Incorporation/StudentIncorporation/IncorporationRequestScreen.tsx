@@ -4,11 +4,12 @@ import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import {incorporationStatusLabels} from "../AdminIncorporation/AdminIncorporationScreen";
 import {PaginationData} from "../../Book/SearchBook/SearchBook";
 import {get} from "../../utils/http";
-import {notifyError} from "../../router/Routes";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import ReactTooltip from "react-tooltip";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import IncorporationRequestForm, {IncorporationRequest} from "./CreateIncorporationRequest/IncorporationRequestForm";
+import {toast, ToastOptions} from "react-toastify";
+
 
 const SEARCH = "SEARCH";
 const CREATE = "CREATE";
@@ -30,6 +31,15 @@ const IncorporationRequestScreen = () => {
                 setPaginationData(res);
             })
             .catch(err => notifyError(err));
+    }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
     }
 
     const changePage = (page: number) => {

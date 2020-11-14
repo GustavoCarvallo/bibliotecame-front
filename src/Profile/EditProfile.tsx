@@ -4,8 +4,6 @@ import "./EditProfile.css"
 import {Profile} from "./Profile";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {toast, ToastOptions} from "react-toastify";
-import {Link} from "react-router-dom";
-import GenericModal from "../common/GenericModal/GenericModal";
 import EditPassword from "./EditPassword/EditPassword";
 
 
@@ -24,14 +22,8 @@ type Errors = {
     serverError?: string,
 }
 
-const initialErrors = {
-    nameError: false,
-    lastNameError: false,
-    phoneNumberError: false,
-};
 
 const EditProfile = (props: Props) => {
-    const [errors, setErrors] = React.useState<Errors>({...initialErrors});
     const [openPasswordModal, setOpenPasswordModal] = React.useState<boolean>(false);
 
     const handleSubmit = () => {
@@ -39,8 +31,6 @@ const EditProfile = (props: Props) => {
         let valid = !newErrors.nameError && !newErrors.lastNameError &&  !newErrors.phoneNumberError;
         if (valid) {
             props.handleSubmit(props.profile, handleSuccess, (status: string) => renderError(status))
-        }else {
-            setErrors(newErrors);
         }
     }
 
@@ -60,7 +50,6 @@ const EditProfile = (props: Props) => {
 
     const handleSuccess = () => {
         notifySuccess('El perfil se ha modificado correctamente');
-        setErrors({...initialErrors, serverError: undefined})
     }
 
     const validateProfile = (profile: Profile) => {

@@ -5,29 +5,29 @@
 }
 
 .Toastify__toast-container .in-toast{
-    left: 8rem;
-    top: 5rem;
+    left: 6.5vw;
+    top: 10vh;
 }
 
 .Toastify__toast{
     min-height: 50px;
     border-radius: 5px;
-    top: 125px;
+    top: 10vh;
     padding-left: 20px;
 }
 
 .Toastify__toast--error {
-    background-color: #f44336;
-    border: solid 1px #ba000d;
+    background-color: var(--app-red);
+    border: solid 1px #FF3E3E;
 }
 
 .Toastify__toast--success {
-    background-color: #4caf50;
-    border: solid 1px #087f23;
+    background-color: var(--app-green);
+    border: solid 1px #008F8A;
 }
 
 .Toastify__toast--info {
-    background-color: #48a3fb;
+    background-color: var(--dodger-blue);
     border: solid 1px #0075c7;
 
 }

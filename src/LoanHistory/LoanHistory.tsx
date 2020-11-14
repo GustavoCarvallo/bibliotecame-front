@@ -5,8 +5,8 @@ import {PaginationData} from "../Book/SearchBook/SearchBook";
 import {Loan} from "../loan/LoanScreen";
 import {del, get, post, put} from "../utils/http";
 import {Review} from "./ReviewModal/ReviewModal";
-import {notifyError, notifySuccess} from "../router/Routes";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
+import {toast, ToastOptions} from "react-toastify";
 
 const LoanHistory = () => {
 
@@ -25,6 +25,20 @@ const LoanHistory = () => {
             .catch(err => {
                 notifyError(err);
             })
+    }
+
+    const toastifyConfiguration: ToastOptions = {
+        className: "in-toast"
+    }
+
+    const notifyError = (message: string) => {
+        toast.dismiss()
+        toast.error(message, toastifyConfiguration)
+    }
+
+    const notifySuccess = (message: string) => {
+        toast.dismiss();
+        toast.success(message, toastifyConfiguration);
     }
 
     const changePage = (selected: number) => {

@@ -61,7 +61,6 @@ const Router = () => {
                     <AuthRoute path={"/book"} component={() => <ContainedComponent children={Book} selected={isAdmin() ? 1 : 0}/>}/>
                     <Route path={"/signup"} component={SignUp}/>
                     <AuthRoute path={'/profile'} component={ProfileView}/>
-                    <AuthRoute path={"/home"} component={Home}/>
                     <ReverseAuthRoute path={"/forgotPassword"} component={ResetPassword}/>
                     <ReverseAuthRoute path={"/reset/:token"} component={NewPassword}/>
                     <AuthRoute path={"/loans"} component={() => <ContainedComponent children={LoanScreen} selected={isAdmin() ? 2 : 1}/>}/>
@@ -72,7 +71,7 @@ const Router = () => {
                     <AuthRoute path={"/dashboard"} component={() => <ContainedComponent children={Dashboard} selected={0}/>}/>
                     <AuthRoute path={"/bookScreen"} component={BookScreen}/>
                     <ReverseAuthRoute path={"/verify/:token"} component={() => <VerifyToken/>}/>
-                    <Route path={"/"}> <Redirect to={"/home"}/> </Route>
+                    <Route path={"/"}> <Redirect to={isAdmin() ? "/dashboard" : "/book"}/> </Route>
                 </Switch>
             </div>
         </BrowserRouter>
@@ -94,18 +93,6 @@ const ContainedComponent = (props: ContainedComponentProps) => {
             </div>
         </div>
     )
-}
-
-export function Home() {
-    return (
-        <div>
-            <TopBar/>
-            <div className={"side-bar-container"}>
-                <SideBar/>
-                <h2>Welcome!</h2>
-            </div>
-        </div>
-    );
 }
 
 export function ProfileView() {

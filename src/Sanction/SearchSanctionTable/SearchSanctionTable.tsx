@@ -38,7 +38,10 @@ const SearchSanctionTable = (props: Props) => {
                     <div className={'admin-search-actions'}>
                         <ReactTooltip/>
                         <i className={"fas fa-edit search-book-green-icon"}
-                           onClick={()=> {props.openEditSanction(row)}} data-tip={"Editar"}/>
+                           onClick={()=> {
+                               props.openEditSanction(row);
+                               ReactTooltip.hide();
+                           }} data-tip={"Editar"}/>
                     </div>
                 ))
         }

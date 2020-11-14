@@ -2,33 +2,46 @@
     background-color: var(--app-green);
 }
 
-.modal-header .modal-title {
-    font-family: Playfair Display, serif;
-    font-size: 70px;
+.modal-title {
+    font-family: PlayfairDisplay, serif;
     font-weight: 900;
     font-stretch: normal;
     font-style: italic;
-    line-height: 1.34;
-    letter-spacing: normal;
-    text-align: left;
+}
+
+.modal-header {
+    padding: 15px;
+    text-align: center;
+}
+.modal-header .modal-title {
     color: var(--white);
-    padding: 10px;
-    margin: 0 32px 0 32px;
+    font-size: 70px;
+}
+
+.modal-header-transparent .modal-title {
+    font-size: 50px;
 }
 
 .modal-body {
     padding: 20px;
 }
 
-.modal-title {
-    font-family: Roboto, serif;
-    font-size: 35px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.31;
-    color: var(--black);
-    text-align: center;
-    margin-top: 45px;
+.modal-header-transparent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 15px;
+}
+
+.modal-header-transparent .close-modal-icon {
+    font-size: 25px;
+    position: absolute;
+    top: 10%;
+    right: 2%;
+}
+
+.modal-header-transparent .close-modal-icon:hover {
+    cursor: pointer;
 }
 

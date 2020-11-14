@@ -2,14 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background-color: var(--app-grey);
     gap: 20px;
     padding-top: 30px;
 }
 
 .admin-incorporation-screen .admin-incorporation-card {
-    width: 65vw;
+    width: 70vw;
     height: 55vh;
     border-radius: 33px;
     box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
@@ -54,6 +53,9 @@
     font-weight: bold;
     outline: none;
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .admin-incorporation-table-button {

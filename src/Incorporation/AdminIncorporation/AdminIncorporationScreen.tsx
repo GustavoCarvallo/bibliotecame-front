@@ -80,10 +80,11 @@ const AdminIncorporationScreen = () => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <>
-                <ReactTooltip/>
-                <div className={'loan-book-title-and-author'} data-tip={`${row.title} - ${row.author}`}>{row.title} - {row.author}</div>
-            </>
+            accessor: 'title'
+        },
+        {
+            header: "Autor",
+            accessor: 'author'
         },
         {
             header: "Fecha",
@@ -100,8 +101,8 @@ const AdminIncorporationScreen = () => {
         {
             header: "Acciones",
             component: row => (<div className={"admin-incorporation-actions"}>
+                <ReactTooltip/>
                 <i className={"fas fa-eye search-book-eye"} data-tip={"Ver"} onClick={() => openRequestModal(row.id)}/>
-                {/*<button className={"admin-incorporation-table-button"} onClick={()=>openRequestModal(row.id)}>Ver</button>*/}
                 {row.status === "PENDING" && <button className={"admin-incorporation-table-button"}
                                                      onClick={() => openAcceptRejectModal(row)}>Aceptar/Rechazar</button>}
             </div>)
@@ -179,7 +180,7 @@ const AdminIncorporationScreen = () => {
             </div>
             <div className={"admin-incorporation-card"}>
                 <div className={"admin-incorporation-table-container"}>
-                    <GenericTable columns={columns} data={paginationData?.content ?? []} className={"table--5cols"}/>
+                    <GenericTable columns={columns} data={paginationData?.content ?? []} className={"table--6cols"}/>
                 </div>
                 <GenericPagination pageCount={paginationData?.totalPages ?? 0}
                                    forcePage={paginationData?.pageable.pageNumber ?? 0}

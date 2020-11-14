@@ -155,7 +155,7 @@
 
 .copies-ban {
     font-size: 20px;
-    color: #000000;
+    color: var(--app-red);
 }
 
 .tags-field {

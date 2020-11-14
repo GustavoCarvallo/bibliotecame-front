@@ -6,7 +6,7 @@ type Props = {
     isOpen: boolean,
     onClose: () => void,
     title: String,
-    withHeader?: boolean
+    withHeader?: boolean,
     titleClassName?: string,
 }
 const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, children, withHeader, titleClassName}) => {
@@ -36,9 +36,12 @@ const GenericModal: FunctionComponent<Props> = ({isOpen, onClose, title, childre
             {
                 withHeader ?
                     <div className={'modal-header'}>
-                        {title && <h1 className={"modal-title"}>{title}</h1>}
+                        {title && <span className={"modal-title"}>{title}</span>}
                     </div>:
-                    title && <h1 className={`modal-title ${titleClassName ?? ''}`}>{title}</h1>
+                    title && <div className={"modal-header-transparent"}>
+                        <span className={`modal-title ${titleClassName ?? ''}`}>{title}</span>
+                        <i className="fas fa-times close-modal-icon" onClick={onClose}/>
+                    </div>
 
             }
             {children}

@@ -116,7 +116,10 @@ const SearchBook = (props: Props) => {
                                onChange={handleFilterChange}
                                placeholder={"Busque algún libro"}/>
                 {admin &&
-                <i className={'fas fa-plus-circle add-button'} onClick={props.handleOpenCreation} data-tip={"Crear"}/>
+                <i className={'fas fa-plus-circle add-button'} onClick={(e) => {
+                    props.handleOpenCreation(e);
+                    ReactTooltip.hide();
+                }} data-tip={"Crear"}/>
                 }
                 {!admin &&
                 <i className="fas fa-filter add-button" onClick={props.handleOpenFilter} data-tip={"Filtros"}/>

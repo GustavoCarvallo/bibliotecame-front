@@ -12,7 +12,10 @@ interface Props {
 const IconButton = (props: Props) => {
     return (<>
         <ReactTooltip/>
-        <i className={`${props.icon} button-icon icon-button-pointer`} onClick={() => props.onClick()} data-tip={props.tooltip ?? undefined}/>
+        <i className={`${props.icon} button-icon icon-button-pointer`} onClick={() => {
+            props.onClick();
+            ReactTooltip.hide();
+        }} data-tip={props.tooltip ?? undefined}/>
     </>)
 }
 

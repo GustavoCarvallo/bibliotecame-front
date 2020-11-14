@@ -11,16 +11,17 @@
     flex-direction: row-reverse;
 }
 
-.tag-container.align-center {
-    align-items: center;
-}
-
 .tag-container .tag {
-    min-width: 90px;
+    display: flex;
+    width: fit-content;
+    padding: 0 15px;
     height: 40px;
     border-radius: 33px;
-    background-color: #dfe2e6;
-    display: flex;
+    background-color: var(--app-grey);
+}
+
+.tag-container.align-center {
+    align-items: center;
 }
 
 .tag-container .deletable-tag {
@@ -33,17 +34,17 @@
 
 .tag .tag-name {
     font-family: Roboto, serif;
-    font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #030303;
+    font-size: 14px;
+    text-align: center;
+    flex-grow: 5;
 }
 
 .tag .delete-tag-icon {
     width: fit-content;
     color: #a4a8ad;
     font-size: x-large;
+}
+
+.tag .delete-tag-icon:hover {
+    cursor: pointer;
 }

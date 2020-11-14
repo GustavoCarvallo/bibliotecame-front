@@ -34,13 +34,6 @@ type YearErrors = {
     yearUndefined: boolean,
 }
 
-const initialBook = {
-    title: undefined,
-    author: undefined,
-    publisher: undefined,
-    year: undefined,
-    tags: [],
-}
 const initialErrors = {
     titleError: false,
     authorError: false,

@@ -67,10 +67,11 @@ const IncorporationRequestScreen = () => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <>
-                <ReactTooltip/>
-                <div className={'loan-book-title-and-author'} data-tip={`${row.title} - ${row.author}`}>{row.title} - {row.author}</div>
-            </>
+            accessor: 'title'
+        },
+        {
+            header: "Autor",
+            accessor: 'author'
         },
         {
             header: "Fecha",
@@ -121,7 +122,7 @@ const IncorporationRequestScreen = () => {
                     <div className={"student-incorporation-card"}>
                         <div className={"student-incorporation-table-container"}>
                             <GenericTable columns={columns} data={paginationData?.content ?? []}
-                                          className={"table--4cols"}/>
+                                          className={"table--5cols"}/>
                         </div>
                         <GenericPagination pageCount={paginationData?.totalPages ?? 0}
                                            forcePage={paginationData?.pageable.pageNumber ?? 0}

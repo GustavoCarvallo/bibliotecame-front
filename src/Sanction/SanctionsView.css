@@ -4,6 +4,7 @@
     align-items: center;
     padding-top: 30px;
     background-color: var(--app-grey);
+    gap: 20px;
 }
 
 .sanctions-view .button-icon{

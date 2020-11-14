@@ -6,6 +6,7 @@
     align-items: center;
     padding-top: 30px;
     background-color: var(--app-grey);
+    gap: 20px;
 }
 
 .loan-history-screen .loan-history-table-container {
@@ -16,7 +17,6 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 3vh auto auto;
 }
 
 .loan-history-screen .loan-history-success-container {

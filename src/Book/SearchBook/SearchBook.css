@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
+    gap: 20px;
 }
 
 .book-search-container {
@@ -46,7 +47,6 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 3vh auto auto;
 }
 
 .activate-modal-body {

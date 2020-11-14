@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 30px;
+    gap: 20px;
 }
 
 .admin-loan-screen .success-message-container {
@@ -45,18 +46,13 @@
     border: solid 1px var(--brownish-grey);
     background-color: var(--white);
     border-radius: 25px;
-    margin: 3vh auto auto;
-}
-
-.admin-loan-screen .admin-loan-search-container {
-    width: 30vw;
 }
 
 .admin-loan-search-container{
     display: grid;
     align-content: center;
     height: 50px;
-    grid-template-columns: 30vw 15vw;
+    grid-template-columns: 22vw 13vw;
 }
 
 .admin-loan-screen .admin-loan-search-container .field-container {

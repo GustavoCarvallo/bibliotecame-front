@@ -7,6 +7,7 @@ import {toast, ToastOptions} from "react-toastify";
 
 type Props = {
     onCancel: ()=>void,
+    onSuccess?: ()=> void,
     form?: IncorporationRequest,
     disabled?: boolean
 }
@@ -74,6 +75,7 @@ const IncorporationRequestForm = (props: Props) => {
                 .then(() => {
                     notifySuccess("La solicitud se ha cargado correctamente!")
                     setForm({...initialForm});
+                    if (props.onSuccess) props.onSuccess();
                 })
                 .catch(err => notifyError(err));
         }

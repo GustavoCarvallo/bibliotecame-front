@@ -59,6 +59,11 @@ const IncorporationRequestScreen = () => {
         getData(0, e.target.value);
     }
 
+    const onAddRequestSuccess = () => {
+        getData(0, "");
+        openSearchScreen()
+    }
+
     const columns: Column[] = [
         {
             header: "Libro",
@@ -125,7 +130,7 @@ const IncorporationRequestScreen = () => {
                 </div>
             ) : (
                 <div className={"incorporation-request-form-screen"}>
-                    {status === CREATE && <IncorporationRequestForm onCancel={openSearchScreen}/>}
+                    {status === CREATE && <IncorporationRequestForm onCancel={openSearchScreen} onSuccess={onAddRequestSuccess}/>}
                     {status === VIEW &&
                     <IncorporationRequestForm form={selectedIncorporationRequest} onCancel={openSearchScreen}
                                               disabled={true}/>}

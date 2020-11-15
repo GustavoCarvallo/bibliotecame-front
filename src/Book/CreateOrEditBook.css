@@ -1,5 +1,3 @@
-.create-book {
-}
 
 .create-book-title {
     width: 298px;
@@ -44,10 +42,10 @@
     width: 80%;
     height: 22px;
     font-family: Roboto, serif;
-    font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
+    font-size: 18px;
     line-height: 2.81;
     letter-spacing: normal;
     text-align: left;

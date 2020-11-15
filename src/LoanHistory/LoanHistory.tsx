@@ -15,6 +15,7 @@ const LoanHistory = () => {
 
     useEffect(() => {
         getData(0, "");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getData = (page: number, search: string) => {

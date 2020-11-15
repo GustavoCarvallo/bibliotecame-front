@@ -23,7 +23,8 @@ const IncorporationRequestScreen = () => {
 
     useEffect(() => {
         if (status === SEARCH) getData(0, searchFilter);
-    }, [status])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [status, searchFilter])
 
     const getData = (page: number, search: string) => {
         get(`request/user?page=${page}&search=${search}`)

@@ -61,7 +61,5 @@ const BookScreen = () => {
             "para los usuarios alumnos.\n"} onClick={()=>activate(1)} button={<IconButton icon={"far fa-check-circle"} onClick={()=>{}}/>}/>)
         }
     </div>
-
-    //Aca debería ir la vista del libro
 }
 export default BookScreen;

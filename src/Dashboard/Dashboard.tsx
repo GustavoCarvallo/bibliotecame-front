@@ -45,16 +45,12 @@ const Dashboard = () => {
     const [lineChartData, setLineChartData] = React.useState<number[]>([0,0,0,0,0,0,0,0,0,0,0,0])
 
     useEffect(() => {
-        getInfo();
-    }, [])
-
-    const getInfo = () => {
         get('dashboard').then(res => {
             setLabels(res.loansByMonth.map((e: { first: string; }) => abbreviateDate(e.first)))
             setLineChartData(res.loansByMonth.map((e: { second: any; }) => e.second));
             setInfo(res)
         })
-    }
+    }, [])
 
     const abbreviateDate = (date : string) => {
        return date.split(" ")[0].slice(0,3) + " " + date.split(" ")[1].slice(2,4)

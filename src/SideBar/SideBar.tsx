@@ -92,12 +92,14 @@ function renderRows(isAdmin: boolean, selected?: number) {
     return (
         <>
             {rows.map((row, index) => (
+                <div key={index}>
                 <Link to={row.path} className={"link-un-styled"}>
                     <div className={"side-bar-row" + (selected === index ? " selected-row" : "")}>
                         <i className={`fas fa-${row.icon} row-icon`}/>
                         <div className={"side-bar-row-title"}>{row.title}</div>
                     </div>
                 </Link>
+                </div>
             ))}
         </>
     )

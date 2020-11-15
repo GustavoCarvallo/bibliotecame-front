@@ -37,6 +37,7 @@ const SanctionsView = () => {
 
     useEffect(() => {
         getSanctionsByFilter(0, "");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getSanctionsByFilter = (page: number, search: string) => {

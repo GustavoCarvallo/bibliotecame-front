@@ -20,12 +20,6 @@ export type Profile = {
     isAdmin?: boolean,
 }
 
-type Success = {
-    success: boolean,
-    message?: string,
-}
-
-const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
 export const EDIT = "EDIT";
 
@@ -38,13 +32,7 @@ function Profile() {
             .then(res => {
                 setSelectedProfile({id:res.id, email:res.email, password: "", firstName: res.firstName, lastName: res.lastName, phoneNumber: res.phoneNumber, isAdmin: res.isAdmin});
             })
-            .catch(err => console.log(err));},[])
-
-    const [status, setStatus] = React.useState(EDIT);
-
-    const [success, setSuccess] = React.useState<Success>({
-        success: false,
-    });
+            .catch();},[])
 
     const [selectedProfile, setSelectedProfile] = React.useState<Profile>({})
 
@@ -60,11 +48,6 @@ function Profile() {
     const notifyError = (message: string) => {
         toast.dismiss();
         toast.error(message, toastifyConfiguration);
-    }
-
-    const handleCloseCreation = () => {
-        setSuccess({success: false});
-        setStatus(SEARCH);
     }
 
     const deleteUser = () => {
@@ -85,8 +68,7 @@ function Profile() {
     const renderView = (<>
         <div className={"edit-profile-container"} id={"edit-profile-container"}>
             <EditProfileSubmitHandler selectedProfile={selectedProfile}
-                                      setSelectedProfile={setSelectedProfile}
-                                      handleCancel={handleCloseCreation}/>
+                                      setSelectedProfile={setSelectedProfile}/>
             {!admin && (<div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 

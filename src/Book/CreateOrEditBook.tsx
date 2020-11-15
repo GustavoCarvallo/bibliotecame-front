@@ -34,23 +34,10 @@ type YearErrors = {
     yearUndefined: boolean,
 }
 
-const initialErrors = {
-    titleError: false,
-    authorError: false,
-    publisherError: false,
-    yearErrors: {
-        yearHigher: false,
-        yearLower: false,
-        yearUndefined: false,
-    },
-};
-
 const CreateOrEditBook = (props: Props) => {
     const isCreate = props.type === CREATE;
     const MAX_YEAR = (new Date()).getFullYear();
     const MIN_YEAR = 800;
-
-    const [errors, setErrors] = React.useState<Errors>({...initialErrors})
 
     const [tagToAdd, setTagToAdd] = React.useState<Tag>({
         name: "",
@@ -61,8 +48,6 @@ const CreateOrEditBook = (props: Props) => {
         let valid = !newErrors.titleError && !newErrors.authorError && !newErrors.publisherError && !newErrors.yearErrors.yearHigher && !newErrors.yearErrors.yearLower && !newErrors.yearErrors.yearUndefined;
         if (valid) {
             props.handleSubmit(props.book, handleSuccess, (status: string) => notifyError(status))
-        }else {
-            setErrors(newErrors);
         }
     }
 
@@ -73,7 +58,6 @@ const CreateOrEditBook = (props: Props) => {
     const handleSuccess = () => {
         toast.dismiss();
         toast.success(props.successMessage, toastifyConfiguration);
-        setErrors({...initialErrors, serverError: undefined})
     }
 
     const notifyError = (message: string) => {

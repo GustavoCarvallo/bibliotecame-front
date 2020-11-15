@@ -10,8 +10,8 @@ type Props = {
 }
 const TagContainer = (props: Props) => {
     return(<div className={`tag-container${props.reverse? ' reverse-container' : ''}${props.alignCenter? ' align-center': ''}`}>
-            {props.tags.map(tag => (
-                <div className={"tag " + (props.deleteTag ? "deletable-tag" : "non-deletable-tag")}>
+            {props.tags.map((tag, index) => (
+                <div key={index} className={"tag " + (props.deleteTag ? "deletable-tag" : "non-deletable-tag")}>
                     <div className={"tag-name"}>{tag.name}</div>
                     {props.deleteTag && <div className={"tag-icon-container"}>
                         <i className="fas fa-times delete-tag-icon" onClick={() => props.deleteTag ? props.deleteTag(tag) : {}}/>

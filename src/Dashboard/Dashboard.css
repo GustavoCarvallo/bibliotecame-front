@@ -1,5 +1,5 @@
 .dashboard{
-    background-color: var(--very-light-pink);
+    background-color: var(--app-grey);
     overflow-y: scroll;
     max-height: 89vh;
 }

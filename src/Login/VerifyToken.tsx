@@ -15,7 +15,7 @@ const VerifyToken = () => {
            .catch(() => {
                history.push("/login?unsuccessfulVerification");
            })
-    }, [])
+    }, [history, token])
 
     return(<>
         <h1>Loading...</h1>

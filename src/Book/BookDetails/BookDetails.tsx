@@ -77,8 +77,8 @@ const BookDetails = (props: Props) => {
     return (
         <GenericModal isOpen={props.isOpen} onClose={props.onClose} title={'Detalles'} withHeader>
             <div className={'book-details-container'}>
-                {rows.map(row => (
-                    <div className={'book-details-row'}>
+                {rows.map((row, index) => (
+                    <div key={index} className={'book-details-row'}>
                         <h1 className={'book-details-label'}>{row.label}:</h1>
                         {row.component(props.selectedBook)}
                     </div>

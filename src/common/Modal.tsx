@@ -1,8 +1,6 @@
-import React, {useState} from "react";
-import ReactDOM from 'react-dom';
+import React from "react";
 import Modal from 'react-modal';
 import "./Modal.css"
-import CreateAndCancelButtons from "./Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 const customStyles = {
     content : {

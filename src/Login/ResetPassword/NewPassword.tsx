@@ -34,10 +34,10 @@ const NewPassword = () => {
 
     return (
         <div className={"new-screen"}>
-            <h1 className={"Title"}>Bibliotecame</h1>
+            <h1 className={"unauth-Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <div className={'form'}>
-                    <h2 className="sub-title"> Nueva Contraseña</h2>
+                    <h2 className="unauth-sub-title"> Nueva Contraseña</h2>
                     <InputWithIcon icon={'fas fa-lock'}
                                    placeholder={'Ingrese su nueva contraseña'}
                                    value={password1}

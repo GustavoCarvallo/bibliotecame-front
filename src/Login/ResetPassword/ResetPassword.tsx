@@ -15,7 +15,7 @@ const ResetPassword = () => {
     const sendEmail = () => {
         setAwaitingServerResponse(true);
         post(`user/forgot/${email}`, {})
-            .then(res => {
+            .then(() => {
                 history.push("/login?successfulResetStart");
                 setAwaitingServerResponse(false);
             })
@@ -32,10 +32,10 @@ const ResetPassword = () => {
 
     return (
         <div className={"reset-screen"}>
-            <h1 className={"Title"}>Bibliotecame</h1>
+            <h1 className={"unauth-Title"}>Bibliotecame</h1>
             <div className="Rectangle-1">
                 <div className={'form'}>
-                    <h2 className="sub-title"> Restaurar Contraseña</h2>
+                    <h2 className="unauth-sub-title"> Restaurar Contraseña</h2>
                     <InputWithIcon icon={'fas fa-envelope'}
                                    placeholder={'Ingrese su correo electrónico'}
                                    value={email}

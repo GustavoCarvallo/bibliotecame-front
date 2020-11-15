@@ -22,7 +22,7 @@ const CreateBook = (props: Props) => {
 
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
         post("book", book)
-            .then(res =>
+            .then(() =>
             {
                 setBook({...initialBook})
                 setKey(key + 1);

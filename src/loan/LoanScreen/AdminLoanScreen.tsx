@@ -14,7 +14,7 @@ import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/
 type ModalInfo = {
     open: boolean,
     title?: string,
-    body?: ReactElement<any>
+    body?: ReactElement
 }
 
 const AdminLoanScreen = () => {
@@ -28,15 +28,13 @@ const AdminLoanScreen = () => {
     useEffect(() => {
         getData(0, search);
         checkDelayed();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [search])
 
     const getData = (page: number, search: string) => {
         get(`loan/admin?page=${page}&search=${search}`)
             .then(res => {
                 setPaginationData(res);
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
 
@@ -56,7 +54,6 @@ const AdminLoanScreen = () => {
     function checkDelayed(){
         get("loan/delayed/check")
             .then(res => {
-                console.log(res)
                 setShowReminderButton(res)
             })
             .catch(err =>{
@@ -100,7 +97,6 @@ const AdminLoanScreen = () => {
             case "APPROVED_EXTENSION":
             case "WITHDRAWN":
             case "REJECTED_EXTENSION":
-
             case "DELAYED":
                 title = "Solicitud de devolución";
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha devuelto
@@ -111,7 +107,7 @@ const AdminLoanScreen = () => {
                             .then(() => {
                                 successfulRequest("Se ha confirmado la devolución correctamente")
                             })
-                            .catch(err => {
+                            .catch(() => {
                                 failedRequest("No se pudo confirmar el devolución. Intente nuevamente")
                             })
                     }};
@@ -126,7 +122,7 @@ const AdminLoanScreen = () => {
                             .then(() => {
                                 successfulRequest("Se ha confirmado el retiro correctamente")
                             })
-                            .catch(err => {
+                            .catch(() => {
                                 failedRequest("No se pudo confirmar el retiro. Intente nuevamente")
                             })
                     }};

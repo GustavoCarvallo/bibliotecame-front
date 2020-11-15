@@ -1,15 +1,11 @@
-import React, {ReactElement} from 'react';
+import React from 'react';
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {Profile} from "../Profile";
-import {toast, ToastOptions} from "react-toastify";
-import CreateCopyModal from "../../Book/CreateCopy/CreateCopyModal";
-import ActivateDeactivateCopyModal from "../../Book/ActivateDeactivateCopy/ActivateDeactivateCopyModal";
-import CreateOrEditBook from "../../Book/CreateOrEditBook";
-import {EDIT} from "../../Book/Book";
+import {toast} from "react-toastify";
 import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import "./EditPassword.css";
-import {get, put} from "../../utils/http";
+import {put} from "../../utils/http";
 
 type Props = {
     profile: Profile,
@@ -26,12 +22,6 @@ type Errors = {
     alphanumericError: boolean,
     serverError?: string,
 }
-
-const initialErrors = {
-    passwordLengthError: false,
-    passwordMatchError: false,
-    alphanumericError: false,
-};
 
 const EditPassword = (props: Props) => {
     const [password, setPassword] = React.useState<string>("");
@@ -54,7 +44,7 @@ const EditPassword = (props: Props) => {
         let valid = !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.alphanumericError;
         if (valid) {
             put(`user/${props.profile.id}/updatePassword`,{password: password})
-                .then(res =>{
+                .then(() =>{
                     props.notifySuccess(`¡Su contraseña se actualizó correctamente!`)
                     onCancel();
                 })

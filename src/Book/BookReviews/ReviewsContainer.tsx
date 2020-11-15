@@ -7,12 +7,12 @@ type Props = {
     reviews: Review[],
 }
 const ReviewsContainer = (props: Props) => {
-    if(props.reviews.length==0) return (
+    if(props.reviews.length===0) return (
         <h3> Este libro no tiene reseñas. </h3>
     )
     return(<div className={"review-container"}>
-        {props.reviews.map(review => (
-            <div className={"book-review-individual"}>
+        {props.reviews.map((review, index) => (
+            <div key={index} className={"book-review-individual"}>
                 <div className={"review-container-value-container"}>
                     <Rating emptySymbol={"far fa-star empty-star"} fractions={1} fullSymbol={"fas fa-star full-star"}
                             initialRating={review.value} readonly={true}/>
@@ -27,7 +27,7 @@ const ReviewsContainer = (props: Props) => {
 }
 
 function description(review:Review){
-    if(review.description==""){
+    if(review.description===""){
         return <div className={"email-review-containter"}>
             El usuario no agregó una descripción.
         </div>

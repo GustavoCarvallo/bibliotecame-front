@@ -46,7 +46,7 @@ const IncorporationRequestViewer = (props: Props) => {
             .catch(err => notifyError(err));
     }
 
-    useEffect(() => openRequestInformation(props.id),[props.isOpen])
+    useEffect(() => openRequestInformation(props.id),[props.isOpen, props.id])
 
 
     const rows = [
@@ -86,8 +86,8 @@ const IncorporationRequestViewer = (props: Props) => {
     return (
             <GenericModal isOpen={props.isOpen} onClose={props.onClose} title={`Solicitud de incorporación`} withHeader>
                 <div className={'incorporation-request-details-container'}>
-                    {rows.map(row => (
-                        <div className={'incorporation-request-details-row'}>
+                    {rows.map((row, index) => (
+                        <div key={index} className={'incorporation-request-details-row'}>
                             <h1 className={'incorporation-request-details-label'}>{row.label}:</h1>
                             {row.component(selectedIncorporationRequest)}
                         </div>

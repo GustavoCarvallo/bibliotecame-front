@@ -16,7 +16,7 @@ type Props = {
 type ModalInfo = {
     open: boolean,
     title?: string,
-    body?: ReactElement<any>
+    body?: ReactElement
 }
 const ReminderButton = (props: Props) => {
     const [awaitingServerResponse, setAwaitingServerResponse] = React.useState<boolean>(false);
@@ -57,7 +57,7 @@ const ReminderButton = (props: Props) => {
 
 
         if(!props.disabled){
-            return <div></div>
+            return <></>
         }
         else return(
         <div>

@@ -58,7 +58,8 @@ const AdminIncorporationScreen = () => {
 
     useEffect(() => {
         getData(0, searchFilter);
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchFilter])
 
     const getData = (page: number, searchFilter: string) => {
         get(`request?page=${page}&search=${searchFilter}`)

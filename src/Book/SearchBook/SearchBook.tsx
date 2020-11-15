@@ -49,42 +49,6 @@ const SearchBook = (props: Props) => {
         toast.dismiss()
         toast.error(message)
     }
-
-    useEffect(() => {
-        getBooksByFilter(0, "");
-    }, [])
-
-    useEffect(() => {
-        if (props.callAdvancedSearch) {
-            getBooksByAdvancedFilter(0);
-            props.setCallAdvancedSearch(false);
-        }
-    }, [props.callAdvancedSearch])
-
-    useEffect(() => {
-        if (props.callSearch) {
-            getBooksByFilter(0, searchFilter);
-            props.setCallSearch(false);
-        }
-    }, [props.callSearch])
-
-    const handleFilterChange = (event: any) => {
-        getBooksByFilter(0, event.target.value);
-        setSearchFilter(event.target.value);
-    }
-
-    const changePage = (page: number) => {
-        if (props.searchForm.title !== "" ||
-            props.searchForm.author !== "" ||
-            props.searchForm.publisher !== "" ||
-            props.searchForm.year !== "" ||
-            props.searchForm.tags.length !== 0) {
-            getBooksByAdvancedFilter(page);
-        } else {
-            getBooksByFilter(page, searchFilter);
-        }
-    }
-
     const getBooksByFilter = (page: number, search: string) => {
         props.setSearchForm({title: "", author: "", publisher: "", tags: [], year: ""})
         get(`book/search?page=${page}&search=${search}`)
@@ -106,6 +70,48 @@ const SearchBook = (props: Props) => {
                 notifyError(error);
             });
     }
+
+    useEffect(() => {
+        getBooksByFilter(0, "");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        if (props.callAdvancedSearch) {
+            getBooksByAdvancedFilter(0);
+            props.setCallAdvancedSearch(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.callAdvancedSearch])
+
+    useEffect(() => {
+        if (props.callSearch) {
+            getBooksByFilter(0, searchFilter);
+            props.setCallSearch(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.callSearch])
+
+    const handleFilterChange = (event: any) => {
+        getBooksByFilter(0, event.target.value);
+        setSearchFilter(event.target.value);
+    }
+
+    const changePage = (page: number) => {
+        if (props.searchForm.title !== "" ||
+            props.searchForm.author !== "" ||
+            props.searchForm.publisher !== "" ||
+            props.searchForm.year !== "" ||
+            props.searchForm.tags.length !== 0) {
+            getBooksByAdvancedFilter(page);
+        } else {
+            getBooksByFilter(page, searchFilter);
+        }
+    }
+
+
+
+
 
     return (
         <div className="search-book-screen">

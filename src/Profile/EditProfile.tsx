@@ -12,7 +12,6 @@ type Props = {
     setProfile: Function,
     handleSubmit: Function,
     type: string,
-    handleCancel: () => void
 }
 
 type Errors = {

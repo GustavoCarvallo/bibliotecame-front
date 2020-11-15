@@ -2,7 +2,7 @@
     height: 90%;
 }
 
-.loan-history-table-container .loan-history-table-button {
+.table-button-classic {
     padding: 6px 10px;
     border-radius: 9px;
     color: var(--white);

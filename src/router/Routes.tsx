@@ -51,7 +51,7 @@ const Router = () => {
 
     return (
         <BrowserRouter>
-            <script src="https://kit.fontawesome.com/1521e42fd4.js" crossOrigin="anonymous"> </script>
+
             <div className="App">
                 <ToastContainer position="top-center" autoClose={3000} hideProgressBar={false} newestOnTop={false}
                                 closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover closeButton={true}

@@ -80,7 +80,6 @@ const Book = () => {
                 setSelectedBook(res);
                 admin && setStatus(EDIT);
             })
-            .catch(err => console.log(err))
     }
 
     const toastifyConfiguration: ToastOptions = {

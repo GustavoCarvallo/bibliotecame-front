@@ -64,15 +64,15 @@ const LoanHistoryTable = (props: Props) => {
                     <div className={"edit-review-button-container"}>
                         {row.reviewId ?
                             <>
-                                <button className={"loan-history-table-button"}
+                                <button className={"table-button-classic"}
                                         onClick={() => openReviewModal(row.reviewId, true)}>Mod. Calif
                                 </button>
-                                <button className={"loan-history-table-button"}
+                                <button className={"table-button-classic"}
                                         onClick={() => openDeleteReviewModal(row.reviewId)}>Elim. Calif
                                 </button>
                             </>
                             :
-                            <button className={"loan-history-table-button"}
+                            <button className={"table-button-classic"}
                                     onClick={() => openReviewModal(row.bookId)}>Calificar</button>}
                     </div>)
             }

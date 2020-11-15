@@ -2,7 +2,7 @@ import React from 'react';
 import "./ReviewModal.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import Rating from "react-rating";
-import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";;
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type Props = {
     open: boolean,

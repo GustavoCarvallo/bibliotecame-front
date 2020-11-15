@@ -63,9 +63,9 @@ const DropdownInput = (props: Props) => {
                 <span className="drop-icon icon" onClick={flipDropdown}><i className="fas fa-chevron-down"> </i></span>
             </div>
             {(props.list && !props.readonly && props.list.length > 0 && showDropdown) ? (<div className={"drop-list"}>
-                    {props.list.map(row => (
-                        <div className={"generic-drop-row"}>
-                            <span onClick={e => handleSelect(row)}>{row}</span>
+                    {props.list.map((row, index) => (
+                        <div key={index} className={"generic-drop-row"}>
+                            <span onClick={() => handleSelect(row)}>{row}</span>
                         </div>
                     ))}
                 </div>) :

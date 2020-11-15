@@ -32,7 +32,7 @@ function Login() {
     }
 
     if (isSuccessSignUp) {
-        notifySuccess('Se ha registrado exitosamente!');
+        notifySuccess('Registro exitoso. Verifique su correo para poder iniciar sesion!');
         history.replace(location.pathname);
     }else if (isSuccessDelete) {
         notifyInfo('Lamentamos que te hayas ido… Eperamos verte pronto nuevamente!');

@@ -61,4 +61,5 @@ export const clearLoans = (isAdmin: boolean, config = {}) => clear(isAdmin, conf
 export const deleteToken = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('admin');
+    localStorage.removeItem('fullName');
 }

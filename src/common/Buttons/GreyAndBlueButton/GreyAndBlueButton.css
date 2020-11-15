@@ -7,11 +7,18 @@
     background-color: var(--dodger-blue);
     border: none;
     padding: 20px 55px;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.generic-grey-and-blue-button:hover {
+    cursor: pointer;
 }
 
 .generic-grey-and-blue-button:disabled {
     color: var(--dodger-blue);
     background-color: var(--light-periwinkle);
+    cursor: initial;
 }
 
 .generic-grey-and-blue-button:focus {

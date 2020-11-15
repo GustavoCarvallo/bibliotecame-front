@@ -7,15 +7,21 @@ import {Link, useHistory} from 'react-router-dom';
 import './ResetPassword.css'
 
 const ResetPassword = () => {
+    const [awaitingServerResponse, setAwaitingServerResponse] = React.useState<boolean>(false);
 
     const [email, setEmail] = React.useState<string>("")
     const history = useHistory();
 
     const sendEmail = () => {
+        setAwaitingServerResponse(true);
         post(`user/forgot/${email}`, {})
-            .then(res => history.push("/login?successfulResetStart"))
+            .then(res => {
+                history.push("/login?successfulResetStart");
+                setAwaitingServerResponse(false);
+            })
             .catch(error => {
                 notifyError(error);
+                setAwaitingServerResponse(false);
             })
     }
 
@@ -34,7 +40,7 @@ const ResetPassword = () => {
                                    placeholder={'Ingrese su correo electrónico'}
                                    value={email}
                                    onChange={e => setEmail(e.target.value)}/>
-                   <GreyAndBlueButton label={'Continuar'} onClick={sendEmail} disabled={email===''}/>
+                   <GreyAndBlueButton label={'Continuar'} onClick={sendEmail} disabled={email==='' || awaitingServerResponse} loading={awaitingServerResponse}/>
                 </div>
                 <div className={"register-button"}>
                     <Link to={'/login'}>

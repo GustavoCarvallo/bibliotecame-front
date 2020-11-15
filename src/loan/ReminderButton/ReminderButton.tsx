@@ -3,6 +3,7 @@ import "./ReminderButton.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {get} from "../../utils/http";
 import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import LoadingIcon from "../../common/Buttons/LoadingIcon/LoadingIcon";
 
 
 type Props = {
@@ -18,6 +19,7 @@ type ModalInfo = {
     body?: ReactElement<any>
 }
 const ReminderButton = (props: Props) => {
+    const [awaitingServerResponse, setAwaitingServerResponse] = React.useState<boolean>(false);
 
     const [modalInfo, setModalInfo] = React.useState<ModalInfo>({
         open: false,
@@ -28,12 +30,15 @@ const ReminderButton = (props: Props) => {
     }
 
     const sendReminders = () =>{
+        setAwaitingServerResponse(true);
         get("loan/delayed/notify")
             .then(res =>{
-                props.success(`¡Se enviaron ${res} emails correctamente!`)
+                props.success(`¡Se enviaron ${res} emails correctamente!`);
+                setAwaitingServerResponse(false);
             })
             .catch(err =>{
                 props.error(err)
+                setAwaitingServerResponse(false);
             })
         closeModal()
     }
@@ -56,8 +61,9 @@ const ReminderButton = (props: Props) => {
         }
         else return(
         <div>
-            <button className={"reminder-button"} onClick={openModal}>
-                {props.label}
+            <button className={`reminder-button ${awaitingServerResponse? 'loading-button': ''}`} onClick={openModal} disabled={awaitingServerResponse}>
+                {awaitingServerResponse && <LoadingIcon/>}
+                {!awaitingServerResponse && props.label}
             </button>
             <GenericModal title={modalInfo.title ?? ""} withHeader={false} isOpen={modalInfo.open}
                           onClose={closeModal}>

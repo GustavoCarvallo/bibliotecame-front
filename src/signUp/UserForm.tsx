@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {post} from "../utils/http";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {toast} from "react-toastify";
+import LoadingIcon from "../common/Buttons/LoadingIcon/LoadingIcon";
 
 interface User {
     email: string,
@@ -12,6 +13,7 @@ interface User {
 }
 
 const UserForm = () => {
+    const [awaitingServerResponse, setAwaitingServerResponse] = React.useState<boolean>(false);
 
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
@@ -44,13 +46,17 @@ const UserForm = () => {
                     phoneNumber: user.phoneNumber
                 },
                 {headers: {"Content-Type": "application/json"}, noAuth: true});
+
+            setAwaitingServerResponse(true);
             promise
                 .then(() => {
                     window.history.pushState("", "", "/login?successfulSignUp")
                     window.location.reload();
+                    setAwaitingServerResponse(false);
                 })
                 .catch((error) => {
                         notifyError(error);
+                        setAwaitingServerResponse(false);
                 })
         }
     }
@@ -99,7 +105,10 @@ const UserForm = () => {
 
                 </div>
 
-                <button type="submit" className="button" style={isActive() ? buttonStyleActivated : buttonStyleDeactivated} disabled={!isActive()}>Registrarme</button>
+                <button type="submit" className={"button"} style={isActive() && !awaitingServerResponse ? buttonStyleActivated : buttonStyleDeactivated} disabled={!isActive() || awaitingServerResponse}>
+                    {awaitingServerResponse && <LoadingIcon/>}
+                    {!awaitingServerResponse && 'Registrarme'}
+                </button>
 
             </form>
         </div>

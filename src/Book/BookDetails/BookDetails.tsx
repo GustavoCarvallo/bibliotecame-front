@@ -5,6 +5,7 @@ import "./BookDetails.css";
 import TagContainer from "../../common/TagContainer/TagContainer";
 import Rating from "react-rating";
 import ReviewsContainer from "../BookReviews/ReviewsContainer";
+import GreenButton from "../../common/Buttons/GreenButton/GreenButton";
 
 type Props = {
     isOpen: boolean,
@@ -72,6 +73,10 @@ const rows = [
 
 ]
 
+const amountOfCopies = (book : Book) =>{
+    return book.copies?.filter(copy => !copy.booked && copy.active).length;
+}
+
 
 const BookDetails = (props: Props) => {
     return (
@@ -86,10 +91,9 @@ const BookDetails = (props: Props) => {
                 <h1 className={'book-details-label'}>Reseñas:</h1>
                 <ReviewsContainer reviews={props.selectedBook.reviews}/>
                 <div className={'request-loan-container'}>
-                    <button className="request-loan-button" onClick={() => props.handleLoan(props.selectedBook)}>
-                        <p className="request-loan-button-label">Solicitar Prestamo</p>
-                    </button>
-                    <h3 className={'available-copies-text'}>Ejemplares disponibles: {props.selectedBook.copies?.filter(copy => !copy.booked).length}</h3>
+                    <GreenButton label={"Solicitar Prestamo"} onClick={() => props.handleLoan(props.selectedBook)}
+                                       disabled={amountOfCopies(props.selectedBook) === 0}/>
+                    <h3 className={'available-copies-text'}>Ejemplares disponibles: {amountOfCopies(props.selectedBook)}</h3>
                 </div>
             </div>
         </GenericModal>

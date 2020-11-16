@@ -1,6 +1,6 @@
 .top-bar {
     height: 10vh;
-    border: solid 1px #707070;
+    border-bottom: solid 1px #707070;
     background-color: var(--app-violet);
     color: var(--app-grey);
     display: grid;

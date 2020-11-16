@@ -1,10 +1,9 @@
 .side-bar {
     width: 259px;
-    border: solid 1px #707070;
     border-top: transparent;
     background-color: var(--app-violet);
     color: var(--app-grey);
-    height: 89vh;
+    height: 89.9vh;
     display: grid;
     grid-template-rows: 2fr 1fr 1fr 1fr 1fr 1fr 2fr;
 }

@@ -23,7 +23,11 @@ export type Profile = {
 export const CREATE = "CREATE";
 export const EDIT = "EDIT";
 
-function Profile() {
+type Props = {
+    setFullName: (fullName: string)=>void,
+}
+
+function Profile(props: Props) {
 
     const admin = isAdmin();
 
@@ -68,7 +72,7 @@ function Profile() {
     const renderView = (<>
         <div className={"edit-profile-container"} id={"edit-profile-container"}>
             <EditProfileSubmitHandler selectedProfile={selectedProfile}
-                                      setSelectedProfile={setSelectedProfile}/>
+                                      setSelectedProfile={setSelectedProfile} setFullName={props.setFullName}/>
             {!admin && (<div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 

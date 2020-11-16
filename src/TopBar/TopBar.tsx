@@ -6,7 +6,7 @@ import {fullName, isAdmin} from "../router/Routes";
 import ReactTooltip from "react-tooltip";
 
 
-const TopBar = () => {
+const TopBar = ({defaultFullName}: {defaultFullName?: string}) => {
     const admin = isAdmin();
 
     return (
@@ -17,7 +17,7 @@ const TopBar = () => {
             <div className={"top-bar-right"}>
                 <i className="far fa-user-circle user-circle-regular"/>
                 <div className={"top-bar-user-name"}>
-                    {fullName()}
+                    {defaultFullName ?? fullName()}
                     {admin && <div>Administrador/a</div>}
                 </div>
                 <Link to={'/login'} className={'link-un-styled log-out-icon-container'} onClick={deleteToken}>

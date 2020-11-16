@@ -96,12 +96,14 @@ const ContainedComponent = (props: ContainedComponentProps) => {
 }
 
 export function ProfileView() {
+    const [fullName, setFullName] = React.useState<string | undefined>(undefined);
+
     return (
         <div>
-            <TopBar/>
+            <TopBar defaultFullName={fullName}/>
             <div className={"side-bar-container"}>
-                <SideBar selected={isAdmin()? 5 : 4}/>
-                <Profile/>
+                <SideBar selected={isAdmin()? 5 : 4} defaultFullName={fullName}/>
+                <Profile setFullName={setFullName}/>
             </div>
         </div>
     );

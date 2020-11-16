@@ -75,7 +75,7 @@ const AdminLoanScreen = () => {
                             con fecha de devolución el ${expectedReturnDate.toLocaleDateString()}.\n
                             Si acepta la prórroga la nueva fecha de devolución será
                             el ${addDays(expectedReturnDate, 3)?.toLocaleDateString()}`;
-                cancelButton = {text: "Rechazar prórroga", onClick: () => {
+                cancelButton = {text: "Rechazar", onClick: () => {
                         put(`extension/${info.id}/reject`,{})
                             .then(() => {
                                 successfulRequest("Se ha rechazado la prórroga correctamente.")
@@ -84,7 +84,7 @@ const AdminLoanScreen = () => {
                                 failedRequest(err)
                             })
                     }};
-                acceptButton = {text: "Aceptar prórroga", onClick: () => {
+                acceptButton = {text: "Aceptar", onClick: () => {
                         put(`extension/${info.id}/approve`,{})
                             .then(() => {
                                 successfulRequest("Se ha aceptado la prórroga correctamente.")
@@ -102,7 +102,7 @@ const AdminLoanScreen = () => {
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha devuelto
                             el libro “${info.bookTitle} - ${info.bookAuthor}”`
                 cancelButton = {text: "Cancelar", onClick: () => {closeModal()}}
-                acceptButton = {text: "Confirmar devolución", onClick: () => {
+                acceptButton = {text: "Confirmar", onClick: () => {
                         put(`loan/${info.id}/return`, {})
                             .then(() => {
                                 successfulRequest("Se ha confirmado la devolución correctamente")
@@ -117,7 +117,7 @@ const AdminLoanScreen = () => {
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha retirado
                             el libro “${info.bookTitle} - ${info.bookAuthor}”`
                 cancelButton = {text: "Cancelar", onClick: () => {closeModal()}}
-                acceptButton = {text: "Confirmar retiro", onClick: () => {
+                acceptButton = {text: "Confirmar", onClick: () => {
                         put(`loan/${info.id}/withdraw`, {})
                             .then(() => {
                                 successfulRequest("Se ha confirmado el retiro correctamente")

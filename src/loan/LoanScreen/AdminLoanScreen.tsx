@@ -29,7 +29,7 @@ const AdminLoanScreen = () => {
         getData(0, search);
         checkDelayed();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search])
+    }, [])
 
     const getData = (page: number, search: string) => {
         get(`loan/admin?page=${page}&search=${search}`)

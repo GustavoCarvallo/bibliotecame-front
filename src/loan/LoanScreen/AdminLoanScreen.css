@@ -1,9 +1,11 @@
 .admin-loan-screen {
+    width: inherit;
+    height: inherit;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     align-items: center;
-    height: 100%;
+    padding-top: 30px;
+    gap: 20px;
 }
 
 .admin-loan-screen .success-message-container {
@@ -46,8 +48,11 @@
     border-radius: 25px;
 }
 
-.admin-loan-screen .admin-loan-search-container {
-    width: 30vw;
+.admin-loan-search-container{
+    display: grid;
+    align-content: center;
+    height: 50px;
+    grid-template-columns: 22vw 13vw;
 }
 
 .admin-loan-screen .admin-loan-search-container .field-container {
@@ -78,7 +83,7 @@
 }
 
 .loan-modal-red-button {
-    background-color: var(--orangey-red);
+    background-color: var(--app-red);
     color: var(--white);
 }
 

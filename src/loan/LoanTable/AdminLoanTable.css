@@ -1,9 +1,9 @@
 .admin-loan-table-container .loan-pending-approval-chip {
-    background-color: var(--light-gold);
+    background-color: var(--app-yellow);
 }
 
 .admin-loan-table-container .loan-ready-for-withdrawal-chip {
-    background-color: var(--cool-grey);
+    background-color: var(--app-grey);
 }
 
 .admin-loan-table-container .generic-table-container {

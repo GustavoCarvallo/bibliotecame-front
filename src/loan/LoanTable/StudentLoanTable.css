@@ -1,16 +1,16 @@
 .student-loan-table-container .loan-pending-approval-chip {
-    background-color: var(--cool-grey);
+    background-color: var(--app-grey);
 }
 .loan-rejected-chip {
-    background-color: var(--scarlet);
+    background-color: var(--app-red);
 }
 
 .loan-approved-chip, .loan-returned-chip {
-    background-color: var(--mid-green);
+    background-color: var(--app-green);
 }
 
 .loan-delayed-chip {
-    background-color: var(--orangey-red);
+    background-color: var(--scarlet);
 }
 
 .loan-withdrawn-chip {

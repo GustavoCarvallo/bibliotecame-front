@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Loan} from "../LoanScreen";
 import {get, post} from "../../utils/http";
-import MessageBox from "../../common/MessageBox/MessageBox";
 import "./StudentLoanScreen.css";
 import StudentLoanTable from "../LoanTable/StudentLoanTable";
 import {toast, ToastOptions} from "react-toastify";
@@ -10,7 +9,6 @@ const StudentLoanScreen = () => {
     const [loans, setLoans] = React.useState<Loan[]>([]);
 
     useEffect(() => {
-
         getActiveLoans();
 
         return () => {
@@ -22,9 +20,6 @@ const StudentLoanScreen = () => {
         get(`loan/actives`)
             .then(res => {
                 setLoans(res);
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
 

@@ -1,7 +1,8 @@
 .top-bar {
     height: 10vh;
-    border: solid 1px #707070;
-    background-color: #ffffff;
+    border-bottom: solid 1px #707070;
+    background-color: var(--app-violet);
+    color: var(--app-grey);
     display: grid;
     grid-template-columns: 3fr 1fr 1.5fr 1.5fr;
 }
@@ -17,17 +18,12 @@
     line-height: 1.33;
     letter-spacing: normal;
     text-align: left;
-    color: #030303;
     margin: auto;
 }
 
 .top-bar-right {
     display: grid;
     grid-template-columns: 1.5fr 4fr 1fr;
-}
-
-.vertical-divider {
-    border-right: 2px solid #f1f1f1;
 }
 
 .user-circle-regular {
@@ -48,7 +44,6 @@
     line-height: 1.31;
     letter-spacing: 0;
     text-align: left;
-    color: #030303;
     margin-top: auto;
     margin-bottom: auto;
 }

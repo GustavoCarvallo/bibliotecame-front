@@ -2,6 +2,7 @@ import React from 'react';
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import "./StudentLoanTable.css";
 import {Loan} from "../LoanScreen";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     data: Loan[];
@@ -23,7 +24,10 @@ const StudentLoanTable = (props: Props) => {
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
+            component: row => <>
+                <ReactTooltip/>
+                <span className={'loan-book-title-and-author'} data-tip={`${row.bookTitle} - ${row.bookAuthor}`}>{row.bookTitle} - {row.bookAuthor}</span>
+            </>
         },
         {
             header: "Fecha de devolución",

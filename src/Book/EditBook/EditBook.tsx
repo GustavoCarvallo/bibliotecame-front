@@ -26,7 +26,7 @@ const EditBook = (props: Props) => {
 
     const handleSubmit = (book: Book, thenCallback: Function, catchCallback: Function) => {
         put(`book/${book.id}`, book)
-            .then(res => {
+            .then(() => {
                 thenCallback()
                 props.handleCancel();
 
@@ -46,7 +46,6 @@ const EditBook = (props: Props) => {
     }
 
     const onCreateCopySuccess = (copy: Copy) => {
-        // props.setSuccess(true, "Ejemplar añadido satisfactoriamente");
         addCopy(copy);
     }
 
@@ -99,8 +98,6 @@ const EditBook = (props: Props) => {
     }
     const onActivateDeactivateCopySuccess = (copy:Copy) => {
         updateCopies(copy);
-        // commented because the copy changes the state when the book form is submit.
-        //notifySuccess("Se cambio el estado del ejemplar satisfactoriamente")
     }
 
     const toastifyConfiguration: ToastOptions = {

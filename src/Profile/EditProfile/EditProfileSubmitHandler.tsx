@@ -1,17 +1,15 @@
 import React from 'react';
-import {post, put} from "../../utils/http";
+import {put} from "../../utils/http";
 import {Profile, EDIT} from "../Profile";
 import EditProfile from "../EditProfile";
-import {useHistory} from "react-router-dom";
 
 type Props = {
     selectedProfile: Profile,
     setSelectedProfile: Function,
-    handleCancel: ()=>void,}
+    setFullName: (fullName: string)=>void,
+}
 
 const EditProfileSubmitHandler = (props: Props) => {
-
-    const history = useHistory();
 
     const handleSubmit = (profile: Profile, thenCallback: Function, catchCallback: Function) => {
 
@@ -19,8 +17,7 @@ const EditProfileSubmitHandler = (props: Props) => {
             .then(res => {
 
                 localStorage.setItem('fullName',res.firstName + " " + res.lastName);
-                history.go(0);
-
+                props.setFullName(res.firstName + " " + res.lastName);
                 thenCallback()
             })
             .catch((error) => {
@@ -29,8 +26,7 @@ const EditProfileSubmitHandler = (props: Props) => {
 
     return (
         <>
-            <EditProfile handleCancel={props.handleCancel}
-                         type={EDIT} handleSubmit={handleSubmit}
+            <EditProfile type={EDIT} handleSubmit={handleSubmit}
                          profile={props.selectedProfile}
                          setProfile={props.setSelectedProfile}/>
         </>

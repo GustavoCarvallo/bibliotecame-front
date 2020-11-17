@@ -5,7 +5,8 @@ import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {toast} from "react-toastify";
 
 type Props = {
-    whereTo: string,
+    whereToAdmin: string,
+    whereToUser: string
 }
 
 function LoginForm(props: Props) {
@@ -29,7 +30,7 @@ function LoginForm(props: Props) {
                 localStorage.setItem('token', res.accessToken.token);
                 localStorage.setItem('admin', res.admin);
                 localStorage.setItem('fullName', res.fullName);
-                history.push(props.whereTo);
+                history.push(res.admin? props.whereToAdmin : props.whereToUser);
             }).catch(err => {
                 notifyError(err);
             })

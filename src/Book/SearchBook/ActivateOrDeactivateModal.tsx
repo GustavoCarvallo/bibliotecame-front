@@ -3,10 +3,11 @@ import {ActivateInformation} from "./SearchBookTable";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {post} from "../../utils/http";
 import {toast, ToastOptions} from "react-toastify";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type Props = {
     open: boolean,
-    setOpen: (open: boolean)=>void,
+    setOpen: (open: boolean) => void,
     activateInformation?: ActivateInformation,
 }
 
@@ -42,7 +43,7 @@ const ActivateOrDeactivateModal = (props: Props) => {
     }
 
     const activate = () => {
-        post(`book/${props.activateInformation?.id}/activate`,[]).then( () => {
+        post(`book/${props.activateInformation?.id}/activate`, []).then(() => {
                 notifySuccess('El libro ha sido activado correctamente');
                 props.activateInformation?.callBack(true);
                 closeActivateModal();
@@ -53,24 +54,28 @@ const ActivateOrDeactivateModal = (props: Props) => {
     }
 
     const deactivate = () => {
-        post(`book/${props.activateInformation?.id}/deactivate`,[]).then( () => {
+        post(`book/${props.activateInformation?.id}/deactivate`, []).then(() => {
                 notifySuccess('El libro ha sido desactivado correctamente');
                 props.activateInformation?.callBack(false);
                 closeActivateModal();
             }
         ).catch((error) => {
-                notifyError(error);
+            notifyError(error);
         })
     }
 
 
     return <GenericModal onClose={closeActivateModal}
-                         isOpen={props.open} title={props.activateInformation?.active? deactivateTitle:activateTitle} withHeader={false}>
+                         isOpen={props.open} title={props.activateInformation?.active ? deactivateTitle : activateTitle}
+                         withHeader={false}>
         <div className={"activate-modal-body"}>
-            <div className={"activate-modal-text-container"}><h4 className={"activate-modal-text"}>{props.activateInformation?.active? deactivateText: activateText}</h4></div>
+            <div className={"activate-modal-text-container"}><h4
+                className={"activate-modal-text"}>{props.activateInformation?.active ? deactivateText : activateText}</h4>
+            </div>
             <div className={"justify-button"}>
-                <button onClick={closeActivateModal} className={"rectangle-cancel"} >Cancelar</button>
-                <button onClick={props.activateInformation?.active? (() => deactivate()) : (() => activate())} className={"rectangle-confirm"} >Confirmar</button>
+                <CreateAndCancelButtons onCancel={closeActivateModal}
+                                        onCreate={props.activateInformation?.active ? (() => deactivate()) : (() => activate())}
+                                        isActivated={true} createLabel={"Confirmar"}/>
             </div>
         </div>
     </GenericModal>

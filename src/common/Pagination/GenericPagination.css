@@ -35,7 +35,7 @@
 .pagination-container .pagination-next,.pagination-previous {
     font-family: Roboto, serif;
     font-size: 16px;
-    color: var(--cerulean);
+    color: var(--dodger-blue);
     padding: 5px 20px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -44,7 +44,7 @@
 }
 
 .pagination-container .pagination-active-page {
-    background-color: var(--cerulean);
+    background-color: var(--dodger-blue);
     color: var(--white);
 }
 

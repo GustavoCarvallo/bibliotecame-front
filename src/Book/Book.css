@@ -3,6 +3,11 @@
     justify-content: center;
     width: 100%;
     overflow: scroll;
+    background-color: var(--app-grey);
+}
+
+.book-main-container::-webkit-scrollbar {
+    display: none;
 }
 
 .Toastify__toast-container .loanToast{

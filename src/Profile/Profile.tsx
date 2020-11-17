@@ -7,6 +7,7 @@ import {del,get} from "../utils/http";
 import GenericModal from "../common/GenericModal/GenericModal";
 import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 import EditProfileSubmitHandler from "./EditProfile/EditProfileSubmitHandler";
+import {isAdmin} from "../router/Routes";
 
 
 export type Profile = {
@@ -19,29 +20,23 @@ export type Profile = {
     isAdmin?: boolean,
 }
 
-type Success = {
-    success: boolean,
-    message?: string,
-}
-
-const SEARCH = "SEARCH";
 export const CREATE = "CREATE";
 export const EDIT = "EDIT";
 
-function Profile() {
+type Props = {
+    setFullName: (fullName: string)=>void,
+}
+
+function Profile(props: Props) {
+
+    const admin = isAdmin();
 
     useEffect(()=>{
         get(`user/getLogged`)
             .then(res => {
                 setSelectedProfile({id:res.id, email:res.email, password: "", firstName: res.firstName, lastName: res.lastName, phoneNumber: res.phoneNumber, isAdmin: res.isAdmin});
             })
-            .catch(err => console.log(err));},[])
-
-    const [status, setStatus] = React.useState(EDIT);
-
-    const [success, setSuccess] = React.useState<Success>({
-        success: false,
-    });
+            .catch();},[])
 
     const [selectedProfile, setSelectedProfile] = React.useState<Profile>({})
 
@@ -57,11 +52,6 @@ function Profile() {
     const notifyError = (message: string) => {
         toast.dismiss();
         toast.error(message, toastifyConfiguration);
-    }
-
-    const handleCloseCreation = () => {
-        setSuccess({success: false});
-        setStatus(SEARCH);
     }
 
     const deleteUser = () => {
@@ -82,20 +72,19 @@ function Profile() {
     const renderView = (<>
         <div className={"edit-profile-container"} id={"edit-profile-container"}>
             <EditProfileSubmitHandler selectedProfile={selectedProfile}
-                                      setSelectedProfile={setSelectedProfile}
-                                      handleCancel={handleCloseCreation}/>
-            <div className={"delete-button-container"}>
+                                      setSelectedProfile={setSelectedProfile} setFullName={props.setFullName}/>
+            {!admin && (<div className={"delete-button-container"}>
                 <button className="delete" onClick={openModal}>Eliminar Cuenta</button>
 
                 <GenericModal title={"Eliminar Cuenta"} isOpen={ModalIsOpen} onClose={closeModal}>
                     <div className={"delete-account-body"}>
                         <p className="text">¿Estas seguro que quieres eliminar de forma permanente tu cuenta?</p>
                         <p className="text">Ten en cuenta que esta acción no se puede revertir</p>
-                        <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal}/>
+                        <CreateAndCancelButtons onCreate={deleteUser} createLabel={"Confirmar"} onCancel={closeModal} isActivated={true}/>
                     </div>
                 </GenericModal>
 
-            </div>
+            </div>)}
         </div>
 
     </>);

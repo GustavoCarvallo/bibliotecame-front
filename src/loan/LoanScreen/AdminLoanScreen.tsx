@@ -7,31 +7,34 @@ import InputWithIcon from "../../common/InputWithIcon/InputWithIcon";
 import "./AdminLoanScreen.css";
 import GenericModal from "../../common/GenericModal/GenericModal";
 import {toast, ToastOptions} from "react-toastify";
+import {addDays} from "../../utils/AddDays";
+import ReminderButton from "../ReminderButton/ReminderButton";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
 
 type ModalInfo = {
     open: boolean,
     title?: string,
-    body?: ReactElement<any>
+    body?: ReactElement
 }
 
 const AdminLoanScreen = () => {
     const [search, setSearch] = React.useState("");
     const [paginationData, setPaginationData] = React.useState<PaginationData<Loan> | undefined>(undefined);
+    const [showReminderButton, setShowReminderButton] = React.useState(false);
     const [modalInfo, setModalInfo] = React.useState<ModalInfo>({
         open: false,
     });
 
     useEffect(() => {
-        getData(0, search);
+        getData(0, "");
+        checkDelayed();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getData = (page: number, search: string) => {
         get(`loan/admin?page=${page}&search=${search}`)
             .then(res => {
                 setPaginationData(res);
-            })
-            .catch(err => {
-                console.log(err)
             })
     }
 
@@ -48,6 +51,16 @@ const AdminLoanScreen = () => {
         setModalInfo({open: false})
     }
 
+    function checkDelayed(){
+        get("loan/delayed/check")
+            .then(res => {
+                setShowReminderButton(res)
+            })
+            .catch(err =>{
+                notifyError(err);
+            })
+    }
+
     const handleAction = (info: Loan) => {
         const expectedReturnDate: Date = new Date(info.expectedReturnDate);
         let bodyText;
@@ -62,7 +75,7 @@ const AdminLoanScreen = () => {
                             con fecha de devolución el ${expectedReturnDate.toLocaleDateString()}.\n
                             Si acepta la prórroga la nueva fecha de devolución será
                             el ${addDays(expectedReturnDate, 3)?.toLocaleDateString()}`;
-                cancelButton = {text: "Rechazar prórroga", onClick: () => {
+                cancelButton = {text: "Rechazar", onClick: () => {
                         put(`extension/${info.id}/reject`,{})
                             .then(() => {
                                 successfulRequest("Se ha rechazado la prórroga correctamente.")
@@ -71,7 +84,7 @@ const AdminLoanScreen = () => {
                                 failedRequest(err)
                             })
                     }};
-                acceptButton = {text: "Aceptar prórroga", onClick: () => {
+                acceptButton = {text: "Aceptar", onClick: () => {
                         put(`extension/${info.id}/approve`,{})
                             .then(() => {
                                 successfulRequest("Se ha aceptado la prórroga correctamente.")
@@ -84,18 +97,17 @@ const AdminLoanScreen = () => {
             case "APPROVED_EXTENSION":
             case "WITHDRAWN":
             case "REJECTED_EXTENSION":
-
             case "DELAYED":
                 title = "Solicitud de devolución";
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha devuelto
                             el libro “${info.bookTitle} - ${info.bookAuthor}”`
                 cancelButton = {text: "Cancelar", onClick: () => {closeModal()}}
-                acceptButton = {text: "Confirmar devolución", onClick: () => {
+                acceptButton = {text: "Confirmar", onClick: () => {
                         put(`loan/${info.id}/return`, {})
                             .then(() => {
                                 successfulRequest("Se ha confirmado la devolución correctamente")
                             })
-                            .catch(err => {
+                            .catch(() => {
                                 failedRequest("No se pudo confirmar el devolución. Intente nuevamente")
                             })
                     }};
@@ -105,12 +117,12 @@ const AdminLoanScreen = () => {
                 bodyText = `Confirmar que el alumno ${info.userEmail} ha retirado
                             el libro “${info.bookTitle} - ${info.bookAuthor}”`
                 cancelButton = {text: "Cancelar", onClick: () => {closeModal()}}
-                acceptButton = {text: "Confirmar retiro", onClick: () => {
+                acceptButton = {text: "Confirmar", onClick: () => {
                         put(`loan/${info.id}/withdraw`, {})
                             .then(() => {
                                 successfulRequest("Se ha confirmado el retiro correctamente")
                             })
-                            .catch(err => {
+                            .catch(() => {
                                 failedRequest("No se pudo confirmar el retiro. Intente nuevamente")
                             })
                     }};
@@ -120,10 +132,10 @@ const AdminLoanScreen = () => {
         const body = (
             <div className={"loan-modal-body"}>
                 <p>{bodyText}</p>
-                <div className={"loan-modal-button-container"}>
-                    <button className={"loan-modal-red-button"} onClick={cancelButton?.onClick}>{cancelButton?.text}</button>
-                    <button className={"loan-modal-green-button"} onClick={acceptButton?.onClick}>{acceptButton?.text}</button>
-                </div>
+                <CreateAndCancelButtons onCreate={() => {if(acceptButton?.onClick) acceptButton.onClick()}}
+                                        onCancel={() => {if (cancelButton?.onClick) cancelButton.onClick()}}
+                                        cancelLabel={cancelButton?.text}
+                                        createLabel={acceptButton?.text} isActivated={true}/>
             </div>
         )
 
@@ -170,6 +182,10 @@ const AdminLoanScreen = () => {
                                value={search}
                                onChange={(e) => changeSearch(e.target.value)}
                                placeholder={"Busque un préstamo"}/>
+                <ReminderButton label={"Enviar Recordatorios"}
+                                success={notifySuccess}
+                                error={notifyError}
+                                disabled={showReminderButton}/>
             </div>
             <div className={"admin-loan-table-container"}>
                 <AdminLoanTable search={search}
@@ -179,13 +195,6 @@ const AdminLoanScreen = () => {
             </div>
         </div>
     )
-}
-
-function addDays(date: Date | undefined, days: number) {
-    if (!date) return;
-    let newDay = new Date(date);
-    newDay.setDate(date.getDate() + days);
-    return newDay;
 }
 
 export default AdminLoanScreen;

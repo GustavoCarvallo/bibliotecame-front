@@ -33,7 +33,7 @@
     width: 30%;
     padding: 2.5%;
     border-radius: 33px;
-    background-color: #48a3fb;
+    background-color: var(--app-green);
     border: none;
 }
 

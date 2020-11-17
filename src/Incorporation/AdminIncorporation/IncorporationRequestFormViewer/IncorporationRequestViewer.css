@@ -1,0 +1,39 @@
+.incorporation-request-details-container {
+    width: 45vw;
+    padding: 4vh 3vw;
+}
+
+.incorporation-request-details-row {
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.incorporation-request-details-label {
+    font-weight: bold;
+    text-align: left;
+    font-family: Roboto, serif;
+}
+
+.incorporation-request-details-component {
+    text-align: right;
+    font-weight: normal;
+    font-family: Roboto, serif;
+}
+
+.incorporation-request-reason {
+    text-align: left;
+    font-weight: normal;
+    font-family: Roboto, serif;
+    font-size: 18px;
+    overflow-x: auto;
+    max-width: 74ch;
+    overflow-wrap: break-word;
+    max-height: 5ch;
+}
+
+.incorporation-request-button-container {
+    text-align: center;
+    padding-bottom: 3vh;
+}

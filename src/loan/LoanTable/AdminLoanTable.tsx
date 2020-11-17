@@ -5,6 +5,7 @@ import {Loan} from "../LoanScreen";
 import {getStatusComponent} from "./StudentLoanTable";
 import "./AdminLoanTable.css";
 import GenericPagination from "../../common/Pagination/GenericPagination";
+import ReactTooltip from "react-tooltip";
 
 
 type Props = {
@@ -19,7 +20,10 @@ const AdminLoanTable = (props: Props) => {
     const columns: Column[] = [
         {
             header: "Ejemplar",
-            component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
+            component: row => <>
+                <ReactTooltip/>
+                <span className={'loan-book-title-and-author'} data-tip={`${row.bookTitle} - ${row.bookAuthor}`}>{row.bookTitle} - {row.bookAuthor}</span>
+            </>
         },
         {
             header: "Alumno",

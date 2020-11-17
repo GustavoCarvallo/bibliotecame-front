@@ -1,0 +1,46 @@
+.incorporation-request-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 30px;
+    background-color: var(--app-grey);
+}
+
+.incorporation-request-form-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--app-grey);
+}
+
+.incorporation-request-screen .add-button {
+    font-size: 35px;
+    color: var(--app-green);
+    align-self: center;
+    justify-self: end;
+}
+
+.incorporation-request-screen .add-button:hover {
+    cursor: pointer;
+}
+
+.incorporation-request-screen .student-incorporation-card {
+    width: 50vw;
+    height: 55vh;
+    border-radius: 33px;
+    box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--brownish-grey);
+    background-color: #ffffff;
+    padding: 30px;
+    display: grid;
+    grid-template-rows: 7fr 1fr;
+}
+
+.student-incorporation-card .student-incorporation-table-container {
+    width: inherit;
+}
+
+.student-incorporation-table-container .generic-table-container {
+    height: 100%;
+}

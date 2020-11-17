@@ -1,0 +1,28 @@
+.chart-component{
+    border: solid 1px var(--brownish-grey);
+    border-radius: 33px;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
+}
+
+.chart-component .title{
+    background-color: var(--dodger-blue);
+    border-radius: 33px 33px 0 0;
+    align-items: center;
+    height: 9vh;
+    display: flex;
+    justify-content: center;
+}
+
+.chart-component .title .chart-title-text{
+    margin: 0;
+    align-self: center;
+    color: var(--white);
+}
+
+.chart-component .chart{
+    padding: 1vw;
+}
+

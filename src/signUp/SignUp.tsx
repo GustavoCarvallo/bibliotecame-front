@@ -7,9 +7,9 @@ function SignUp() {
 
     return (
         <div className={"signup-screen"}>
-            <h1 className="Title">Bibliotecame</h1>
+            <h1 className="unauth-Title">Bibliotecame</h1>
             <div className="registration-box">
-                <h2 className="sub-title"> Registro</h2>
+                <h2 className="unauth-sub-title"> Registro</h2>
                 <UserForm/>
                 <div className={"register-button"}>
                     <Link to={'login'}>

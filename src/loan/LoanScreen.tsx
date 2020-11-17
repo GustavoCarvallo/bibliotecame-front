@@ -21,7 +21,7 @@ const LoanScreen = () => {
 
     const admin = isAdmin();
 
-    clearLoans(admin);
+    clearLoans(admin).then();
 
     return (
         <div className={"loan-screen-container"}>

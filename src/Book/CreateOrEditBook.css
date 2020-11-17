@@ -1,5 +1,3 @@
-.create-book {
-}
 
 .create-book-title {
     width: 298px;
@@ -44,10 +42,10 @@
     width: 80%;
     height: 22px;
     font-family: Roboto, serif;
-    font-size: 18px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
+    font-size: 18px;
     line-height: 2.81;
     letter-spacing: normal;
     text-align: left;
@@ -135,7 +133,11 @@
 
 .copies-add-button {
     font-size: 30px;
-    color:var(--mid-green);
+    color:var(--app-green);
+}
+
+.copies-add-button:hover {
+    cursor: pointer;
 }
 
 .copies-table-container {
@@ -146,12 +148,12 @@
 
 .copies-check {
     font-size: 20px;
-    color: var(--mid-green);
+    color: var(--app-green);
 }
 
 .copies-ban {
     font-size: 20px;
-    color: var(--orangey-red);
+    color: var(--app-red);
 }
 
 .tags-field {

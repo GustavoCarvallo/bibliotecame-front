@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     id: number,
@@ -15,8 +16,10 @@ const ActivateOrDeactivateButton = (props: Props) => {
 
     return (
         <>
+            <ReactTooltip/>
             <i className={active ?  "fas fa-ban search-book-red-icon" : "far fa-check-circle search-book-green-icon"}
-               onClick={() => openActivateModal()}/>
+               data-tip={active ? "Deshabilitar" : "Habilitar"}
+               onClick={() => {openActivateModal()}}/>
         </>
     )
 }

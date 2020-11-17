@@ -4,6 +4,7 @@ import "./EditProfile.css"
 import {Profile} from "./Profile";
 import InputWithIcon from "../common/InputWithIcon/InputWithIcon";
 import {toast, ToastOptions} from "react-toastify";
+import EditPassword from "./EditPassword/EditPassword";
 
 
 type Props = {
@@ -11,40 +12,24 @@ type Props = {
     setProfile: Function,
     handleSubmit: Function,
     type: string,
-    handleCancel: () => void
 }
 
 type Errors = {
     nameError: boolean,
     lastNameError: boolean,
-    passwordLengthError: boolean,
-    passwordMatchError: boolean,
     phoneNumberError: boolean,
-    alphanumericError: boolean,
     serverError?: string,
 }
 
-const initialErrors = {
-    nameError: false,
-    lastNameError: false,
-    passwordLengthError: false,
-    passwordMatchError: false,
-    phoneNumberError: false,
-    alphanumericError: false,
-};
 
 const EditProfile = (props: Props) => {
-    const [confirmPassword, setConfirmPassword] = React.useState<string>("");
-    const regexp = new RegExp(/^(?=.*\d)(?=.*[a-zA-Z])([a-zA-Z0-9]+){7,}$/);
-    const [errors, setErrors] = React.useState<Errors>({...initialErrors});
+    const [openPasswordModal, setOpenPasswordModal] = React.useState<boolean>(false);
 
     const handleSubmit = () => {
         let newErrors = validateProfile(props.profile);
-        let valid = !newErrors.nameError && !newErrors.lastNameError && !newErrors.passwordLengthError && !newErrors.passwordMatchError && !newErrors.phoneNumberError && !newErrors.alphanumericError;
+        let valid = !newErrors.nameError && !newErrors.lastNameError &&  !newErrors.phoneNumberError;
         if (valid) {
             props.handleSubmit(props.profile, handleSuccess, (status: string) => renderError(status))
-        }else {
-            setErrors(newErrors);
         }
     }
 
@@ -64,16 +49,12 @@ const EditProfile = (props: Props) => {
 
     const handleSuccess = () => {
         notifySuccess('El perfil se ha modificado correctamente');
-        setErrors({...initialErrors, serverError: undefined})
     }
 
     const validateProfile = (profile: Profile) => {
         let nameError: boolean = false;
         let lastNameError: boolean = false;
-        let passwordLengthError: boolean = false;
-        let passwordMatchError: boolean = false;
         let phoneNumberError: boolean = false;
-        let alphanumericError: boolean = false;
 
         if (!profile.firstName || profile.firstName === "") {
             nameError = true;
@@ -83,30 +64,15 @@ const EditProfile = (props: Props) => {
             lastNameError = true;
             renderError("Completar apellido");
         }
-        if (!profile.password || profile.password.length < 7) {
-            passwordLengthError = true;
-            renderError("La contraseña debe tener más de 6 caracteres!");
-        }
-        if (profile.password !== confirmPassword) {
-            passwordMatchError = true;
-            renderError("Las contraseñas deben coincidir!");
-        }
         if (!profile.phoneNumber || profile.phoneNumber === "") {
             phoneNumberError = true;
             renderError("Ingrese su número de telefono!")
-        }
-        if (!profile.password || !regexp.test(profile.password)) {
-            alphanumericError = true;
-            renderError("La contraseña solo puede incluir letras y/o números!");
         }
 
         const newErrors: Errors = {
             nameError,
             lastNameError,
-            passwordLengthError,
-            passwordMatchError,
             phoneNumberError,
-            alphanumericError
         }
 
         return newErrors;
@@ -115,18 +81,23 @@ const EditProfile = (props: Props) => {
     function isActive(){
         return ( props.profile.firstName!=="" &&
             props.profile.lastName!=="" &&
-            props.profile.password!=="" &&
-            props.profile.phoneNumber!=="" &&
-            confirmPassword!=="")
+            props.profile.phoneNumber!=="")
     }
 
     const buttonStyleDeactivated = {
-        color: '#48a3fb', backgroundColor: '#e4e9f0'
+        color: 'var(--app-green)', backgroundColor: 'var(--app-grey)'
     }
     const buttonStyleActivated = {
-        color: '#ffffff', backgroundColor: '#48a3fb'
+        color: '#ffffff', backgroundColor: 'var(--app-green)'
     }
 
+    function openModal(){
+        setOpenPasswordModal(true);
+    }
+
+    function closeModal(){
+        setOpenPasswordModal(false);
+    }
     return (
         <div className={"edit-profile-screen"}>
             <div className={"update-profile-title"}>{'Mis Datos'}</div>
@@ -157,23 +128,13 @@ const EditProfile = (props: Props) => {
                         placeholder="Telefono"
                         value={props.profile.phoneNumber}
                         onChange={event => props.setProfile({...props.profile, phoneNumber: event.target.value})}/>
-                    <InputWithIcon
-                        icon={"fas fa-lock"}
-                        placeholder="Contraseña"
-                        value={props.profile.password}
-                        onChange={event => props.setProfile({...props.profile, password: event.target.value})}
-                        isPassword={true}/>
-                    <InputWithIcon
-                        icon={"fas fa-lock"}
-                        placeholder="Confirmar contraseña"
-                        isPassword={true}
-                        value={confirmPassword}
-                        onChange={event => setConfirmPassword(event.target.value)}
-                    />
                 </div>
-                <button className="rectangle-6" onClick={handleSubmit} disabled={!isActive()} style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>
-                    <p className="save-button">{'Guardar cambios'}</p>
-                </button>
+                <div className={'edit-profile-buttons-grid'}>
+                    <EditPassword profile={props.profile} notifySuccess={notifySuccess} isOpen={openPasswordModal} openModal={openModal} onCancel={closeModal} onClose={closeModal}/>
+                    <button className="edit-profile-submit-button" onClick={handleSubmit} disabled={!isActive()} style={isActive() ? buttonStyleActivated : buttonStyleDeactivated}>
+                        <p className="save-button">{'Guardar cambios'}</p>
+                    </button>
+                </div>
             </div>
         </div>
     )

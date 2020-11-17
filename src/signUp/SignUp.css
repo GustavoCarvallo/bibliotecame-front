@@ -12,7 +12,7 @@
     object-fit: contain;
 }
 
-.signup-screen .Title {
+.unauth-Title {
     width: 100%;
     font-family: PlayfairDisplay, serif;
     font-size: 100px;
@@ -29,17 +29,16 @@
 }
 
 .signup-screen .registration-box{
-    width: 50%;
-    /* height: 651px; */
-    margin: 0 25%;
+    width: 45%;
+    margin: 0 30%;
     border-radius: 33px;
-    border: solid 1px #707070;
+    border: solid 1px var(--brownish-grey);
     background-color: #ffffff;
     position: absolute;
     top: 200px;
 }
 
-.signup-screen .sub-title {
+.unauth-sub-title {
     width: 100%;
     font-family: PlayfairDisplay, serif;
     font-size: 50px;
@@ -47,7 +46,7 @@
     font-stretch: normal;
     font-style: italic;
     line-height: 1.33;
-    letter-spacing: 0.01px;
+    letter-spacing: 0;
     text-align: center;
     color: #030303;
     margin-top: 3%;
@@ -77,11 +76,12 @@
     height: 22px;
     font-family: Roboto, serif;
     font-size: 18px;
-    font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 2.81;
     letter-spacing: normal;
+    font-weight: normal;
+
     text-align: left;
     color: #111111;
     border: none;

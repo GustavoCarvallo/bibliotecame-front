@@ -1,9 +1,9 @@
 .act-deact-button .copies-check {
     font-size: 20px;
-    color: var(--mid-green);
+    color: var(--app-green);
 }
 
 .copies-ban {
     font-size: 20px;
-    color: var(--orangey-red);
+    color: black;
 }

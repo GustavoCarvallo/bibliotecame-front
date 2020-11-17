@@ -11,12 +11,12 @@
 
 .search-book-green-icon {
     font-size: 23px;
-    color: var(--mid-green);
+    color: var(--app-green);
 }
 
 .search-book-red-icon {
     font-size: 23px;
-    color: var(--orangey-red);
+    color: var(--app-red);
 }
 
 .admin-search-actions .search-book-green-icon,.search-book-red-icon {

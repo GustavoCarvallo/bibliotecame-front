@@ -1,17 +1,21 @@
 import React, {useState} from 'react';
+import ReactTooltip from "react-tooltip";
 
 
-    const PasswordToggle = () => {
-        const [visible, setVisibility] = useState<boolean>(false);
+const PasswordToggle = () => {
+    const [visible, setVisibility] = useState<boolean>(false);
 
-        const Icon = (
-            <i className={visible ? "fas fa-eye-slash" : "fas fa-eye"}
-               onClick={() => setVisibility(visible => !visible)}> </i>
-        );
+    const Icon = (
+        <>
+            <ReactTooltip/>
+            <i className={visible ? "fas fa-eye-slash icon-button-pointer" : "fas fa-eye icon-button-pointer"}
+               onClick={() => setVisibility(visible => !visible)} data-tip={visible ? "Esconder contraseña" : "Ver contraseña"}/>
+        </>
+    );
 
-        const  InputType : string = visible ? "text" : "password";
+    const InputType: string = visible ? "text" : "password";
 
-        return [InputType, Icon];
-    };
+    return [InputType, Icon];
+};
 
-    export default PasswordToggle;
+export default PasswordToggle;

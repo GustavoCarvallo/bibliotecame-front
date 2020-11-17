@@ -1,0 +1,64 @@
+.incorporation-request-form {
+    width: 42vw;
+    border-radius: 33px;
+    box-shadow: 10px 10px 6px 0 rgba(0, 0, 0, 0.16);
+    border: solid 1px var(--brownish-grey);
+    background-color: #ffffff;
+}
+
+.incorporation-request-form .incorporation-request-form-title {
+    font-family: PlayfairDisplay, serif;
+    font-size: 50px;
+    font-weight: 900;
+    font-style: italic;
+    color: var(--black);
+}
+
+.incorporation-request-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 45vh;
+    padding: 30px;
+}
+
+.incorporation-request-form-container .incorporation-request-form-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+}
+
+.incorporation-request-form-body .incorporation-request-form-field {
+    font-family: Roboto, serif;
+    font-size: 18px;
+    text-align: left;
+    border-radius: 18px;
+    border: solid 1px var(--light-periwinkle);
+    outline: none;
+    padding: 10px 15px;
+}
+
+.incorporation-request-form-body .incorporation-request-form-field:disabled {
+    background-color: var(--light-periwinkle);
+    color: black;
+}
+
+.incorporation-request-form-body .incorporation-request-form-reason:disabled {
+    background-color: var(--light-periwinkle);
+    color: black;
+}
+
+.incorporation-request-form-container .generic-red-button {
+    width: 30%;
+}
+
+.incorporation-request-form-body .incorporation-request-form-reason {
+    grid-column: auto / span 2;
+    resize: none;
+    outline: none;
+    border-radius: 33px;
+    border: solid 1px var(--light-periwinkle);
+    padding: 20px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+}

@@ -5,6 +5,7 @@ import {isAdmin} from "../router/Routes";
 
 type Props = {
     selected?: number,
+    defaultFullName?: string,
 }
 
 const userRows = [
@@ -24,6 +25,11 @@ const userRows = [
         path: '/loan-history'
     },
     {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation-request'
+    },
+    {
         title: 'Mi Perfil',
         icon: 'user-circle',
         path: '/profile'
@@ -31,6 +37,11 @@ const userRows = [
 ];
 
 const adminRows = [
+    {
+        title: 'Dashboard',
+        icon: 'chart-pie',
+        path: '/dashboard'
+    },
     {
         title: 'Libros',
         icon: 'book',
@@ -45,6 +56,11 @@ const adminRows = [
         title: 'Sanciones',
         icon: 'ban',
         path: '/sanctions'
+    },
+    {
+        title: 'Solic. Incorporación',
+        icon: 'exclamation-circle',
+        path: '/incorporation'
     },
     {
         title: 'Mi Perfil',
@@ -77,12 +93,14 @@ function renderRows(isAdmin: boolean, selected?: number) {
     return (
         <>
             {rows.map((row, index) => (
-                <Link to={row.path} className={"link-un-styled"}>
-                    <div className={"side-bar-row" + (selected === index ? " selected-row" : "")}>
-                        <i className={`fas fa-${row.icon} row-icon`}/>
-                        <div className={"side-bar-row-title"}>{row.title}</div>
-                    </div>
-                </Link>
+                <div key={index}>
+                    <Link to={row.path} className={"link-un-styled"}>
+                        <div className={"side-bar-row" + (selected === index ? " selected-row" : "")}>
+                            <i className={`fas fa-${row.icon} row-icon`}/>
+                            <div className={"side-bar-row-title"}>{row.title}</div>
+                        </div>
+                    </Link>
+                </div>
             ))}
         </>
     )

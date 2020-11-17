@@ -5,28 +5,49 @@ import {Loan} from "../../loan/LoanScreen";
 import GenericTable, {Column} from "../../common/GenericTable/GenericTable";
 import GenericPagination from "../../common/Pagination/GenericPagination";
 import ReviewModal, {Review} from "../ReviewModal/ReviewModal";
+import {get} from "../../utils/http";
+import GenericModal from "../../common/GenericModal/GenericModal";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import ReactTooltip from "react-tooltip";
 
 type Props = {
     paginationData?: PaginationData<Loan>,
     changePage: (page: number) => void,
-    createReview: (bookId: number, review: Review, callBack: ()=>void)=>void,
+    createReview: (bookId: number, review: Review, callBack: () => void) => void,
+    editReview: (reviewId: number, review: Review, callBack: () => void) => void,
+    deleteReview: (reviewId: number, callBack: () => void) => void,
 }
 
 type ReviewModalInfo = {
     open: boolean,
-    bookId: number,
+    id: number,
+    onEdit?: boolean,
+    review?: Review
+}
+
+type DeleteReviewModalInfo = {
+    open: boolean,
+    id: number,
 }
 
 const LoanHistoryTable = (props: Props) => {
     const [reviewModalInfo, setReviewModalInfo] = React.useState<ReviewModalInfo>({
         open: false,
-        bookId: 0
+        id: -1
+    })
+
+    const [deleteReviewModalInfo, setDeleteReviewModalInfo] = React.useState<DeleteReviewModalInfo>({
+        open: false,
+        id: -1
     })
 
     const columns: Column[] = [
         {
             header: "Libro",
-            component: row => <span className={'loan-book-title-and-author'}>{row.bookTitle} - {row.bookAuthor}</span>
+            component: row => <>
+                <ReactTooltip/>
+                <span className={'loan-book-title-and-author'} data-tip={`${row.bookTitle} - ${row.bookAuthor}`}>{row.bookTitle} - {row.bookAuthor}</span>
+            </>
         },
         {
             header: "Fecha de vencimiento",
@@ -39,25 +60,62 @@ const LoanHistoryTable = (props: Props) => {
         {
             header: "Acciones",
             component: row => {
-                return row.reviewId ?
-                    <button className={"loan-table-button"} onClick={() => {}}>Mod. Calif</button>
-                    :
-                    <button className={"loan-table-button"} onClick={() => openReviewModal(row.bookId)}>Calificar</button>
+                return (
+                    <div className={"edit-review-button-container"}>
+                        {row.reviewId ?
+                            <>
+                                <button className={"table-button-classic"}
+                                        onClick={() => openReviewModal(row.reviewId, true)}>Mod. Calif
+                                </button>
+                                <button className={"table-button-classic"}
+                                        onClick={() => openDeleteReviewModal(row.reviewId)}>Elim. Calif
+                                </button>
+                            </>
+                            :
+                            <button className={"table-button-classic"}
+                                    onClick={() => openReviewModal(row.bookId)}>Calificar</button>}
+                    </div>)
             }
         }
     ]
 
-    const openReviewModal = (bookId: number) => {
-        setReviewModalInfo({
+    const openReviewModal = (id: number, onEdit?: boolean) => {
+        if (onEdit) {
+            get(`review/${id}`)
+                .then(review => {
+                    setReviewModalInfo({
+                        open: true,
+                        id,
+                        onEdit,
+                        review
+                    })
+                })
+        } else {
+            setReviewModalInfo({
+                open: true,
+                id
+            })
+        }
+    }
+
+    const openDeleteReviewModal = (id: number) => {
+        setDeleteReviewModalInfo({
             open: true,
-            bookId: bookId
+            id
+        })
+    }
+
+    const closeDeleteReviewModal = () => {
+        setDeleteReviewModalInfo({
+            open: false,
+            id: -1
         })
     }
 
     const closeReviewModal = () => {
         setReviewModalInfo({
             open: false,
-            bookId: 0
+            id: -1
         })
     }
 
@@ -65,10 +123,31 @@ const LoanHistoryTable = (props: Props) => {
         props.createReview(bookId, review, closeReviewModal);
     }
 
+    const editReview = (reviewId: number, review: Review) => {
+        props.editReview(reviewId, review, closeReviewModal);
+    }
+
+    const deleteReview = (reviewId: number) => {
+        props.deleteReview(reviewId, closeDeleteReviewModal);
+    }
+
     return (
         <>
-            <ReviewModal open={reviewModalInfo.open} bookId={reviewModalInfo.bookId}
-                         closeModal={closeReviewModal} createReview={createReview} key={reviewModalInfo.bookId}/>
+            <ReviewModal open={reviewModalInfo.open} id={reviewModalInfo.id}
+                         closeModal={closeReviewModal} onSave={reviewModalInfo.onEdit ? editReview : createReview}
+                         key={reviewModalInfo.id} review={reviewModalInfo.review}/>
+            <GenericModal onClose={closeDeleteReviewModal} title={"Eliminar Reseña"}
+                          isOpen={deleteReviewModalInfo.open}>
+                <div className={"delete-review-modal-body"}>
+                    <p className={"delete-review-modal-text"}>¿ Esta seguro que desea eliminar esta reseña?</p>
+                    <p className={"delete-review-modal-text"}>Tenga en cuenta que esta acción no se puede revertir.</p>
+                    <div className={"delete-review-modal-buttons"}>
+                        <CreateAndCancelButtons onCreate={() => deleteReview(deleteReviewModalInfo.id)}
+                                                onCancel={closeDeleteReviewModal} createLabel={"Eliminar"}
+                                                isActivated={true}/>
+                    </div>
+                </div>
+            </GenericModal>
             <GenericTable columns={columns}
                           className={"table--4cols"}
                           noDataText={"No hay reservas"}

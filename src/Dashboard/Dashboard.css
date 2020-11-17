@@ -1,0 +1,25 @@
+.dashboard{
+    background-color: var(--app-grey);
+    overflow-y: scroll;
+    max-height: 90vh;
+}
+
+.dashboard .numeric-components{
+    display: flex;
+    justify-content: space-between;
+    padding: 2vw;
+}
+
+.dashboard .charts-container{
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-gap: 2vw;
+    padding: 2vw;
+}
+
+.dashboard .tables{
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-gap: 2vw;
+    padding: 2vw;
+}

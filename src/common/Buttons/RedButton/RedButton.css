@@ -4,7 +4,7 @@
     font-weight: bold;
     color: #ffffff;
     border-radius: 33px;
-    background-color: var(--orangey-red);
+    background-color: var(--app-red);
     border: none;
     padding: 20px 55px;
 }

@@ -1,18 +1,20 @@
-import React, {useState} from 'react'
-import {Sanction} from "./SanctionsView";
-import GenericModal from "../common/GenericModal/GenericModal";
-import CreateAndCancelButtons from "../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
-import DropdownInput from "../common/DropDownInput/DropDownInput";
+import React, {useEffect, useState} from 'react'
+import {Sanction} from "../SanctionsView";
+import GenericModal from "../../common/GenericModal/GenericModal";
+import CreateAndCancelButtons from "../../common/Buttons/CreateAndCancelButtons/CreateAndCancelButtons";
+import DropdownInput from "../../common/DropDownInput/DropDownInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {get, post} from "../utils/http";
+import {get, post} from "../../utils/http";
 import "./AddSanctionModal.css"
+import {addDays} from "../../utils/AddDays";
 
 type Props = {
     isOpen: boolean,
     onClose: ()=>void,
     onSuccess: Function,
-    onError: Function
+    onError: Function,
+    getList: Function
 }
 
 type User = {
@@ -21,8 +23,16 @@ type User = {
 
 const AddSanctionModal = (props: Props) => {
 
+    useEffect(() => {
+       setList("")
+    }, [])
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const tomorrow = addDays(today,1)!;
+
     const [sanction, setSanction] = useState<Sanction>({
-        userEmail:"", endDate: new Date(), reason: ""
+        userEmail:"", endDate: tomorrow, reason: ""
     })
 
     const [userList, setUserList] = useState<string[]>([])
@@ -31,6 +41,7 @@ const AddSanctionModal = (props: Props) => {
         post("sanction", {email: sanction.userEmail, reason: sanction.reason, endDate:sanction.endDate })
         .then(() => {
             props.onSuccess("Se ha sancionado al alumno/a exitosamente!")
+            props.getList();
             cancel()
         })
             .catch(err => {
@@ -51,7 +62,7 @@ const AddSanctionModal = (props: Props) => {
     }
 
     return(
-        <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose}>
+        <GenericModal title={"Nueva Sanción"} isOpen={props.isOpen} onClose={props.onClose} titleClassName={"sanction-modal-title"}>
             <div className={"add-sanction-body"}>
                 <DropdownInput list={userList}
                                onChange={val => {setSanction({...sanction, userEmail: val}); setList(val)}}
@@ -65,6 +76,8 @@ const AddSanctionModal = (props: Props) => {
                             selected={sanction.endDate}
                             onChange={()=> {}}
                             onSelect={date => setSanction({...sanction, endDate: date})}
+                            minDate={tomorrow}
+                            maxDate={addDays(new Date(), 90)}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}
                                         isActivated={sanction.userEmail !== "" && sanction.userEmail !== undefined &&

@@ -1,6 +1,7 @@
 .delete-account-body {
     margin: 40px 60px 0 60px;
     width: 600px;
+    padding-bottom: 30px;
 }
 
 .delete-account-body .text {
@@ -22,4 +23,9 @@
     justify-content: center;
     width: 86%;
     overflow: scroll;
+    background-color: var(--app-grey);
+}
+
+.profile-main-container::-webkit-scrollbar {
+    display: none;
 }

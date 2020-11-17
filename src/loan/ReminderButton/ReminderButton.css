@@ -1,0 +1,68 @@
+.reminder-button {
+    font-family: Roboto, serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 33px;
+    background-color: var(--dodger-blue);
+    border: none;
+    padding: 12px 16px;
+    outline: none;
+    width: 70%;
+    height: 100%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reminder-button:disabled {
+    cursor: initial;
+}
+
+.loading-button {
+    display: inline-flex;
+    gap: 5px;
+    background-color: var(--cool-grey);
+}
+
+.generic-grey-and-blue-button:disabled {
+    color: var(--app-green);
+    background-color: var(--app-grey)
+}
+
+.generic-grey-and-blue-button:focus {
+    outline: none;
+}
+
+.reminder-modal-body {
+    padding: 30px;
+    width: 30vw;
+}
+
+.reminder-modal-body .reminder-modal-button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.reminder-modal-body .reminder-modal-button-container .reminder-modal-red-button,.reminder-modal-green-button {
+    border: none;
+    border-radius: 33px;
+    font-family: Roboto, serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 20px;
+}
+
+.reminder-modal-red-button:focus,.reminder-modal-green-button:focus{
+    outline: none;
+}
+
+.reminder-modal-red-button {
+    background-color: var(--app-red);
+    color: var(--white);
+}
+
+.reminder-modal-green-button {
+    background-color: var(--mid-green);
+    color: var(--white);
+}

@@ -161,8 +161,7 @@ const AdminIncorporationScreen = () => {
                 <div className={"accept-reject-incorporation-modal-body"}>
                     <div className={"accept-reject-incorporation-modal-text"}>
                         <p>El alumno {acceptRejectModalInfo.incorporationRequest?.userEmail} ha solicitado
-                            la incorporación del libro {acceptRejectModalInfo.incorporationRequest?.title}
-                            de {acceptRejectModalInfo.incorporationRequest?.author}.</p>
+                            la incorporación del libro {acceptRejectModalInfo.incorporationRequest?.title} de {acceptRejectModalInfo.incorporationRequest?.author}.</p>
                         <p>¿Desea aceptar o rechazar la solicitud?</p>
                     </div>
                     <CreateAndCancelButtons

@@ -34,7 +34,7 @@ const ReviewModal = (props: Props) => {
     }
 
     return (
-        <GenericModal isOpen={props.open} title={"Nueva Reseña"} onClose={props.closeModal} withHeader={true}>
+        <GenericModal isOpen={props.open} title={props.review ? "Editar Reseña" : "Nueva Reseña"} onClose={props.closeModal} withHeader={true}>
             <div className={"review-modal-body"}>
                 <div className={"review-modal-value-container"}>
                     <span className={"review-modal-label"}>Calificación: </span>

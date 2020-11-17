@@ -22,7 +22,7 @@ const EditSanctionModal = (props: Props) => {
     const [newEndDate, setNewEndDate] = useState<Date>(new Date());
 
     useEffect(()=>{
-        if(props.sanction.endDate !== "") setNewEndDate(new Date(new Date(props.sanction.endDate).getTime()+86400000)); //offset of TimeZone turns Date to Date-1
+        if(props.sanction.endDate !== "") setNewEndDate(new Date(new Date(new Date(props.sanction.endDate).getTime()+86400000).setHours(23,59,59,0))); //offset of TimeZone turns Date to Date-1
     }, [props.sanction])
 
     const handleEdit = () => {

@@ -1,7 +1,7 @@
 .dashboard{
     background-color: var(--app-grey);
     overflow-y: scroll;
-    max-height: 89vh;
+    max-height: 90vh;
 }
 
 .dashboard .numeric-components{

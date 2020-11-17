@@ -26,7 +26,7 @@ const AdminLoanScreen = () => {
     });
 
     useEffect(() => {
-        getData(0, search);
+        getData(0, "");
         checkDelayed();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

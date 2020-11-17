@@ -27,8 +27,12 @@ const AddSanctionModal = (props: Props) => {
        setList("")
     }, [])
 
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const tomorrow = addDays(today,1)!;
+
     const [sanction, setSanction] = useState<Sanction>({
-        userEmail:"", endDate: new Date(), reason: ""
+        userEmail:"", endDate: tomorrow, reason: ""
     })
 
     const [userList, setUserList] = useState<string[]>([])
@@ -72,7 +76,7 @@ const AddSanctionModal = (props: Props) => {
                             selected={sanction.endDate}
                             onChange={()=> {}}
                             onSelect={date => setSanction({...sanction, endDate: date})}
-                            minDate={new Date()}
+                            minDate={tomorrow}
                             maxDate={addDays(new Date(), 90)}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleAdd()} onCancel={cancel} createLabel={"Guardar"}

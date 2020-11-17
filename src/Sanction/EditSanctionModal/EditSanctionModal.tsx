@@ -22,11 +22,13 @@ const EditSanctionModal = (props: Props) => {
     const [newEndDate, setNewEndDate] = useState<Date>(new Date());
 
     useEffect(()=>{
-        if(props.sanction.endDate !== "") setNewEndDate(new Date(new Date(props.sanction.endDate).getTime()+86400000)); //offset of TimeZone turns Date to Date-1
+        if(props.sanction.endDate !== "") setNewEndDate(new Date(`${props.sanction.endDate} 00:00`));
     }, [props.sanction])
 
+    let today = new Date()
+    today.setHours(0,0,0,0);
+
     const handleEdit = () => {
-        let today = new Date()
 
         if(newEndDate.getTime() < today.getTime()){
             props.onError("La sancion no puede terminar antes que hoy!")
@@ -36,7 +38,7 @@ const EditSanctionModal = (props: Props) => {
                 props.onError("La sancion no puede terminar dentro de más de 3 meses.")
             }
             else {
-                put("sanction", {...props.sanction, endDate: new Date(newEndDate.getTime()-86400000).toJSON().slice(0, 10)}) //exact opposite happens here
+                put("sanction", {...props.sanction, endDate: new Date(newEndDate.getTime()).toJSON().slice(0, 10)}) //exact opposite happens here
                     .then(() => {
                         props.onSuccess("Se ha modificado la sanción exitosamente!")
                         props.getList();
@@ -63,7 +65,7 @@ const EditSanctionModal = (props: Props) => {
                             selected={newEndDate}
                             onChange={()=> {}}
                             onSelect={date => setNewEndDate(date)}
-                            minDate={new Date()}
+                            minDate={today}
                             maxDate={addDays(new Date(), 90)}
                             placeholderText="Sancionado hasta"> </DatePicker>
                 <CreateAndCancelButtons onCreate={() => handleEdit()} onCancel={cancel} createLabel={"Guardar"}
